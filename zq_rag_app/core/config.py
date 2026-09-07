@@ -1,0 +1,174 @@
+from functools import lru_cache
+
+from pydantic import computed_field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    # ============================================================
+    # Application
+    # ============================================================
+
+    app_name: str = "zq-rag-py"
+    app_env: str = "dev"
+
+    # ============================================================
+    # PostgreSQL
+    # ============================================================
+
+    db_host: str = "103.236.92.173"
+    db_port: int = 5432
+    db_name: str = "ragkb"
+    db_username: str = "ragkb"
+    db_password: str = "ragkb"
+
+    db_pool_size: int = 20
+    db_max_overflow: int = 10
+    db_pool_timeout: int = 30
+    db_echo: bool = False
+
+    @computed_field
+    @property
+    def database_url(self) -> str:
+        return (
+            f"postgresql+psycopg://"
+            f"{self.db_username}:{self.db_password}"
+            f"@{self.db_host}:{self.db_port}/{self.db_name}"
+        )
+
+    # ============================================================
+    # Redis
+    # ============================================================
+
+    redis_host: str = "103.236.92.173"
+    redis_port: int = 6379
+    redis_password: str = "redis6379"
+    redis_db: int = 0
+
+    redis_max_connections: int = 16
+
+    @computed_field
+    @property
+    def redis_url(self) -> str:
+        if self.redis_password:
+            return (
+                f"redis://:{self.redis_password}"
+                f"@{self.redis_host}:{self.redis_port}/{self.redis_db}"
+            )
+
+        return (
+            f"redis://"
+            f"{self.redis_host}:{self.redis_port}/{self.redis_db}"
+        )
+
+    # ============================================================
+    # Async Task
+    # ============================================================
+
+    task_core_workers: int = 4
+    task_max_workers: int = 8
+    task_queue_capacity: int = 100
+
+    # ============================================================
+    # File Upload
+    # ============================================================
+
+    max_file_size_mb: int = 50
+    max_request_size_mb: int = 100
+
+    # ============================================================
+    # DashScope / LLM
+    # ============================================================
+
+    dashscope_api_key: str
+
+    openai_base_url: str = (
+        "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    )
+
+    chat_model: str = "qwen-plus"
+    chat_temperature: float = 0.1
+    chat_max_tokens: int = 2048
+
+    embedding_model: str = "text-embedding-v3"
+
+    # ============================================================
+    # MinIO
+    # ============================================================
+
+    minio_endpoint: str = "http://103.236.92.173:9000"
+    minio_access_key: str = "minioadmin"
+    minio_secret_key: str = "minio9000"
+    minio_bucket: str = "rag-documents"
+
+    # ============================================================
+    # Reranker
+    # ============================================================
+
+    reranker_endpoint: str
+    reranker_model: str = "gte-rerank-v2"
+    reranker_timeout_ms: int = 800
+    reranker_top_n: int = 5
+
+    # ============================================================
+    # RAG
+    # ============================================================
+
+    rag_chunk_size: int = 512
+    rag_chunk_overlap: int = 64
+
+    rag_vector_top_k: int = 20
+    rag_fulltext_top_k: int = 20
+    rag_return_top_n: int = 5
+    rag_min_score: float = 0.5
+
+    rag_context_max_tokens: int = 3000
+
+    # ============================================================
+    # Cache
+    # ============================================================
+
+    embedding_cache_ttl: int = 7 * 24 * 60 * 60
+    query_cache_ttl: int = 10 * 60
+
+    # ============================================================
+    # JWT
+    # ============================================================
+
+    jwt_secret_key: str
+    jwt_algorithm: str = "HS256"
+
+    token_expire_seconds: int = 86400
+    token_prefix: str = "Bearer"
+    token_header: str = "Authorization"
+
+    # ============================================================
+    # Monitoring
+    # ============================================================
+
+    metrics_enabled: bool = True
+
+    # ============================================================
+    # Logging
+    # ============================================================
+
+    log_level: str = "INFO"
+
+    # ============================================================
+    # Pydantic Settings
+    # ============================================================
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",
+    )
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
+
+
+settings = get_settings()
