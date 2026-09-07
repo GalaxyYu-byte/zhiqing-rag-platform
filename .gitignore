@@ -11,3 +11,6 @@ wheels/
 .venv
 .pytest-tmp/
 .venv/
+
+# Local Markdown documentation
+docs/
