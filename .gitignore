@@ -7,6 +7,12 @@ wheels/
 *.egg-info
 .idea/
 .vscode/
+
+# Local environment secrets
+.env
+.env.*
+!.env.example
+
 # Virtual environments
 .venv
 .pytest-tmp/
