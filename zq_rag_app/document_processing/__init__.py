@@ -8,6 +8,14 @@ from .models import (
     CleaningReport,
     CleaningWarning,
 )
+from .chunking import (
+    ChunkedDocument,
+    ChunkingConfig,
+    ChunkingPipeline,
+    ChunkingReport,
+    TextChunk,
+    chunk_cleaned_document,
+)
 
 __all__ = [
     "CleanedBlock",
@@ -16,4 +24,10 @@ __all__ = [
     "CleaningContext",
     "CleaningReport",
     "CleaningWarning",
+    "ChunkedDocument",
+    "ChunkingConfig",
+    "ChunkingPipeline",
+    "ChunkingReport",
+    "TextChunk",
+    "chunk_cleaned_document",
 ]
