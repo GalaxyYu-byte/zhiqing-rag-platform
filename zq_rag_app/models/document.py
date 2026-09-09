@@ -17,10 +17,12 @@ from pgvector.sqlalchemy import Vector
 from sqlalchemy import (
     BigInteger,
     Boolean,
+    CheckConstraint,
     Index,
     Integer,
     String,
     Text,
+    UniqueConstraint,
     text,
 )
 from sqlalchemy.dialects.postgresql import TSVECTOR
@@ -109,6 +111,13 @@ class DocChunk(Base):
     # 数据库表名必须与 schema.sql 中的表名完全一致。
     __tablename__ = "kb_doc_chunk"
     __table_args__ = (
+        # 至少执行一次的任务可能重复写入；业务唯一键让 Upsert 保持幂等。
+        UniqueConstraint(
+            "doc_id",
+            "doc_version",
+            "chunk_index",
+            name="uq_chunk_doc_version_index",
+        ),
         # HNSW 向量索引，使用余弦距离算子，服务向量相似度检索。
         # m 和 ef_construction 与 schema.sql 中的索引参数保持一致。
         Index(
@@ -174,6 +183,17 @@ class IndexTask(Base):
         Index("idx_task_status", "status", "created_at"),
         # 按文档查询索引历史和当前任务。
         Index("idx_task_doc_id", "doc_id"),
+        # 同一个文档同一时间最多保留一个活跃索引任务。
+        Index(
+            "uq_task_active_doc",
+            "doc_id",
+            unique=True,
+            postgresql_where=text("status IN ('PENDING', 'PROCESSING')"),
+        ),
+        CheckConstraint(
+            "progress_percent BETWEEN 0 AND 100",
+            name="ck_task_progress_percent",
+        ),
     )
 
     # BIGSERIAL 主键。
@@ -188,6 +208,28 @@ class IndexTask(Base):
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, server_default=text("'PENDING'")
     )
+    # 当前处理阶段，用于展示精确进度和定位卡点。
+    stage: Mapped[str] = mapped_column(
+        String(30), nullable=False, server_default=text("'PENDING'")
+    )
+    progress_percent: Mapped[int] = mapped_column(
+        Integer, nullable=False, server_default=text("0")
+    )
+    total_chunks: Mapped[int] = mapped_column(
+        Integer, nullable=False, server_default=text("0")
+    )
+    embedded_chunks: Mapped[int] = mapped_column(
+        Integer, nullable=False, server_default=text("0")
+    )
+    persisted_chunks: Mapped[int] = mapped_column(
+        Integer, nullable=False, server_default=text("0")
+    )
+    cache_hit_chunks: Mapped[int] = mapped_column(
+        Integer, nullable=False, server_default=text("0")
+    )
+    total_tokens: Mapped[int] = mapped_column(
+        Integer, nullable=False, server_default=text("0")
+    )
     # 已经重试的次数，默认 0。
     retry_count: Mapped[int] = mapped_column(
         Integer, nullable=False, server_default=text("0")
@@ -198,6 +240,10 @@ class IndexTask(Base):
     )
     # 最近一次任务失败原因；任务成功或尚未失败时为空。
     error_msg: Mapped[str | None] = mapped_column(Text)
+    # 多节点 Worker 归属和租约；租约失效后其他 Worker 可以接管任务。
+    worker_id: Mapped[str | None] = mapped_column(String(200))
+    heartbeat_at: Mapped[datetime | None] = mapped_column()
+    lease_expires_at: Mapped[datetime | None] = mapped_column()
     # 任务创建时间。
     created_at: Mapped[datetime] = mapped_column(
         nullable=False, server_default=text("NOW()")
@@ -206,3 +252,6 @@ class IndexTask(Base):
     started_at: Mapped[datetime | None] = mapped_column()
     # 任务结束时间，未结束时为空。
     finished_at: Mapped[datetime | None] = mapped_column()
+    updated_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=text("NOW()")
+    )

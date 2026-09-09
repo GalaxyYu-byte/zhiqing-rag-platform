@@ -89,3 +89,47 @@ for chunk in chunked.chunks:
 ## 数据库初始化
 
 数据库表结构和示例评估数据位于 [`zq_rag_app/schemas`](zq_rag_app/schemas)。正式运行前请按部署环境执行对应的 Schema 初始化或迁移流程。
+
+已有数据库需要先执行：
+
+```powershell
+psql -d ragkb -f .\zq_rag_app\schemas\migrations\001_index_pipeline.sql
+```
+
+## 异步向量索引
+
+索引流水线包含 SHA256 内容寻址、进程内 LRU、Redis float32 二进制缓存、
+分布式锁、批量 Embedding、网络指数退避、PostgreSQL Upsert、任务心跳和租约。
+
+启动 API：
+
+```powershell
+uv run uvicorn zq_rag_app.main:app --host 0.0.0.0 --port 8000
+```
+
+每个部署节点启动一个或多个 ARQ Worker：
+
+```powershell
+uv run arq zq_rag_app.workers.index_worker.WorkerSettings
+```
+
+对已存在于 `kb_document` 且文件已上传 MinIO 的文档创建任务：
+
+```http
+POST /documents/{doc_id}/index
+Content-Type: application/json
+
+{"task_type":"INDEX"}
+```
+
+查询任务或文档最新索引状态：
+
+```http
+GET /documents/index-tasks/{task_id}
+GET /documents/{doc_id}/index-status
+```
+
+可通过环境变量调整 `EMBEDDING_BATCH_SIZE`、`EMBEDDING_CONCURRENCY`、
+`EMBEDDING_CACHE_TTL`、`EMBEDDING_LOCAL_CACHE_SIZE`、
+`INDEX_UPSERT_BATCH_SIZE` 和 `INDEX_TASK_MAX_RETRY`。修改缓存键或二进制格式时，
+递增 `EMBEDDING_CACHE_VERSION` 即可让旧缓存自然失效。

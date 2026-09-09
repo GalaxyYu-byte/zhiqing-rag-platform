@@ -6,10 +6,13 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Response
 
+from .api.document import router as document_router
 from .core.config import settings
+from .core.database import close_database
 from .core.executor import shutdown_index_executor
 from .core.minio import ensure_bucket, ping_minio
 from .core.redis import close_redis, ping_redis
+from .core.task_queue import close_task_queue
 
 
 logger = logging.getLogger(__name__)
@@ -28,7 +31,9 @@ async def lifespan(_: FastAPI):
 
     yield
     await asyncio.to_thread(shutdown_index_executor)
+    await close_task_queue()
     await close_redis()
+    await close_database()
 
 
 # 创建 FastAPI 应用实例。
@@ -37,6 +42,7 @@ app = FastAPI(
     title=settings.app_name,
     lifespan=lifespan,
 )
+app.include_router(document_router)
 
 
 @app.get("/health")

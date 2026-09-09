@@ -18,6 +18,13 @@ redis_client: Redis = Redis.from_url(
     decode_responses=True,
 )
 
+# Embedding 向量使用 float32 二进制存储，必须保留 bytes，不能自动解码为 str。
+redis_binary_client: Redis = Redis.from_url(
+    settings.redis_url,
+    max_connections=settings.redis_max_connections,
+    decode_responses=False,
+)
+
 
 async def get_redis() -> AsyncIterator[Redis]:
     """FastAPI 依赖：获取共享 Redis 客户端。"""
@@ -36,3 +43,4 @@ async def close_redis() -> None:
     """应用关闭时释放 Redis 连接池。"""
 
     await redis_client.aclose()
+    await redis_binary_client.aclose()

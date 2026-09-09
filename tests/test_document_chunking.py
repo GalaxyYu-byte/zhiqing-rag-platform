@@ -481,3 +481,61 @@ def test_meeting_minutes_parse_clean_and_chunk_preview() -> None:
         for chunk in result.chunks
     )
     assert any("CTO 周明（出差，委托张伟代参会）" in chunk.content for chunk in result.chunks)
+
+
+def test_aurora_kb_api_spec_parse_clean_and_chunk_preview() -> None:
+    """使用默认配置处理 Aurora-KB API 规范，并输出完整分块预览。"""
+
+    fixture = Path(__file__).parents[1] / "qa-docs" / "Aurora-KB_API接口规范.md"
+    parsed_blocks = parse_document(fixture)
+    cleaned_document = clean_parsed_blocks(parsed_blocks)
+    result = chunk_cleaned_document(cleaned_document)
+
+    preview = {
+        "source": fixture.name,
+        "parsed_blocks": len(parsed_blocks),
+        "cleaned_blocks": len(cleaned_document.blocks),
+        "indexable_blocks": result.report.indexable_blocks,
+        "structural_blocks": result.report.structural_blocks,
+        "merged_structural_blocks": result.report.merged_structural_blocks,
+        "output_chunks": result.report.output_chunks,
+        "total_tokens": result.report.total_tokens,
+        "chunks": [
+            {
+                "chunk_index": chunk.chunk_index,
+                "source_block_index": chunk.source_block_index,
+                "section_title": chunk.section_title,
+                "heading_path": chunk.heading_path,
+                "language": chunk.language,
+                "token_count": chunk.token_count,
+                "overlap_token_count": chunk.overlap_token_count,
+                "content": chunk.content,
+                "embedding_content": chunk.embedding_content,
+            }
+            for chunk in result.chunks
+        ],
+    }
+    print("\nAurora-KB API spec chunk preview:")
+    print(json.dumps(preview, ensure_ascii=False, indent=2))
+
+    assert len(parsed_blocks) == 10
+    assert len(cleaned_document.blocks) == 10
+    assert result.report.output_chunks == 8
+    assert all(
+        chunk.token_count <= ChunkingConfig().chunk_size
+        for chunk in result.chunks
+    )
+    assert any(
+        chunk.section_title == "2.1 `POST /kb/query`"
+        and '"permission_filter_applied": true' in chunk.content
+        for chunk in result.chunks
+    )
+    assert any(
+        chunk.section_title == "3.1 `POST /kb/search` / 3.2 状态处理"
+        for chunk in result.chunks
+    )
+    assert any(
+        chunk.section_title == "6. 错误码 / 7. 版本说明"
+        and "KB_503_RETRIEVAL_TIMEOUT" in chunk.content
+        for chunk in result.chunks
+    )

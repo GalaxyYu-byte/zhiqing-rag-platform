@@ -91,6 +91,13 @@ class Settings(BaseSettings):
     chat_max_tokens: int = 2048
 
     embedding_model: str = "text-embedding-v3"
+    embedding_dimensions: int = 1024
+    embedding_batch_size: int = 16
+    embedding_concurrency: int = 4
+    embedding_request_timeout_seconds: float = 30.0
+    embedding_retry_attempts: int = 5
+    embedding_retry_min_wait_seconds: float = 0.5
+    embedding_retry_max_wait_seconds: float = 30.0
 
     # ============================================================
     # MinIO
@@ -129,7 +136,24 @@ class Settings(BaseSettings):
     # ============================================================
 
     embedding_cache_ttl: int = 7 * 24 * 60 * 60
+    embedding_cache_version: str = "v1"
+    embedding_local_cache_size: int = 2_000
+    embedding_local_cache_ttl: int = 30 * 60
+    embedding_lock_ttl: int = 180
+    embedding_lock_wait_seconds: float = 30.0
+    embedding_lock_poll_seconds: float = 0.2
     query_cache_ttl: int = 10 * 60
+
+    # ============================================================
+    # Document indexing
+    # ============================================================
+
+    index_upsert_batch_size: int = 300
+    index_db_retry_attempts: int = 5
+    index_heartbeat_interval_seconds: int = 15
+    index_lease_seconds: int = 60
+    index_task_max_retry: int = 3
+    index_task_retry_base_seconds: float = 2.0
 
     # ============================================================
     # JWT

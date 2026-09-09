@@ -83,7 +83,9 @@ CREATE TABLE kb_doc_chunk (
     section_title   VARCHAR(500),                      -- 所在章节标题（如果能识别）
     token_count     INT             NOT NULL DEFAULT 0, -- 该块的 Token 估算数
     doc_version     INT             NOT NULL,           -- 对应的文档版本号
-    created_at      TIMESTAMP       NOT NULL DEFAULT NOW()
+    created_at      TIMESTAMP       NOT NULL DEFAULT NOW(),
+    CONSTRAINT uq_chunk_doc_version_index
+        UNIQUE (doc_id, doc_version, chunk_index)
 );
 
 COMMENT ON TABLE kb_doc_chunk IS '文档分块表，每条记录是一个可检索的最小单元';
@@ -129,16 +131,31 @@ CREATE TABLE kb_index_task (
     doc_id          BIGINT          NOT NULL,
     task_type       VARCHAR(20)     NOT NULL DEFAULT 'INDEX',  -- INDEX / REINDEX
     status          VARCHAR(20)     NOT NULL DEFAULT 'PENDING',
+    stage           VARCHAR(30)     NOT NULL DEFAULT 'PENDING',
+    progress_percent INT            NOT NULL DEFAULT 0,
+    total_chunks    INT             NOT NULL DEFAULT 0,
+    embedded_chunks INT             NOT NULL DEFAULT 0,
+    persisted_chunks INT            NOT NULL DEFAULT 0,
+    cache_hit_chunks INT            NOT NULL DEFAULT 0,
+    total_tokens    INT             NOT NULL DEFAULT 0,
     retry_count     INT             NOT NULL DEFAULT 0,
     max_retry       INT             NOT NULL DEFAULT 3,
     error_msg       TEXT,
+    worker_id       VARCHAR(200),
+    heartbeat_at    TIMESTAMP,
+    lease_expires_at TIMESTAMP,
     created_at      TIMESTAMP       NOT NULL DEFAULT NOW(),
     started_at      TIMESTAMP,
-    finished_at     TIMESTAMP
+    finished_at     TIMESTAMP,
+    updated_at      TIMESTAMP       NOT NULL DEFAULT NOW(),
+    CONSTRAINT ck_task_progress_percent
+        CHECK (progress_percent BETWEEN 0 AND 100)
 );
 
 CREATE INDEX idx_task_status ON kb_index_task(status, created_at);
 CREATE INDEX idx_task_doc_id ON kb_index_task(doc_id);
+CREATE UNIQUE INDEX uq_task_active_doc ON kb_index_task(doc_id)
+    WHERE status IN ('PENDING', 'PROCESSING');
 
 -- ================================================================
 -- 6. 对话会话表
