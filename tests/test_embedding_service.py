@@ -95,6 +95,27 @@ class _BrokenRedis(_FakeRedis):
         raise RedisError("redis unavailable")
 
 
+class _FakeConnectionPool:
+    def __init__(self) -> None:
+        self.disconnect_calls = 0
+
+    async def disconnect(self, *, inuse_connections: bool = True) -> None:
+        assert inuse_connections is True
+        self.disconnect_calls += 1
+
+
+class _BrokenTransportRedis(_FakeRedis):
+    """模拟 Python 3.12 asyncio transport 在 Redis 断线时的异常。"""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.connection_pool = _FakeConnectionPool()
+
+    async def mget(self, keys: list[str]) -> list[bytes | None]:
+        del keys
+        raise TypeError("'NoneType' object is not callable")
+
+
 class _FakeEmbeddings:
     def __init__(self, dimensions: int, fail_times: int = 0) -> None:
         self.dimensions = dimensions
@@ -257,6 +278,48 @@ async def test_redis_failure_degrades_to_embedding_api() -> None:
 
     assert len(client.embeddings.calls) == 1
     assert result.generated == 1
+
+
+@pytest.mark.asyncio
+async def test_broken_redis_transport_is_discarded_before_degrading() -> None:
+    redis = _BrokenTransportRedis()
+    client = _FakeClient(dimensions=2)
+    service = EmbeddingService(
+        client=client,
+        redis=redis,  # type: ignore[arg-type]
+        local_cache=LocalVectorCache(max_size=10, ttl_seconds=60),
+        model="test-model",
+        dimensions=2,
+        batch_size=4,
+        concurrency=1,
+        retry_attempts=1,
+    )
+
+    result = await service.embed_many(["Redis transport 已断开"])
+
+    assert len(client.embeddings.calls) == 1
+    assert result.generated == 1
+    assert redis.connection_pool.disconnect_calls == 1
+
+
+@pytest.mark.asyncio
+async def test_embedding_requests_are_split_by_configured_batch_size() -> None:
+    client = _FakeClient(dimensions=2)
+    service = EmbeddingService(
+        client=client,
+        redis=None,
+        local_cache=LocalVectorCache(max_size=0, ttl_seconds=0),
+        model="test-model",
+        dimensions=2,
+        batch_size=10,
+        concurrency=2,
+        retry_attempts=1,
+    )
+
+    result = await service.embed_many([f"chunk-{index}" for index in range(12)])
+
+    assert sorted(len(call) for call in client.embeddings.calls) == [2, 10]
+    assert result.generated == 12
 
 
 @pytest.mark.asyncio

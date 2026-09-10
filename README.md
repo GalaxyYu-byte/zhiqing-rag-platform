@@ -104,13 +104,15 @@ psql -d ragkb -f .\zq_rag_app\schemas\migrations\001_index_pipeline.sql
 启动 API：
 
 ```powershell
-uv run uvicorn zq_rag_app.main:app --host 0.0.0.0 --port 8000
+uv run python -m zq_rag_app.main
 ```
+
+Windows 下建议使用上述入口，它会在 Uvicorn 启动前切换到 psycopg 异步连接所需的 Selector 事件循环。
 
 每个部署节点启动一个或多个 ARQ Worker：
 
 ```powershell
-uv run arq zq_rag_app.workers.index_worker.WorkerSettings
+uv run python -m arq zq_rag_app.workers.index_worker.WorkerSettings
 ```
 
 对已存在于 `kb_document` 且文件已上传 MinIO 的文档创建任务：
@@ -132,4 +134,13 @@ GET /documents/{doc_id}/index-status
 可通过环境变量调整 `EMBEDDING_BATCH_SIZE`、`EMBEDDING_CONCURRENCY`、
 `EMBEDDING_CACHE_TTL`、`EMBEDDING_LOCAL_CACHE_SIZE`、
 `INDEX_UPSERT_BATCH_SIZE` 和 `INDEX_TASK_MAX_RETRY`。修改缓存键或二进制格式时，
-递增 `EMBEDDING_CACHE_VERSION` 即可让旧缓存自然失效。
+递增 `EMBEDDING_CACHE_VERSION` 即可让旧缓存自然失效。当前使用的 DashScope
+`text-embedding-v3` 单批最多 10 条，`EMBEDDING_BATCH_SIZE` 不要配置为更大的值。
+Embedding 缓存连接异常时会主动清理旧连接并降级直调模型；ARQ Worker 的 Redis
+连接启用了健康检查与有限重试，以覆盖任务完成状态写回时的瞬时断线。
+
+## 前端召回实验台
+
+启动 API 后访问 `http://localhost:8000/`，可使用文档异步处理与余弦向量召回测试页面。页面默认连接真实的上传、文档列表和召回接口；使用 `http://localhost:8000/?demo=1` 可查看无需基础设施的演示数据。
+
+前后端接口约定、异步阶段和余弦查询 SQL 见 [`docs/frontend-integration.md`](docs/frontend-integration.md)。

@@ -2,28 +2,49 @@
 
 from collections.abc import AsyncIterator
 
+from redis.asyncio.retry import Retry
+from redis.backoff import ExponentialBackoff
 from redis.asyncio import Redis
+from redis.exceptions import ConnectionError as RedisConnectionError
+from redis.exceptions import TimeoutError as RedisTimeoutError
 
 from .config import settings
 
 
-# Redis.from_url() 只创建客户端，不会在导入模块时立即建立网络连接。
-# 真正执行 get/set/ping 时才会从连接池获取连接。
-redis_client: Redis = Redis.from_url(
-    # Redis 连接 URL，格式为 redis://[:password]@host:port/db
-    settings.redis_url,
-    # 设置最大连接数，避免过多连接导致 Redis 服务器拒绝服务。
-    max_connections=settings.redis_max_connections,
-    # 解码响应为字符串
-    decode_responses=True,
+_REDIS_RETRY_ERRORS = (
+    RedisConnectionError,
+    RedisTimeoutError,
+    # Python 3.12 SelectorSocketTransport 在连接已断开时可能抛出此异常，
+    # redis-py 没有把它包装成 RedisError。
+    TypeError,
 )
 
+
+def _create_redis_client(*, decode_responses: bool) -> Redis:
+    """创建带断线检测和有限重连的异步 Redis 客户端。"""
+
+    return Redis.from_url(
+        settings.redis_url,
+        max_connections=settings.redis_max_connections,
+        decode_responses=decode_responses,
+        socket_connect_timeout=5,
+        socket_timeout=10,
+        socket_keepalive=True,
+        health_check_interval=30,
+        retry=Retry(
+            ExponentialBackoff(cap=1.0, base=0.05),
+            retries=3,
+            supported_errors=_REDIS_RETRY_ERRORS,
+        ),
+        retry_on_error=list(_REDIS_RETRY_ERRORS),
+    )
+
+
+# Redis.from_url() 只创建客户端，首次命令执行时才建立网络连接。
+redis_client: Redis = _create_redis_client(decode_responses=True)
+
 # Embedding 向量使用 float32 二进制存储，必须保留 bytes，不能自动解码为 str。
-redis_binary_client: Redis = Redis.from_url(
-    settings.redis_url,
-    max_connections=settings.redis_max_connections,
-    decode_responses=False,
-)
+redis_binary_client: Redis = _create_redis_client(decode_responses=False)
 
 
 async def get_redis() -> AsyncIterator[Redis]:

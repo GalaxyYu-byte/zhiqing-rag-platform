@@ -40,7 +40,15 @@ end
 return 0
 """
 
-_CACHE_IO_ERRORS = (RedisError, OSError, TimeoutError, ConnectionError)
+# TypeError 对应 Python 3.12 asyncio 在 Redis 连接刚断开时的 transport
+# 竞争问题。这里只在 Redis IO 边界捕获，不能让可选缓存阻断向量化。
+_CACHE_IO_ERRORS = (
+    RedisError,
+    OSError,
+    TimeoutError,
+    ConnectionError,
+    TypeError,
+)
 
 
 def build_embedding_cache_key(
@@ -321,6 +329,19 @@ class EmbeddingService:
             generated=sum(sources[key] == "generated" for key in keys),
         )
 
+    async def _discard_broken_redis_connections(self) -> None:
+        """断开连接池中的失效 transport，下一次命令会建立新连接。"""
+
+        if self.redis is None:
+            return
+        pool = getattr(self.redis, "connection_pool", None)
+        if pool is None:
+            return
+        try:
+            await pool.disconnect(inuse_connections=True)
+        except Exception:
+            logger.debug("清理失效 Redis 连接失败", exc_info=True)
+
     async def _resolve_miss_batch(
         self,
         entries: list[tuple[str, str]],
@@ -344,6 +365,7 @@ class EmbeddingService:
                 )
             except _CACHE_IO_ERRORS:
                 logger.warning("Redis 分布式锁不可用，降级为直接向量化", exc_info=True)
+                await self._discard_broken_redis_connections()
                 redis_available = False
                 break
             if locked:
@@ -454,6 +476,7 @@ class EmbeddingService:
             values = await self.redis.mget(keys)
         except _CACHE_IO_ERRORS:
             logger.warning("Redis Embedding 缓存读取失败，降级回源", exc_info=True)
+            await self._discard_broken_redis_connections()
             return {}, False
 
         result: dict[str, list[float]] = {}
@@ -490,6 +513,7 @@ class EmbeddingService:
         except _CACHE_IO_ERRORS:
             # Redis 是缓存，写失败不能让文档索引失败。
             logger.warning("Redis Embedding 缓存写入失败，继续持久化", exc_info=True)
+            await self._discard_broken_redis_connections()
 
     async def _wait_for_redis(self, keys: list[str]) -> dict[str, list[float]]:
         deadline = time.monotonic() + self.lock_wait_seconds
@@ -516,6 +540,7 @@ class EmbeddingService:
             )
         except _CACHE_IO_ERRORS:
             logger.warning("释放 Embedding 分布式锁失败", exc_info=True)
+            await self._discard_broken_redis_connections()
 
     @staticmethod
     def _lock_key(cache_key: str) -> str:

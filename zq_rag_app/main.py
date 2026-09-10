@@ -2,11 +2,16 @@
 
 import asyncio
 import logging
+import sys
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, Response
+from fastapi.staticfiles import StaticFiles
 
 from .api.document import router as document_router
+from .api.knowledge_base import router as knowledge_base_router
+from .api.retrieval import router as retrieval_router
 from .core.config import settings
 from .core.database import close_database
 from .core.executor import shutdown_index_executor
@@ -43,6 +48,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 app.include_router(document_router)
+app.include_router(knowledge_base_router)
+app.include_router(retrieval_router)
 
 
 @app.get("/health")
@@ -74,17 +81,24 @@ async def health(response: Response):
     }
 
 
+# 前端工作台使用原生静态资源，挂载在所有 API 路由之后，避免覆盖接口。
+_static_dir = Path(__file__).with_name("static")
+app.mount("/", StaticFiles(directory=_static_dir, html=True), name="frontend")
+
+
 if __name__ == "__main__":
     # 直接运行本文件时，使用 Uvicorn 启动 FastAPI 服务。
     import uvicorn
 
-    uvicorn.run(
-        # 模块路径:应用对象，便于 reload=True 重新加载代码。
-        "zq_rag_app.main:app",
-        # 监听所有网卡，使局域网内其他设备也可以访问。
+    config = uvicorn.Config(
+        app,
         host="0.0.0.0",
-        # 服务端口，可通过 http://localhost:8000 访问。
         port=8000,
-        # 开发模式下代码修改后自动重启服务；生产环境不要开启。
-        reload=True,
     )
+    server = uvicorn.Server(config)
+    if sys.platform == "win32":
+        # Uvicorn 在 Windows 单进程模式会显式创建 ProactorEventLoop，
+        # psycopg 异步驱动必须在 SelectorEventLoop 中运行。
+        asyncio.run(server.serve(), loop_factory=asyncio.SelectorEventLoop)
+    else:
+        server.run()

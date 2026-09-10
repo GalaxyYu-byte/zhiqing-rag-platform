@@ -92,7 +92,8 @@ class Settings(BaseSettings):
 
     embedding_model: str = "text-embedding-v3"
     embedding_dimensions: int = 1024
-    embedding_batch_size: int = 16
+    # DashScope text-embedding-v3 单次最多接收 10 条文本。
+    embedding_batch_size: int = 10
     embedding_concurrency: int = 4
     embedding_request_timeout_seconds: float = 30.0
     embedding_retry_attempts: int = 5

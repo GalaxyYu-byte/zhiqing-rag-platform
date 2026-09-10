@@ -16,8 +16,14 @@ wheels/
 # Virtual environments
 .venv
 .pytest-tmp/
+.pytest-tmp-*/
 .venv/
 
 # Local Markdown documentation
 docs/
 qa-docs/
+
+# 保留前后端接口说明，其余本地文档仍不纳入版本控制。
+!docs/
+docs/*
+!docs/frontend-integration.md

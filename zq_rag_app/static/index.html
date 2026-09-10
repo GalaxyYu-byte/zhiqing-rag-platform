@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="文档异步索引与向量召回效果测试工作台" />
+    <title>RAG Lab · 召回实验台</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <strong>RAG Lab</strong>
+            <small>知识召回实验台</small>
+          </div>
+        </div>
+
+        <nav class="main-nav" aria-label="主导航">
+          <button class="nav-item active" data-view="documents">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19a1 1 0 0 1 1 1v15.5a.5.5 0 0 1-.76.43A6.5 6.5 0 0 0 16 19H6.5A2.5 2.5 0 0 1 4 16.5v-11Z"/><path d="M4 16.5A2.5 2.5 0 0 1 6.5 14H20M8 7h8M8 10h5"/></svg>
+            <span>文档处理</span>
+          </button>
+          <button class="nav-item" data-view="retrieval">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M8.5 11h5M11 8.5v5"/></svg>
+            <span>召回测试</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-note">
+          <div class="note-kicker"><span></span> 当前方案</div>
+          <strong>余弦相似度召回</strong>
+          <p>Query 与 Chunk 使用同一 Embedding 模型，通过 pgvector HNSW 索引检索 Top K。</p>
+          <dl>
+            <div><dt>向量维度</dt><dd>1,024</dd></div>
+            <div><dt>默认 Top K</dt><dd>5</dd></div>
+            <div><dt>最低分数</dt><dd>0.50</dd></div>
+          </dl>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="avatar">ZQ</span>
+          <div><strong>测试工作区</strong><small>Development</small></div>
+          <button class="icon-button dark" aria-label="设置">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.42 1.42-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1 1.55V20h-2v-.49a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-1.42-1.42.06-.06A1.7 1.7 0 0 0 9.48 15a1.7 1.7 0 0 0-1.55-1H7.5v-2h.43a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06L10.5 7.64l.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1-1.55V6h2v.49a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.42 1.42-.06.06A1.7 1.7 0 0 0 19.4 11a1.7 1.7 0 0 0 1.55 1h.55v2h-.55a1.7 1.7 0 0 0-1.55 1Z"/></svg>
+          </button>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="breadcrumb"><span>知识库</span><b>/</b><strong id="pageCrumb">文档处理</strong></div>
+          <div class="topbar-actions">
+            <div class="service-state"><i></i><span>服务正常</span></div>
+            <button class="icon-button" aria-label="通知">
+              <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <section class="view active" id="documentsView">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">INGESTION PIPELINE</p>
+              <h1>文档处理</h1>
+              <p>上传原始文件，并跟踪从对象存储到向量入库的完整异步流程。</p>
+            </div>
+            <button class="primary-button" id="openUpload">
+              <svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>
+              上传文档
+            </button>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric-card">
+              <div class="metric-icon blue"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div>
+              <div><span>已收录文档</span><strong id="documentCount">24</strong><small>本周新增 6 份</small></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon violet"><svg viewBox="0 0 24 24"><path d="M4 5h16v4H4zM4 11h16v4H4zM4 17h10v4H4z"/></svg></div>
+              <div><span>有效分块</span><strong id="chunkCount">1,286</strong><small>平均 53.6 块 / 文档</small></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon amber"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></div>
+              <div><span>处理中</span><strong id="processingCount">1</strong><small>任务由 Worker 异步执行</small></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon green"><svg viewBox="0 0 24 24"><path d="m4 17 5-5 4 3 7-8"/><path d="M15 7h5v5"/></svg></div>
+              <div><span>索引成功率</span><strong>98.7%</strong><small>近 7 天</small></div>
+            </article>
+          </div>
+
+          <section class="pipeline-card">
+            <div class="section-title-row">
+              <div><h2>异步处理链路</h2><p>上传完成后立即返回任务 ID，后续阶段由 Worker 接管。</p></div>
+              <span class="outline-badge">ARQ + Redis</span>
+            </div>
+            <div class="pipeline" aria-label="文档异步处理步骤">
+              <div class="pipeline-step complete"><span>01</span><div><strong>上传文件</strong><small>写入 MinIO</small></div></div>
+              <i></i>
+              <div class="pipeline-step complete"><span>02</span><div><strong>文档解析</strong><small>提取结构与正文</small></div></div>
+              <i></i>
+              <div class="pipeline-step current"><span>03</span><div><strong>清洗分块</strong><small>512 tokens · overlap 64</small></div></div>
+              <i></i>
+              <div class="pipeline-step"><span>04</span><div><strong>向量化</strong><small>Embedding 批处理</small></div></div>
+              <i></i>
+              <div class="pipeline-step"><span>05</span><div><strong>索引入库</strong><small>pgvector HNSW</small></div></div>
+            </div>
+          </section>
+
+          <section class="table-card">
+            <div class="table-toolbar">
+              <div><h2>文档列表</h2><span class="count-pill" id="visibleCount">4</span></div>
+              <div class="table-actions">
+                <label class="search-field">
+                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+                  <input id="documentSearch" type="search" placeholder="搜索文件名" />
+                </label>
+                <select id="statusFilter" aria-label="按状态筛选">
+                  <option value="all">全部状态</option>
+                  <option value="DONE">已完成</option>
+                  <option value="PROCESSING">处理中</option>
+                  <option value="FAILED">失败</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>文件</th><th>处理状态</th><th>分块数</th><th>存储位置</th><th>更新时间</th><th><span class="sr-only">操作</span></th></tr></thead>
+                <tbody id="documentRows"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" id="retrievalView">
+          <div class="page-heading retrieval-heading">
+            <div>
+              <p class="eyebrow">VECTOR INSPECTOR</p>
+              <h1>向量召回测试</h1>
+              <p>直接检查 Query 与文档分块的余弦相似度，先把召回质量看清楚。</p>
+            </div>
+            <span class="mode-badge" id="modeBadge"><i></i> 真实接口</span>
+          </div>
+
+          <div class="retrieval-layout">
+            <div class="retrieval-main">
+              <section class="query-card">
+                <div class="query-topline">
+                  <label for="questionInput">输入测试问题</label>
+                  <span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> 运行</span>
+                </div>
+                <textarea id="questionInput" rows="4" placeholder="例如：员工每年有多少天带薪年假？">员工每年有多少天带薪年假？</textarea>
+                <div class="query-footer">
+                  <div class="scope-select">
+                    <span>检索范围</span>
+                    <select id="kbSelect" disabled><option value="">正在加载知识库…</option></select>
+                  </div>
+                  <button class="primary-button run-button" id="runRetrieval">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+                    开始召回
+                  </button>
+                </div>
+              </section>
+
+              <section class="result-card">
+                <div class="result-header">
+                  <div><h2>召回结果</h2><span id="resultSummary">找到 5 个相关分块 · 42 ms</span></div>
+                  <div class="sort-label">按余弦相似度降序</div>
+                </div>
+                <div id="loadingState" class="loading-state" hidden>
+                  <div class="spinner"></div><strong>正在生成 Query 向量并执行 HNSW 检索…</strong>
+                </div>
+                <div id="retrievalResults" class="retrieval-results"></div>
+              </section>
+            </div>
+
+            <aside class="config-panel">
+              <div class="config-heading"><h2>召回配置</h2><span>实验参数</span></div>
+              <div class="config-section">
+                <label>召回方式</label>
+                <div class="method-option selected">
+                  <div class="radio-dot"></div>
+                  <div><strong>余弦相似度</strong><small>Cosine similarity</small></div>
+                  <span class="active-tag">当前</span>
+                </div>
+                <div class="method-option disabled" title="第一版暂不启用">
+                  <div class="radio-dot"></div>
+                  <div><strong>混合召回</strong><small>后续可加入关键词检索</small></div>
+                </div>
+              </div>
+              <div class="config-section range-section">
+                <div class="control-label"><label for="topK">Top K</label><output id="topKValue">5</output></div>
+                <input id="topK" type="range" min="1" max="10" value="5" />
+                <div class="range-labels"><span>1</span><span>10</span></div>
+              </div>
+              <div class="config-section range-section">
+                <div class="control-label"><label for="minScore">最低相似度</label><output id="minScoreValue">0.50</output></div>
+                <input id="minScore" type="range" min="0" max="100" value="50" />
+                <div class="range-labels"><span>0</span><span>1.00</span></div>
+              </div>
+              <div class="config-section">
+                <div class="control-label"><label>Embedding 模型</label></div>
+                <div class="model-box"><span>text-embedding-v3</span><small>1,024 dimensions</small></div>
+              </div>
+              <div class="formula-note">
+                <div class="formula-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg> 计算说明</div>
+                <code>score = 1 - cosine_distance</code>
+                <p>分数越接近 1，表示 Query 向量与文本块方向越接近。该分数只适合在同一模型内比较。</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
