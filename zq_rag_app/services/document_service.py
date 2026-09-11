@@ -18,7 +18,7 @@ from typing import Any
 
 from minio.error import S3Error
 from redis.exceptions import RedisError
-from sqlalchemy import delete, select, update
+from sqlalchemy import and_, delete, func, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.exc import InterfaceError, OperationalError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
@@ -30,7 +30,7 @@ from ..core.minio import minio_client
 from ..document_processing.chunking import ChunkingConfig, TextChunk
 from ..document_processing.chunking import chunk_cleaned_document
 from ..document_processing.cleaning import clean_parsed_blocks
-from ..models.document import DocChunk, Document, IndexTask
+from ..models.document import DocChunk, Document, DocumentVersion, IndexTask
 from ..utils.document_parser import parse_document
 from .embedding_service import (
     EmbeddingBatchResult,
@@ -84,6 +84,7 @@ class RetryableIndexTaskError(RuntimeError):
 class IndexTaskSnapshot:
     id: int
     doc_id: int
+    doc_version: int
     task_type: str
     status: str
     stage: str
@@ -108,6 +109,7 @@ class IndexTaskSnapshot:
         return cls(
             id=task.id,
             doc_id=task.doc_id,
+            doc_version=task.doc_version,
             task_type=task.task_type,
             status=task.status,
             stage=task.stage,
@@ -197,13 +199,62 @@ async def create_index_task(
     if active is not None:
         return active, False
 
+    current_version = await session.scalar(
+        select(DocumentVersion).where(
+            DocumentVersion.doc_id == document.id,
+            DocumentVersion.version == document.version,
+        )
+    )
+    if current_version is None:
+        current_version = DocumentVersion(
+            doc_id=document.id,
+            version=document.version,
+            file_name=document.file_name,
+            file_type=document.file_type,
+            file_size=document.file_size,
+            minio_path=document.minio_path,
+            operation_type="UPLOAD",
+            status=(
+                "READY"
+                if document.status == IndexStatus.DONE.value
+                else IndexStatus.PENDING.value
+            ),
+            uploaded_by=document.uploaded_by,
+        )
+        session.add(current_version)
+
+    target_version = document.version
     if normalized_type == "REINDEX":
-        document.version += 1
-    document.status = IndexStatus.PENDING.value
-    document.error_msg = None
+        latest_version = int(
+            await session.scalar(
+                select(func.max(DocumentVersion.version)).where(
+                    DocumentVersion.doc_id == document.id
+                )
+            )
+            or document.version
+        )
+        target_version = latest_version + 1
+        session.add(
+            DocumentVersion(
+                doc_id=document.id,
+                version=target_version,
+                file_name=document.file_name,
+                file_type=document.file_type,
+                file_size=document.file_size,
+                file_hash=current_version.file_hash,
+                minio_path=document.minio_path,
+                operation_type="REINDEX",
+                status=IndexStatus.PENDING.value,
+                uploaded_by=document.uploaded_by,
+            )
+        )
+    elif document.status != IndexStatus.DONE.value:
+        document.status = IndexStatus.PENDING.value
+        document.error_msg = None
 
     task = IndexTask(
         doc_id=doc_id,
+        doc_version=target_version,
         task_type=normalized_type,
         status=IndexStatus.PENDING.value,
         stage=IndexStage.PENDING.value,
@@ -359,15 +410,22 @@ class DocumentIndexService:
         async with self.session_factory() as session:
             row = (
                 await session.execute(
-                    select(IndexTask, Document)
+                    select(IndexTask, Document, DocumentVersion)
                     .join(Document, Document.id == IndexTask.doc_id)
+                    .join(
+                        DocumentVersion,
+                        and_(
+                            DocumentVersion.doc_id == IndexTask.doc_id,
+                            DocumentVersion.version == IndexTask.doc_version,
+                        ),
+                    )
                     .where(IndexTask.id == task_id)
                     .with_for_update()
                 )
             ).first()
             if row is None:
                 raise IndexTaskNotFoundError(f"索引任务不存在: {task_id}")
-            task, document = row
+            task, document, version = row
             if task.status in {
                 IndexStatus.DONE.value,
                 IndexStatus.FAILED.value,
@@ -400,15 +458,18 @@ class DocumentIndexService:
             task.started_at = task.started_at or now
             task.finished_at = None
             task.updated_at = now
-            document.status = IndexStatus.PROCESSING.value
-            document.error_msg = None
+            version.status = IndexStatus.PROCESSING.value
+            version.error_msg = None
+            if task.doc_version == document.version and document.status != IndexStatus.DONE.value:
+                document.status = IndexStatus.PROCESSING.value
+                document.error_msg = None
             await session.commit()
             return _DocumentSnapshot(
                 id=document.id,
                 kb_id=document.kb_id,
-                file_name=document.file_name,
-                minio_path=document.minio_path,
-                version=document.version,
+                file_name=version.file_name,
+                minio_path=version.minio_path,
+                version=version.version,
             )
 
     async def _set_stage(
@@ -616,6 +677,14 @@ class DocumentIndexService:
             db_document = await session.get(
                 Document, document.id, with_for_update=True
             )
+            db_version = await session.scalar(
+                select(DocumentVersion)
+                .where(
+                    DocumentVersion.doc_id == document.id,
+                    DocumentVersion.version == document.version,
+                )
+                .with_for_update()
+            )
             if (
                 task is None
                 or task.status != IndexStatus.PROCESSING.value
@@ -624,7 +693,12 @@ class DocumentIndexService:
                 raise IndexTaskLeaseLostError(
                     f"完成任务时租约已丢失: {task_id}"
                 )
-            if db_document is None or db_document.version != document.version:
+            if (
+                db_document is None
+                or db_version is None
+                or task.doc_version != document.version
+                or db_document.version > document.version
+            ):
                 raise IndexTaskLeaseLostError(
                     f"文档版本已经变化: {document.id}"
                 )
@@ -645,6 +719,15 @@ class DocumentIndexService:
             task.heartbeat_at = now
             task.lease_expires_at = None
             task.updated_at = now
+            db_version.status = "READY"
+            db_version.indexed_at = now
+            db_version.error_msg = None
+            db_document.version = db_version.version
+            db_document.file_name = db_version.file_name
+            db_document.file_type = db_version.file_type
+            db_document.file_size = db_version.file_size
+            db_document.minio_path = db_version.minio_path
+            db_document.uploaded_by = db_version.uploaded_by
             db_document.status = IndexStatus.DONE.value
             db_document.error_msg = None
             db_document.chunk_count = chunk_count
@@ -665,6 +748,12 @@ class DocumentIndexService:
             if task is None or task.worker_id != self.worker_id:
                 return False, 0.0
             document = await session.get(Document, task.doc_id)
+            version = await session.scalar(
+                select(DocumentVersion).where(
+                    DocumentVersion.doc_id == task.doc_id,
+                    DocumentVersion.version == task.doc_version,
+                )
+            )
             should_retry = retryable and task.retry_count < task.max_retry
             if should_retry:
                 delay = min(
@@ -680,8 +769,12 @@ class DocumentIndexService:
                 task.lease_expires_at = None
                 task.updated_at = now
                 if document is not None:
-                    document.status = IndexStatus.PENDING.value
-                    document.error_msg = error
+                    if task.doc_version == document.version and document.status != IndexStatus.DONE.value:
+                        document.status = IndexStatus.PENDING.value
+                        document.error_msg = error
+                if version is not None:
+                    version.status = IndexStatus.PENDING.value
+                    version.error_msg = error
             else:
                 delay = 0.0
                 task.status = IndexStatus.FAILED.value
@@ -692,8 +785,18 @@ class DocumentIndexService:
                 task.lease_expires_at = None
                 task.updated_at = now
                 if document is not None:
-                    document.status = IndexStatus.FAILED.value
-                    document.error_msg = error
+                    if task.doc_version == document.version and document.status != IndexStatus.DONE.value:
+                        document.status = IndexStatus.FAILED.value
+                        document.error_msg = error
+                if version is not None:
+                    version.status = IndexStatus.FAILED.value
+                    version.error_msg = error
+                await session.execute(
+                    delete(DocChunk).where(
+                        DocChunk.doc_id == task.doc_id,
+                        DocChunk.doc_version == task.doc_version,
+                    )
+                )
             await session.commit()
         return should_retry, delay
 

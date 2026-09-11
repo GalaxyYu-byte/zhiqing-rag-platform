@@ -6,15 +6,23 @@ from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
 from pydantic import BaseModel
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..core.database import get_db
+from ..core.security import CurrentUser, UserContext
 from ..core.task_queue import enqueue_document_index
-from ..models.document import Document, IndexTask
+from ..models.document import Document, DocumentVersion, IndexTask
 from ..services.document_catalog_service import (
+    DocumentRestoreError,
     DocumentStorageError,
+    DocumentUpdateConflictError,
     DocumentUploadValidationError,
+    DocumentVersionNotFoundError,
+    create_document_restore,
+    create_document_update,
     create_uploaded_documents,
+    list_document_versions,
     list_documents,
 )
 from ..services.document_service import (
@@ -23,6 +31,10 @@ from ..services.document_service import (
     create_index_task,
     get_index_task_snapshot,
     get_latest_document_index_snapshot,
+)
+from ..services.permission_service import (
+    PermissionLevel,
+    has_knowledge_base_permission,
 )
 
 
@@ -37,6 +49,7 @@ class CreateIndexRequest(BaseModel):
 class IndexTaskStatusResponse(BaseModel):
     task_id: int
     doc_id: int
+    doc_version: int
     task_type: str
     status: str
     stage: str
@@ -75,6 +88,8 @@ class CreateIndexResponse(IndexTaskStatusResponse):
 
 class DocumentTaskSummaryResponse(BaseModel):
     task_id: int
+    doc_version: int
+    task_type: str
     status: str
     stage: str
     progress_percent: int
@@ -91,6 +106,8 @@ class DocumentTaskSummaryResponse(BaseModel):
             return None
         return cls(
             task_id=task.id,
+            doc_version=task.doc_version,
+            task_type=task.task_type,
             status=task.status,
             stage=task.stage,
             progress_percent=task.progress_percent,
@@ -159,6 +176,101 @@ class DocumentListResponse(BaseModel):
     items: list[DocumentResponse]
 
 
+class DocumentVersionResponse(BaseModel):
+    id: int
+    doc_id: int
+    version: int
+    file_name: str
+    file_type: str
+    file_size: int
+    file_hash: str | None
+    minio_path: str
+    operation_type: str
+    source_version: int | None
+    status: str
+    uploaded_by: int
+    created_at: datetime
+    indexed_at: datetime | None
+    error_msg: str | None
+    is_current: bool
+    can_restore: bool
+
+    @classmethod
+    def from_model(
+        cls,
+        version: DocumentVersion,
+        *,
+        current_version: int | None = None,
+        allow_restore: bool = True,
+    ) -> "DocumentVersionResponse":
+        is_current = version.version == current_version
+        return cls(
+            id=version.id,
+            doc_id=version.doc_id,
+            version=version.version,
+            file_name=version.file_name,
+            file_type=version.file_type,
+            file_size=version.file_size,
+            file_hash=version.file_hash,
+            minio_path=version.minio_path,
+            operation_type=(
+                version.operation_type
+                or ("UPLOAD" if version.version == 1 else "REINDEX")
+            ),
+            source_version=version.source_version,
+            status=version.status,
+            uploaded_by=version.uploaded_by,
+            created_at=version.created_at,
+            indexed_at=version.indexed_at,
+            error_msg=version.error_msg,
+            is_current=is_current,
+            can_restore=(
+                allow_restore and version.status == "READY" and not is_current
+            ),
+        )
+
+
+class UpdateDocumentResponse(BaseModel):
+    document: DocumentResponse
+    version: DocumentVersionResponse
+    index_task: CreateIndexResponse
+
+
+class DocumentVersionListResponse(BaseModel):
+    doc_id: int
+    current_version: int
+    items: list[DocumentVersionResponse]
+
+
+class RestoreDocumentRequest(BaseModel):
+    expected_current_version: int
+
+
+async def _require_document_permission(
+    session: AsyncSession,
+    *,
+    doc_id: int,
+    current_user: UserContext,
+    required: PermissionLevel,
+) -> Document:
+    document = await session.scalar(
+        select(Document).where(
+            Document.id == doc_id,
+            Document.is_deleted.is_(False),
+        )
+    )
+    if document is None:
+        raise HTTPException(status_code=404, detail="文档不存在")
+    if not await has_knowledge_base_permission(
+        session,
+        user=current_user,
+        kb_id=document.kb_id,
+        required=required,
+    ):
+        raise HTTPException(status_code=403, detail="没有该知识库的操作权限")
+    return document
+
+
 @router.post(
     "/upload",
     response_model=UploadDocumentsResponse,
@@ -167,16 +279,23 @@ class DocumentListResponse(BaseModel):
 async def upload_documents(
     files: Annotated[list[UploadFile], File(description="待上传文档")],
     kb_id: Annotated[int, Form(gt=0)],
-    # 认证模块目前尚未实现，测试阶段暂由表单传入；接入 JWT 后应从登录态读取。
-    uploaded_by: Annotated[int, Form(gt=0)] = 1,
+    current_user: CurrentUser,
     session: AsyncSession = Depends(get_db),
 ) -> UploadDocumentsResponse:
+    if not await has_knowledge_base_permission(
+        session,
+        user=current_user,
+        kb_id=kb_id,
+        required=PermissionLevel.WRITE,
+    ):
+        raise HTTPException(status_code=403, detail="没有该知识库的写权限")
+
     try:
         documents = await create_uploaded_documents(
             session,
             files=files,
             kb_id=kb_id,
-            uploaded_by=uploaded_by,
+            uploaded_by=current_user.user_id,
         )
     except DocumentUploadValidationError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -209,6 +328,159 @@ async def upload_documents(
             )
         )
     return UploadDocumentsResponse(items=items)
+
+
+@router.post(
+    "/{doc_id}/versions",
+    response_model=UpdateDocumentResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+)
+async def update_document_file(
+    doc_id: int,
+    file: Annotated[UploadFile, File(description="新版文档")],
+    expected_version: Annotated[int, Form(gt=0)],
+    current_user: CurrentUser,
+    session: AsyncSession = Depends(get_db),
+) -> UpdateDocumentResponse:
+    """上传候选版本并异步索引；成功前旧版本继续参与召回。"""
+
+    await _require_document_permission(
+        session,
+        doc_id=doc_id,
+        current_user=current_user,
+        required=PermissionLevel.WRITE,
+    )
+    try:
+        result = await create_document_update(
+            session,
+            doc_id=doc_id,
+            file=file,
+            expected_version=expected_version,
+            uploaded_by=current_user.user_id,
+        )
+    except DocumentUploadValidationError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except DocumentUpdateConflictError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except DocumentStorageError as exc:
+        logger.exception("文档更新失败")
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    try:
+        queued = await enqueue_document_index(result.task.id)
+    except Exception:
+        logger.exception("文档更新任务入队失败: task_id=%s", result.task.id)
+        queued = False
+    snapshot = IndexTaskSnapshot.from_model(result.task)
+    return UpdateDocumentResponse(
+        document=DocumentResponse.from_model(result.document, result.task),
+        version=DocumentVersionResponse.from_model(
+            result.version,
+            current_version=result.document.version,
+        ),
+        index_task=CreateIndexResponse(
+            **IndexTaskStatusResponse.from_snapshot(snapshot).model_dump(),
+            created=True,
+            queued=queued,
+        ),
+    )
+
+
+@router.get(
+    "/{doc_id}/versions",
+    response_model=DocumentVersionListResponse,
+)
+async def get_document_versions(
+    doc_id: int,
+    current_user: CurrentUser,
+    session: AsyncSession = Depends(get_db),
+) -> DocumentVersionListResponse:
+    """查询版本历史；当前正式版本和可恢复状态由服务端统一判断。"""
+
+    document = await _require_document_permission(
+        session,
+        doc_id=doc_id,
+        current_user=current_user,
+        required=PermissionLevel.READ,
+    )
+    versions = await list_document_versions(session, doc_id=doc_id)
+    active_task = await session.scalar(
+        select(IndexTask.id).where(
+            IndexTask.doc_id == doc_id,
+            IndexTask.status.in_(["PENDING", "PROCESSING"]),
+        )
+    )
+    allow_restore = document.status == "DONE" and active_task is None
+    return DocumentVersionListResponse(
+        doc_id=doc_id,
+        current_version=document.version,
+        items=[
+            DocumentVersionResponse.from_model(
+                version,
+                current_version=document.version,
+                allow_restore=allow_restore,
+            )
+            for version in versions
+        ],
+    )
+
+
+@router.post(
+    "/{doc_id}/versions/{version}/restore",
+    response_model=UpdateDocumentResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+)
+async def restore_document_version(
+    doc_id: int,
+    version: int,
+    request: RestoreDocumentRequest,
+    current_user: CurrentUser,
+    session: AsyncSession = Depends(get_db),
+) -> UpdateDocumentResponse:
+    """从历史文件创建新的候选版本，成功前当前正式版本保持可用。"""
+
+    if version <= 0 or request.expected_current_version <= 0:
+        raise HTTPException(status_code=400, detail="版本号必须大于 0")
+    await _require_document_permission(
+        session,
+        doc_id=doc_id,
+        current_user=current_user,
+        required=PermissionLevel.WRITE,
+    )
+    try:
+        result = await create_document_restore(
+            session,
+            doc_id=doc_id,
+            source_version=version,
+            expected_current_version=request.expected_current_version,
+            restored_by=current_user.user_id,
+        )
+    except DocumentVersionNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except DocumentUpdateConflictError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except DocumentRestoreError as exc:
+        logger.exception("历史版本恢复任务创建失败")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    try:
+        queued = await enqueue_document_index(result.task.id)
+    except Exception:
+        logger.exception("历史版本恢复任务入队失败: task_id=%s", result.task.id)
+        queued = False
+    snapshot = IndexTaskSnapshot.from_model(result.task)
+    return UpdateDocumentResponse(
+        document=DocumentResponse.from_model(result.document, result.task),
+        version=DocumentVersionResponse.from_model(
+            result.version,
+            current_version=result.document.version,
+        ),
+        index_task=CreateIndexResponse(
+            **IndexTaskStatusResponse.from_snapshot(snapshot).model_dump(),
+            created=True,
+            queued=queued,
+        ),
+    )
 
 
 @router.get("", response_model=DocumentListResponse)
@@ -250,8 +522,15 @@ async def get_documents(
 async def create_document_index(
     doc_id: int,
     request: CreateIndexRequest,
+    current_user: CurrentUser,
     session: AsyncSession = Depends(get_db),
 ) -> CreateIndexResponse:
+    await _require_document_permission(
+        session,
+        doc_id=doc_id,
+        current_user=current_user,
+        required=PermissionLevel.WRITE,
+    )
     try:
         task, created = await create_index_task(
             session,

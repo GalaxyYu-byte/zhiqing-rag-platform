@@ -3,6 +3,7 @@
 本模块对应三个文档处理阶段使用的表：
 
 * ``kb_document``：原始文件和索引状态；
+* ``kb_document_version``：每次上传或重建产生的候选文件版本；
 * ``kb_doc_chunk``：切分后的文本块和向量；
 * ``kb_index_task``：异步索引任务及重试状态。
 
@@ -98,6 +99,40 @@ class Document(Base):
     is_deleted: Mapped[bool] = mapped_column(
         Boolean, nullable=False, server_default=text("FALSE")
     )
+
+
+class DocumentVersion(Base):
+    """文档文件版本；只有 READY 版本才能切换为正式版本。"""
+
+    __tablename__ = "kb_document_version"
+    __table_args__ = (
+        UniqueConstraint("doc_id", "version", name="uq_doc_version"),
+        Index("idx_doc_version_status", "doc_id", "status"),
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    doc_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    version: Mapped[int] = mapped_column(Integer, nullable=False)
+    file_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    file_type: Mapped[str] = mapped_column(String(20), nullable=False)
+    file_size: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    file_hash: Mapped[str | None] = mapped_column(String(64))
+    minio_path: Mapped[str] = mapped_column(String(500), nullable=False)
+    # 版本产生方式：UPLOAD、UPDATE、REINDEX 或 RESTORE。
+    operation_type: Mapped[str] = mapped_column(
+        String(20), nullable=False, server_default=text("'UPLOAD'")
+    )
+    # RESTORE 版本所引用的历史版本号；其他操作为空。
+    source_version: Mapped[int | None] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(
+        String(20), nullable=False, server_default=text("'PENDING'")
+    )
+    uploaded_by: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=text("NOW()")
+    )
+    indexed_at: Mapped[datetime | None] = mapped_column()
+    error_msg: Mapped[str | None] = mapped_column(Text)
 
 
 class DocChunk(Base):
@@ -200,7 +235,10 @@ class IndexTask(Base):
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     # 本次索引任务对应的文档 ID。
     doc_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    # 任务类型：INDEX 表示首次索引，REINDEX 表示重建索引。
+    # 任务正在构建的目标文档版本；成功前不会修改文档正式版本。
+    doc_version: Mapped[int] = mapped_column(Integer, nullable=False)
+    # 任务类型：INDEX 首次索引，REINDEX 原文件重建，UPDATE 新文件更新，
+    # RESTORE 从历史文件创建新的正式版本。
     task_type: Mapped[str] = mapped_column(
         String(20), nullable=False, server_default=text("'INDEX'")
     )

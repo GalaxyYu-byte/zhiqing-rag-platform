@@ -69,6 +69,31 @@ CREATE INDEX idx_doc_kb_id ON kb_document(kb_id) WHERE is_deleted = FALSE;
 CREATE INDEX idx_doc_status ON kb_document(status) WHERE is_deleted = FALSE;
 
 -- ================================================================
+-- 3.1 文档版本表
+-- ================================================================
+CREATE TABLE kb_document_version (
+    id              BIGSERIAL PRIMARY KEY,
+    doc_id          BIGINT          NOT NULL,
+    version         INT             NOT NULL,
+    file_name       VARCHAR(255)    NOT NULL,
+    file_type       VARCHAR(20)     NOT NULL,
+    file_size       BIGINT          NOT NULL,
+    file_hash       VARCHAR(64),
+    minio_path      VARCHAR(500)    NOT NULL,
+    operation_type  VARCHAR(20)     NOT NULL DEFAULT 'UPLOAD', -- UPLOAD / UPDATE / REINDEX / RESTORE
+    source_version  INT,                                      -- RESTORE 的来源版本号
+    status          VARCHAR(20)     NOT NULL DEFAULT 'PENDING',
+    uploaded_by     BIGINT          NOT NULL,
+    created_at      TIMESTAMP       NOT NULL DEFAULT NOW(),
+    indexed_at      TIMESTAMP,
+    error_msg       TEXT,
+    CONSTRAINT uq_doc_version UNIQUE (doc_id, version)
+);
+
+CREATE INDEX idx_doc_version_status
+    ON kb_document_version(doc_id, status);
+
+-- ================================================================
 -- 4. 文档分块表（核心表，含向量字段）
 -- ================================================================
 CREATE TABLE kb_doc_chunk (
@@ -129,7 +154,8 @@ CREATE TRIGGER trigger_chunk_tsv
 CREATE TABLE kb_index_task (
     id              BIGSERIAL PRIMARY KEY,
     doc_id          BIGINT          NOT NULL,
-    task_type       VARCHAR(20)     NOT NULL DEFAULT 'INDEX',  -- INDEX / REINDEX
+    doc_version     INT             NOT NULL,
+    task_type       VARCHAR(20)     NOT NULL DEFAULT 'INDEX',  -- INDEX / REINDEX / UPDATE / RESTORE
     status          VARCHAR(20)     NOT NULL DEFAULT 'PENDING',
     stage           VARCHAR(30)     NOT NULL DEFAULT 'PENDING',
     progress_percent INT            NOT NULL DEFAULT 0,

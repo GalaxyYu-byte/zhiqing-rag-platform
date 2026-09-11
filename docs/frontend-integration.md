@@ -36,13 +36,14 @@ LIMIT :top_k;
 
 ## 已实现接口
 
-### 0. 知识库列表
+### 0. 知识库创建与列表
 
 ```http
 GET /knowledge-bases
+POST /knowledge-bases
 ```
 
-前端上传范围和召回范围均从该接口动态加载，不再使用硬编码名称。当前认证模块尚未实现，因此接口暂时返回全部未删除知识库；接入 JWT 后必须增加创建者、公开范围和 `kb_permission` 权限过滤。
+创建请求使用 JSON，字段包括必填的 `name`，以及可选的 `description`、`is_public`。归属部门和创建人默认从当前登录态取得。前端上传范围和召回范围均从列表接口动态加载。
 
 ### 1. 上传文档
 
@@ -55,11 +56,20 @@ Content-Type: multipart/form-data
 
 - `files`: 一个或多个文件；
 - `kb_id`: 目标知识库 ID；
-- `uploaded_by`: 测试用户 ID，默认 1。
 
 服务端会先校验整批文件，再以 UUID 隔离路径流式写入 MinIO，创建 `kb_document` 与 `kb_index_task` 后返回 `202 Accepted`。解析、清洗、分块、Embedding 与入库不会阻塞上传请求。
 
-当前 `uploaded_by` 是测试阶段的表单字段，默认值为 `1`。接入 JWT 后，应删除客户端传值并从服务端登录态中取得用户 ID。
+`uploaded_by` 由服务端从当前登录态取得，前端不得传入。认证系统接入前，服务端会将每个请求绑定到固定管理员账号。
+
+### 当前用户与权限
+
+```http
+GET /auth/me
+GET /auth/knowledge-bases/{kb_id}/permission?permission=READ
+GET /auth/knowledge-bases/{kb_id}/permission?permission=WRITE
+```
+
+权限接口返回 `allowed`。管理员直接放行；普通用户按创建者、公开只读范围、用户授权和部门授权判断。
 
 分块参数当前沿用服务端 `RAG_CHUNK_SIZE` 和 `RAG_CHUNK_OVERLAP` 配置，不接受单次上传覆盖，避免同一任务在重试时读取到不同参数。
 
@@ -70,6 +80,41 @@ GET /documents?kb_id=1&status=PROCESSING&keyword=员工
 ```
 
 返回文档状态、当前索引任务阶段、进度、分块数和 MinIO 对象路径，用于页面列表与进度条。
+
+### 2.1 更新文档
+
+```http
+POST /documents/{doc_id}/versions
+Content-Type: multipart/form-data
+```
+
+字段：
+
+- `file`: 新版文件；
+- `expected_version`: 用户提交时看到的正式版本号，用于避免并发覆盖。
+
+服务端计算整文件 SHA256；内容与正式版本完全一致时返回 `409`。新版文件使用独立 MinIO 路径，索引任务绑定候选版本，Redis 按实际 Embedding 文本的 SHA256 复用已有向量。候选版本全部完成后才原子切换正式版本，因此更新期间旧版本仍可召回。
+
+### 2.2 历史版本与恢复
+
+```http
+GET /documents/{doc_id}/versions
+```
+
+返回所有文件版本、产生方式、处理状态、来源版本、失败原因，以及 `is_current` 和 `can_restore`。接口需要知识库 `READ` 权限。
+
+```http
+POST /documents/{doc_id}/versions/{version}/restore
+Content-Type: application/json
+
+{
+  "expected_current_version": 2
+}
+```
+
+恢复接口需要 `WRITE` 权限。恢复历史 V1 时不会把正式版本号倒退，而是创建新的候选版本，例如当前 V2 会创建 V3，并记录 `operation_type=RESTORE`、`source_version=1`。候选版本复用 V1 的只读 MinIO 文件，重新分块后通过内容 Hash 查询本地缓存和 Redis；只有未命中分块才调用 Embedding 模型。
+
+恢复期间 V2 仍参与召回。V3 全部完成后才原子切换；如果 V3 失败，V2 保持不变，历史接口会展示 V3 的失败原因。
 
 ### 3. 余弦召回
 

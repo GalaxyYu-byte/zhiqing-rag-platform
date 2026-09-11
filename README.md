@@ -94,6 +94,8 @@ for chunk in chunked.chunks:
 
 ```powershell
 psql -d ragkb -f .\zq_rag_app\schemas\migrations\001_index_pipeline.sql
+psql -d ragkb -f .\zq_rag_app\schemas\migrations\002_document_versions.sql
+psql -d ragkb -f .\zq_rag_app\schemas\migrations\003_document_history.sql
 ```
 
 ## 异步向量索引

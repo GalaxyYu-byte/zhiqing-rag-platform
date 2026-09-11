@@ -32,11 +32,21 @@ COMMENT ON COLUMN kb_document.status IS '文档索引状态：PENDING 待处理�
 COMMENT ON COLUMN kb_document.error_msg IS '最近一次索引失败的错误信息。';
 COMMENT ON COLUMN kb_document.chunk_count IS '当前版本文档切分后的分块数量。';
 COMMENT ON COLUMN kb_document.token_count IS '当前文档向量化消耗或估算的 Token 数量。';
-COMMENT ON COLUMN kb_document.version IS '文档索引版本号；重建索引时递增。';
+COMMENT ON COLUMN kb_document.version IS '当前正式文档版本号；候选版本索引成功后才切换。';
 COMMENT ON COLUMN kb_document.uploaded_by IS '上传人用户 ID。';
 COMMENT ON COLUMN kb_document.uploaded_at IS '上传时间。';
 COMMENT ON COLUMN kb_document.indexed_at IS '最近一次索引完成时间。';
 COMMENT ON COLUMN kb_document.is_deleted IS '软删除标记：FALSE 未删除，TRUE 已删除。';
+
+COMMENT ON TABLE kb_document_version IS '文档版本表：保存每次上传或重建使用的候选文件，READY 表示已完成索引。';
+COMMENT ON COLUMN kb_document_version.id IS '文档版本主键。';
+COMMENT ON COLUMN kb_document_version.doc_id IS '逻辑文档 ID。';
+COMMENT ON COLUMN kb_document_version.version IS '文档版本号。';
+COMMENT ON COLUMN kb_document_version.file_hash IS '原始文件 SHA256，用于识别内容未变化的更新。';
+COMMENT ON COLUMN kb_document_version.minio_path IS '该版本文件的 MinIO 路径。';
+COMMENT ON COLUMN kb_document_version.operation_type IS '版本产生方式：UPLOAD、UPDATE、REINDEX 或 RESTORE。';
+COMMENT ON COLUMN kb_document_version.source_version IS 'RESTORE 操作引用的历史版本号；其他操作为空。';
+COMMENT ON COLUMN kb_document_version.status IS '版本状态：PENDING、PROCESSING、READY 或 FAILED。';
 
 COMMENT ON TABLE kb_doc_chunk IS '文档分块表：保存文档切分后的可检索文本、全文检索向量及语义向量。';
 COMMENT ON COLUMN kb_doc_chunk.id IS '文档分块主键。';
@@ -55,7 +65,8 @@ COMMENT ON COLUMN kb_doc_chunk.created_at IS '分块记录创建时间。';
 COMMENT ON TABLE kb_index_task IS '索引任务表：记录文档解析、切分、向量化和入库的异步任务状态及进度。';
 COMMENT ON COLUMN kb_index_task.id IS '索引任务主键。';
 COMMENT ON COLUMN kb_index_task.doc_id IS '待索引文档 ID，逻辑关联 kb_document.id。';
-COMMENT ON COLUMN kb_index_task.task_type IS '任务类型：INDEX 首次索引，REINDEX 重建索引。';
+COMMENT ON COLUMN kb_index_task.doc_version IS '任务正在构建的目标文档版本。';
+COMMENT ON COLUMN kb_index_task.task_type IS '任务类型：INDEX 首次索引，REINDEX 重建索引，UPDATE 更新文件，RESTORE 恢复历史版本。';
 COMMENT ON COLUMN kb_index_task.status IS '任务状态：PENDING 待执行，PROCESSING 执行中，DONE 完成，FAILED 失败。';
 COMMENT ON COLUMN kb_index_task.retry_count IS '已重试次数。';
 COMMENT ON COLUMN kb_index_task.max_retry IS '允许的最大重试次数。';

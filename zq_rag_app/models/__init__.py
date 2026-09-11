@@ -6,7 +6,7 @@
 """
 
 from .chat import AnswerFeedback, ChatMessage, ChatSession
-from .document import DocChunk, Document, IndexTask
+from .document import DocChunk, Document, DocumentVersion, IndexTask
 from .evaluation import EvalDataset, EvalResult
 from .knowledge_base import KnowledgeBase, Permission
 
@@ -16,6 +16,7 @@ __all__ = [
     "ChatSession",
     "DocChunk",
     "Document",
+    "DocumentVersion",
     "EvalDataset",
     "EvalResult",
     "IndexTask",

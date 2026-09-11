@@ -7,6 +7,9 @@ const DEMO_MODE = new URLSearchParams(window.location.search).get("demo") === "1
 
 const api = {
   upload: "/documents/upload",
+  updateDocument: (documentId) => `/documents/${documentId}/versions`,
+  documentVersions: (documentId) => `/documents/${documentId}/versions`,
+  restoreVersion: (documentId, version) => `/documents/${documentId}/versions/${version}/restore`,
   indexTask: (taskId) => `/documents/index-tasks/${taskId}`,
   documents: "/documents",
   knowledgeBases: "/knowledge-bases",
@@ -29,6 +32,11 @@ const documents = [
     chunks: 86,
     storage: "rag-documents/hr/1042.pdf",
     updated: "8 分钟前",
+    version: 2,
+    history: [
+      { version: 2, file_name: "员工手册_2026版.pdf", file_size: 5033165, status: "READY", operation_type: "UPDATE", source_version: null, created_at: "2026-09-11T09:52:00", indexed_at: "2026-09-11T09:55:00", error_msg: null, is_current: true, can_restore: false },
+      { version: 1, file_name: "员工手册_2025版.pdf", file_size: 4718592, status: "READY", operation_type: "UPLOAD", source_version: null, created_at: "2026-08-12T10:10:00", indexed_at: "2026-08-12T10:13:00", error_msg: null, is_current: false, can_restore: true },
+    ],
   },
   {
     id: 1041,
@@ -64,6 +72,11 @@ const documents = [
     updated: "09 月 08 日",
   },
 ];
+
+documents.forEach((doc) => {
+  doc.version ??= 1;
+  doc.activeAvailable ??= doc.status === "DONE";
+});
 
 const resultFixtures = [
   {
@@ -184,12 +197,19 @@ const stageLabels = {
 
 function normalizeDocument(document, task = document.latest_task) {
   const type = String(document.file_type || fileType(document.file_name)).toLowerCase();
+  const candidateTask = ["UPDATE", "RESTORE", "REINDEX"].includes(task?.task_type);
+  const updating = candidateTask && ["PENDING", "PROCESSING"].includes(task.status);
+  const updateFailed = candidateTask && task.status === "FAILED" && document.status === "DONE";
   return {
     id: document.id,
     name: document.file_name,
     type,
     size: formatFileSize(document.file_size),
-    status: task?.status || document.status,
+    status: ["PENDING", "PROCESSING"].includes(task?.status) ? "PROCESSING" : (updateFailed ? "UPDATE_FAILED" : (task?.status || document.status)),
+    activeAvailable: document.status === "DONE",
+    taskType: task?.task_type,
+    version: document.version || 1,
+    pendingVersion: updating ? task.doc_version : null,
     stage: task?.stage || document.status,
     stageLabel: stageLabels[task?.stage || document.status] || "处理中",
     progress: task?.progress_percent || 0,
@@ -237,6 +257,9 @@ function statusMarkup(doc) {
   if (doc.status === "FAILED") {
     return `<span class="status-badge failed">处理失败</span>`;
   }
+  if (doc.status === "UPDATE_FAILED") {
+    return `<span class="status-badge failed">更新失败，V${doc.version} 仍可用</span>`;
+  }
   return `<span class="status-badge">已完成</span>`;
 }
 
@@ -260,14 +283,14 @@ function renderDocuments() {
       <td>
         <div class="file-cell">
           <span class="file-icon ${escapeHtml(doc.type)}">${escapeHtml(doc.type.toUpperCase())}</span>
-          <div class="file-meta"><strong>${escapeHtml(doc.name)}</strong><small>${doc.id} · ${escapeHtml(doc.size)}</small></div>
+          <div class="file-meta"><strong>${escapeHtml(doc.name)}</strong><small>${doc.id} · V${doc.version}${doc.pendingVersion ? ` → V${doc.pendingVersion}` : ""} · ${escapeHtml(doc.size)}</small></div>
         </div>
       </td>
       <td>${statusMarkup(doc)}</td>
       <td>${doc.chunks == null ? "—" : `${doc.chunks} 块`}</td>
       <td><span class="storage-code">${escapeHtml(doc.storage)}</span></td>
       <td>${escapeHtml(doc.updated)}</td>
-      <td><button class="row-action" data-action="inspect" aria-label="查看 ${escapeHtml(doc.name)}"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></td>
+      <td><div class="row-actions"><button class="row-action" data-action="history" aria-label="查看 ${escapeHtml(doc.name)} 的历史版本" title="历史版本"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg></button><button class="row-action" data-action="update" ${doc.status === "PROCESSING" ? "disabled" : ""} aria-label="更新 ${escapeHtml(doc.name)}" title="更新文件"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 19h14"/></svg></button><button class="row-action" data-action="inspect" aria-label="查看 ${escapeHtml(doc.name)}" title="召回测试"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></td>
     </tr>
   `).join("");
 }
@@ -336,6 +359,365 @@ function showToast(title, detail) {
   toast.innerHTML = `<i></i><div><strong>${escapeHtml(title)}</strong><span>${escapeHtml(detail)}</span></div>`;
   document.getElementById("toastRegion").appendChild(toast);
   window.setTimeout(() => toast.remove(), 4200);
+}
+
+function createKnowledgeBaseModalMarkup() {
+  return `
+    <div class="modal-backdrop" id="createKbModal" role="presentation">
+      <section class="modal compact-modal" role="dialog" aria-modal="true" aria-labelledby="createKbTitle">
+        <div class="modal-header">
+          <div><p class="eyebrow">NEW KNOWLEDGE BASE</p><h2 id="createKbTitle">创建知识库</h2></div>
+          <button type="button" class="icon-button" id="closeCreateKb" aria-label="关闭"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </div>
+        <form id="createKbForm">
+          <div class="form-stack">
+            <label class="form-field">
+              <span>知识库名称 <b>*</b></span>
+              <input id="kbName" name="name" maxlength="100" required autocomplete="off" placeholder="例如：产品文档库" />
+              <small>同一部门内名称不能重复</small>
+            </label>
+            <label class="form-field">
+              <span>简介</span>
+              <textarea id="kbDescription" name="description" maxlength="2000" rows="4" placeholder="简要说明知识库包含的内容和使用范围"></textarea>
+            </label>
+            <label class="checkbox-field">
+              <input id="kbIsPublic" name="is_public" type="checkbox" />
+              <span><strong>公开可读</strong><small>开启后，其他用户无需单独授权即可读取该知识库。</small></span>
+            </label>
+            <div class="form-note">归属部门和创建人将从当前登录用户自动获取。</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="secondary-button" id="cancelCreateKb">取消</button>
+            <button type="submit" class="primary-button" id="submitCreateKb">创建知识库</button>
+          </div>
+        </form>
+      </section>
+    </div>`;
+}
+
+function updateDocumentModalMarkup(doc) {
+  return `
+    <div class="modal-backdrop" id="updateDocumentModal" role="presentation">
+      <section class="modal compact-modal" role="dialog" aria-modal="true" aria-labelledby="updateDocumentTitle">
+        <div class="modal-header">
+          <div><p class="eyebrow">NEW VERSION</p><h2 id="updateDocumentTitle">更新文档</h2></div>
+          <button type="button" class="icon-button" id="closeUpdateDocument" aria-label="关闭"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </div>
+        <form id="updateDocumentForm">
+          <div class="form-stack">
+            <div class="version-summary"><span>当前正式版本</span><strong>V${doc.version}</strong><small>${escapeHtml(doc.name)} · 更新期间该版本继续参与召回</small></div>
+            <label class="form-field">
+              <span>新版文件 <b>*</b></span>
+              <input id="updateDocumentFile" type="file" accept=".pdf,.docx,.txt,.md,.xlsx,.xls" required />
+              <small>系统会按 Chunk Hash 复用 Redis 中已有向量，只处理变化内容。</small>
+            </label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="secondary-button" id="cancelUpdateDocument">取消</button>
+            <button type="submit" class="primary-button" id="submitUpdateDocument">上传并创建 V${doc.version + 1}</button>
+          </div>
+        </form>
+      </section>
+    </div>`;
+}
+
+function openUpdateDocumentModal(doc) {
+  document.body.insertAdjacentHTML("beforeend", updateDocumentModalMarkup(doc));
+  const modal = document.getElementById("updateDocumentModal");
+  const form = document.getElementById("updateDocumentForm");
+  const fileInput = document.getElementById("updateDocumentFile");
+  const listeners = new AbortController();
+  const options = { signal: listeners.signal };
+  const close = () => {
+    listeners.abort();
+    modal.remove();
+  };
+  document.getElementById("closeUpdateDocument").addEventListener("click", close, options);
+  document.getElementById("cancelUpdateDocument").addEventListener("click", close, options);
+  modal.addEventListener("click", (event) => { if (event.target === modal) close(); }, options);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.getElementById("updateDocumentModal")) close();
+  }, options);
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const file = fileInput.files?.[0];
+    if (!file) return fileInput.focus();
+    const button = document.getElementById("submitUpdateDocument");
+    button.disabled = true;
+    button.textContent = "正在上传新版…";
+    try {
+      if (DEMO_MODE) {
+        await new Promise((resolve) => window.setTimeout(resolve, 420));
+        doc.pendingVersion = doc.version + 1;
+        doc.pendingFileName = file.name;
+        doc.pendingFileSize = formatFileSize(file.size);
+        doc.taskType = "UPDATE";
+        doc.status = "PROCESSING";
+        doc.stage = "PARSING";
+        doc.stageLabel = "文档解析";
+        doc.progress = 5;
+        close();
+        renderDocuments();
+        showToast("新版已提交", `V${doc.pendingVersion} 正在处理，V${doc.version} 仍可检索`);
+        simulatePipeline(doc);
+        return;
+      }
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("expected_version", String(doc.version));
+      const response = await fetch(api.updateDocument(doc.id), { method: "POST", body: formData });
+      if (!response.ok) {
+        const error = await response.json().catch(() => null);
+        throw new Error(error?.detail || `更新失败：${response.status}`);
+      }
+      const payload = await response.json();
+      const task = payload.index_task;
+      doc.pendingVersion = payload.version.version;
+      doc.taskType = "UPDATE";
+      doc.taskId = task.task_id;
+      doc.status = "PROCESSING";
+      doc.stage = task.stage;
+      doc.stageLabel = stageLabels[task.stage] || task.stage;
+      doc.progress = task.progress_percent;
+      close();
+      renderDocuments();
+      showToast("新版已提交", `V${doc.pendingVersion} 正在处理，V${doc.version} 仍可检索`);
+      pollIndexTask(task.task_id, doc.id);
+    } catch (error) {
+      showToast("文档更新失败", error.message);
+      button.disabled = false;
+      button.textContent = `上传并创建 V${doc.version + 1}`;
+    }
+  }, options);
+}
+
+const versionOperationLabels = {
+  UPLOAD: "首次上传",
+  UPDATE: "文件更新",
+  REINDEX: "重建索引",
+  RESTORE: "历史恢复",
+};
+
+function versionHistoryModalMarkup(doc) {
+  return `
+    <div class="modal-backdrop" id="versionHistoryModal" role="presentation">
+      <section class="modal version-history-modal" role="dialog" aria-modal="true" aria-labelledby="versionHistoryTitle">
+        <div class="modal-header">
+          <div><p class="eyebrow">VERSION HISTORY</p><h2 id="versionHistoryTitle">历史版本</h2><small class="modal-subtitle">${escapeHtml(doc.name)} · 当前 V${doc.version}</small></div>
+          <button type="button" class="icon-button" id="closeVersionHistory" aria-label="关闭"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div class="version-history-list" id="versionHistoryList"><div class="version-history-loading"><span class="spinner"></span><strong>正在读取版本记录…</strong></div></div>
+        <div class="modal-footer"><button type="button" class="secondary-button" id="doneVersionHistory">关闭</button></div>
+      </section>
+    </div>`;
+}
+
+function renderVersionHistory(items) {
+  const container = document.getElementById("versionHistoryList");
+  if (!container) return;
+  if (!items.length) {
+    container.innerHTML = `<div class="version-history-empty">暂无版本记录</div>`;
+    return;
+  }
+  container.innerHTML = items.map((item) => {
+    const source = item.operation_type === "RESTORE" && item.source_version
+      ? ` · 来源 V${item.source_version}`
+      : "";
+    const detail = item.error_msg
+      ? `<p class="version-error">${escapeHtml(item.error_msg)}</p>`
+      : `<p>${escapeHtml(item.file_name)} · ${escapeHtml(formatFileSize(item.file_size))}</p>`;
+    return `
+      <article class="version-history-item ${item.is_current ? "current" : ""}">
+        <div class="version-marker"><strong>V${item.version}</strong><i></i></div>
+        <div class="version-history-content">
+          <div class="version-history-heading"><strong>${escapeHtml(versionOperationLabels[item.operation_type] || item.operation_type)}${source}</strong><span class="version-status ${String(item.status).toLowerCase()}">${item.is_current ? "当前版本" : escapeHtml(item.status)}</span></div>
+          ${detail}
+          <small>${escapeHtml(formatDate(item.indexed_at || item.created_at))} · 操作人 #${item.uploaded_by ?? "—"}</small>
+        </div>
+        <div class="version-history-action">${item.can_restore ? `<button type="button" class="secondary-button restore-version-button" data-restore-version="${item.version}">恢复此版本</button>` : ""}</div>
+      </article>`;
+  }).join("");
+}
+
+async function fetchDocumentVersions(doc) {
+  if (DEMO_MODE) {
+    return doc.history || [{
+      version: doc.version,
+      file_name: doc.name,
+      file_size: 1024,
+      status: "READY",
+      operation_type: "UPLOAD",
+      source_version: null,
+      created_at: new Date().toISOString(),
+      indexed_at: new Date().toISOString(),
+      error_msg: null,
+      uploaded_by: 1,
+      is_current: true,
+      can_restore: false,
+    }];
+  }
+  const response = await fetch(api.documentVersions(doc.id));
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.detail || `历史版本加载失败：${response.status}`);
+  }
+  return (await response.json()).items;
+}
+
+async function submitVersionRestore(doc, sourceVersion) {
+  if (DEMO_MODE) {
+    const source = (doc.history || []).find((item) => item.version === sourceVersion);
+    const targetVersion = Math.max(doc.version, ...(doc.history || []).map((item) => item.version)) + 1;
+    doc.pendingVersion = targetVersion;
+    doc.pendingSourceVersion = sourceVersion;
+    doc.pendingFileName = source?.file_name || doc.name;
+    doc.pendingFileSize = source ? formatFileSize(source.file_size) : doc.size;
+    doc.pendingFileSizeBytes = source?.file_size || 1024;
+    doc.taskType = "RESTORE";
+    doc.status = "PROCESSING";
+    doc.stage = "PARSING";
+    doc.stageLabel = "文档解析";
+    doc.progress = 5;
+    simulatePipeline(doc);
+    return { version: { version: targetVersion }, index_task: { task_id: Date.now(), stage: "PENDING", progress_percent: 0 } };
+  }
+  const response = await fetch(api.restoreVersion(doc.id, sourceVersion), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ expected_current_version: doc.version }),
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.detail || `恢复失败：${response.status}`);
+  }
+  return response.json();
+}
+
+async function openVersionHistoryModal(doc) {
+  document.body.insertAdjacentHTML("beforeend", versionHistoryModalMarkup(doc));
+  const modal = document.getElementById("versionHistoryModal");
+  const listeners = new AbortController();
+  const options = { signal: listeners.signal };
+  const close = () => {
+    listeners.abort();
+    modal.remove();
+  };
+  document.getElementById("closeVersionHistory").addEventListener("click", close, options);
+  document.getElementById("doneVersionHistory").addEventListener("click", close, options);
+  modal.addEventListener("click", (event) => { if (event.target === modal) close(); }, options);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.getElementById("versionHistoryModal")) close();
+  }, options);
+  try {
+    renderVersionHistory(await fetchDocumentVersions(doc));
+  } catch (error) {
+    document.getElementById("versionHistoryList").innerHTML = `<div class="version-history-empty">${escapeHtml(error.message)}</div>`;
+    return;
+  }
+  document.getElementById("versionHistoryList").addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-restore-version]");
+    if (!button) return;
+    const sourceVersion = Number(button.dataset.restoreVersion);
+    if (!window.confirm(`确认基于 V${sourceVersion} 创建一个新的正式候选版本吗？当前 V${doc.version} 在处理完成前仍可使用。`)) return;
+    button.disabled = true;
+    button.textContent = "正在创建…";
+    try {
+      const payload = await submitVersionRestore(doc, sourceVersion);
+      const task = payload.index_task;
+      doc.pendingVersion = payload.version.version;
+      doc.taskType = "RESTORE";
+      doc.taskId = task.task_id;
+      doc.status = "PROCESSING";
+      doc.stage = task.stage;
+      doc.stageLabel = stageLabels[task.stage] || task.stage;
+      doc.progress = task.progress_percent;
+      close();
+      renderDocuments();
+      showToast("恢复任务已提交", `正在基于 V${sourceVersion} 创建 V${doc.pendingVersion}，V${doc.version} 仍可检索`);
+      if (!DEMO_MODE) pollIndexTask(task.task_id, doc.id);
+    } catch (error) {
+      showToast("历史版本恢复失败", error.message);
+      button.disabled = false;
+      button.textContent = "恢复此版本";
+    }
+  }, options);
+}
+
+function openCreateKnowledgeBaseModal() {
+  document.body.insertAdjacentHTML("beforeend", createKnowledgeBaseModalMarkup());
+  const modal = document.getElementById("createKbModal");
+  const form = document.getElementById("createKbForm");
+  const nameInput = document.getElementById("kbName");
+  const listeners = new AbortController();
+  const options = { signal: listeners.signal };
+  const close = () => {
+    listeners.abort();
+    modal.remove();
+  };
+
+  document.getElementById("closeCreateKb").addEventListener("click", close, options);
+  document.getElementById("cancelCreateKb").addEventListener("click", close, options);
+  modal.addEventListener("click", (event) => { if (event.target === modal) close(); }, options);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.getElementById("createKbModal")) close();
+  }, options);
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = document.getElementById("submitCreateKb");
+    const name = nameInput.value.trim();
+    if (!name) {
+      nameInput.focus();
+      return;
+    }
+    button.disabled = true;
+    button.textContent = "正在创建…";
+    try {
+      const created = await createKnowledgeBase({
+        name,
+        description: document.getElementById("kbDescription").value.trim() || null,
+        is_public: document.getElementById("kbIsPublic").checked,
+      });
+      close();
+      renderKnowledgeBaseOptions();
+      const retrievalSelect = document.getElementById("kbSelect");
+      if (retrievalSelect) retrievalSelect.value = String(created.id);
+      showToast("知识库创建成功", `${created.name} 已可用于上传和召回`);
+    } catch (error) {
+      showToast("知识库创建失败", error.message);
+      button.disabled = false;
+      button.textContent = "创建知识库";
+    }
+  }, options);
+  window.setTimeout(() => nameInput.focus(), 0);
+}
+
+async function createKnowledgeBase(values) {
+  if (DEMO_MODE) {
+    await new Promise((resolve) => window.setTimeout(resolve, 360));
+    const created = {
+      id: Math.max(0, ...state.knowledgeBases.map((item) => item.id)) + 1,
+      ...values,
+      department_id: "ADMIN",
+      created_by: 1,
+      created_at: new Date().toISOString(),
+      document_count: 0,
+    };
+    state.knowledgeBases.unshift(created);
+    return created;
+  }
+
+  const response = await fetch(api.knowledgeBases, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.detail || `创建失败：${response.status}`);
+  }
+  const created = await response.json();
+  state.knowledgeBases.unshift(created);
+  return created;
 }
 
 function modalMarkup() {
@@ -508,8 +890,6 @@ async function submitUpload() {
     const form = new FormData();
     state.selectedFiles.forEach((file) => form.append("files", file));
     form.append("kb_id", selectedKbId);
-    // 认证模块接入前使用测试用户 1；正式环境应由服务端从 JWT 获取用户 ID。
-    form.append("uploaded_by", "1");
     const response = await fetch(api.upload, { method: "POST", body: form });
     if (!response.ok) {
       const error = await response.json().catch(() => null);
@@ -562,7 +942,8 @@ async function pollIndexTask(taskId, documentId) {
       const task = await response.json();
       const doc = documents.find((item) => item.id === documentId);
       if (!doc) return;
-      doc.status = task.status;
+      doc.status = ["PENDING", "PROCESSING"].includes(task.status) ? "PROCESSING" : task.status;
+      if (["UPDATE", "RESTORE", "REINDEX"].includes(task.task_type) && task.status === "FAILED" && doc.activeAvailable) doc.status = "UPDATE_FAILED";
       doc.stage = task.stage;
       doc.stageLabel = stageLabels[task.stage] || task.stage;
       doc.progress = task.progress_percent;
@@ -571,8 +952,12 @@ async function pollIndexTask(taskId, documentId) {
       renderDocuments();
       document.getElementById("processingCount").textContent = documents.filter((item) => item.status === "PROCESSING" || item.status === "PENDING").length;
       if (["DONE", "FAILED", "CANCELED"].includes(task.status)) {
-        if (task.status === "DONE") showToast("文档索引完成", `${doc.name} 已生成 ${task.total_chunks} 个向量分块`);
-        if (task.status === "FAILED") showToast("文档索引失败", task.error_msg || doc.name);
+        if (task.status === "DONE") {
+          const hitRate = task.total_chunks ? Math.round(task.cache_hit_chunks * 100 / task.total_chunks) : 0;
+          showToast("文档索引完成", `${doc.name} 已生成 ${task.total_chunks} 个分块，向量缓存命中 ${hitRate}%`);
+          await loadDocuments();
+        }
+        if (task.status === "FAILED") showToast(["UPDATE", "RESTORE", "REINDEX"].includes(task.task_type) ? "候选版本处理失败，旧版本仍可用" : "文档索引失败", task.error_msg || doc.name);
         return;
       }
     } catch {
@@ -630,6 +1015,35 @@ function simulatePipeline(doc, delay = 0) {
     Object.assign(doc, next);
     if (next.stage === "DONE") {
       doc.status = "DONE";
+      if (["UPDATE", "RESTORE", "REINDEX"].includes(doc.taskType) && doc.pendingVersion) {
+        if (doc.taskType === "RESTORE" && doc.history) {
+          doc.history.forEach((item) => {
+            item.is_current = false;
+            item.can_restore = item.status === "READY";
+          });
+          doc.history.unshift({
+            version: doc.pendingVersion,
+            file_name: doc.pendingFileName || doc.name,
+            file_size: doc.pendingFileSizeBytes || 1024,
+            status: "READY",
+            operation_type: "RESTORE",
+            source_version: doc.pendingSourceVersion,
+            created_at: new Date().toISOString(),
+            indexed_at: new Date().toISOString(),
+            error_msg: null,
+            uploaded_by: 1,
+            is_current: true,
+            can_restore: false,
+          });
+        }
+        doc.version = doc.pendingVersion;
+        doc.pendingVersion = null;
+        doc.pendingSourceVersion = null;
+        doc.pendingFileSizeBytes = null;
+        doc.name = doc.pendingFileName || doc.name;
+        doc.size = doc.pendingFileSize || doc.size;
+        doc.activeAvailable = true;
+      }
       doc.chunks = 28 + Math.floor(Math.random() * 45);
       doc.updated = "刚刚";
       const processing = documents.filter((item) => item.status === "PROCESSING").length;
@@ -704,6 +1118,7 @@ async function runRetrieval() {
 }
 
 document.querySelectorAll(".nav-item").forEach((item) => item.addEventListener("click", () => switchView(item.dataset.view)));
+document.getElementById("openCreateKb").addEventListener("click", openCreateKnowledgeBaseModal);
 document.getElementById("openUpload").addEventListener("click", openUploadModal);
 document.getElementById("runRetrieval").addEventListener("click", runRetrieval);
 els.search.addEventListener("input", renderDocuments);
@@ -720,11 +1135,19 @@ els.question.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.key === "Enter") runRetrieval();
 });
 els.rows.addEventListener("click", (event) => {
-  const button = event.target.closest('[data-action="inspect"]');
+  const button = event.target.closest("[data-action]");
   if (!button) return;
   const row = button.closest("tr");
   const doc = documents.find((item) => item.id === Number(row.dataset.documentId));
-  if (doc?.status === "DONE") {
+  if (button.dataset.action === "history") {
+    if (doc) openVersionHistoryModal(doc);
+    return;
+  }
+  if (button.dataset.action === "update") {
+    if (doc && doc.status !== "PROCESSING") openUpdateDocumentModal(doc);
+    return;
+  }
+  if (doc?.activeAvailable || doc?.status === "DONE") {
     switchView("retrieval");
     showToast("已限定测试范围", `将优先查看 ${doc.name} 的召回结果`);
   } else {

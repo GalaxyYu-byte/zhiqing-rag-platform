@@ -1,6 +1,6 @@
 from sqlalchemy import CheckConstraint, UniqueConstraint
 
-from zq_rag_app.models.document import DocChunk, IndexTask
+from zq_rag_app.models.document import DocChunk, DocumentVersion, IndexTask
 from zq_rag_app.services.document_service import (
     DocumentIndexService,
     is_retryable_index_exception,
@@ -32,6 +32,27 @@ def test_task_progress_has_database_check_constraint() -> None:
         constraint.name == "ck_task_progress_percent"
         for constraint in checks
     )
+
+
+def test_document_version_is_unique_per_document() -> None:
+    constraints = [
+        constraint
+        for constraint in DocumentVersion.__table__.constraints
+        if isinstance(constraint, UniqueConstraint)
+    ]
+    assert any(
+        [column.name for column in constraint.columns] == ["doc_id", "version"]
+        for constraint in constraints
+    )
+
+
+def test_document_version_records_restore_origin() -> None:
+    assert DocumentVersion.__table__.c.operation_type.nullable is False
+    assert DocumentVersion.__table__.c.source_version.nullable is True
+
+
+def test_index_task_records_target_document_version() -> None:
+    assert IndexTask.__table__.c.doc_version.nullable is False
 
 
 def test_retry_classification_only_accepts_transient_io() -> None:

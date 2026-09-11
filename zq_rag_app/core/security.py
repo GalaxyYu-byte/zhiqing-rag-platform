@@ -1,49 +1,85 @@
-"""当前请求用户上下文。"""
+"""当前请求的用户上下文与 FastAPI 登录态依赖。"""
 
 from contextvars import ContextVar, Token
 from dataclasses import dataclass
+from typing import Annotated
+
+from fastapi import Depends, HTTPException, status
 
 
-# ContextVar 用于存储当前请求的用户上下文信息，支持异步环境下的上下文隔离。
 @dataclass(frozen=True, slots=True)
 class UserContext:
-    """当前用户的最小权限信息。"""
+    """业务接口需要使用的当前用户信息。"""
 
     user_id: int
+    username: str
     department_id: str
     role: str
 
-# ContextVar 用于存储当前请求的用户上下文信息，支持异步环境下的上下文隔离。
+
+# 认证系统接入前统一使用这个管理员账号。后续只需替换请求中间件中的用户解析，
+# 下游接口和权限服务无需改动。
+DEFAULT_ADMIN_USER = UserContext(
+    user_id=1,
+    username="admin",
+    department_id="ADMIN",
+    role="ADMIN",
+)
+
 _current_user: ContextVar[UserContext | None] = ContextVar(
     "current_user",
     default=None,
 )
 
-# ContextVar 是 Python 3.7 引入的一个类，用于在异步任务中存储和管理上下文变量。它允许在不同的协程或线程中保持独立的上下文状态，从而避免数据冲突和共享问题。在 FastAPI 等异步框架中，ContextVar 常用于存储请求相关的信息，如当前用户、请求 ID 等，以便在整个请求处理过程中访问这些信息。
-def set_user_context(
-    user_id: int,
-    department_id: str,
-    role: str,
-) -> Token[UserContext | None]:
-    """设置当前用户，并返回用于恢复上下文的 token。"""
 
-    return _current_user.set(
-        UserContext(
+def set_user_context(
+    user_id: int | UserContext,
+    department_id: str | None = None,
+    role: str | None = None,
+    username: str | None = None,
+) -> Token[UserContext | None]:
+    """把用户绑定到当前请求上下文。
+
+    同时兼容原有的 ``set_user_context(user_id, department_id, role)`` 调用方式。
+    """
+
+    if isinstance(user_id, UserContext):
+        user = user_id
+    else:
+        if department_id is None or role is None:
+            raise ValueError("department_id 和 role 不能为空")
+        user = UserContext(
             user_id=user_id,
+            username=username or str(user_id),
             department_id=department_id,
             role=role,
         )
-    )
+    return _current_user.set(user)
 
-# ContextVar.set() 方法用于设置当前上下文变量的值，并返回一个 Token 对象。这个 Token 对象可以在之后用于恢复上下文变量的先前状态。通过使用 Token，可以在异步任务中安全地修改和恢复上下文变量，确保不同协程或线程之间的上下文隔离，从而避免数据冲突和共享问题。在 FastAPI 等异步框架中，这种机制常用于管理请求相关的信息，如当前用户、请求 ID 等。
+
 def get_user_context() -> UserContext | None:
-    """获取当前用户；未认证时返回 None。"""
+    """获取当前请求用户；请求尚未绑定登录态时返回 ``None``。"""
 
     return _current_user.get()
 
 
+def require_current_user() -> UserContext:
+    """FastAPI 依赖：返回当前用户，缺少登录态时返回 401。"""
+
+    user = get_user_context()
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="用户未登录",
+        )
+    return user
+
+
+CurrentUser = Annotated[UserContext, Depends(require_current_user)]
+
+
 def clear_user_context(token: Token[UserContext | None] | None = None) -> None:
-    """清理当前用户上下文。"""
+    """清理当前用户；传入 token 时恢复绑定前的上下文。"""
 
     if token is None:
         _current_user.set(None)
@@ -52,28 +88,22 @@ def clear_user_context(token: Token[UserContext | None] | None = None) -> None:
 
 
 def get_user_id() -> int | None:
-    """获取当前用户 ID。"""
-
     user = get_user_context()
     return user.user_id if user else None
 
 
 def get_department_id() -> str | None:
-    """获取当前用户部门 ID。"""
-
     user = get_user_context()
     return user.department_id if user else None
 
 
 def get_role() -> str | None:
-    """获取当前用户角色。"""
-
     user = get_user_context()
     return user.role if user else None
 
 
-def is_admin() -> bool:
-    """判断当前用户是否为管理员。"""
+def is_admin(user: UserContext | None = None) -> bool:
+    """判断指定用户或当前请求用户是否为管理员。"""
 
-    role = get_role()
-    return role is not None and role.upper() == "ADMIN"
+    target = user or get_user_context()
+    return target is not None and target.role.upper() == "ADMIN"

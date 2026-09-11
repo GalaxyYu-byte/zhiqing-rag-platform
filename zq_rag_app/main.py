@@ -6,9 +6,10 @@ import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Request, Response
 from fastapi.staticfiles import StaticFiles
 
+from .api.auth import router as auth_router
 from .api.document import router as document_router
 from .api.knowledge_base import router as knowledge_base_router
 from .api.retrieval import router as retrieval_router
@@ -17,6 +18,7 @@ from .core.database import close_database
 from .core.executor import shutdown_index_executor
 from .core.minio import ensure_bucket, ping_minio
 from .core.redis import close_redis, ping_redis
+from .core.security import DEFAULT_ADMIN_USER, clear_user_context, set_user_context
 from .core.task_queue import close_task_queue
 
 
@@ -47,9 +49,22 @@ app = FastAPI(
     title=settings.app_name,
     lifespan=lifespan,
 )
+app.include_router(auth_router)
 app.include_router(document_router)
 app.include_router(knowledge_base_router)
 app.include_router(retrieval_router)
+
+
+@app.middleware("http")
+async def bind_current_user(request: Request, call_next):
+    """认证模块接入前，为每个请求绑定固定的管理员登录态。"""
+
+    token = set_user_context(DEFAULT_ADMIN_USER)
+    request.state.current_user = DEFAULT_ADMIN_USER
+    try:
+        return await call_next(request)
+    finally:
+        clear_user_context(token)
 
 
 @app.get("/health")
