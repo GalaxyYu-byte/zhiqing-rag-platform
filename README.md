@@ -146,3 +146,53 @@ Embedding 缓存连接异常时会主动清理旧连接并降级直调模型；A
 启动 API 后访问 `http://localhost:8000/`，可使用文档异步处理与余弦向量召回测试页面。页面默认连接真实的上传、文档列表和召回接口；使用 `http://localhost:8000/?demo=1` 可查看无需基础设施的演示数据。
 
 前后端接口约定、异步阶段和余弦查询 SQL 见 [`docs/frontend-integration.md`](docs/frontend-integration.md)。
+
+## 检索离线评估
+
+评估语料默认读取 `qa-docs/manifest.csv`，Golden Dataset 默认读取
+`qa-docs/qa_ground_truth.jsonl`。先验证目标文档及当前版本 Chunk：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_dense_eval.py --kb-id 4 --stats-only
+```
+
+再以 manifest 中的固定文档集合运行 Dense 余弦检索基线：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_dense_eval.py --kb-id 4 --top-k 20 --min-score 0
+```
+
+若 PostgreSQL 已安装 `pg_search` 并创建 `idx_chunk_bm25` 索引，可用同一套
+盲测输入和 Gold 标签运行 ParadeDB BM25 基线：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_bm25_eval.py --kb-id 4 --top-k 20
+```
+
+运行 Dense + BM25 分数归一化加权并叠加 RRF 的混合检索：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_hybrid_rrf_eval.py --kb-id 4 --top-k 20 --candidate-k 50 --dense-weight 0.5 --bm25-weight 0.5 --rrf-weight 0.5 --rrf-k 60
+```
+
+混合检索先对两路候选分数分别做 Min-Max 归一化，再按 Dense/BM25 权重
+合成分数；该分数与归一化加权 RRF 分数按 `rrf-weight` 组合。逐题明细会
+保留两路原始分数、原始排名和融合过程分数。
+
+在融合结果后增加 `gte-rerank-v2` 精排（融合 Top-30 精排为 Top-20）：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_hybrid_reranker_eval.py --kb-id 4 --top-k 20 --candidate-k 50 --rerank-candidate-k 30 --dense-weight 0.5 --bm25-weight 0.5 --rrf-weight 0.5 --rrf-k 60 --reranker-timeout-ms 10000
+```
+
+精排请求只包含问题与召回 Chunk 正文。评估脚本使用 `RERANKER_ENDPOINT`、
+`RERANKER_MODEL` 和现有 `DASHSCOPE_API_KEY`，不会把 Gold 标签发送给模型。
+
+脚本会批量生成 Query Embedding，并输出 `summary.json`、
+`per-question.jsonl`、`blind-retrieval-input.jsonl`、
+`gold-chunk-map.jsonl` 和 `report.md`。检索阶段只使用 `question_id` 和
+`question`，完成全部召回后才读取 Gold 字段评分：文档级指标按
+`source_files` 计算，Chunk 级指标按来源文件中的关键词/位置证据 Chunk 组
+计算。报告记录 manifest 与 Golden Dataset 的 SHA256，便于后续方案使用
+完全相同的数据集。`no_answer` 与 `permission` 问题不计入召回指标，需要在
+回答层和 ACL 层单独评估。

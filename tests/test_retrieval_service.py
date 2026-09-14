@@ -2,7 +2,10 @@ from types import SimpleNamespace
 
 import pytest
 
-from zq_rag_app.services.retrieval_service import search_by_cosine
+from zq_rag_app.services.retrieval_service import (
+    search_by_cosine,
+    search_by_cosine_vector,
+)
 
 
 class _FakeEmbeddingService:
@@ -93,4 +96,38 @@ async def test_cosine_retrieval_rejects_invalid_parameters():
             top_k=0,
             min_score=0.5,
             embedding_service=_FakeEmbeddingService(),
+        )
+
+
+@pytest.mark.asyncio
+async def test_cosine_vector_retrieval_can_limit_documents():
+    session = _FakeSession()
+
+    await search_by_cosine_vector(
+        session,
+        query="年假有几天？",
+        query_vector=[0.1, 0.2, 0.3],
+        kb_ids=[1],
+        doc_ids=[9, 7, 9],
+        top_k=5,
+        min_score=0.0,
+        embedding_model="test-embedding",
+        dimensions=3,
+    )
+
+    assert "kb_doc_chunk.doc_id" in str(session.statement)
+
+
+@pytest.mark.asyncio
+async def test_cosine_vector_retrieval_rejects_wrong_dimensions():
+    with pytest.raises(ValueError, match="维度"):
+        await search_by_cosine_vector(
+            _FakeSession(),
+            query="测试",
+            query_vector=[0.1, 0.2],
+            kb_ids=[1],
+            top_k=5,
+            min_score=0.0,
+            embedding_model="test-embedding",
+            dimensions=3,
         )

@@ -110,6 +110,18 @@ class Settings(BaseSettings):
     minio_bucket: str = "rag-documents"
 
     # ============================================================
+    # Neo4j 图数据库
+    # ============================================================
+
+    # 密码为空时仅表示尚未启用图谱；驱动采用懒加载，不会在导入配置时连接服务器。
+    neo4j_uri: str = "bolt://localhost:7687"
+    neo4j_username: str = "neo4j"
+    neo4j_password: str = ""
+    neo4j_database: str = "neo4j"
+    neo4j_max_connection_pool_size: int = 50
+    neo4j_connection_timeout_seconds: float = 15.0
+
+    # ============================================================
     # Reranker
     # ============================================================
 

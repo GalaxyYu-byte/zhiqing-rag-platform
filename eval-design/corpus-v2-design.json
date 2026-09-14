@@ -1,0 +1,1017 @@
+﻿{
+  "schema_version": "corpus-v2",
+  "corpus": "华曜智联科技有限公司企业知识库离线评估语料",
+  "baseline": {
+    "existing_business_documents": 15,
+    "existing_chunks": 114,
+    "source": "qa-docs/manifest.csv 与项目默认清洗分块流程"
+  },
+  "requirements": {
+    "new_documents": 24,
+    "id_range": [
+      "DOC-016",
+      "DOC-039"
+    ],
+    "format_counts": {
+      "DOCX": 6,
+      "PDF": 5,
+      "Markdown": 5,
+      "TXT": 4,
+      "Excel": 4
+    },
+    "ordinary_document_target_chars": [
+      2500,
+      5000
+    ],
+    "excel_rows_target": [
+      40,
+      100
+    ],
+    "chunk_target_total": [
+      300,
+      500
+    ]
+  },
+  "design_principles": [
+    "每份新文档与既有语料共享主题词，但改变年份、版本、状态、部门、范围、系统或根因。",
+    "数字只在合理的业务上下文中出现，并通过适用范围、环境或状态约束其解释。",
+    "新文档正文不写入评估题编号、答案提示和生成过程说明。",
+    "manifest.csv 是文档级元数据唯一来源，README、manifest、答案文件和设计文件不进入业务检索库。"
+  ],
+  "documents": [
+    {
+      "document_id": "DOC-016",
+      "file_name": "2024年度差旅与费用报销办法_V3.0_历史.docx",
+      "title": "2024年度差旅与费用报销办法",
+      "format": "DOCX",
+      "department": "财务中心",
+      "version": "V3.0",
+      "status": "已废止",
+      "confidentiality": "内部公开",
+      "effective_date": "2024-01-01",
+      "tags": "差旅|报销|住宿标准|历史版本",
+      "similar_documents": [
+        "DOC-004",
+        "DOC-005"
+      ],
+      "design_purpose": "增加差旅制度的年度与版本层级，保留旧年度口径供历史追溯。",
+      "confusion_points": "一线城市住宿标准为580元，容易与2025年的550元和2026年的600元混淆；文件明确仅适用于2024年发生费用。",
+      "evaluation_coverage": [
+        "版本治理",
+        "日期边界",
+        "数字辨析"
+      ],
+      "validation": {
+        "document_id": "DOC-016",
+        "file_name": "2024年度差旅与费用报销办法_V3.0_历史.docx",
+        "format": "DOCX",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2611,
+        "tokens": 2630,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-017",
+      "file_name": "2026年度差旅制度实施解读_征求意见稿.docx",
+      "title": "2026年度差旅制度实施解读（征求意见稿）",
+      "format": "DOCX",
+      "department": "财务中心",
+      "version": "V0.6",
+      "status": "征求意见稿",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-02-10",
+      "tags": "差旅|报销|住宿标准|征求意见",
+      "similar_documents": [
+        "DOC-004",
+        "DOC-009"
+      ],
+      "design_purpose": "提供与生效制度相似的培训解读稿，测试状态字段和正文适用范围识别。",
+      "confusion_points": "解读稿讨论过650元建议值，但未获批准，不得替代V4.0生效制度。",
+      "evaluation_coverage": [
+        "草案与生效版",
+        "相近金额",
+        "部门制度边界"
+      ],
+      "validation": {
+        "document_id": "DOC-017",
+        "file_name": "2026年度差旅制度实施解读_征求意见稿.docx",
+        "format": "DOCX",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2625,
+        "tokens": 2790,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-018",
+      "file_name": "海外差旅费用标准与审批细则_V2.0.docx",
+      "title": "海外差旅费用标准与审批细则",
+      "format": "DOCX",
+      "department": "财务中心",
+      "version": "V2.0",
+      "status": "生效",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-06-01",
+      "tags": "海外差旅|住宿|外币|报销|审批",
+      "similar_documents": [
+        "DOC-004",
+        "DOC-005"
+      ],
+      "design_purpose": "扩展差旅主题到海外场景，区分币种、国家等级与国内一线城市标准。",
+      "confusion_points": "境外住宿使用美元分档和当地货币折算，不适用国内600元标准；海外紧急预订需补充审批。",
+      "evaluation_coverage": [
+        "适用范围",
+        "金额单位",
+        "审批链"
+      ],
+      "validation": {
+        "document_id": "DOC-018",
+        "file_name": "海外差旅费用标准与审批细则_V2.0.docx",
+        "format": "DOCX",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2723,
+        "tokens": 2931,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-019",
+      "file_name": "客户招待费用管理制度_V1.2.docx",
+      "title": "客户招待费用管理制度",
+      "format": "DOCX",
+      "department": "财务中心",
+      "version": "V1.2",
+      "status": "生效",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-05-15",
+      "tags": "客户招待|费用|报销|审批|预算",
+      "similar_documents": [
+        "DOC-004",
+        "DOC-009"
+      ],
+      "design_purpose": "构造与差旅报销共享关键词但适用对象不同的费用制度。",
+      "confusion_points": "工作餐、客户礼品和会务费用使用人均或单次限额，580元仅出现在客户活动场地预算示例，不是住宿标准。",
+      "evaluation_coverage": [
+        "主题相似度",
+        "数字语境",
+        "费用类别"
+      ],
+      "validation": {
+        "document_id": "DOC-019",
+        "file_name": "客户招待费用管理制度_V1.2.docx",
+        "format": "DOCX",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2557,
+        "tokens": 2634,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-020",
+      "file_name": "研发生产权限制度_V1.0.docx",
+      "title": "研发生产权限制度",
+      "format": "DOCX",
+      "department": "研发中心",
+      "version": "V1.0",
+      "status": "生效",
+      "confidentiality": "机密",
+      "effective_date": "2026-08-22",
+      "tags": "研发|生产访问|权限|审批|MFA",
+      "similar_documents": [
+        "DOC-002",
+        "DOC-012"
+      ],
+      "design_purpose": "区分研发团队的生产发布权限与通用信息安全规范，测试部门和环境范围。",
+      "confusion_points": "测试环境临时权限可按发布窗口授予8小时，生产临时访问仍受信息安全规范的4小时默认值约束。",
+      "evaluation_coverage": [
+        "部门范围",
+        "环境范围",
+        "权限数字"
+      ],
+      "validation": {
+        "document_id": "DOC-020",
+        "file_name": "研发生产权限制度_V1.0.docx",
+        "format": "DOCX",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2566,
+        "tokens": 2598,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-021",
+      "file_name": "运维应急访问补充规定_草案.docx",
+      "title": "运维应急访问补充规定",
+      "format": "DOCX",
+      "department": "SRE",
+      "version": "V0.8",
+      "status": "草案",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-08-30",
+      "tags": "运维|应急访问|临时权限|审计|草案",
+      "similar_documents": [
+        "DOC-002",
+        "DOC-008",
+        "DOC-014"
+      ],
+      "design_purpose": "增加运维 break-glass 场景，测试草案状态、紧急例外和默认规则的区分。",
+      "confusion_points": "草案建议单次应急会话最长2小时，仅针对紧急例外；它没有改变生效规范中的4小时默认期限。",
+      "evaluation_coverage": [
+        "状态优先级",
+        "例外规则",
+        "权限审计"
+      ],
+      "validation": {
+        "document_id": "DOC-021",
+        "file_name": "运维应急访问补充规定_草案.docx",
+        "format": "DOCX",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2519,
+        "tokens": 2586,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-022",
+      "file_name": "市内交通补贴管理办法_V2.0.pdf",
+      "title": "市内交通补贴管理办法",
+      "format": "PDF",
+      "department": "财务中心",
+      "version": "V2.0",
+      "status": "生效",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-04-01",
+      "tags": "市内交通|补贴|报销|差旅|财务",
+      "similar_documents": [
+        "DOC-004",
+        "DOC-015"
+      ],
+      "design_purpose": "覆盖与差旅相邻但不等同的市内交通补贴制度，测试适用范围。",
+      "confusion_points": "市内交通按工作日和出行凭证计算，日上限与住宿标准无关；出差城市住宿政策不由本办法调整。",
+      "evaluation_coverage": [
+        "部门制度干扰",
+        "金额字段",
+        "适用范围"
+      ],
+      "validation": {
+        "document_id": "DOC-022",
+        "file_name": "市内交通补贴管理办法_V2.0.pdf",
+        "format": "PDF",
+        "exists": true,
+        "parsed_blocks": 2,
+        "chunks": 8,
+        "chars": 2567,
+        "tokens": 2891,
+        "replacement_characters": 0,
+        "page_count": 2,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-023",
+      "file_name": "2025差旅标准修订说明_征求意见稿.pdf",
+      "title": "2025年差旅标准修订说明",
+      "format": "PDF",
+      "department": "财务中心",
+      "version": "V0.7",
+      "status": "征求意见稿",
+      "confidentiality": "内部公开",
+      "effective_date": "2025-06-18",
+      "tags": "差旅|住宿标准|修订|征求意见",
+      "similar_documents": [
+        "DOC-004",
+        "DOC-005",
+        "DOC-017"
+      ],
+      "design_purpose": "加入年度制度修订稿和相近数值，测试文档状态、发布日和生效日的识别。",
+      "confusion_points": "稿件曾讨论将一线城市标准调整为580元，但未形成正式制度，且只针对2025年意见征集。",
+      "evaluation_coverage": [
+        "修订状态",
+        "时间边界",
+        "相近数字"
+      ],
+      "validation": {
+        "document_id": "DOC-023",
+        "file_name": "2025差旅标准修订说明_征求意见稿.pdf",
+        "format": "PDF",
+        "exists": true,
+        "parsed_blocks": 2,
+        "chunks": 8,
+        "chars": 2567,
+        "tokens": 2902,
+        "replacement_characters": 0,
+        "page_count": 2,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-024",
+      "file_name": "Aurora-KB早期上线计划_V0.8_已归档.pdf",
+      "title": "Aurora-KB早期上线计划",
+      "format": "PDF",
+      "department": "AI平台部",
+      "version": "V0.8",
+      "status": "已归档",
+      "confidentiality": "机密",
+      "effective_date": "2026-08-28",
+      "tags": "Aurora-KB|上线日期|里程碑|项目计划",
+      "similar_documents": [
+        "DOC-006",
+        "DOC-013",
+        "DOC-011"
+      ],
+      "design_purpose": "加入多个已归档上线计划，测试日期、状态和最新会议结论的排序。",
+      "confusion_points": "早期计划记录2026-09-20试运行和2026-09-25正式切换，均被后续周会决定取代。",
+      "evaluation_coverage": [
+        "日期冲突",
+        "历史计划",
+        "多跳时间线"
+      ],
+      "validation": {
+        "document_id": "DOC-024",
+        "file_name": "Aurora-KB早期上线计划_V0.8_已归档.pdf",
+        "format": "PDF",
+        "exists": true,
+        "parsed_blocks": 2,
+        "chunks": 8,
+        "chars": 2706,
+        "tokens": 2850,
+        "replacement_characters": 0,
+        "page_count": 2,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-025",
+      "file_name": "Aurora-KB质量验收补充报告_V1.1.pdf",
+      "title": "Aurora-KB质量验收补充报告",
+      "format": "PDF",
+      "department": "AI平台部",
+      "version": "V1.1",
+      "status": "已归档",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-08-31",
+      "tags": "Aurora-KB|Recall@20|MRR|验收|RRF|Reranker",
+      "similar_documents": [
+        "DOC-006",
+        "DOC-007",
+        "DOC-013"
+      ],
+      "design_purpose": "增加不同测试集和环境下的相近质量指标，测试指标上下文绑定。",
+      "confusion_points": "预发布回归集的Recall@20为0.89、MRR为0.74，属于验收前快照，不代表9月周会记录的当前值。",
+      "evaluation_coverage": [
+        "指标语境",
+        "版本状态",
+        "检索链路"
+      ],
+      "validation": {
+        "document_id": "DOC-025",
+        "file_name": "Aurora-KB质量验收补充报告_V1.1.pdf",
+        "format": "PDF",
+        "exists": true,
+        "parsed_blocks": 2,
+        "chunks": 8,
+        "chars": 2686,
+        "tokens": 2819,
+        "replacement_characters": 0,
+        "page_count": 2,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-026",
+      "file_name": "知识库网络抖动故障复盘_V1.0.pdf",
+      "title": "知识库网络抖动故障复盘",
+      "format": "PDF",
+      "department": "SRE",
+      "version": "V1.0",
+      "status": "已归档",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-08-26",
+      "tags": "故障复盘|Redis|网络抖动|PostgreSQL|Kubernetes",
+      "similar_documents": [
+        "DOC-003",
+        "DOC-008",
+        "DOC-014"
+      ],
+      "design_purpose": "增加 Redis timeout 的网络根因案例，测试症状相同、根因不同的检索辨析。",
+      "confusion_points": "故障期间 Redis CPU和连接池均正常，跨节点网络重传与MTU不一致导致请求超时，处理动作不是调整连接池。",
+      "evaluation_coverage": [
+        "同症状不同根因",
+        "网络诊断",
+        "故障时间线"
+      ],
+      "validation": {
+        "document_id": "DOC-026",
+        "file_name": "知识库网络抖动故障复盘_V1.0.pdf",
+        "format": "PDF",
+        "exists": true,
+        "parsed_blocks": 2,
+        "chunks": 8,
+        "chars": 2754,
+        "tokens": 2795,
+        "replacement_characters": 0,
+        "page_count": 2,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-027",
+      "file_name": "采购询价工作指引_V3.0.md",
+      "title": "采购询价工作指引",
+      "format": "Markdown",
+      "department": "采购部",
+      "version": "V3.0",
+      "status": "生效",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-03-01",
+      "tags": "采购|询价|供应商|比价|审批",
+      "similar_documents": [
+        "DOC-010",
+        "DOC-015"
+      ],
+      "design_purpose": "扩展采购制度的询价流程，设置低金额与高金额不同的比价要求。",
+      "confusion_points": "金额达到5000元需留存两家有效报价，超过20000元仍按公司规则至少三家比价；不能把5000元门槛当成三家门槛。",
+      "evaluation_coverage": [
+        "阈值识别",
+        "采购流程",
+        "规则层级"
+      ],
+      "validation": {
+        "document_id": "DOC-027",
+        "file_name": "采购询价工作指引_V3.0.md",
+        "format": "Markdown",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2561,
+        "tokens": 2690,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-028",
+      "file_name": "紧急采购豁免办法_V1.0.md",
+      "title": "紧急采购豁免办法",
+      "format": "Markdown",
+      "department": "采购部",
+      "version": "V1.0",
+      "status": "生效",
+      "confidentiality": "机密",
+      "effective_date": "2026-07-15",
+      "tags": "紧急采购|豁免|供应商|比价|事后复核",
+      "similar_documents": [
+        "DOC-010",
+        "DOC-015",
+        "DOC-027"
+      ],
+      "design_purpose": "构造采购比价规则的例外制度，测试条件、状态和事后补证。",
+      "confusion_points": "重大安全事件可先由单一供应商处理，但须在48小时内补齐理由、价格依据和复核记录，普通采购不适用。",
+      "evaluation_coverage": [
+        "例外流程",
+        "条件限定",
+        "权限密级"
+      ],
+      "validation": {
+        "document_id": "DOC-028",
+        "file_name": "紧急采购豁免办法_V1.0.md",
+        "format": "Markdown",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2568,
+        "tokens": 2821,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-029",
+      "file_name": "知识库PostgreSQL连接池故障复盘_V1.0.md",
+      "title": "知识库 PostgreSQL 连接池故障复盘",
+      "format": "Markdown",
+      "department": "数据平台部",
+      "version": "V1.0",
+      "status": "已归档",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-08-24",
+      "tags": "故障复盘|PostgreSQL|连接池|Redis timeout|数据库",
+      "similar_documents": [
+        "DOC-003",
+        "DOC-008",
+        "DOC-026"
+      ],
+      "design_purpose": "补充数据库连接池耗尽案例，测试与 Redis 连接池事故的细粒度区分。",
+      "confusion_points": "应用线程先因PostgreSQL连接池耗尽而阻塞，随后连带出现缓存读取超时；Redis节点指标正常，修复方向是释放长事务并恢复数据库池。",
+      "evaluation_coverage": [
+        "同症状不同根因",
+        "数据库诊断",
+        "因果链"
+      ],
+      "validation": {
+        "document_id": "DOC-029",
+        "file_name": "知识库PostgreSQL连接池故障复盘_V1.0.md",
+        "format": "Markdown",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2956,
+        "tokens": 2847,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-030",
+      "file_name": "Kubernetes节点资源异常处置手册_V2.0.md",
+      "title": "Kubernetes 节点资源异常处置手册",
+      "format": "Markdown",
+      "department": "SRE",
+      "version": "V2.0",
+      "status": "生效",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-08-12",
+      "tags": "Kubernetes|Redis timeout|CPU|网络|容器驱逐",
+      "similar_documents": [
+        "DOC-008",
+        "DOC-014",
+        "DOC-026"
+      ],
+      "design_purpose": "加入 Kubernetes 节点资源和容器驱逐导致的相似报警，测试基础设施层诊断。",
+      "confusion_points": "节点CPU达到92%且出现容器驱逐时，应先迁移工作负载和检查噪声任务；这与 Redis 服务端容量和客户端连接池都不同。",
+      "evaluation_coverage": [
+        "基础设施诊断",
+        "CPU数字",
+        "处置动作"
+      ],
+      "validation": {
+        "document_id": "DOC-030",
+        "file_name": "Kubernetes节点资源异常处置手册_V2.0.md",
+        "format": "Markdown",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2897,
+        "tokens": 2752,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-031",
+      "file_name": "API检索链路性能基线与变更记录_V2.0.md",
+      "title": "API 检索链路性能基线与变更记录",
+      "format": "Markdown",
+      "department": "AI平台部",
+      "version": "V2.0",
+      "status": "生效",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-08-29",
+      "tags": "Aurora-KB|API|HNSW|BM25|RRF|Reranker|性能",
+      "similar_documents": [
+        "DOC-007",
+        "DOC-006",
+        "DOC-025"
+      ],
+      "design_purpose": "扩展检索链路术语和历史性能基线，测试算法名与指标值绑定。",
+      "confusion_points": "小规模回归集曾记录Recall@20为0.92、MRR为0.78，作为门槛和基线，不等于当前全量评估值0.93和0.79。",
+      "evaluation_coverage": [
+        "指标与环境",
+        "检索阶段",
+        "基线版本"
+      ],
+      "validation": {
+        "document_id": "DOC-031",
+        "file_name": "API检索链路性能基线与变更记录_V2.0.md",
+        "format": "Markdown",
+        "exists": true,
+        "parsed_blocks": 10,
+        "chunks": 10,
+        "chars": 2938,
+        "tokens": 2886,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-032",
+      "file_name": "账号生命周期与离职交接操作手册_V4.1.txt",
+      "title": "账号生命周期与离职交接操作手册",
+      "format": "TXT",
+      "department": "信息安全部",
+      "version": "V4.1",
+      "status": "生效",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-08-25",
+      "tags": "账号|离职|外包|权限|MFA|交接",
+      "similar_documents": [
+        "DOC-002",
+        "DOC-009",
+        "DOC-012"
+      ],
+      "design_purpose": "补充账号生命周期和离职交接规则，区分记录保留期、测试账号和生产账号。",
+      "confusion_points": "离职交接记录保留30天是档案保留要求，不是外包账号最长有效期；外包账号仍需遵守90天上限。",
+      "evaluation_coverage": [
+        "期限辨析",
+        "账号生命周期",
+        "术语区分"
+      ],
+      "validation": {
+        "document_id": "DOC-032",
+        "file_name": "账号生命周期与离职交接操作手册_V4.1.txt",
+        "format": "TXT",
+        "exists": true,
+        "parsed_blocks": 1,
+        "chunks": 6,
+        "chars": 2638,
+        "tokens": 2627,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-033",
+      "file_name": "研发效能部项目周报_2026-08-31.txt",
+      "title": "研发效能部项目周报",
+      "format": "TXT",
+      "department": "研发效能部",
+      "version": "V1.0",
+      "status": "已归档",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-08-31",
+      "tags": "Aurora-KB|上线日期|项目周报|质量指标",
+      "similar_documents": [
+        "DOC-006",
+        "DOC-013",
+        "DOC-024"
+      ],
+      "design_purpose": "加入非AI平台部门的历史项目周报，测试来源时点和会议权威性。",
+      "confusion_points": "周报引用的计划日期为2026-09-20，Recall@20为0.92、MRR为0.78，均是8月底项目跟踪口径。",
+      "evaluation_coverage": [
+        "部门来源",
+        "历史时点",
+        "相近指标"
+      ],
+      "validation": {
+        "document_id": "DOC-033",
+        "file_name": "研发效能部项目周报_2026-08-31.txt",
+        "format": "TXT",
+        "exists": true,
+        "parsed_blocks": 1,
+        "chunks": 7,
+        "chars": 2541,
+        "tokens": 2658,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-034",
+      "file_name": "数据平台缓存访问故障处置记录_2026-08-27.txt",
+      "title": "数据平台缓存访问故障处置记录",
+      "format": "TXT",
+      "department": "数据平台部",
+      "version": "V1.0",
+      "status": "已归档",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-08-27",
+      "tags": "故障工单|Redis|网络|连接池|数据平台",
+      "similar_documents": [
+        "DOC-003",
+        "DOC-014",
+        "DOC-026",
+        "DOC-029"
+      ],
+      "design_purpose": "增加数据平台缓存故障的独立事件，测试服务名、日期和根因的绑定。",
+      "confusion_points": "该事件由服务网格重试策略放大网络抖动造成，应用Redis连接池没有从200改到50，恢复动作是降低重试并修复路由。",
+      "evaluation_coverage": [
+        "同症状不同根因",
+        "事件身份",
+        "网络与重试"
+      ],
+      "validation": {
+        "document_id": "DOC-034",
+        "file_name": "数据平台缓存访问故障处置记录_2026-08-27.txt",
+        "format": "TXT",
+        "exists": true,
+        "parsed_blocks": 1,
+        "chunks": 6,
+        "chars": 2522,
+        "tokens": 2601,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-035",
+      "file_name": "财务报销口径变更记录_2026-09.txt",
+      "title": "财务报销口径变更记录",
+      "format": "TXT",
+      "department": "财务中心",
+      "version": "V2.1",
+      "status": "生效",
+      "confidentiality": "内部公开",
+      "effective_date": "2026-09-08",
+      "tags": "报销|差旅|市内交通|客户招待|制度变更",
+      "similar_documents": [
+        "DOC-004",
+        "DOC-018",
+        "DOC-022"
+      ],
+      "design_purpose": "记录财务中心对市内交通、客户招待和海外费用的口径澄清，强化费用类别区分。",
+      "confusion_points": "客户招待场地费用的650元预算示例、市内交通的80元日上限和海外住宿的美元限额，不改变国内一线城市住宿标准。",
+      "evaluation_coverage": [
+        "费用类别",
+        "金额语境",
+        "制度关联"
+      ],
+      "validation": {
+        "document_id": "DOC-035",
+        "file_name": "财务报销口径变更记录_2026-09.txt",
+        "format": "TXT",
+        "exists": true,
+        "parsed_blocks": 1,
+        "chunks": 7,
+        "chars": 2580,
+        "tokens": 2702,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0
+      }
+    },
+    {
+      "document_id": "DOC-036",
+      "file_name": "研发测试账号与权限台账_2026-09.xlsx",
+      "title": "研发测试账号与权限台账",
+      "format": "Excel",
+      "department": "研发中心",
+      "version": "V2026.09",
+      "status": "生效",
+      "confidentiality": "部门内部",
+      "effective_date": "2026-09-05",
+      "tags": "测试账号|研发|权限|外包|MFA|有效期",
+      "similar_documents": [
+        "DOC-002",
+        "DOC-012",
+        "DOC-032"
+      ],
+      "design_purpose": "用多工作表账号记录制造测试环境、生产环境、过期状态和相近有效期的表格干扰。",
+      "confusion_points": "测试账号常见30/60天有效期，少量历史记录出现180天；这些字段不等同于生产临时访问4小时或外包账号90天规则。",
+      "evaluation_coverage": [
+        "表格定位",
+        "日期与布尔值",
+        "账号有效期"
+      ],
+      "validation": {
+        "document_id": "DOC-036",
+        "file_name": "研发测试账号与权限台账_2026-09.xlsx",
+        "format": "Excel",
+        "exists": true,
+        "parsed_blocks": 3,
+        "chunks": 10,
+        "chars": 4590,
+        "tokens": 3805,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0,
+        "excel_rows_by_sheet": {
+          "账号清单": 24,
+          "访问记录": 18,
+          "角色映射": 18
+        },
+        "excel_data_rows": 60
+      }
+    },
+    {
+      "document_id": "DOC-037",
+      "file_name": "2026采购询价比价记录_补充台账.xlsx",
+      "title": "2026采购询价比价记录",
+      "format": "Excel",
+      "department": "采购部",
+      "version": "V2026.09",
+      "status": "生效",
+      "confidentiality": "机密",
+      "effective_date": "2026-09-05",
+      "tags": "采购|询价|供应商|报价|比价|人民币",
+      "similar_documents": [
+        "DOC-010",
+        "DOC-015",
+        "DOC-027"
+      ],
+      "design_purpose": "提供相近采购订单号、供应商名称和金额的多表台账，测试精确表格查找。",
+      "confusion_points": "PO-2026-0904及相邻订单金额接近28800元，供应商名称含近似词，但不覆盖现有采购订单的目标编号。",
+      "evaluation_coverage": [
+        "表格精确匹配",
+        "近似ID",
+        "金额与供应商"
+      ],
+      "validation": {
+        "document_id": "DOC-037",
+        "file_name": "2026采购询价比价记录_补充台账.xlsx",
+        "format": "Excel",
+        "exists": true,
+        "parsed_blocks": 3,
+        "chunks": 9,
+        "chars": 4597,
+        "tokens": 3462,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0,
+        "excel_rows_by_sheet": {
+          "询价总表": 20,
+          "供应商报价": 30,
+          "验收付款": 20
+        },
+        "excel_data_rows": 70
+      }
+    },
+    {
+      "document_id": "DOC-038",
+      "file_name": "2025历史采购报价台账_已结案.xlsx",
+      "title": "2025历史采购报价台账",
+      "format": "Excel",
+      "department": "采购部",
+      "version": "V2025.12",
+      "status": "已归档",
+      "confidentiality": "内部公开",
+      "effective_date": "2025-12-31",
+      "tags": "采购|历史报价|供应商|已结案|年度",
+      "similar_documents": [
+        "DOC-010",
+        "DOC-037"
+      ],
+      "design_purpose": "引入上一年度已结案采购记录，测试年度、状态和同名供应商的过滤。",
+      "confusion_points": "历史报价包含与当前采购相近的订单号和28500至29200元金额，只用于审计追溯，不覆盖2026年有效台账。",
+      "evaluation_coverage": [
+        "年度过滤",
+        "状态治理",
+        "供应商同名"
+      ],
+      "validation": {
+        "document_id": "DOC-038",
+        "file_name": "2025历史采购报价台账_已结案.xlsx",
+        "format": "Excel",
+        "exists": true,
+        "parsed_blocks": 3,
+        "chunks": 9,
+        "chars": 4070,
+        "tokens": 3408,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0,
+        "excel_rows_by_sheet": {
+          "历史订单": 20,
+          "历史报价": 24,
+          "结案复核": 18
+        },
+        "excel_data_rows": 62
+      }
+    },
+    {
+      "document_id": "DOC-039",
+      "file_name": "信息系统权限审计与资产复核台账_2026-09.xlsx",
+      "title": "信息系统权限审计与资产复核台账",
+      "format": "Excel",
+      "department": "信息安全部",
+      "version": "V5.1",
+      "status": "生效",
+      "confidentiality": "机密",
+      "effective_date": "2026-09-08",
+      "tags": "资产|权限|审计|账号|生产访问|MFA",
+      "similar_documents": [
+        "DOC-002",
+        "DOC-012",
+        "DOC-036"
+      ],
+      "design_purpose": "用审计和资产复核表测试重复资产编号、有效状态、日期和布尔字段的联合检索。",
+      "confusion_points": "表内同时存在已过期、待复核和当前有效账号；审计记录的30/60/90/180天是各自账号或历史记录字段，不能脱离系统环境解释。",
+      "evaluation_coverage": [
+        "表格结构",
+        "状态和日期",
+        "权限范围"
+      ],
+      "validation": {
+        "document_id": "DOC-039",
+        "file_name": "信息系统权限审计与资产复核台账_2026-09.xlsx",
+        "format": "Excel",
+        "exists": true,
+        "parsed_blocks": 3,
+        "chunks": 12,
+        "chars": 6268,
+        "tokens": 4721,
+        "replacement_characters": 0,
+        "page_count": 0,
+        "prohibited_hits": [],
+        "cleaning_warning_count": 0,
+        "cleaning_excluded_blocks": 0,
+        "excel_rows_by_sheet": {
+          "资产复核": 22,
+          "权限变更": 24,
+          "账号有效性": 20
+        },
+        "excel_data_rows": 66
+      }
+    }
+  ],
+  "validation": {
+    "status": "passed",
+    "validated_at": "2026-09-14T11:27:11+08:00",
+    "new_documents": 24,
+    "new_chunks": 216,
+    "existing_chunks_baseline": 114,
+    "total_chunks": 330,
+    "format_counts": {
+      "DOCX": 6,
+      "PDF": 5,
+      "Markdown": 5,
+      "TXT": 4,
+      "Excel": 4
+    },
+    "manifest_files_ok": true,
+    "parse_errors": [],
+    "quality_failures": [],
+    "ordinary_length_failures": [],
+    "excel_row_failures": [],
+    "original_15_documents": "not overwritten by generation workflow"
+  }
+}

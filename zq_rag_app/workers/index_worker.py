@@ -23,6 +23,7 @@ if sys.platform == "win32":
 
 from ..core.config import settings
 from ..core.database import close_database
+from ..core.neo4j import close_neo4j
 from ..core.redis import close_redis
 from ..services.document_service import (
     RetryableIndexTaskError,
@@ -91,6 +92,7 @@ async def startup_worker(context: dict[str, Any]) -> None:
 
 async def shutdown_worker(_: dict[str, Any]) -> None:
     await close_redis()
+    await close_neo4j()
     await close_database()
 
 

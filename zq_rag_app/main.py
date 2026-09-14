@@ -17,6 +17,7 @@ from .core.config import settings
 from .core.database import close_database
 from .core.executor import shutdown_index_executor
 from .core.minio import ensure_bucket, ping_minio
+from .core.neo4j import close_neo4j
 from .core.redis import close_redis, ping_redis
 from .core.security import DEFAULT_ADMIN_USER, clear_user_context, set_user_context
 from .core.task_queue import close_task_queue
@@ -40,6 +41,7 @@ async def lifespan(_: FastAPI):
     await asyncio.to_thread(shutdown_index_executor)
     await close_task_queue()
     await close_redis()
+    await close_neo4j()
     await close_database()
 
 
