@@ -71,6 +71,37 @@ async def enqueue_document_index(task_id: int) -> bool:
     return False
 
 
+async def enqueue_graph_index(task_id: int) -> bool:
+    """把图构建任务投递到独立 ARQ 队列，并按固定 Job ID 保持幂等。"""
+
+    queue: ArqRedis | None = None
+    for attempt in range(2):
+        try:
+            queue = await get_task_queue()
+            job = await queue.enqueue_job(
+                "execute_graph_index",
+                task_id,
+                _job_id=f"graph-index:{task_id}",
+                _queue_name=settings.graph_task_queue_name,
+            )
+            return job is not None or attempt > 0
+        except _QUEUE_IO_ERRORS:
+            if attempt > 0:
+                logger.exception(
+                    "ARQ 重连后图任务仍入队失败: task_id=%s",
+                    task_id,
+                )
+                await _discard_task_queue(queue)
+                raise
+            logger.warning(
+                "ARQ 图任务入队连接异常，重建连接后重试: task_id=%s",
+                task_id,
+                exc_info=True,
+            )
+            await _discard_task_queue(queue)
+    return False
+
+
 async def _discard_task_queue(queue: Any | None) -> None:
     """仅清理当前共享的失效客户端，避免并发请求关闭新连接。"""
 

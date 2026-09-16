@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..core.security import UserContext, is_admin
 from ..models.knowledge_base import KnowledgeBase, Permission
+from ..models.document import Document
 
 
 class PermissionLevel(StrEnum):
@@ -71,3 +72,47 @@ async def has_knowledge_base_permission(
         or_(*access_rules),
     )
     return await session.scalar(statement) is not None
+
+
+_CLEARANCE_RANK = {"内部公开": 0, "部门内部": 1, "机密": 2}
+
+
+async def list_accessible_document_ids(
+    session: AsyncSession,
+    *,
+    user: UserContext,
+    kb_ids: list[int],
+    requested_doc_ids: list[int] | None = None,
+) -> list[int]:
+    """返回用户在知识库范围内可检索的活动文档 ID。"""
+
+    normalized_kb_ids = sorted(set(kb_ids))
+    if not normalized_kb_ids:
+        return []
+    filters = [
+        Document.kb_id.in_(normalized_kb_ids),
+        Document.is_deleted.is_(False),
+        Document.status == "DONE",
+    ]
+    if requested_doc_ids is not None:
+        filters.append(Document.id.in_(sorted(set(requested_doc_ids))))
+    if not is_admin(user):
+        clearance = _CLEARANCE_RANK.get(user.clearance, -1)
+        access_rules = [Document.confidentiality == "内部公开"]
+        if clearance >= _CLEARANCE_RANK["部门内部"]:
+            access_rules.append(
+                and_(
+                    Document.department_id == user.department_id,
+                    Document.confidentiality == "部门内部",
+                )
+            )
+        if clearance >= _CLEARANCE_RANK["机密"]:
+            access_rules.append(
+                and_(
+                    Document.department_id == user.department_id,
+                    Document.confidentiality == "机密",
+                )
+            )
+        filters.append(or_(*access_rules))
+    rows = await session.execute(select(Document.id).where(*filters))
+    return sorted({int(row[0]) for row in rows.all()})

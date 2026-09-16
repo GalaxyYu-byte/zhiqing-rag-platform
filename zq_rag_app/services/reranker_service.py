@@ -30,6 +30,9 @@ class RerankedCandidateScore:
     bm25_normalized: float
     normalized_weighted_score: float
     rrf_normalized: float
+    graph_rank: int | None = None
+    graph_score: float | None = None
+    graph_normalized: float = 0.0
 
 
 @dataclass(slots=True, frozen=True)
@@ -189,6 +192,9 @@ class RerankerService:
                     bm25_score=upstream["bm25_score"],
                     dense_normalized=upstream["dense_normalized"],
                     bm25_normalized=upstream["bm25_normalized"],
+                    graph_rank=upstream.get("graph_rank"),
+                    graph_score=upstream.get("graph_score"),
+                    graph_normalized=upstream.get("graph_normalized", 0.0),
                     normalized_weighted_score=upstream[
                         "normalized_weighted_score"
                     ],

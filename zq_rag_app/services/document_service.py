@@ -27,10 +27,12 @@ from ..core.config import settings
 from ..core.database import SessionLocal
 from ..core.executor import submit_index_task
 from ..core.minio import minio_client
+from ..core.task_queue import enqueue_graph_index
 from ..document_processing.chunking import ChunkingConfig, TextChunk
 from ..document_processing.chunking import chunk_cleaned_document
 from ..document_processing.cleaning import clean_parsed_blocks
 from ..models.document import DocChunk, Document, DocumentVersion, IndexTask
+from ..models.graph import GraphTask
 from ..utils.document_parser import parse_document
 from .embedding_service import (
     EmbeddingBatchResult,
@@ -317,7 +319,18 @@ class DocumentIndexService:
 
         heartbeat = asyncio.create_task(self._heartbeat_loop(task_id))
         try:
-            await self._run_pipeline(task_id, document, source_path)
+            graph_task_id = await self._run_pipeline(
+                task_id, document, source_path
+            )
+            if graph_task_id is not None:
+                try:
+                    await enqueue_graph_index(graph_task_id)
+                except Exception:
+                    # 图任务已经持久化，独立队列恢复后可再次幂等投递。
+                    logger.exception(
+                        "图任务入队失败: graph_task_id=%s",
+                        graph_task_id,
+                    )
             return True
         except IndexTaskLeaseLostError:
             logger.warning("索引任务租约已转移，停止当前执行: task_id=%s", task_id)
@@ -339,7 +352,7 @@ class DocumentIndexService:
         task_id: int,
         document: _DocumentSnapshot,
         source_path: str | Path | None,
-    ) -> None:
+    ) -> int | None:
         async with self._materialize_document(document, source_path) as local_path:
             await self._set_stage(task_id, IndexStage.PARSING, 5)
             parsed = await asyncio.to_thread(parse_document, local_path)
@@ -398,7 +411,7 @@ class DocumentIndexService:
                 chunks=chunks,
                 embeddings=embedding_result,
             )
-            await self._complete_task(
+            return await self._complete_task(
                 task_id=task_id,
                 document=document,
                 chunk_count=len(chunks),
@@ -670,7 +683,7 @@ class DocumentIndexService:
         document: _DocumentSnapshot,
         chunk_count: int,
         token_count: int,
-    ) -> None:
+    ) -> int | None:
         now = _utcnow_naive()
         async with self.session_factory() as session:
             task = await session.get(IndexTask, task_id, with_for_update=True)
@@ -733,7 +746,46 @@ class DocumentIndexService:
             db_document.chunk_count = chunk_count
             db_document.token_count = token_count
             db_document.indexed_at = now
+
+            graph_task_id: int | None = None
+            if settings.graph_extraction_enabled:
+                graph_task = await session.scalar(
+                    select(GraphTask).where(
+                        GraphTask.doc_id == document.id,
+                        GraphTask.doc_version == document.version,
+                    )
+                )
+                if graph_task is None:
+                    await session.execute(
+                        update(GraphTask)
+                        .where(
+                            GraphTask.doc_id == document.id,
+                            GraphTask.status.in_(["PENDING", "PROCESSING"]),
+                        )
+                        .values(
+                            status="CANCELED",
+                            stage="CANCELED",
+                            error_msg="文档已有更新版本",
+                            finished_at=now,
+                            lease_expires_at=None,
+                            updated_at=now,
+                        )
+                    )
+                    graph_task = GraphTask(
+                        doc_id=document.id,
+                        kb_id=document.kb_id,
+                        doc_version=document.version,
+                        extractor_version=settings.graph_extractor_version,
+                        status="PENDING",
+                        stage="PENDING",
+                        max_retry=settings.graph_task_max_retry,
+                    )
+                    session.add(graph_task)
+                    await session.flush()
+                if graph_task.status == "PENDING":
+                    graph_task_id = graph_task.id
             await session.commit()
+            return graph_task_id
 
     async def _record_failure(
         self,

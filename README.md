@@ -96,6 +96,138 @@ for chunk in chunked.chunks:
 psql -d ragkb -f .\zq_rag_app\schemas\migrations\001_index_pipeline.sql
 psql -d ragkb -f .\zq_rag_app\schemas\migrations\002_document_versions.sql
 psql -d ragkb -f .\zq_rag_app\schemas\migrations\003_document_history.sql
+psql -d ragkb -f .\zq_rag_app\schemas\migrations\004_graph_tasks.sql
+psql -d ragkb -f .\zq_rag_app\schemas\migrations\005_document_access_metadata.sql
+```
+
+迁移 005 增加业务文档编号、归属部门、密级和业务状态。测试语料可按
+`qa-docs/manifest.csv` 回填这些字段：
+
+```powershell
+uv run python scripts/backfill_document_metadata.py --kb-id 4
+```
+
+管理员以及普通用户的部门/密级范围会在 Dense、BM25 和 Graph 检索之前统一
+转成文档 ID 白名单；客户端传入的 `doc_ids` 只能进一步缩小范围，不能绕过 ACL。
+
+Neo4j 图谱功能是可选模块。配置 `NEO4J_PASSWORD` 后，可幂等创建 Graph RAG
+节点/关系唯一约束和查询索引：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\init_neo4j_schema.py
+```
+
+使用仓库内置固定 JSON 连续写入两次，并通过写后查询验证没有重复节点或关系：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\write_graph_sample.py --repeat 2
+```
+
+样例位于 `zq_rag_app/schemas/graph_extraction_sample.json`。命令成功时最后一行
+输出 `{"status": "idempotent", ...}`。
+
+图谱采用 `Entity -> Claim -> Entity` 与 `Claim -> Chunk` 证据结构；LLM 只返回
+局部实体、关系和原文引用，全局 UID 由应用按知识库边界确定性生成。默认
+`GRAPH_EXTRACTION_ENABLED=false`，不会影响现有向量索引流程。
+
+启用真实 Chunk 图抽取时设置：
+
+```dotenv
+GRAPH_EXTRACTION_ENABLED=true
+GRAPH_EXTRACTION_MODEL=qwen-plus
+GRAPH_TASK_QUEUE_NAME=arq:graph
+```
+
+向量索引成功后会在同一 PostgreSQL 事务中创建 `kb_graph_task`，随后投递到
+独立队列。Graph Worker 启动命令：
+
+```powershell
+uv run python -m arq zq_rag_app.workers.graph_worker.WorkerSettings
+```
+
+历史正式文档批量回填：
+
+```powershell
+uv run python scripts/backfill_graph_tasks.py --kb-id 4
+```
+
+Worker 异常退出后，可重新投递租约已过期的任务：
+
+```powershell
+uv run python scripts/recover_expired_graph_tasks.py --kb-id 4
+```
+
+图任务先从 `kb_doc_chunk` 读取当前真实文档版本，逐 Chunk 调用 LLM、执行
+Pydantic 证据校验和实体标准化，再写入不可见候选图。所有 Chunk 写入完成且
+数量校验一致后，才更新 Neo4j `Document.active_graph_version`，最后清理旧版本。
+
+任务接口：
+
+```http
+POST /documents/{doc_id}/graph-index
+GET  /documents/{doc_id}/graph-status
+GET  /graph-tasks/{task_id}
+```
+
+图谱读链路与三路混合召回：
+
+```http
+POST /retrieval/graph-search
+POST /retrieval/hybrid-graph-search
+```
+
+`hybrid-graph-search` 将 Dense、BM25 和 Graph 候选按归一化加权 RRF 融合，
+默认再交给现有 reranker；Graph 无命中或 Neo4j 临时不可用时自动回退到
+Dense + BM25。图召回只读取文档 `active_graph_version` 对应且
+`graph_status=ACTIVE` 的证据，并在图命中的活动文档内扩展候选 Chunk，按问题
+关键词、日期和因果意图重排；不会扫描未被图命中的文档。
+
+本地调试：
+
+```powershell
+uv run python scripts/search_graph.py --kb-id 4 --query "Aurora-KB 为什么延期？"
+```
+
+带引用的最终问答接口：
+
+```http
+POST /chat/answer
+```
+
+请求提供 `query`、`kb_ids`，可选 `session_id`、`doc_ids`、`candidate_k`、
+`top_k` 和 `rerank`。服务会先校验当前用户对全部知识库的读取权限，然后执行
+Dense + BM25 + Graph 融合和精排，只根据返回证据生成带 `[S1]` 编号的答案，
+最后原子保存用户消息、助手消息、引用来源和耗时。响应中的 `timing` 分别包含
+检索、生成和总耗时；Prometheus 指标暴露在 `/metrics`。Neo4j 或 Reranker
+临时不可用时会保留可用分支继续回答，并在响应中标明降级状态。
+
+Graph RAG 端到端评测默认读取 `qa-docs/qa_ground_truth.jsonl`。该数据集包含
+50 条用例：单跳、多跳、版本冲突、表格、无答案和权限隔离。完整运行会调用
+配置的 Embedding、Reranker 和 LLM：
+
+```powershell
+uv run python scripts/evaluate_graph_rag.py --kb-id 4
+```
+
+不调用外部模型、只验证 5 条数据库 ACL 用例：
+
+```powershell
+uv run python scripts/evaluate_graph_rag.py --kb-id 4 --only-permission --output qa-docs/eval-results/graph-rag-permission.json
+```
+
+报告包含来源命中率、答案关键词召回率、引用合法率、无答案准确率、权限准确率
+和 P95 总延迟。默认质量门槛要求至少 30 条、来源命中率不低于 90%、关键词召回
+不低于 80%、引用合法率 100%、无答案准确率不低于 80%、权限准确率 100%、
+P95 不超过 15 秒；未达标时命令返回非零退出码。GitHub Actions 工作流位于
+`.github/workflows/graph-rag-offline-eval.yml`，真实评测需要受保护环境和带
+`graph-rag-eval` 标签的自托管 Runner，且只在人工选择 live evaluation 后执行。
+
+按“同文件名 + 当前 Chunk 内容 SHA256”审计完全重复的活动文档；加 `--apply`
+会保留最小文档 ID，并对其余记录做可恢复的软删除：
+
+```powershell
+uv run python scripts/deduplicate_documents.py --kb-id 4
+uv run python scripts/deduplicate_documents.py --kb-id 4 --apply
 ```
 
 ## 异步向量索引

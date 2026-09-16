@@ -64,6 +64,18 @@ class Document(Base):
     file_name: Mapped[str] = mapped_column(String(255), nullable=False)
     # 文件类型，约定值为 PDF、DOCX、MD 或 TXT。
     file_type: Mapped[str] = mapped_column(String(20), nullable=False)
+    # 来自业务文档清单的稳定编号，例如 DOC-013；普通上传可为空。
+    document_code: Mapped[str | None] = mapped_column(String(50))
+    # 文档归属部门，用于部门内部和机密文档的检索前过滤。
+    department_id: Mapped[str | None] = mapped_column(String(50))
+    # 内部公开 / 部门内部 / 机密；默认机密以避免缺少元数据时意外放宽。
+    confidentiality: Mapped[str] = mapped_column(
+        String(20), nullable=False, server_default=text("'机密'")
+    )
+    # 生效 / 草案 / 已归档 / 已废止 / 未知，用于版本冲突排序和审计。
+    business_status: Mapped[str] = mapped_column(
+        String(20), nullable=False, server_default=text("'未知'")
+    )
     # 原始文件大小，单位为字节。
     file_size: Mapped[int] = mapped_column(BigInteger, nullable=False)
     # 文件在 MinIO Bucket 中的对象路径，不是本地文件系统路径。

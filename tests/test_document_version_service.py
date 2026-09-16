@@ -3,6 +3,8 @@ from datetime import datetime
 import pytest
 
 from zq_rag_app.models.document import Document, DocumentVersion, IndexTask
+from zq_rag_app.models.graph import GraphTask
+from zq_rag_app.services import document_service
 from zq_rag_app.services.document_service import create_index_task
 from zq_rag_app.services.document_service import DocumentIndexService, _DocumentSnapshot
 
@@ -67,6 +69,26 @@ class _CompletionFactory:
 
     def __call__(self):
         return self.session
+
+
+class _GraphCompletionSession(_CompletionSession):
+    def __init__(self, task, document, version):
+        super().__init__(task, document, version)
+        self.scalar_values = iter([version, None])
+        self.added = []
+
+    async def scalar(self, statement):
+        del statement
+        return next(self.scalar_values)
+
+    def add(self, value):
+        self.added.append(value)
+
+    async def flush(self):
+        graph_task = next(
+            value for value in self.added if isinstance(value, GraphTask)
+        )
+        graph_task.id = 91
 
 
 @pytest.mark.asyncio
@@ -179,6 +201,74 @@ async def test_completion_atomically_switches_candidate_to_active_version():
     assert task.status == "DONE"
     assert document.chunk_count == 4
     assert session.committed is True
+
+
+@pytest.mark.asyncio
+async def test_vector_completion_creates_graph_task_when_enabled(monkeypatch):
+    monkeypatch.setattr(
+        document_service.settings,
+        "graph_extraction_enabled",
+        True,
+    )
+    document = Document(
+        id=7,
+        kb_id=2,
+        file_name="手册.txt",
+        file_type="TXT",
+        file_size=8,
+        minio_path="rag-documents/manual.txt",
+        status="PROCESSING",
+        version=1,
+        uploaded_by=3,
+        is_deleted=False,
+    )
+    version = DocumentVersion(
+        id=12,
+        doc_id=7,
+        version=1,
+        file_name="手册.txt",
+        file_type="TXT",
+        file_size=8,
+        minio_path="rag-documents/manual.txt",
+        status="PROCESSING",
+        uploaded_by=3,
+    )
+    task = IndexTask(
+        id=30,
+        doc_id=7,
+        doc_version=1,
+        task_type="INDEX",
+        status="PROCESSING",
+        stage="PERSISTING",
+        worker_id="test-worker",
+    )
+    session = _GraphCompletionSession(task, document, version)
+    service = DocumentIndexService(
+        session_factory=_CompletionFactory(session),  # type: ignore[arg-type]
+        embedding_service=object(),  # type: ignore[arg-type]
+        worker_id="test-worker",
+    )
+
+    graph_task_id = await service._complete_task(
+        task_id=30,
+        document=_DocumentSnapshot(
+            id=7,
+            kb_id=2,
+            file_name="手册.txt",
+            minio_path="rag-documents/manual.txt",
+            version=1,
+        ),
+        chunk_count=2,
+        token_count=30,
+    )
+
+    graph_task = next(
+        value for value in session.added if isinstance(value, GraphTask)
+    )
+    assert graph_task_id == 91
+    assert graph_task.doc_id == 7
+    assert graph_task.doc_version == 1
+    assert graph_task.status == "PENDING"
 
 
 @pytest.mark.asyncio

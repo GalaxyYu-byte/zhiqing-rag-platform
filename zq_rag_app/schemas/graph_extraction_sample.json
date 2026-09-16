@@ -1,0 +1,70 @@
+{
+  "extractor_version": "fixed-json-sample-v1",
+  "context": {
+    "kb_id": 990001,
+    "doc_id": 9900010001,
+    "doc_version": 1,
+    "chunk_index": 0,
+    "content": "订单服务依赖 Redis 缓存。平台团队负责订单服务。",
+    "file_name": "graph-idempotency-sample.md",
+    "page_num": 1,
+    "section_title": "系统依赖"
+  },
+  "extraction": {
+    "schema_version": "1.0",
+    "entities": [
+      {
+        "local_id": "e1",
+        "entity_type": "SERVICE",
+        "name": "订单服务",
+        "aliases": ["Order Service"],
+        "description": "处理订单业务的服务",
+        "external_id_source": "service-catalog",
+        "external_id": "svc-order",
+        "evidence_quote": "订单服务"
+      },
+      {
+        "local_id": "e2",
+        "entity_type": "SYSTEM",
+        "name": "Redis",
+        "aliases": ["Redis 缓存"],
+        "description": "订单服务依赖的缓存系统",
+        "external_id_source": null,
+        "external_id": null,
+        "evidence_quote": "Redis 缓存"
+      },
+      {
+        "local_id": "e3",
+        "entity_type": "DEPARTMENT",
+        "name": "平台团队",
+        "aliases": [],
+        "description": "订单服务的负责团队",
+        "external_id_source": null,
+        "external_id": null,
+        "evidence_quote": "平台团队"
+      }
+    ],
+    "relations": [
+      {
+        "source_local_id": "e1",
+        "target_local_id": "e2",
+        "predicate": "DEPENDS_ON",
+        "polarity": "POSITIVE",
+        "confidence": 1.0,
+        "evidence_quote": "订单服务依赖 Redis 缓存。",
+        "valid_from": null,
+        "valid_to": null
+      },
+      {
+        "source_local_id": "e1",
+        "target_local_id": "e3",
+        "predicate": "OWNED_BY",
+        "polarity": "POSITIVE",
+        "confidence": 1.0,
+        "evidence_quote": "平台团队负责订单服务。",
+        "valid_from": null,
+        "valid_to": null
+      }
+    ]
+  }
+}

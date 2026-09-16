@@ -15,6 +15,7 @@ class UserContext:
     username: str
     department_id: str
     role: str
+    clearance: str = "内部公开"
 
 
 # 认证系统接入前统一使用这个管理员账号。后续只需替换请求中间件中的用户解析，
@@ -24,6 +25,7 @@ DEFAULT_ADMIN_USER = UserContext(
     username="admin",
     department_id="ADMIN",
     role="ADMIN",
+    clearance="机密",
 )
 
 _current_user: ContextVar[UserContext | None] = ContextVar(
@@ -37,6 +39,7 @@ def set_user_context(
     department_id: str | None = None,
     role: str | None = None,
     username: str | None = None,
+    clearance: str = "内部公开",
 ) -> Token[UserContext | None]:
     """把用户绑定到当前请求上下文。
 
@@ -53,6 +56,7 @@ def set_user_context(
             username=username or str(user_id),
             department_id=department_id,
             role=role,
+            clearance=clearance,
         )
     return _current_user.set(user)
 

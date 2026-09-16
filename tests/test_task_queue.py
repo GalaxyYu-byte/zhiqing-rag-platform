@@ -9,6 +9,7 @@ class _FakeQueue:
     def __init__(self, effects: list[Any]) -> None:
         self.effects = effects
         self.calls: list[tuple[str, int, str]] = []
+        self.queue_names: list[str | None] = []
         self.closed = False
 
     async def enqueue_job(
@@ -17,8 +18,10 @@ class _FakeQueue:
         task_id: int,
         *,
         _job_id: str,
+        _queue_name: str | None = None,
     ) -> Any:
         self.calls.append((function, task_id, _job_id))
+        self.queue_names.append(_queue_name)
         effect = self.effects.pop(0)
         if isinstance(effect, BaseException):
             raise effect
@@ -98,3 +101,13 @@ async def test_enqueue_reraises_when_reconnect_attempt_also_fails(
 
     assert old_queue.closed is True
     assert new_queue.closed is True
+
+
+@pytest.mark.asyncio
+async def test_graph_task_uses_dedicated_queue(monkeypatch: pytest.MonkeyPatch) -> None:
+    queue = _FakeQueue([object()])
+    monkeypatch.setattr(task_queue, "_pool", queue)
+
+    assert await task_queue.enqueue_graph_index(21) is True
+    assert queue.calls == [("execute_graph_index", 21, "graph-index:21")]
+    assert queue.queue_names == [task_queue.settings.graph_task_queue_name]

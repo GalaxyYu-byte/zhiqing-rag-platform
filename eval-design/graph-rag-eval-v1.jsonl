@@ -1,0 +1,5 @@
+{"question_id":"GR-001","question":"Aurora-KB 为什么延期到 2026-09-28？","expected_keywords":["2026-09-28","权限回归","故障演练","业务验收"],"expected_sources":["2026年9月AI平台周会纪要.txt"]}
+{"question_id":"GR-002","question":"Aurora-KB 当前的 Recall@20 和 MRR 分别是多少？","expected_keywords":["0.93","0.79"],"expected_sources":["2026年9月AI平台周会纪要.txt","AI平台项目排期与质量指标.xlsx"]}
+{"question_id":"GR-003","question":"生产临时权限默认多长时间自动回收？","expected_keywords":["4小时","自动回收"],"expected_sources":["信息安全与账号权限管理规范.docx","信息系统资产与权限台账.xlsx"]}
+{"question_id":"GR-004","question":"外包账号最长有效期是多少？","expected_keywords":["90天"],"expected_sources":["信息安全与账号权限管理规范.docx","员工账号与权限FAQ.md"]}
+{"question_id":"GR-005","question":"Aurora-KB 当前采用什么检索和排序链路？","expected_keywords":["HNSW","BM25","RRF","Reranker"],"expected_sources":["企业内部知识库平台建设方案.pdf","Aurora-KB_API接口规范.md"]}

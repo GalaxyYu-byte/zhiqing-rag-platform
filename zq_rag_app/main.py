@@ -8,9 +8,12 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request, Response
 from fastapi.staticfiles import StaticFiles
+from prometheus_client import make_asgi_app
 
 from .api.auth import router as auth_router
+from .api.chat import router as chat_router
 from .api.document import router as document_router
+from .api.graph import router as graph_router
 from .api.knowledge_base import router as knowledge_base_router
 from .api.retrieval import router as retrieval_router
 from .core.config import settings
@@ -52,9 +55,12 @@ app = FastAPI(
     lifespan=lifespan,
 )
 app.include_router(auth_router)
+app.include_router(chat_router)
 app.include_router(document_router)
+app.include_router(graph_router)
 app.include_router(knowledge_base_router)
 app.include_router(retrieval_router)
+app.mount("/metrics", make_asgi_app())
 
 
 @app.middleware("http")

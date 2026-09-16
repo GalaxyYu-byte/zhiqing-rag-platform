@@ -44,6 +44,7 @@ async def search_by_cosine(
     kb_ids: list[int],
     top_k: int,
     min_score: float,
+    doc_ids: list[int] | None = None,
     embedding_service: EmbeddingService | None = None,
 ) -> CosineRetrievalResult:
     """生成 Query 向量并按余弦相似度返回当前版本的文档分块。
@@ -72,6 +73,7 @@ async def search_by_cosine(
         kb_ids=kb_ids,
         top_k=top_k,
         min_score=min_score,
+        doc_ids=doc_ids,
         embedding_model=service.model,
         dimensions=service.dimensions,
         started_at=started_at,

@@ -40,6 +40,9 @@ def _hybrid_result() -> HybridRetrievalResult:
             normalized_weighted_score=chunk.score,
             rrf_normalized=chunk.score,
             final_score=chunk.score,
+            graph_rank=chunk.rank,
+            graph_score=chunk.score,
+            graph_normalized=chunk.score,
         )
         for chunk in chunks
     )
@@ -96,6 +99,7 @@ async def test_reranker_maps_response_indexes_back_to_chunks():
     assert result.latency_ms >= 30
     assert result.total_tokens == 42
     assert result.candidate_scores[0].fusion_rank == 3
+    assert result.candidate_scores[0].graph_rank == 3
 
 
 @pytest.mark.asyncio

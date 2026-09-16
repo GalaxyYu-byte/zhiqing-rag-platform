@@ -8,6 +8,7 @@
 from .chat import AnswerFeedback, ChatMessage, ChatSession
 from .document import DocChunk, Document, DocumentVersion, IndexTask
 from .evaluation import EvalDataset, EvalResult
+from .graph import GraphTask
 from .knowledge_base import KnowledgeBase, Permission
 
 __all__ = [
@@ -19,6 +20,7 @@ __all__ = [
     "DocumentVersion",
     "EvalDataset",
     "EvalResult",
+    "GraphTask",
     "IndexTask",
     "KnowledgeBase",
     "Permission",

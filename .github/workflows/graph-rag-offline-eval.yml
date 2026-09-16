@@ -1,0 +1,54 @@
+name: Graph RAG offline evaluation
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_live_evaluation:
+        description: Send authorized evaluation evidence to the configured model provider
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  unit-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - run: uv sync --group dev
+      - run: uv run pytest -q
+
+  graph-rag-evaluation:
+    if: inputs.run_live_evaluation
+    needs: unit-regression
+    runs-on: [self-hosted, graph-rag-eval]
+    environment: graph-rag-eval
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - run: uv sync --group dev
+      - name: Apply access metadata migration
+        run: uv run python scripts/apply_document_access_migration.py
+      - name: Backfill document access metadata
+        run: uv run python scripts/backfill_document_metadata.py --kb-id 4
+      - name: Verify document ACL locally
+        run: >-
+          uv run python scripts/evaluate_graph_rag.py --kb-id 4
+          --only-permission --output artifacts/permission-report.json
+      - name: Run authorized end-to-end evaluation
+        run: >-
+          uv run python scripts/evaluate_graph_rag.py --kb-id 4
+          --output artifacts/graph-rag-report.json
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          RERANKER_ENDPOINT: ${{ secrets.RERANKER_ENDPOINT }}
+          NEO4J_PASSWORD: ${{ secrets.NEO4J_PASSWORD }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: graph-rag-evaluation
+          path: artifacts/*.json

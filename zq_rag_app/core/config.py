@@ -121,6 +121,22 @@ class Settings(BaseSettings):
     neo4j_max_connection_pool_size: int = 50
     neo4j_connection_timeout_seconds: float = 15.0
 
+    # 图抽取独立于向量索引，默认不自动执行。qwen-plus 使用 JSON Object 后再由
+    # Pydantic 严格校验；切换到支持 JSON Schema 的模型后可升级调用方式。
+    graph_extraction_enabled: bool = False
+    graph_extraction_model: str = "qwen-plus"
+    graph_extraction_temperature: float = 0.0
+    graph_extraction_max_tokens: int = 4096
+    graph_extraction_timeout_seconds: float = 60.0
+    graph_extraction_retry_attempts: int = 3
+    graph_extractor_version: str = "graph-extractor-v1"
+    graph_task_queue_name: str = "arq:graph"
+    graph_worker_max_jobs: int = 2
+    graph_task_max_retry: int = 3
+    graph_task_retry_base_seconds: float = 5.0
+    graph_heartbeat_interval_seconds: int = 15
+    graph_lease_seconds: int = 90
+
     # ============================================================
     # Reranker
     # ============================================================

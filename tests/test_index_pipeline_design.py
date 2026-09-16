@@ -1,6 +1,7 @@
 from sqlalchemy import CheckConstraint, UniqueConstraint
 
 from zq_rag_app.models.document import DocChunk, DocumentVersion, IndexTask
+from zq_rag_app.models.graph import GraphTask
 from zq_rag_app.services.document_service import (
     DocumentIndexService,
     is_retryable_index_exception,
@@ -53,6 +54,22 @@ def test_document_version_records_restore_origin() -> None:
 
 def test_index_task_records_target_document_version() -> None:
     assert IndexTask.__table__.c.doc_version.nullable is False
+
+
+def test_graph_task_has_version_and_active_task_constraints() -> None:
+    constraints = [
+        constraint
+        for constraint in GraphTask.__table__.constraints
+        if isinstance(constraint, UniqueConstraint)
+    ]
+    indexes = {index.name: index for index in GraphTask.__table__.indexes}
+
+    assert any(
+        [column.name for column in constraint.columns]
+        == ["doc_id", "doc_version"]
+        for constraint in constraints
+    )
+    assert indexes["uq_graph_task_active_doc"].unique is True
 
 
 def test_retry_classification_only_accepts_transient_io() -> None:

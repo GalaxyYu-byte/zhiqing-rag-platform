@@ -363,6 +363,10 @@ async def create_uploaded_documents(
     files: list[UploadFile],
     kb_id: int,
     uploaded_by: int,
+    department_id: str | None = None,
+    confidentiality: str = "机密",
+    business_status: str = "生效",
+    document_code: str | None = None,
     object_store: Any = minio_client,
 ) -> list[Document]:
     """校验文件、写入 MinIO，并在同一数据库事务中创建文档记录。
@@ -441,6 +445,10 @@ async def create_uploaded_documents(
                 kb_id=kb_id,
                 file_name=file_name,
                 file_type=file_type,
+                document_code=document_code,
+                department_id=department_id,
+                confidentiality=confidentiality,
+                business_status=business_status,
                 file_size=size,
                 minio_path=f"{settings.minio_bucket}/{object_name}",
                 status="PENDING",

@@ -22,6 +22,7 @@ class CurrentUserResponse(BaseModel):
     username: str
     department_id: str
     role: str
+    clearance: str
 
     @classmethod
     def from_context(cls, user: UserContext) -> "CurrentUserResponse":
@@ -30,6 +31,7 @@ class CurrentUserResponse(BaseModel):
             username=user.username,
             department_id=user.department_id,
             role=user.role,
+            clearance=user.clearance,
         )
 
 

@@ -123,6 +123,10 @@ class DocumentResponse(BaseModel):
     kb_id: int
     file_name: str
     file_type: str
+    document_code: str | None
+    department_id: str | None
+    confidentiality: str
+    business_status: str
     file_size: int
     minio_path: str
     status: str
@@ -146,6 +150,10 @@ class DocumentResponse(BaseModel):
             kb_id=document.kb_id,
             file_name=document.file_name,
             file_type=document.file_type,
+            document_code=getattr(document, "document_code", None),
+            department_id=getattr(document, "department_id", None),
+            confidentiality=getattr(document, "confidentiality", None) or "机密",
+            business_status=getattr(document, "business_status", None) or "未知",
             file_size=document.file_size,
             minio_path=document.minio_path,
             status=document.status,
@@ -280,6 +288,13 @@ async def upload_documents(
     files: Annotated[list[UploadFile], File(description="待上传文档")],
     kb_id: Annotated[int, Form(gt=0)],
     current_user: CurrentUser,
+    confidentiality: Annotated[
+        Literal["内部公开", "部门内部", "机密"], Form()
+    ] = "机密",
+    business_status: Annotated[
+        Literal["生效", "草案", "已归档", "已废止", "未知"], Form()
+    ] = "生效",
+    document_code: Annotated[str | None, Form(max_length=50)] = None,
     session: AsyncSession = Depends(get_db),
 ) -> UploadDocumentsResponse:
     if not await has_knowledge_base_permission(
@@ -296,6 +311,10 @@ async def upload_documents(
             files=files,
             kb_id=kb_id,
             uploaded_by=current_user.user_id,
+            department_id=current_user.department_id,
+            confidentiality=confidentiality,
+            business_status=business_status,
+            document_code=document_code,
         )
     except DocumentUploadValidationError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
