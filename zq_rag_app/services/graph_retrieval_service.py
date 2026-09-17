@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import re
 import time
 import unicodedata
@@ -23,11 +24,14 @@ _GRAPH_CLAIM_SEARCH = """
 MATCH (seed:Entity)
 WHERE seed.kb_id IN $kb_ids
   AND (
+    ($seed_entity_uids IS NOT NULL AND seed.uid IN $seed_entity_uids)
+    OR ($seed_entity_uids IS NULL AND (
     $query_normalized = seed.canonical_name_normalized
     OR $query_normalized CONTAINS seed.canonical_name_normalized
     OR seed.canonical_name_normalized CONTAINS $query_normalized
     OR any(alias IN coalesce(seed.aliases, [])
            WHERE $query_normalized CONTAINS toLower(trim(alias)))
+    ))
   )
 WITH seed,
      CASE
@@ -285,6 +289,7 @@ async def search_by_graph(
     max_hops: int = 2,
     entity_limit: int = 20,
     doc_ids: list[int] | None = None,
+    seed_entity_uids: list[str] | None = None,
     graph_session_factory: Callable[[], Any] = get_neo4j_session,
 ) -> GraphRetrievalResult:
     """按问题中的实体召回 1–2 跳事实，并映射回 PostgreSQL 正式 Chunk。"""
@@ -301,6 +306,11 @@ async def search_by_graph(
         raise ValueError("max_hops 只能是 1 或 2")
     if not 1 <= entity_limit <= 50:
         raise ValueError("entity_limit 必须在 1 到 50 之间")
+    if seed_entity_uids is not None and (
+        not seed_entity_uids or len(seed_entity_uids) > 20
+        or any(not isinstance(uid, str) or not uid.strip() for uid in seed_entity_uids)
+    ):
+        raise ValueError("seed_entity_uids 必须包含 1 到 20 个有效 UID")
 
     normalized_doc_ids: list[int] | None = None
     if doc_ids is not None:
@@ -321,6 +331,7 @@ async def search_by_graph(
             doc_ids=normalized_doc_ids,
             entity_limit=entity_limit,
             claim_limit=claim_limit,
+            seed_entity_uids=seed_entity_uids,
         )
         records = await result.data()
 
@@ -393,12 +404,19 @@ async def search_by_graph(
                 matched_document_versions
             ),
             DocChunk.kb_id.in_(normalized_kb_ids),
+            Document.kb_id.in_(normalized_kb_ids),
             DocChunk.doc_version == Document.version,
             Document.status == "DONE",
             Document.is_deleted.is_(False),
         )
     )
-    rows = (await session.execute(statement)).all()
+    if normalized_doc_ids is not None:
+        statement = statement.where(DocChunk.doc_id.in_(normalized_doc_ids))
+    try:
+        rows = (await session.execute(statement)).all()
+    except asyncio.CancelledError:
+        await session.rollback()
+        raise
     scored_rows: list[tuple[Any, float]] = []
     query_without_entities = _query_without_seed_entities(normalized_query, matches)
     for row in rows:

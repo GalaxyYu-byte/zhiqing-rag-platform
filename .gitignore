@@ -23,7 +23,9 @@ wheels/
 docs/
 qa-docs/
 
-# 保留前后端接口说明，其余本地文档仍不纳入版本控制。
+# 保留接口说明，其余本地文档仍不纳入版本控制。
 !docs/
 docs/*
 !docs/frontend-integration.md
+!docs/QUERY_ANALYZER.md
+!docs/QUERY_ROUTER.md

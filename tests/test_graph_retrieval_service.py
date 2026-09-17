@@ -133,6 +133,24 @@ async def test_graph_retrieval_rejects_invalid_scope():
 
 
 @pytest.mark.asyncio
+async def test_graph_retrieval_accepts_router_seeds_and_rechecks_scope():
+    graph = _GraphSession()
+    pg = _PostgresSession()
+    await search_by_graph(pg, query="谁负责？", kb_ids=[4], doc_ids=[7], top_k=10,
+                          seed_entity_uids=["entity-1"], graph_session_factory=lambda: graph)
+    assert graph.parameters["seed_entity_uids"] == ["entity-1"]
+    assert "$seed_entity_uids IS NULL" in graph.query and "seed.uid IN $seed_entity_uids" in graph.query
+    sql = str(pg.statement)
+    assert "kb_doc_chunk.doc_id IN" in sql and "kb_document.kb_id IN" in sql
+
+
+@pytest.mark.asyncio
+async def test_graph_retrieval_rejects_empty_explicit_seeds():
+    with pytest.raises(ValueError, match="seed_entity_uids"):
+        await search_by_graph(_PostgresSession(), query="问题", kb_ids=[4], top_k=10, seed_entity_uids=[])
+
+
+@pytest.mark.asyncio
 async def test_graph_retrieval_prioritizes_date_and_decision_evidence():
     common = {
         "subject_uid": "entity-1",

@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import computed_field
+from pydantic import Field, SecretStr, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -89,6 +89,15 @@ class Settings(BaseSettings):
     chat_model: str = "qwen-plus"
     chat_temperature: float = 0.1
     chat_max_tokens: int = 2048
+
+    # 在线 Query Analyzer 单独使用 DeepSeek，不影响问答生成和离线图抽取。
+    deepseek_api_key: SecretStr = SecretStr("")
+    deepseek_base_url: str = "https://api.deepseek.com"
+    query_analyzer_model: str = "deepseek-flash"
+    query_analyzer_timeout_seconds: float = Field(default=12.0, gt=0, le=120)
+    query_analyzer_retry_attempts: int = Field(default=2, ge=1, le=3)
+    query_analyzer_max_tokens: int = Field(default=3072, ge=512, le=8192)
+    query_router_graph_timeout_seconds: float = Field(default=2.0, gt=0, le=30)
 
     embedding_model: str = "text-embedding-v3"
     embedding_dimensions: int = 1024

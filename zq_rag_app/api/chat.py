@@ -16,6 +16,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..core.database import get_db
 from ..core.security import CurrentUser
 from ..models.chat import ChatMessage, ChatSession
+from ..query_analysis.models import HistoryMessage
+from ..query_routing.models import RoutingDecision
 from ..services.permission_service import (
     PermissionLevel,
     has_knowledge_base_permission,
@@ -85,6 +87,8 @@ class ChatTimingResponse(BaseModel):
     retrieval_ms: int
     generation_ms: int
     total_ms: int
+    analysis_ms: int = 0
+    routing_ms: int = 0
 
 
 class ChatAnswerResponse(BaseModel):
@@ -99,6 +103,7 @@ class ChatAnswerResponse(BaseModel):
     reranked: bool
     sources: list[ChatSourceResponse]
     timing: ChatTimingResponse
+    routing: RoutingDecision | None = None
 
 
 @router.post("/answer", response_model=ChatAnswerResponse)
@@ -146,6 +151,17 @@ async def answer_question(
         if set(json.loads(chat_session.kb_ids)) != set(request.kb_ids):
             raise HTTPException(status_code=409, detail="会话知识库范围不能变更")
 
+    history: list[HistoryMessage] = []
+    if chat_session is not None:
+        # 会话归属和 KB 范围检查完成之后再加载历史。只把用户问题作为指代依据，
+        # 避免过去的助手证据在文档权限已变更时重新进入模型上下文。
+        messages = (await session.execute(
+            select(ChatMessage).where(
+                ChatMessage.session_id == chat_session.id, ChatMessage.role == "USER",
+            ).order_by(ChatMessage.id.desc()).limit(6)
+        )).scalars().all()
+        history = [HistoryMessage(role="user", content=message.content) for message in reversed(messages)]
+
     service = RagAnswerService()
     try:
         result = await service.answer(
@@ -156,6 +172,7 @@ async def answer_question(
             candidate_k=request.candidate_k,
             top_k=request.top_k,
             rerank=request.rerank,
+            history=history,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -217,5 +234,8 @@ async def answer_question(
             retrieval_ms=result.timing.retrieval_ms,
             generation_ms=result.timing.generation_ms,
             total_ms=result.timing.total_ms,
+            analysis_ms=result.timing.analysis_ms,
+            routing_ms=result.timing.routing_ms,
         ),
+        routing=result.routing,
     )

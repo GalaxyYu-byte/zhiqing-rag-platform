@@ -273,6 +273,16 @@ GET /documents/{doc_id}/index-status
 Embedding 缓存连接异常时会主动清理旧连接并降级直调模型；ARQ Worker 的 Redis
 连接启用了健康检查与有限重试，以覆盖任务完成状态写回时的瞬时断线。
 
+## 在线 Query Analyzer
+
+配置 `DEEPSEEK_API_KEY` 后，可调用 `POST /query/analyze`，获得意图、查询类型、
+实体、关键词、原文元数据和受服务端规则约束的检索策略建议。
+默认使用 `deepseek-flash`，通过 JSON 模式及 Pydantic 校验输出，支持有限历史输入、
+整体超时、重试和结构化降级。`/chat/answer` 已接入 Analyzer 和确定性 Query Router，
+普通问题只走 Dense + BM25，图谱问题先检查授权文档内的活动证据；澄清、统计能力限制和
+纯闲聊各自分支处理，响应新增 `routing`。策略及降级约定见 [Query Router 文档](docs/QUERY_ROUTER.md)。
+配置、完整接口协议、策略边界和真实调用复测方法见 [Query Analyzer 文档](docs/QUERY_ANALYZER.md)。
+
 ## 前端召回实验台
 
 启动 API 后访问 `http://localhost:8000/`，可使用文档异步处理与余弦向量召回测试页面。页面默认连接真实的上传、文档列表和召回接口；使用 `http://localhost:8000/?demo=1` 可查看无需基础设施的演示数据。

@@ -16,6 +16,7 @@ from .api.document import router as document_router
 from .api.graph import router as graph_router
 from .api.knowledge_base import router as knowledge_base_router
 from .api.retrieval import router as retrieval_router
+from .api.query_analysis import router as query_analysis_router
 from .core.config import settings
 from .core.database import close_database
 from .core.executor import shutdown_index_executor
@@ -60,6 +61,7 @@ app.include_router(document_router)
 app.include_router(graph_router)
 app.include_router(knowledge_base_router)
 app.include_router(retrieval_router)
+app.include_router(query_analysis_router)
 app.mount("/metrics", make_asgi_app())
 
 

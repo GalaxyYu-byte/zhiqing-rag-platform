@@ -5,6 +5,8 @@ import pytest
 from zq_rag_app.services.bm25_retrieval_service import BM25RetrievalResult
 from zq_rag_app.services.graph_retrieval_service import GraphRetrievalResult
 from zq_rag_app.services.rag_service import RagAnswerService
+from zq_rag_app.services.query_router_service import QueryRouterService
+from zq_rag_app.query_routing.models import GraphCoverage
 from zq_rag_app.services.retrieval_service import (
     CosineRetrievalResult,
     RetrievedChunk,
@@ -89,7 +91,7 @@ def _searches(*, graph_fails: bool = False, empty: bool = False):
 
 
 @pytest.mark.asyncio
-async def test_rag_answer_uses_hybrid_context_and_returns_sources():
+async def test_rag_answer_uses_hybrid_context_and_returns_sources(analysis_factory, analyzer_stub_factory):
     client = _Client()
     dense, bm25, graph = _searches()
     service = RagAnswerService(
@@ -97,6 +99,7 @@ async def test_rag_answer_uses_hybrid_context_and_returns_sources():
         dense_search=dense,
         bm25_search=bm25,
         graph_search=graph,
+        analyzer_factory=analyzer_stub_factory(analysis_factory(query="Aurora-KB 为什么延期？")),
     )
 
     result = await service.answer(
@@ -111,7 +114,8 @@ async def test_rag_answer_uses_hybrid_context_and_returns_sources():
     assert result.answer.endswith("[S1]")
     assert result.token_count == 88
     assert result.sources[0].citation_id == "S1"
-    assert result.sources[0].graph_rank == 1
+    assert result.sources[0].graph_rank is None
+    assert result.routing.path == "hybrid"
     assert result.graph_degraded is False
     assert "[S1] 文档：2026年9月AI平台周会纪要.txt" in (
         client.chat.completions.kwargs["messages"][1]["content"]
@@ -119,20 +123,27 @@ async def test_rag_answer_uses_hybrid_context_and_returns_sources():
 
 
 @pytest.mark.asyncio
-async def test_rag_answer_degrades_when_graph_is_unavailable():
+async def test_rag_answer_degrades_when_graph_is_unavailable(analysis_factory, analyzer_stub_factory):
     client = _Client()
     dense, bm25, graph = _searches(graph_fails=True)
+    async def coverage(*args, **kwargs):
+        return GraphCoverage("covered", ("entity-1",))
     service = RagAnswerService(
         client=client,
         dense_search=dense,
         bm25_search=bm25,
         graph_search=graph,
+        analyzer_factory=analyzer_stub_factory(analysis_factory(
+            query="Aurora-KB 为什么延期？", path="hybrid_graph", names=["Aurora-KB"],
+        )),
+        query_router=QueryRouterService(graph_coverage=coverage),
     )
 
     result = await service.answer(
         object(),
         query="Aurora-KB 为什么延期？",
         kb_ids=[4],
+        doc_ids=[1],
         top_k=1,
         candidate_k=3,
         rerank=False,
@@ -144,7 +155,7 @@ async def test_rag_answer_degrades_when_graph_is_unavailable():
 
 
 @pytest.mark.asyncio
-async def test_rag_answer_skips_llm_when_no_evidence_is_found():
+async def test_rag_answer_skips_llm_when_no_evidence_is_found(analysis_factory, analyzer_stub_factory):
     client = _Client()
     dense, bm25, graph = _searches(empty=True)
     service = RagAnswerService(
@@ -152,6 +163,7 @@ async def test_rag_answer_skips_llm_when_no_evidence_is_found():
         dense_search=dense,
         bm25_search=bm25,
         graph_search=graph,
+        analyzer_factory=analyzer_stub_factory(analysis_factory(query="不存在的信息")),
     )
 
     result = await service.answer(
