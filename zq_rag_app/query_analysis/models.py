@@ -17,6 +17,11 @@ QueryTypeName = Literal[
     "compound", "conversational", "ambiguous",
 ]
 RetrievalPath = Literal["hybrid", "hybrid_graph", "structured", "clarify", "none"]
+RewriteMethod = Literal["none", "query_rewrite", "hyde"]
+RewriteOperation = Literal[
+    "context_completion", "retrieval_normalization", "keyword_optimization",
+    "constraint_explicitization",
+]
 ShortText = Annotated[str, Field(min_length=1, max_length=200)]
 
 
@@ -101,6 +106,9 @@ class QueryEntity(Evidence):
         "POLICY", "EVENT", "LOCATION", "CONCEPT", "IDENTIFIER",
     ]
     name: ShortText
+    # 老结果未提供角色时由 Router 使用保守的类型规则选择主体。
+    graph_role: Literal["subject", "qualifier", "auxiliary"] | None = None
+    qualifiers: list[ShortText] = Field(default_factory=list, max_length=5)
 
 
 class QueryKeyword(Evidence):
@@ -123,10 +131,24 @@ class MetadataConstraint(Evidence):
 
 class RetrievalProposal(_StrictModel):
     path: RetrievalPath
+    rewrite_method: RewriteMethod
+    rewrite_operations: list[RewriteOperation] = Field(max_length=4)
     use_query_rewrite: bool
     use_multi_query: bool
     use_hyde: bool
     reason: str = Field(min_length=1, max_length=300)
+
+    @model_validator(mode="after")
+    def consistent_rewrite(self) -> RetrievalProposal:
+        if self.use_query_rewrite != (self.rewrite_method == "query_rewrite"):
+            raise ValueError("查询改写标记与方式不一致")
+        if self.use_hyde != (self.rewrite_method == "hyde"):
+            raise ValueError("HyDE 标记与方式不一致")
+        if bool(self.rewrite_operations) != self.use_query_rewrite:
+            raise ValueError("普通改写必须指定操作，其他方式操作必须为空")
+        if len(set(self.rewrite_operations)) != len(self.rewrite_operations):
+            raise ValueError("改写操作不能重复")
+        return self
 
 
 class QueryAnalysis(_StrictModel):
@@ -162,6 +184,10 @@ class QueryAnalysis(_StrictModel):
             )
             if value not in candidate.evidence_quote:
                 raise ValueError("抽取值必须逐字出现在证据中，禁止扩写或猜测")
+            if isinstance(candidate, QueryEntity) and any(
+                qualifier not in candidate.evidence_quote for qualifier in candidate.qualifiers
+            ):
+                raise ValueError("实体限定信息必须逐字来自该实体的原文证据")
 
 
 class RetrievalStrategy(RetrievalProposal):
@@ -176,11 +202,13 @@ class RetrievalStrategy(RetrievalProposal):
 
 
 class QueryAnalysisResult(QueryAnalysis):
-    retrieval_strategy: RetrievalStrategy
+    # Analyzer 返回原始建议；兼容预处理阶段及旧调用方的规则策略。
+    retrieval_strategy: RetrievalProposal | RetrievalStrategy
+    model_suggestion: RetrievalProposal | None = None
     original_query: str
     reference_date: str
     model: str
-    analyzer_version: Literal["query-analyzer-v1"] = "query-analyzer-v1"
+    analyzer_version: Literal["query-analyzer-v2"] = "query-analyzer-v2"
     status: Literal["ok", "degraded"]
     degradation_reason: Literal["missing_api_key", "timeout", "provider_error", "invalid_output"] | None
     attempts: int = Field(ge=0, le=3)

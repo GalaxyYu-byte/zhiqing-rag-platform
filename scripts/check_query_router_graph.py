@@ -17,7 +17,7 @@ async def main() -> int:
             async with get_neo4j_session() as session:
                 for name, query, parameters in [
                     ("entity_coverage", _ENTITY_COVERAGE, {
-                        "entity_names": [], "kb_ids": [], "document_versions": [],
+                        "entity_names": [], "entity_candidates": [], "kb_ids": [], "document_versions": [],
                     }),
                     ("graph_search", _GRAPH_CLAIM_SEARCH, {
                         "query_normalized": "", "kb_ids": [], "doc_ids": [],

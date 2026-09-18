@@ -3,6 +3,7 @@
 import asyncio
 import logging
 import sys
+import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -18,6 +19,7 @@ from .api.knowledge_base import router as knowledge_base_router
 from .api.retrieval import router as retrieval_router
 from .api.query_analysis import router as query_analysis_router
 from .core.config import settings
+from .core.query_metrics import CHAT_HTTP_DURATION
 from .core.database import close_database
 from .core.executor import shutdown_index_executor
 from .core.minio import ensure_bucket, ping_minio
@@ -63,6 +65,25 @@ app.include_router(knowledge_base_router)
 app.include_router(retrieval_router)
 app.include_router(query_analysis_router)
 app.mount("/metrics", make_asgi_app())
+
+
+@app.middleware("http")
+async def observe_chat_latency(request: Request, call_next):
+    if request.method != "POST" or request.url.path != "/chat/answer":
+        return await call_next(request)
+    started = time.perf_counter()
+    outcome = "server_error"
+    try:
+        response = await call_next(request)
+        outcome = "success" if response.status_code < 400 else (
+            "client_error" if response.status_code < 500 else "server_error"
+        )
+        return response
+    except asyncio.CancelledError:
+        outcome = "cancelled"
+        raise
+    finally:
+        CHAT_HTTP_DURATION.labels(outcome).observe(time.perf_counter() - started)
 
 
 @app.middleware("http")

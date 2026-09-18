@@ -29,3 +29,5 @@ docs/*
 !docs/frontend-integration.md
 !docs/QUERY_ANALYZER.md
 !docs/QUERY_ROUTER.md
+!docs/QUERY_REWRITE.md
+!docs/MULTI_QUERY.md

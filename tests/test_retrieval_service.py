@@ -55,6 +55,44 @@ class _FakeSession:
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("fail_hyde", [False, True])
+async def test_hyde_embedding_keeps_user_query_and_falls_back(fail_hyde):
+    inputs = []
+    class Embedding:
+        model = "test"
+        dimensions = 3
+        async def embed_many(self, texts):
+            inputs.append(texts)
+            if fail_hyde and len(inputs) == 1:
+                raise ConnectionError("embedding unavailable")
+            return SimpleNamespace(vectors=[[0.1, 0.2, 0.3]])
+    result = await search_by_cosine(
+        _FakeSession(), query="原问题？", embedding_text="假想文档。", kb_ids=[1], doc_ids=[7],
+        top_k=5, min_score=0.3, embedding_service=Embedding(),
+    )
+    assert result.query == "原问题？" and result.hyde_degraded == fail_hyde
+    assert inputs == ([["假想文档。"], ["原问题？"]] if fail_hyde else [["假想文档。"]])
+
+
+@pytest.mark.asyncio
+async def test_hyde_database_failure_does_not_retry_embedding():
+    inputs = []
+    class Embedding:
+        model = "test"
+        dimensions = 3
+        async def embed_many(self, texts):
+            inputs.append(texts)
+            return SimpleNamespace(vectors=[[0.1, 0.2, 0.3]])
+    class BrokenSession:
+        async def execute(self, statement):
+            raise ConnectionError("database unavailable")
+    with pytest.raises(ConnectionError, match="database"):
+        await search_by_cosine(BrokenSession(), query="原问题？", embedding_text="假想文档。", kb_ids=[1],
+                               top_k=5, min_score=0.3, embedding_service=Embedding())
+    assert inputs == [["假想文档。"]]
+
+
+@pytest.mark.asyncio
 async def test_cosine_retrieval_returns_ranked_chunks():
     session = _FakeSession()
 

@@ -1,8 +1,10 @@
 # 在线 Query Analyzer
 
-Analyzer 使用 DeepSeek 分析问题，输出意图、查询类型、实体、关键词、元数据和检索策略。
+Analyzer 使用 DeepSeek 分析意图、查询类型、实体、关键词、原文约束、上下文依赖及澄清需求。
+`retrieval_strategy` 保留模型的策略建议，不生成分支权重或执行计划；`model_suggestion`
+保存同一原始建议，避免预处理更新策略后丢失诊断依据。
 Analyzer 服务本身不回答问题、不访问数据库、不执行检索。`/chat/answer` 已通过
-`RagAnswerService` 接入 Analyzer 与 Query Router，现有独立召回接口保持直接检索。
+`RagAnswerService` 接入 Analyzer → 澄清或独立问题 → 按需更新分析 → 最终 Query Router → 按需 Multi Query / HyDE，现有独立召回接口保持直接检索。
 实际路由行为见 [Query Router 文档](QUERY_ROUTER.md)。
 
 ## 配置
@@ -94,18 +96,14 @@ Content-Type: application/json
     "use_query_rewrite": false,
     "use_multi_query": false,
     "use_hyde": false,
-    "reason": "结合语义与词法召回；缺少图谱适用依据时保留基础检索。",
-    "dense_weight": 0.3,
-    "bm25_weight": 0.7,
-    "graph_weight": 0.0,
-    "graph_requires_resolution": false,
-    "requires_coverage_check": false,
-    "metadata_mode": "soft"
+    "rewrite_method": "none",
+    "rewrite_operations": [],
+    "reason": "合同编号精确检索与正文语义召回结合。"
   },
   "original_query": "HT-2025-001 合同的金额是多少？",
   "reference_date": "2026-09-17",
   "model": "deepseek-flash",
-  "analyzer_version": "query-analyzer-v1",
+  "analyzer_version": "query-analyzer-v2",
   "status": "ok",
   "degradation_reason": null,
   "attempts": 1,
@@ -116,6 +114,10 @@ Content-Type: application/json
 
 ## 六项分析协议
 
+实体新增 `graph_role`（subject / qualifier / auxiliary）及 `qualifiers`（原文身份限定对象）。
+角色在现有 Analyzer 调用内产生，不增加模型调用。限定对象必须逐字出现在该实体的证据中；
+旧结果允许不提供这两项，由 Router 采用保守类型规则。技术或概念本身为关系查询主体时仍应标为 subject。
+
 | 字段 | 含义与允许值 |
 | --- | --- |
 | `intent` | 用户目标；primary 为 fact / explanation / procedure / comparison / summary / relationship / statistics / recommendation / chitchat / other；secondary 最多 3 个且去重 |
@@ -123,7 +125,7 @@ Content-Type: application/json
 | `entities` | 最多 20 个候选，保留类型、原文名称、来源、证据和自评置信度；不是已匹配的图谱节点或业务 ID |
 | `keywords` | 最多 20 个原文词组；kind 为 entity / domain / exact / relation / action / qualifier；不在这里生成同义词扩展 |
 | `metadata` | 最多 15 项原文约束；保留字段、比较操作、原始值和证据，不生成数据库过滤表达式 |
-| `retrieval_strategy` | 模型建议经服务端规则约束后的路径、固定分支权重及能力标记；仍需下游 Router 确认后执行 |
+| `retrieval_strategy` | 原始模型建议，包含路径及预处理建议，不含权重、权限或已确认的运行时能力；不直接控制执行 |
 
 抽取项的 `evidence_quote` 必须是对应输入的连续原文片段，且 name/text/value 必须
 逐字出现在证据中。`source=query` 时 `history_index=null`；`source=history` 时指定
@@ -153,7 +155,7 @@ document_name / document_code / file_type / department / version / business_stat
 事件时间也不等于上传日期。执行硬过滤之前，需要确认目标字段支持、单位/日期解析、
 实体或部门映射及授权范围。相对日期、最新版本、空结果回退尚未实现。
 
-## 策略优先级
+## 下游规则策略优先级
 
 服务端按以下顺序选择路径，覆盖不适用的模型路径建议：
 
@@ -167,11 +169,17 @@ document_name / document_code / file_type / department / version / business_stat
 权重是初始规则值，尚未通过真实召回数据调优：exact 查询或 exact 关键词采用
 Dense/BM25 = 0.3/0.7，普通查询 0.5/0.5，图增强查询 Dense/BM25/Graph = 0.4/0.3/0.3。
 clarify / structured / none 分支权重为零，调用方应先分支处理。
-`graph_requires_resolution` / `requires_coverage_check` 标记后续需要校验的能力。
-图谱不匹配或不可用时，后续 Router 可退回 Dense + BM25。
+上述权重由统一 Policy 为下游计划确定，不属于 Analyzer 返回协议。
+图谱不匹配时 Router 调整计划；计划执行中图谱不可用时 Executor 使用计划的 Hybrid 回退权重。
 
-`use_query_rewrite` / `use_multi_query` 只是建议，不实际执行改写、拆分或检索；
-第一版强制 `use_hyde=false`。`potential_multi_hop` 表示可能需要关系链，
+Analyzer 通过 `rewrite_method=none/query_rewrite/hyde` 建议是否及如何预处理；
+`rewrite_operations` 指定上下文补全、检索标准化、关键词优化、约束显式化中的实际需要项。
+`use_query_rewrite` / `use_hyde` 与 method 严格一致且互斥。`/query/analyze` 只返回建议，
+`/chat/answer` 执行改写和审核，再进行一次最终 Router。实现和降级见 [Query Rewrite 文档](QUERY_REWRITE.md)。
+HyDE 仅允许无精确约束、业务实体或关系需求的语义解释/方法/建议问题；上下文补全优先普通改写。
+`use_multi_query` 建议对同一完整问题生成等价搜索表达，不表示拆分多个任务。
+开启 `MULTI_QUERY_ENABLED` 后，`/chat/answer` 在最终 Router 后执行，首次零结果也可以补救触发；
+见 [Multi Query 文档](MULTI_QUERY.md)。`potential_multi_hop` 表示可能需要关系链，
 不保证知识库内存在对应关系或确定的跳数。
 
 ## 超时和降级
@@ -185,15 +193,52 @@ clarify / structured / none 分支权重为零，调用方应先分支处理。
 `status=degraded`，`degradation_reason` 为 missing_api_key / timeout / provider_error /
 invalid_output，置信度为 0、抽取为空、策略为基础 hybrid，并保留原问题。
 调用方必须检查 status 和 warnings；空抽取不代表问题确实没有约束。
-带历史的降级请求没有完成指代解析，不应直接生成依赖上文的答案。
+降级时不会解析或继承会话历史；Router 用有限的本地文本规则检查当前问题的明显指代和追问信号。
+这些问题需要补充对象名称和条件；完整问题直接使用原文执行基础 Hybrid，不因存在历史而持续澄清。
+本地规则只提供故障保护，不替代正常 Analyzer 的语义识别。
 
 ## 验证与复测
+
+### 调用量、降级率与端到端 P95
+
+保持现有调用结构：未触发预处理的普通问答通常为 Analyzer 一次、回答生成一次；
+Router 不调用 LLM，澄清及统计能力说明通常仅调用 Analyzer。改写、澄清补全、重新分析和重试
+可能增加调用次数，不能将逻辑问答请求数直接视为模型调用量。本轮未增加简单请求快速路径。
+
+`/metrics` 提供以下 Prometheus 指标，不使用问题、实体、用户、KB/doc ID 或模型名作为标签：
+
+| 指标 | 统计口径 |
+| --- | --- |
+| `zq_query_analyzer_requests_total{status,reason}` | 每次逻辑分析（包括重新分析）；成功、降级、取消或异常 |
+| `zq_query_analyzer_calls_total` | 实际发起的模型调用尝试，包括失败及重试；无密钥降级不计调用 |
+| `zq_query_analyzer_retries_total{reason}` | 实际发起的第二次及后续调用，按前次失败原因分类 |
+| `zq_query_analyzer_duration_seconds` | 分析耗时，包含全部调用和退避，失败及取消也记录 |
+| `zq_chat_http_duration_seconds{outcome}` | `/chat/answer` HTTP 耗时，含权限、状态恢复、模型处理、序列化及落库；含错误及取消 |
+
+过去 5 分钟 Analyzer 模型调用速率、重试速率、降级率及成功问答端到端 P95 可查询：
+
+```promql
+rate(zq_query_analyzer_calls_total[5m])
+sum(rate(zq_query_analyzer_retries_total[5m]))
+sum(rate(zq_query_analyzer_requests_total{status="degraded"}[5m]))
+  / sum(rate(zq_query_analyzer_requests_total{status=~"ok|degraded"}[5m]))
+histogram_quantile(0.95,
+  sum by (le) (rate(zq_chat_http_duration_seconds_bucket{outcome="success"}[5m])))
+```
+
+降级率分母为已返回成功或降级结果的分析，取消和异常可单独查看。P95 为服务端 HTTP 分桶估计，
+不包含客户端网络耗时；现有 `zq_rag_answer_stage_duration_seconds{stage="total"}` 只覆盖 RAG 服务内部。
+需先积累真实流量再评估快速路径，本地替身测试不会给出实际生产调用成本或 P95。
 
 无需网络的自动测试：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest tests/test_query_analyzer_service.py tests/test_query_analysis_api.py -q
 ```
+
+故障会话回归见 `tests/test_analyzer_failure_context.py` 和 `tests/test_rag_routing_pipeline.py`：
+覆盖缺少密钥、超时、供应商错误和无效输出，以及同一会话中先澄清、补充完整问题后恢复检索、再切换主题。
+2026-09-18 完整测试集通过：377 项；这些回归使用本地替身，不调用模型或数据库。
 
 使用配置密钥对 10 个合成问题进行真实调用（产生 API 用量，不访问数据库）：
 

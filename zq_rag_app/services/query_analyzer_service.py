@@ -16,10 +16,10 @@ from openai import (
 from pydantic import ValidationError
 
 from ..core.config import settings
+from ..core.query_metrics import ANALYZER_CALLS, ANALYZER_DURATION, ANALYZER_REQUESTS, ANALYZER_RETRIES
 from ..query_analysis.models import (
     QueryAnalysis, QueryAnalysisRequest, QueryAnalysisResult,
 )
-from ..query_analysis.policy import select_strategy
 from ..query_analysis.prompts import build_messages
 
 
@@ -49,14 +49,15 @@ def _parse_response(response: Any, request: QueryAnalysisRequest) -> QueryAnalys
     analysis.validate_grounding(request)
     # 同类同名抽取项去重，保持模型给出的顺序。
     for field, key_fields in (
-        ("entities", ("entity_type", "name")),
+        ("entities", ("entity_type", "name", "graph_role", "qualifiers")),
         ("keywords", ("kind", "text")),
         ("metadata", ("field", "operator", "value")),
     ):
         seen: set[tuple[str, ...]] = set()
         unique = []
         for candidate in getattr(analysis, field):
-            key = tuple(getattr(candidate, key_field) for key_field in key_fields)
+            key = tuple(tuple(value) if isinstance(value, list) else value
+                        for value in (getattr(candidate, key_field) for key_field in key_fields))
             if key not in seen:
                 seen.add(key)
                 unique.append(candidate)
@@ -104,6 +105,20 @@ class QueryAnalyzerService:
         self, request: QueryAnalysisRequest,
     ) -> QueryAnalysisResult:
         started = time.perf_counter()
+        status, reason = "error", "unexpected_error"
+        try:
+            result = await self._analyze(request)
+            status, reason = result.status, result.degradation_reason or "none"
+            return result
+        except asyncio.CancelledError:
+            status, reason = "cancelled", "cancelled"
+            raise
+        finally:
+            ANALYZER_REQUESTS.labels(status, reason).inc()
+            ANALYZER_DURATION.observe(time.perf_counter() - started)
+
+    async def _analyze(self, request: QueryAnalysisRequest) -> QueryAnalysisResult:
+        started = time.perf_counter()
         reference_date = request.reference_date or datetime.now(
             timezone(timedelta(hours=8))
         ).date()
@@ -117,6 +132,9 @@ class QueryAnalyzerService:
             async with asyncio.timeout(self.timeout_seconds):
                 for attempts in range(1, self.retry_attempts + 1):
                     try:
+                        ANALYZER_CALLS.inc()
+                        if attempts > 1:
+                            ANALYZER_RETRIES.labels(failure).inc()
                         response = await self.client.chat.completions.create(
                             model=self.model,
                             messages=build_messages(request, reference_date, correction=correction),
@@ -125,15 +143,14 @@ class QueryAnalyzerService:
                             extra_body={"thinking": {"type": "disabled"}},
                         )
                         analysis = _parse_response(response, request)
-                        strategy, warnings = select_strategy(analysis, request)
                         return QueryAnalysisResult(
-                            **analysis.model_dump(exclude={"retrieval_strategy"}),
-                            retrieval_strategy=strategy,
+                            **analysis.model_dump(),
+                            model_suggestion=analysis.retrieval_strategy.model_copy(deep=True),
                             original_query=request.query,
                             reference_date=reference_date.isoformat(), model=self.model,
                             status="ok", degradation_reason=None, attempts=attempts,
                             latency_ms=round((time.perf_counter() - started) * 1000),
-                            warnings=warnings,
+                            warnings=[],
                         )
                     except (
                         ValueError, ValidationError, APIResponseValidationError,
@@ -175,17 +192,15 @@ class QueryAnalyzerService:
             "retrieval_strategy": {
                 "path": "hybrid", "use_query_rewrite": False,
                 "use_multi_query": False, "use_hyde": False,
+                "rewrite_method": "none", "rewrite_operations": [],
                 "reason": "分析不可用，保留原问题进行基础混合检索。",
             },
         })
-        strategy, _ = select_strategy(analysis, request)
-        strategy.reason = analysis.retrieval_strategy.reason
         warnings = ["问题分析未成功；抽取为空不代表问题没有实体或约束。"]
         if request.history:
-            warnings.append("降级结果未解析历史指代，调用方应避免据此回答依赖上文的问题。")
+            warnings.append("降级结果未解析会话历史；独立问题可保留原文检索，明显指代或追问需先补充完整问题。")
         return QueryAnalysisResult(
-            **analysis.model_dump(exclude={"retrieval_strategy"}),
-            retrieval_strategy=strategy, original_query=request.query,
+            **analysis.model_dump(), original_query=request.query,
             reference_date=reference_date.isoformat(), model=self.model,
             status="degraded", degradation_reason=reason, attempts=attempts,
             latency_ms=round((time.perf_counter() - started) * 1000), warnings=warnings,

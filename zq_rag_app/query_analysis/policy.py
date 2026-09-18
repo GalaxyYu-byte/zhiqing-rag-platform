@@ -1,6 +1,19 @@
 """约束 LLM 的策略建议，防止实体数量、模型权重或过滤条件直接驱动检索。"""
 
+import re
+
 from .models import QueryAnalysis, QueryAnalysisRequest, RetrievalStrategy
+
+
+SEMANTIC_HYBRID_WEIGHTS = (0.5, 0.5, 0.0)
+EXACT_HYBRID_WEIGHTS = (0.3, 0.7, 0.0)
+GRAPH_WEIGHTS = (0.4, 0.3, 0.3)
+NO_RETRIEVAL_WEIGHTS = (0.0, 0.0, 0.0)
+
+
+def hybrid_weights_for(analysis: QueryAnalysis) -> tuple[float, float, float]:
+    exact = analysis.query_type.primary == "exact" or any(k.kind == "exact" for k in analysis.keywords)
+    return EXACT_HYBRID_WEIGHTS if exact else SEMANTIC_HYBRID_WEIGHTS
 
 
 def select_strategy(
@@ -43,26 +56,45 @@ def select_strategy(
 
     if path != proposal.path:
         warnings.append("模型建议的检索路径已由服务端规则调整。")
-    if proposal.use_hyde:
-        warnings.append("第一版未启用 HyDE，已关闭模型的 HyDE 建议。")
     if analysis.metadata:
         warnings.append("元数据保留原文，仅作为软约束；执行过滤前需解析、字段映射和权限校验。")
     graph = path == "hybrid_graph"
     exact = query_type.primary == "exact" or any(k.kind == "exact" for k in analysis.keywords)
     if graph:
-        weights = (0.4, 0.3, 0.3)
+        weights = GRAPH_WEIGHTS
     elif path == "hybrid":
-        weights = (0.3, 0.7, 0.0) if exact else (0.5, 0.5, 0.0)
+        weights = hybrid_weights_for(analysis)
     else:
-        weights = (0.0, 0.0, 0.0)
+        weights = NO_RETRIEVAL_WEIGHTS
     retrieval = path in {"hybrid", "hybrid_graph"}
+    method = proposal.rewrite_method if retrieval else "none"
+    operations = list(proposal.rewrite_operations) if method == "query_rewrite" else []
+    if retrieval and query_type.has_context_reference:
+        method = "query_rewrite"
+        if "context_completion" not in operations:
+            operations.insert(0, "context_completion")
+    elif method == "hyde" and (
+        path != "hybrid" or exact or analysis.metadata
+        or query_type.relation_required or query_type.primary != "semantic"
+        or analysis.intent.primary not in {"explanation", "procedure", "recommendation"}
+        or any(e.entity_type not in {"CONCEPT", "TECHNOLOGY", "PROCESS"} for e in analysis.entities)
+        or re.search(r"\d|不|未|无|除外|仅|只|全部|所有|之前|之后|至少|至多|去年|今年|最近|最新", request.query)
+    ):
+        method = "none"
+        warnings.append("精确条件、实体关系或查询形态不适合 HyDE，已保留原问题。")
+    if method == "query_rewrite" and not query_type.has_context_reference:
+        operations = [op for op in operations if op != "context_completion"]
+        if not operations:
+            method = "none"
     return RetrievalStrategy(
         path=path,
-        use_query_rewrite=retrieval and (
-            proposal.use_query_rewrite or query_type.has_context_reference
-        ),
-        use_multi_query=retrieval and proposal.use_multi_query,
-        use_hyde=False,
+        rewrite_method=method, rewrite_operations=operations,
+        use_query_rewrite=method == "query_rewrite",
+        use_multi_query=(retrieval and proposal.use_multi_query and method != "hyde" and not exact
+                         and analysis.intent.primary != "other"
+                         and not any(e.entity_type == "IDENTIFIER" for e in analysis.entities)
+                         and not any(m.field == "document_code" for m in analysis.metadata)),
+        use_hyde=method == "hyde",
         reason=reason,
         dense_weight=weights[0], bm25_weight=weights[1], graph_weight=weights[2],
         graph_requires_resolution=graph,

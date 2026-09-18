@@ -1,0 +1,577 @@
+{
+  "total": 6,
+  "executed": 6,
+  "passed": 6,
+  "cases": [
+    {
+      "name": "analyzer_suggestion",
+      "passed": true,
+      "errors": [],
+      "method_source": "test_override",
+      "analyzer_suggested": false,
+      "analysis": {
+        "intent": {
+          "primary": "explanation",
+          "secondary": [
+            "procedure"
+          ],
+          "confidence": 0.85
+        },
+        "query_type": {
+          "primary": "semantic",
+          "confidence": 0.8,
+          "has_context_reference": false,
+          "relation_required": false,
+          "potential_multi_hop": false,
+          "requires_exhaustive": false,
+          "needs_clarification": false,
+          "clarification_question": null
+        },
+        "entities": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "星河项目",
+            "confidence": 0.95,
+            "entity_type": "PROJECT",
+            "name": "星河项目"
+          }
+        ],
+        "keywords": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "星河项目",
+            "confidence": 0.95,
+            "text": "星河项目",
+            "kind": "entity"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "验收",
+            "confidence": 0.95,
+            "text": "验收",
+            "kind": "domain"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "卡住",
+            "confidence": 0.9,
+            "text": "卡住",
+            "kind": "qualifier"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "查原因",
+            "confidence": 0.9,
+            "text": "查原因",
+            "kind": "action"
+          }
+        ],
+        "metadata": [],
+        "retrieval_strategy": {
+          "path": "hybrid",
+          "rewrite_method": "none",
+          "rewrite_operations": [],
+          "use_query_rewrite": false,
+          "use_multi_query": true,
+          "use_hyde": false,
+          "reason": "结合语义与词法召回；缺少图谱适用依据时保留基础检索。",
+          "dense_weight": 0.5,
+          "bm25_weight": 0.5,
+          "graph_weight": 0.0,
+          "graph_requires_resolution": false,
+          "requires_coverage_check": false,
+          "metadata_mode": "soft"
+        },
+        "original_query": "星河项目验收卡住该怎么查原因？",
+        "reference_date": "2026-09-18",
+        "model": "deepseek-flash",
+        "analyzer_version": "query-analyzer-v2",
+        "status": "ok",
+        "degradation_reason": null,
+        "attempts": 1,
+        "latency_ms": 2631,
+        "warnings": [
+          "精确条件、实体关系或查询形态不适合 HyDE，已保留原问题。"
+        ]
+      },
+      "multi_query": {
+        "status": "expanded",
+        "queries": [
+          "星河项目验收卡住该怎么查原因？",
+          "星河项目验收卡住的原因有哪些？",
+          "星河项目验收卡住，排查原因的方法是什么？"
+        ],
+        "trigger": "analyzer",
+        "applied_queries": [],
+        "failed_queries": [],
+        "attempts": 1,
+        "reason": "equivalent_queries_generated",
+        "degradation_reason": null,
+        "warnings": []
+      }
+    },
+    {
+      "name": "empty_retrieval",
+      "passed": true,
+      "errors": [],
+      "method_source": "analyzer",
+      "analyzer_suggested": false,
+      "analysis": {
+        "intent": {
+          "primary": "procedure",
+          "secondary": [],
+          "confidence": 0.95
+        },
+        "query_type": {
+          "primary": "semantic",
+          "confidence": 0.9,
+          "has_context_reference": false,
+          "relation_required": false,
+          "potential_multi_hop": false,
+          "requires_exhaustive": false,
+          "needs_clarification": false,
+          "clarification_question": null
+        },
+        "entities": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "星河项目",
+            "confidence": 0.95,
+            "entity_type": "PROJECT",
+            "name": "星河项目"
+          }
+        ],
+        "keywords": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "验收审批流程",
+            "confidence": 0.95,
+            "text": "验收审批流程",
+            "kind": "domain"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "验收",
+            "confidence": 0.9,
+            "text": "验收",
+            "kind": "action"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "审批",
+            "confidence": 0.9,
+            "text": "审批",
+            "kind": "action"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "流程",
+            "confidence": 0.9,
+            "text": "流程",
+            "kind": "domain"
+          }
+        ],
+        "metadata": [],
+        "retrieval_strategy": {
+          "path": "hybrid",
+          "rewrite_method": "none",
+          "rewrite_operations": [],
+          "use_query_rewrite": false,
+          "use_multi_query": false,
+          "use_hyde": false,
+          "reason": "结合语义与词法召回；缺少图谱适用依据时保留基础检索。",
+          "dense_weight": 0.5,
+          "bm25_weight": 0.5,
+          "graph_weight": 0.0,
+          "graph_requires_resolution": false,
+          "requires_coverage_check": false,
+          "metadata_mode": "soft"
+        },
+        "original_query": "星河项目的验收审批流程是怎样的？",
+        "reference_date": "2026-09-18",
+        "model": "deepseek-flash",
+        "analyzer_version": "query-analyzer-v2",
+        "status": "ok",
+        "degradation_reason": null,
+        "attempts": 1,
+        "latency_ms": 1497,
+        "warnings": []
+      },
+      "multi_query": {
+        "status": "expanded",
+        "queries": [
+          "星河项目的验收审批流程是怎样的？",
+          "星河项目的验收审批流程有哪些步骤？",
+          "星河项目验收审批流程如何办理？"
+        ],
+        "trigger": "empty_retrieval",
+        "applied_queries": [],
+        "failed_queries": [],
+        "attempts": 1,
+        "reason": "equivalent_queries_generated",
+        "degradation_reason": null,
+        "warnings": []
+      }
+    },
+    {
+      "name": "constraints",
+      "passed": true,
+      "errors": [],
+      "method_source": "analyzer",
+      "analyzer_suggested": false,
+      "analysis": {
+        "intent": {
+          "primary": "explanation",
+          "secondary": [],
+          "confidence": 0.95
+        },
+        "query_type": {
+          "primary": "semantic",
+          "confidence": 0.9,
+          "has_context_reference": false,
+          "relation_required": false,
+          "potential_multi_hop": false,
+          "requires_exhaustive": false,
+          "needs_clarification": false,
+          "clarification_question": null
+        },
+        "entities": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "星河项目",
+            "confidence": 0.95,
+            "entity_type": "PROJECT",
+            "name": "星河项目"
+          }
+        ],
+        "keywords": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "星河项目",
+            "confidence": 0.95,
+            "text": "星河项目",
+            "kind": "entity"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "未验收",
+            "confidence": 0.95,
+            "text": "未验收",
+            "kind": "qualifier"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "原因",
+            "confidence": 0.9,
+            "text": "原因",
+            "kind": "relation"
+          }
+        ],
+        "metadata": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "去年",
+            "confidence": 0.95,
+            "field": "time",
+            "operator": "relative",
+            "value": "去年"
+          }
+        ],
+        "retrieval_strategy": {
+          "path": "hybrid",
+          "rewrite_method": "none",
+          "rewrite_operations": [],
+          "use_query_rewrite": false,
+          "use_multi_query": false,
+          "use_hyde": false,
+          "reason": "结合语义与词法召回；缺少图谱适用依据时保留基础检索。",
+          "dense_weight": 0.5,
+          "bm25_weight": 0.5,
+          "graph_weight": 0.0,
+          "graph_requires_resolution": false,
+          "requires_coverage_check": false,
+          "metadata_mode": "soft"
+        },
+        "original_query": "星河项目去年未验收的原因是什么？",
+        "reference_date": "2026-09-18",
+        "model": "deepseek-flash",
+        "analyzer_version": "query-analyzer-v2",
+        "status": "ok",
+        "degradation_reason": null,
+        "attempts": 1,
+        "latency_ms": 1865,
+        "warnings": [
+          "元数据保留原文，仅作为软约束；执行过滤前需解析、字段映射和权限校验。"
+        ]
+      },
+      "multi_query": {
+        "status": "expanded",
+        "queries": [
+          "星河项目去年未验收的原因是什么？",
+          "星河项目去年未验收有哪些原因？",
+          "去年星河项目未验收的原因是什么？"
+        ],
+        "trigger": "empty_retrieval",
+        "applied_queries": [],
+        "failed_queries": [],
+        "attempts": 1,
+        "reason": "equivalent_queries_generated",
+        "degradation_reason": null,
+        "warnings": []
+      }
+    },
+    {
+      "name": "exact_identifier",
+      "passed": true,
+      "errors": [],
+      "method_source": "analyzer",
+      "analyzer_suggested": false,
+      "analysis": {
+        "intent": {
+          "primary": "fact",
+          "secondary": [],
+          "confidence": 0.95
+        },
+        "query_type": {
+          "primary": "exact",
+          "confidence": 0.95,
+          "has_context_reference": false,
+          "relation_required": false,
+          "potential_multi_hop": false,
+          "requires_exhaustive": false,
+          "needs_clarification": false,
+          "clarification_question": null
+        },
+        "entities": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "HT-2025-001",
+            "confidence": 0.99,
+            "entity_type": "IDENTIFIER",
+            "name": "HT-2025-001"
+          }
+        ],
+        "keywords": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "金额",
+            "confidence": 0.95,
+            "text": "金额",
+            "kind": "domain"
+          }
+        ],
+        "metadata": [],
+        "retrieval_strategy": {
+          "path": "hybrid",
+          "rewrite_method": "none",
+          "rewrite_operations": [],
+          "use_query_rewrite": false,
+          "use_multi_query": false,
+          "use_hyde": false,
+          "reason": "结合语义与词法召回；缺少图谱适用依据时保留基础检索。",
+          "dense_weight": 0.3,
+          "bm25_weight": 0.7,
+          "graph_weight": 0.0,
+          "graph_requires_resolution": false,
+          "requires_coverage_check": false,
+          "metadata_mode": "soft"
+        },
+        "original_query": "HT-2025-001 的金额是多少？",
+        "reference_date": "2026-09-18",
+        "model": "deepseek-flash",
+        "analyzer_version": "query-analyzer-v2",
+        "status": "ok",
+        "degradation_reason": null,
+        "attempts": 1,
+        "latency_ms": 1420,
+        "warnings": []
+      },
+      "multi_query": {
+        "status": "skipped",
+        "queries": [
+          "HT-2025-001 的金额是多少？"
+        ],
+        "trigger": null,
+        "applied_queries": [],
+        "failed_queries": [],
+        "attempts": 0,
+        "reason": "exact_query",
+        "degradation_reason": null,
+        "warnings": []
+      }
+    },
+    {
+      "name": "missing_reference",
+      "passed": true,
+      "errors": [],
+      "method_source": "analyzer",
+      "analyzer_suggested": false,
+      "analysis": {
+        "intent": {
+          "primary": "relationship",
+          "secondary": [],
+          "confidence": 0.6
+        },
+        "query_type": {
+          "primary": "ambiguous",
+          "confidence": 0.9,
+          "has_context_reference": true,
+          "relation_required": true,
+          "potential_multi_hop": false,
+          "requires_exhaustive": false,
+          "needs_clarification": true,
+          "clarification_question": "请明确问题中指代的对象，或提供相关上文。"
+        },
+        "entities": [],
+        "keywords": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "负责",
+            "confidence": 0.9,
+            "text": "负责",
+            "kind": "relation"
+          }
+        ],
+        "metadata": [],
+        "retrieval_strategy": {
+          "path": "clarify",
+          "rewrite_method": "none",
+          "rewrite_operations": [],
+          "use_query_rewrite": false,
+          "use_multi_query": false,
+          "use_hyde": false,
+          "reason": "必要信息或指代未明确，先澄清问题。",
+          "dense_weight": 0.0,
+          "bm25_weight": 0.0,
+          "graph_weight": 0.0,
+          "graph_requires_resolution": false,
+          "requires_coverage_check": false,
+          "metadata_mode": "soft"
+        },
+        "original_query": "它是谁负责？",
+        "reference_date": "2026-09-18",
+        "model": "deepseek-flash",
+        "analyzer_version": "query-analyzer-v2",
+        "status": "ok",
+        "degradation_reason": null,
+        "attempts": 1,
+        "latency_ms": 1169,
+        "warnings": [
+          "缺少指代所需的历史上下文。"
+        ]
+      },
+      "multi_query": {
+        "status": "skipped",
+        "queries": [
+          "它是谁负责？"
+        ],
+        "trigger": null,
+        "applied_queries": [],
+        "failed_queries": [],
+        "attempts": 0,
+        "reason": "unresolved_query",
+        "degradation_reason": null,
+        "warnings": []
+      }
+    },
+    {
+      "name": "hyde_not_combined",
+      "passed": true,
+      "errors": [],
+      "method_source": "analyzer",
+      "analyzer_suggested": false,
+      "analysis": {
+        "intent": {
+          "primary": "procedure",
+          "secondary": [],
+          "confidence": 0.95
+        },
+        "query_type": {
+          "primary": "semantic",
+          "confidence": 0.9,
+          "has_context_reference": false,
+          "relation_required": false,
+          "potential_multi_hop": false,
+          "requires_exhaustive": false,
+          "needs_clarification": false,
+          "clarification_question": null
+        },
+        "entities": [],
+        "keywords": [
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "员工差旅报销",
+            "confidence": 0.95,
+            "text": "员工差旅报销",
+            "kind": "domain"
+          },
+          {
+            "source": "query",
+            "history_index": null,
+            "evidence_quote": "审批步骤",
+            "confidence": 0.95,
+            "text": "审批步骤",
+            "kind": "action"
+          }
+        ],
+        "metadata": [],
+        "retrieval_strategy": {
+          "path": "hybrid",
+          "rewrite_method": "none",
+          "rewrite_operations": [],
+          "use_query_rewrite": false,
+          "use_multi_query": false,
+          "use_hyde": false,
+          "reason": "结合语义与词法召回；缺少图谱适用依据时保留基础检索。",
+          "dense_weight": 0.5,
+          "bm25_weight": 0.5,
+          "graph_weight": 0.0,
+          "graph_requires_resolution": false,
+          "requires_coverage_check": false,
+          "metadata_mode": "soft"
+        },
+        "original_query": "员工差旅报销审批步骤是什么？",
+        "reference_date": "2026-09-18",
+        "model": "deepseek-flash",
+        "analyzer_version": "query-analyzer-v2",
+        "status": "ok",
+        "degradation_reason": null,
+        "attempts": 1,
+        "latency_ms": 1329,
+        "warnings": []
+      },
+      "multi_query": {
+        "status": "skipped",
+        "queries": [
+          "员工差旅报销审批步骤是什么？"
+        ],
+        "trigger": null,
+        "applied_queries": [],
+        "failed_queries": [],
+        "attempts": 0,
+        "reason": "hyde_not_combined",
+        "degradation_reason": null,
+        "warnings": []
+      }
+    }
+  ]
+}

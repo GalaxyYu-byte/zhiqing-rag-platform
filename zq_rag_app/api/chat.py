@@ -17,7 +17,10 @@ from ..core.database import get_db
 from ..core.security import CurrentUser
 from ..models.chat import ChatMessage, ChatSession
 from ..query_analysis.models import HistoryMessage
-from ..query_routing.models import RoutingDecision
+from ..query_analysis.clarification import PendingClarification
+from ..query_analysis.rewrite import RewriteSummary
+from ..query_analysis.multi_query import MultiQuerySummary
+from ..query_routing.models import ExecutionRecord, RoutingDecision
 from ..services.permission_service import (
     PermissionLevel,
     has_knowledge_base_permission,
@@ -89,6 +92,8 @@ class ChatTimingResponse(BaseModel):
     total_ms: int
     analysis_ms: int = 0
     routing_ms: int = 0
+    rewrite_ms: int = 0
+    expansion_ms: int = 0
 
 
 class ChatAnswerResponse(BaseModel):
@@ -104,6 +109,9 @@ class ChatAnswerResponse(BaseModel):
     sources: list[ChatSourceResponse]
     timing: ChatTimingResponse
     routing: RoutingDecision | None = None
+    rewrite: RewriteSummary | None = None
+    multi_query: MultiQuerySummary | None = None
+    execution: ExecutionRecord | None = None
 
 
 @router.post("/answer", response_model=ChatAnswerResponse)
@@ -144,7 +152,7 @@ async def answer_question(
                 ChatSession.id == request.session_id,
                 ChatSession.user_id == current_user.user_id,
                 ChatSession.is_deleted.is_(False),
-            )
+            ).with_for_update()
         )
         if chat_session is None:
             raise HTTPException(status_code=404, detail="会话不存在")
@@ -152,15 +160,25 @@ async def answer_question(
             raise HTTPException(status_code=409, detail="会话知识库范围不能变更")
 
     history: list[HistoryMessage] = []
+    pending = None
     if chat_session is not None:
-        # 会话归属和 KB 范围检查完成之后再加载历史。只把用户问题作为指代依据，
-        # 避免过去的助手证据在文档权限已变更时重新进入模型上下文。
-        messages = (await session.execute(
-            select(ChatMessage).where(
-                ChatMessage.session_id == chat_session.id, ChatMessage.role == "USER",
-            ).order_by(ChatMessage.id.desc()).limit(6)
-        )).scalars().all()
-        history = [HistoryMessage(role="user", content=message.content) for message in reversed(messages)]
+        stored = getattr(chat_session, "pending_clarification", None)
+        if stored is not None:
+            try:
+                pending = PendingClarification.model_validate(stored).revalidate_scope(
+                    request.kb_ids, accessible_doc_ids,
+                )
+            except ValueError:
+                logger.warning("会话待澄清状态无效，已丢弃")
+        if stored is None:
+            # 普通会话仅加载用户消息作为指代依据。待澄清任务用自己的用户上下文，
+            # 失效状态也不能借普通历史再次恢复，绕过过期时间或原授权范围。
+            messages = (await session.execute(
+                select(ChatMessage).where(
+                    ChatMessage.session_id == chat_session.id, ChatMessage.role == "USER",
+                ).order_by(ChatMessage.id.desc()).limit(6)
+            )).scalars().all()
+            history = [HistoryMessage(role="user", content=message.content) for message in reversed(messages)]
 
     service = RagAnswerService()
     try:
@@ -173,6 +191,7 @@ async def answer_question(
             top_k=request.top_k,
             rerank=request.rerank,
             history=history,
+            pending_clarification=pending,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -193,6 +212,10 @@ async def answer_question(
         )
         session.add(chat_session)
 
+    chat_session.pending_clarification = (
+        result.pending_clarification.model_dump(mode="json")
+        if result.pending_clarification is not None else None
+    )
     user_message = ChatMessage(
         session_id=chat_session.id,
         role="USER",
@@ -206,6 +229,12 @@ async def answer_question(
         role="ASSISTANT",
         content=result.answer,
         sources=[source.to_storage() for source in result.sources],
+        retrieval_trace=json.loads(json.dumps({
+            "routing": asdict(result.routing) if result.routing else None,
+            "execution": asdict(result.execution) if result.execution else None,
+            "rewrite": asdict(result.rewrite) if result.rewrite else None,
+            "multi_query": asdict(result.multi_query) if result.multi_query else None,
+        }, ensure_ascii=False)),
         token_count=result.token_count,
         latency_ms=result.timing.total_ms,
     )
@@ -236,6 +265,11 @@ async def answer_question(
             total_ms=result.timing.total_ms,
             analysis_ms=result.timing.analysis_ms,
             routing_ms=result.timing.routing_ms,
+            rewrite_ms=result.timing.rewrite_ms,
+            expansion_ms=result.timing.expansion_ms,
         ),
         routing=result.routing,
+        rewrite=result.rewrite,
+        multi_query=result.multi_query,
+        execution=result.execution,
     )

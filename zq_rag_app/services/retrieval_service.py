@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from math import isfinite
 from typing import Sequence
 
@@ -35,6 +35,7 @@ class CosineRetrievalResult:
     dimensions: int
     latency_ms: int
     results: list[RetrievedChunk]
+    hyde_degraded: bool = False
 
 
 async def search_by_cosine(
@@ -46,6 +47,7 @@ async def search_by_cosine(
     min_score: float,
     doc_ids: list[int] | None = None,
     embedding_service: EmbeddingService | None = None,
+    embedding_text: str | None = None,
 ) -> CosineRetrievalResult:
     """生成 Query 向量并按余弦相似度返回当前版本的文档分块。
 
@@ -65,8 +67,18 @@ async def search_by_cosine(
 
     started_at = time.perf_counter()
     service = embedding_service or get_embedding_service()
-    embedding_result = await service.embed_many([normalized_query])
-    return await search_by_cosine_vector(
+    if embedding_text is not None and not embedding_text.strip():
+        raise ValueError("embedding_text 不能为空")
+    hyde_degraded = False
+    try:
+        embedding_result = await service.embed_many([embedding_text or normalized_query])
+    except Exception:
+        # 仅降级假想文档的向量生成；数据库错误和任务取消不在这里重试。
+        if embedding_text is None:
+            raise
+        hyde_degraded = True
+        embedding_result = await service.embed_many([normalized_query])
+    result = await search_by_cosine_vector(
         session,
         query=normalized_query,
         query_vector=embedding_result.vectors[0],
@@ -78,6 +90,7 @@ async def search_by_cosine(
         dimensions=service.dimensions,
         started_at=started_at,
     )
+    return replace(result, hyde_degraded=hyde_degraded)
 
 
 async def search_by_cosine_vector(

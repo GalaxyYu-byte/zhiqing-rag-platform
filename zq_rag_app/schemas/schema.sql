@@ -233,6 +233,7 @@ CREATE TABLE kb_chat_session (
     user_id         BIGINT          NOT NULL,
     kb_ids          TEXT            NOT NULL,           -- JSON 数组，查询的知识库列表
     title           VARCHAR(200),                      -- 会话标题（取第一条消息）
+    pending_clarification JSONB,                       -- 待澄清任务，使用前重验权限
     message_count   INT             NOT NULL DEFAULT 0,
     created_at      TIMESTAMP       NOT NULL DEFAULT NOW(),
     last_active_at  TIMESTAMP       NOT NULL DEFAULT NOW(),
@@ -251,6 +252,7 @@ CREATE TABLE kb_chat_message (
     role            VARCHAR(20)     NOT NULL,           -- USER / ASSISTANT
     content         TEXT            NOT NULL,
     sources         JSONB,                             -- 引用来源列表（仅 ASSISTANT 消息有）
+    retrieval_trace JSONB,                             -- 模型建议、规则决策和实际执行参数
     token_count     INT             DEFAULT 0,          -- 消耗的 Token 数
     latency_ms      INT             DEFAULT 0,          -- 生成耗时（毫秒）
     feedback        SMALLINT,                          -- 用户反馈：1=好 -1=差 NULL=未反馈
@@ -261,6 +263,8 @@ COMMENT ON COLUMN kb_chat_message.sources IS
     'JSON格式：[{"docId":1,"docName":"手册.pdf","chunkId":100,"pageNum":5,"excerpt":"...","score":0.92}]';
 
 CREATE INDEX idx_message_session ON kb_chat_message(session_id, created_at);
+COMMENT ON COLUMN kb_chat_message.retrieval_trace IS
+    '检索诊断：模型建议、Router 规则决策、Executor 实际路径、最终参数及降级原因。';
 
 -- ================================================================
 -- 8. 用户反馈表（点赞/点踩，用于效果评估）

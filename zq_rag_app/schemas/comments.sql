@@ -116,6 +116,7 @@ COMMENT ON COLUMN kb_chat_session.id IS '会话主键，UUID 字符串。';
 COMMENT ON COLUMN kb_chat_session.user_id IS '会话所属用户 ID，来自外部用户系统。';
 COMMENT ON COLUMN kb_chat_session.kb_ids IS '会话查询的知识库 ID 列表，保存为 JSON 数组字符串。';
 COMMENT ON COLUMN kb_chat_session.title IS '会话标题，通常取第一条消息生成。';
+COMMENT ON COLUMN kb_chat_session.pending_clarification IS '待澄清任务：原问题、缺失槽位、授权候选文档、补充和过期时间；使用前重新校验权限。';
 COMMENT ON COLUMN kb_chat_session.message_count IS '会话消息数量。';
 COMMENT ON COLUMN kb_chat_session.created_at IS '会话创建时间。';
 COMMENT ON COLUMN kb_chat_session.last_active_at IS '最后活跃时间。';
@@ -127,6 +128,7 @@ COMMENT ON COLUMN kb_chat_message.session_id IS '所属会话 ID，逻辑关联 
 COMMENT ON COLUMN kb_chat_message.role IS '消息角色：USER 用户消息，ASSISTANT 助手消息。';
 COMMENT ON COLUMN kb_chat_message.content IS '消息正文。';
 COMMENT ON COLUMN kb_chat_message.sources IS '助手回答引用的来源列表，JSON 格式，通常包含 docId、docName、chunkId、pageNum、excerpt、score。';
+COMMENT ON COLUMN kb_chat_message.retrieval_trace IS '检索诊断：模型建议、Router 规则决策、Executor 实际路径、最终参数及降级原因。';
 COMMENT ON COLUMN kb_chat_message.token_count IS '本条消息消耗或估算的 Token 数量。';
 COMMENT ON COLUMN kb_chat_message.latency_ms IS '生成本条消息耗时，单位为毫秒。';
 COMMENT ON COLUMN kb_chat_message.feedback IS '消息级反馈汇总：1 好评，-1 差评，NULL 未反馈。';

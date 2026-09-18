@@ -278,10 +278,17 @@ Embedding 缓存连接异常时会主动清理旧连接并降级直调模型；A
 配置 `DEEPSEEK_API_KEY` 后，可调用 `POST /query/analyze`，获得意图、查询类型、
 实体、关键词、原文元数据和受服务端规则约束的检索策略建议。
 默认使用 `deepseek-flash`，通过 JSON 模式及 Pydantic 校验输出，支持有限历史输入、
-整体超时、重试和结构化降级。`/chat/answer` 已接入 Analyzer 和确定性 Query Router，
+整体超时、重试和结构化降级。`/chat/answer` 已接入 Analyzer → 澄清或独立问题 → 按需更新分析 → 最终 Query Router → 按需 Multi Query / HyDE，
 普通问题只走 Dense + BM25，图谱问题先检查授权文档内的活动证据；澄清、统计能力限制和
 纯闲聊各自分支处理，响应新增 `routing`。策略及降级约定见 [Query Router 文档](docs/QUERY_ROUTER.md)。
 配置、完整接口协议、策略边界和真实调用复测方法见 [Query Analyzer 文档](docs/QUERY_ANALYZER.md)。
+改写支持上下文补全、检索标准化、关键词优化及约束显式化，通过本地检查与独立 DeepSeek 语义审核；
+普通改写后按需更新分析，Router 仅执行一次。生成同时接收原问题与经过校验的独立问题。
+HyDE 在路由确定后执行，假想文档只用于 Dense 向量召回，
+响应新增 `rewrite` 摘要和 `timing.rewrite_ms`。详见 [Query Rewrite 文档](docs/QUERY_REWRITE.md)。
+设置 `MULTI_QUERY_ENABLED=true` 可启用等价多查询扩展：Analyzer 建议或首次检索零结果时，
+最多追加两个保留原主体及约束的查询，经 DeepSeek 审核后在既定范围内召回、融合并统一重排。
+默认关闭，不与 HyDE 叠加，返回 `multi_query` 摘要及 `timing.expansion_ms`。见 [Multi Query 文档](docs/MULTI_QUERY.md)。
 
 ## 前端召回实验台
 

@@ -46,7 +46,7 @@ def request(**kwargs):
 
 
 @pytest.mark.asyncio
-async def test_six_fields_json_mode_and_server_strategy():
+async def test_six_fields_json_mode_and_original_model_suggestion():
     client = Client([json.dumps(payload())])
     service = QueryAnalyzerService(client=client)
     result = await service.analyze(request(reference_date=date(2026, 9, 17)))
@@ -57,7 +57,8 @@ async def test_six_fields_json_mode_and_server_strategy():
     assert result.keywords[0].text == "金额"
     assert result.metadata == []
     assert result.retrieval_strategy.path == "hybrid"
-    assert result.retrieval_strategy.bm25_weight == 0.7
+    assert "bm25_weight" not in result.retrieval_strategy.model_dump()
+    assert result.model_suggestion.model_dump() == payload()["retrieval_strategy"]
     assert result.original_query == request().query
     assert result.reference_date == "2026-09-17"
     call = client.calls[0]
@@ -88,7 +89,8 @@ async def test_invalid_output_degrades_without_fabricating_extractions():
     assert result.status == "degraded" and result.degradation_reason == "invalid_output"
     assert result.entities == result.keywords == result.metadata == []
     assert result.retrieval_strategy.path == "hybrid"
-    assert result.retrieval_strategy.graph_weight == 0
+    assert result.model_suggestion is None
+    assert "graph_weight" not in result.retrieval_strategy.model_dump()
     assert result.original_query == request().query
 
 
@@ -223,7 +225,7 @@ def test_multiple_entities_without_relation_do_not_trigger_graph():
     data = payload()
     data["intent"]["primary"] = "comparison"
     data["query_type"]["primary"] = "semantic"
-    data["retrieval_strategy"].update(path="hybrid_graph", use_hyde=True)
+    data["retrieval_strategy"].update(path="hybrid_graph", use_hyde=True, rewrite_method="hyde")
     analysis = QueryAnalysis.model_validate(data)
     strategy, warnings = select_strategy(analysis, request())
     assert strategy.path == "hybrid" and not strategy.use_hyde
@@ -267,7 +269,8 @@ async def test_metadata_preserves_negation_time_and_units():
     result = await QueryAnalyzerService(client=Client([json.dumps(data)])).analyze(QueryAnalysisRequest(query=query))
     assert result.status == "ok"
     assert [m.value for m in result.metadata] == ["2025 年之前", "未验收", "100 万元"]
-    assert result.retrieval_strategy.metadata_mode == "soft"
+    strategy, _ = select_strategy(result.model_copy(deep=True), QueryAnalysisRequest(query=query))
+    assert strategy.metadata_mode == "soft"
 
 
 @pytest.mark.parametrize("data", [

@@ -30,6 +30,8 @@ def analysis_factory():
             retrieval_strategy={
                 "path": path, "use_query_rewrite": rewrite,
                 "use_multi_query": multi_query, "use_hyde": False, "reason": "测试建议",
+                "rewrite_method": "query_rewrite" if rewrite else "none",
+                "rewrite_operations": ["retrieval_normalization"] if rewrite else [],
                 "dense_weight": 0.4, "bm25_weight": 0.3, "graph_weight": 0.3,
                 "graph_requires_resolution": path == "hybrid_graph",
                 "requires_coverage_check": path in {"hybrid_graph", "structured"},

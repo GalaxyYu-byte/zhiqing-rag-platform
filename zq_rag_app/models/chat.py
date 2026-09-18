@@ -51,6 +51,8 @@ class ChatSession(Base):
     kb_ids: Mapped[str] = mapped_column(Text, nullable=False)
     # 会话标题，通常取第一条用户消息生成；可以为空。
     title: Mapped[str | None] = mapped_column(String(200))
+    # 与本轮消息同事务保存，使用前必须重新校验用户权限。
+    pending_clarification: Mapped[dict[str, object] | None] = mapped_column(JSONB)
     # 当前会话中的消息数量，默认 0；由业务层在新增消息时维护。
     message_count: Mapped[int] = mapped_column(
         Integer, nullable=False, server_default=text("0")
@@ -95,6 +97,8 @@ class ChatMessage(Base):
     # 助手回答引用的来源列表，使用 JSONB 便于保存结构化召回结果。
     # 用户消息通常不需要来源，因此该字段允许为空。
     sources: Mapped[list[dict[str, object]] | None] = mapped_column(JSONB)
+    # 模型建议、Router 规则决策、Executor 实际路径与最终参数。
+    retrieval_trace: Mapped[dict[str, object] | None] = mapped_column(JSONB)
     # 生成或处理该消息消耗的 Token 数，默认 0。
     token_count: Mapped[int] = mapped_column(
         Integer, nullable=False, server_default=text("0")

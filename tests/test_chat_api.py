@@ -6,7 +6,7 @@ from fastapi import HTTPException
 from zq_rag_app.api import chat as chat_api
 from zq_rag_app.core.security import DEFAULT_ADMIN_USER
 from zq_rag_app.models.chat import ChatMessage
-from zq_rag_app.query_routing.models import RoutingDecision
+from zq_rag_app.query_routing.models import ExecutionRecord, RoutingDecision
 from zq_rag_app.services.rag_service import (
     RagAnswerResult,
     RagSource,
@@ -71,6 +71,7 @@ class _Service:
             ),
             timing=RagTiming(retrieval_ms=20, generation_ms=30, total_ms=50),
             routing=RoutingDecision("hybrid", "hybrid", "retrieve", "hybrid_selected", "ok"),
+            execution=ExecutionRecord("hybrid", kwargs["query"], (4,), (1,), 3, 1, weights=(0.5, 0.5, 0.0)),
         )
 
     async def aclose(self):
@@ -106,6 +107,11 @@ async def test_chat_answer_persists_session_messages_and_sources(monkeypatch):
     assert response.timing.total_ms == 50
     assert response.routing.path == "hybrid"
     assert response.model_dump(mode="json")["routing"]["reason"] == "hybrid_selected"
+    assert response.model_dump(mode="json")["execution"]["weights"] == [0.5, 0.5, 0.0]
+    assistant = next(item for item in session.added if isinstance(item, ChatMessage) and item.role == "ASSISTANT")
+    assert assistant.retrieval_trace["routing"]["path"] == "hybrid"
+    assert assistant.retrieval_trace["execution"]["doc_ids"] == [1]
+    assert assistant.retrieval_trace["execution"]["weights"] == [0.5, 0.5, 0.0]
     assert service.kwargs["doc_ids"] == [1]
     assert session.committed is True
     assert [item.role for item in session.added if isinstance(item, ChatMessage)] == [

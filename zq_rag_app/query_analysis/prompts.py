@@ -16,6 +16,7 @@ _EXAMPLE = {
     },
     "entities": [{
         "entity_type": "IDENTIFIER", "name": "HT-2025-001",
+        "graph_role": "subject", "qualifiers": [],
         "source": "query", "history_index": None,
         "evidence_quote": "HT-2025-001", "confidence": 0.99,
     }],
@@ -27,6 +28,7 @@ _EXAMPLE = {
     "retrieval_strategy": {
         "path": "hybrid", "use_query_rewrite": False,
         "use_multi_query": False, "use_hyde": False,
+        "rewrite_method": "none", "rewrite_operations": [],
         "reason": "合同编号精确检索与正文语义召回结合。",
     },
 }
@@ -60,9 +62,18 @@ def build_messages(
    multi_hop 潜在多跳；aggregate 全量统计/汇总；compound 多个问题；
    conversational 依赖上文；ambiguous 无法确定主体或约束。
    多个实体、跨文档比较、问原因都不自动等于关系或多跳查询。
+   明确询问命名实体间负责、隶属、依赖等连接关系时，relation_required=true；
+   例如“张三是否也负责天河项目？”可以 intent=fact，但 query_type=relational。
+   单条连接不需要标记多跳。查询合同金额、制度审批步骤等内容属性本身不是关系链。
    potential_multi_hop 是关系链需求信号，不能声称知识库一定存在该关系。
 4. entities 抽取明确命名的人、组织、项目、合同、系统、政策、地点、概念等候选。
    不把“他”“这个”“负责人”等未命名角色猜成实体；禁止编造 ID、别名、实体身份。
+   graph_role 区分 subject（问题要查询关系的必需主体/明确命名的关系端点）、
+   qualifier（限定主体身份的部门、项目、地点等）和 auxiliary（附带的技术、概念等）。
+   技术若本身是被询问的关系主体，仍为 subject；不能单凭实体类型决定角色。
+   qualifiers 仅包含原文明确归属于该主体的命名限定对象，且 evidence_quote 必须同时包含
+   主体和限定对象。例如“研发部的张三负责什么”中张三是 subject、qualifiers=[“研发部”]，
+   研发部是 qualifier。不能将附近提到的对象或时间/否定条件猜作身份限定，未明确时填 []。
 5. keywords 提取有检索价值的原文词组，保留编号、专业术语、关系词和否定/范围限定；
    不填“请问”等礼貌词。同类同名候选只保留一次。
 6. metadata 提取时间、地区、文档名/编号、文件类型、部门、版本、业务状态、金额。
@@ -84,9 +95,20 @@ def build_messages(
 10. retrieval_strategy 只给策略建议，不生成 SQL、Cypher、过滤表达式、权重或权限。
     普通查询 hybrid；命名实体的关系链 hybrid_graph；不明确 clarify；纯闲聊 none。
     图谱是否覆盖关系由后续 Router 校验。没有命名实体的关系问题优先 hybrid。
-11. 简单问题不改写；上下文指代或不完整表达可以建议 use_query_rewrite。
-    多个独立问题可以建议 use_multi_query，但此模块不实际拆分或改写。
-    第一版 use_hyde 必须为 false，避免生成假设事实。confidence 是自评，不代表已验证。
+11. 判断是否需要检索预处理：简单完整问题 rewrite_method=none，两个改写标记均 false，
+    rewrite_operations=[]。上下文指代、口语不完整、专业搜索词不规范、约束需要显式表达时，
+    rewrite_method=query_rewrite，use_query_rewrite=true，use_hyde=false；操作从
+    context_completion / retrieval_normalization / keyword_optimization /
+    constraint_explicitization 中选择。只做必要补全，保留主体、编号、数字、否定、时间和范围。
+    上下文能够明确解析时建议改写；有多个可能对象时先 clarify，不能猜测。
+    对缺少合适检索词的抽象原因/方法/建议类 semantic 问题，可以建议 rewrite_method=hyde，
+    use_hyde=true，use_query_rewrite=false，rewrite_operations=[]，通过假想文档辅助向量召回。
+    已有清晰术语的问题无需 HyDE；编号/日期/金额/否定/精确条件/命名业务实体/关系追查/
+    统计/闲聊/澄清不使用 HyDE。两种改写方式不能同时使用。
+    同一问题意图明确，但检索表达不足、存在多种等价专业叫法时，可以建议 use_multi_query。
+    它只扩展同一问题的等价表达，不拆分多个任务；清晰完整或精确编号的问题不建议。
+    澄清、统计、闲聊、HyDE 不同时建议多查询扩展；单凭问题长或实体多不能触发。
+    confidence 是自评，不代表已验证。
 12. 六个顶层字段和全部嵌套必填字段必须存在，空抽取返回 []。
 
 示例输入：HT-2025-001 的金额是多少？

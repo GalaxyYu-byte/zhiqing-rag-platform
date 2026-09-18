@@ -97,6 +97,18 @@ class Settings(BaseSettings):
     query_analyzer_timeout_seconds: float = Field(default=12.0, gt=0, le=120)
     query_analyzer_retry_attempts: int = Field(default=2, ge=1, le=3)
     query_analyzer_max_tokens: int = Field(default=3072, ge=512, le=8192)
+    query_rewrite_model: str = "deepseek-flash"
+    query_rewrite_timeout_seconds: float = Field(default=20.0, gt=0, le=120)
+    query_rewrite_retry_attempts: int = Field(default=2, ge=1, le=3)
+    query_rewrite_max_tokens: int = Field(default=2048, ge=512, le=8192)
+    multi_query_enabled: bool = False
+    multi_query_empty_retrieval_enabled: bool = True
+    multi_query_model: str = "deepseek-flash"
+    multi_query_timeout_seconds: float = Field(default=20.0, gt=0, le=120)
+    multi_query_retry_attempts: int = Field(default=2, ge=1, le=3)
+    multi_query_max_tokens: int = Field(default=2048, ge=512, le=8192)
+    multi_query_max_expansions: int = Field(default=2, ge=1, le=2)
+    multi_query_retrieval_timeout_seconds: float = Field(default=8.0, gt=0, le=30)
     query_router_graph_timeout_seconds: float = Field(default=2.0, gt=0, le=30)
 
     embedding_model: str = "text-embedding-v3"
