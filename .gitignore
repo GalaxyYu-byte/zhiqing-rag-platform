@@ -17,3 +17,8 @@ dist/
 logs/
 data/
 /docs/
+/dox/
+
+# MinerU local runtime and model assets
+.venv-mineru/
+.mineru/

@@ -17,6 +17,19 @@ class Settings(BaseSettings):
     app_host: str = "127.0.0.1"
     app_port: int = Field(default=8000, ge=1, le=65535)
     log_level: str = "INFO"
+    cors_origins: list[str] = ["http://127.0.0.1:5173", "http://localhost:5173"]
+    upload_max_file_size: int = Field(default=50 * 1024 * 1024, gt=0)
+    upload_chunk_size: int = Field(default=512, ge=128, le=2048)
+    upload_chunk_overlap: int = Field(default=48, ge=0)
+    # 正式登录尚未实现；开发身份只允许 dev 环境下的本机请求。
+    dev_upload_identity_enabled: bool = True
+    dev_upload_user_email: str = "admin@zhiqing.test"
+    dev_upload_tenant_code: str = "DEFAULT"
+    ingestion_poll_seconds: float = Field(default=2, gt=0, le=30)
+    ingestion_concurrency: int = Field(default=2, ge=1, le=8)
+    ingestion_lease_seconds: int = Field(default=90, ge=30, le=600)
+    ingestion_timeout_seconds: int = Field(default=1200, ge=30, le=7200)
+    ingestion_max_attempts: int = Field(default=3, ge=1, le=10)
 
     db_host: str = "127.0.0.1"
     db_port: int = Field(default=5432, ge=1, le=65535)
@@ -56,6 +69,10 @@ class Settings(BaseSettings):
     chat_temperature: float = Field(default=0.1, ge=0, le=2)
     embedding_model: str = "text-embedding-v3"
     embedding_dimensions: int = Field(default=1024, gt=0)
+    embedding_cache_enabled: bool = True
+    embedding_cache_ttl_seconds: int = Field(default=604800, gt=0)
+    embedding_cache_revision: str = Field(default="local-config-v1", min_length=1)
+    embedding_cache_timeout_seconds: float = Field(default=1.0, gt=0, le=5)
     reranker_endpoint: str = (
         "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
     )
@@ -93,6 +110,8 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_production(self):
+        if self.upload_chunk_overlap >= self.upload_chunk_size // 2:
+            raise ValueError("上传重叠大小必须小于分块大小的一半")
         if self.app_env == "production":
             if len(self.jwt_secret_key.get_secret_value().encode()) < 32:
                 raise ValueError("生产环境 JWT_SECRET_KEY 至少需要 32 字节")
