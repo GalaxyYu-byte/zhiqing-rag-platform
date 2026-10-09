@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from openpyxl import Workbook
 from pypdf import PdfWriter
 
 from zhiqing_rag.document_processing import ChunkConfig, chunk_document, clean_document
@@ -73,6 +74,67 @@ def test_chunking_splits_large_table_by_rows_with_header_and_sources() -> None:
     assert all(chunk.page_number == 2 for chunk in chunks)
     assert all(chunk.source_refs == ("page:2/block:3",) for chunk in chunks)
     assert all(chunk.token_count <= 55 for chunk in chunks)
+
+
+def test_xlsx_continuation_chunks_keep_real_header_after_sparse_preamble(tmp_path: Path) -> None:
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.title = "交接验证"
+    sheet.append(["设备交接台账", None, None, None, None])
+    sheet.append(["说明：逐行核对后归档", None, None, None, None])
+    sheet.append(["批次", "责任岗位", "检查动作", "交接材料", "完成依据"])
+    for index in range(1, 13):
+        sheet.append(
+            [f"批次{index}", "验收岗位", f"核对设备序号{index}", "签收清单", "双方确认"]
+        )
+    source = tmp_path / "unseen-handover.xlsx"
+    workbook.save(source)
+
+    result = process_document(
+        source,
+        chunk_config=ChunkConfig(max_tokens=95, overlap_tokens=8),
+    )
+    chunks = result.chunks
+    data_chunks = [chunk for chunk in chunks if not chunk.metadata.get("table_preamble")]
+    assert len(data_chunks) > 1
+    assert any(chunk.metadata.get("table_preamble") for chunk in chunks)
+    assert all(chunk.metadata["table_header_row"] == 3 for chunk in data_chunks)
+    expected_header = "| 批次 | 责任岗位 | 检查动作 | 交接材料 | 完成依据 |"
+    assert all(expected_header in chunk.content for chunk in data_chunks)
+    assert all(
+        next(line for line in chunk.content.splitlines() if line.startswith("| "))
+        == expected_header
+        for chunk in data_chunks
+    )
+    assert all(chunk.token_count <= 95 for chunk in chunks)
+    assert all(chunk.metadata["row_start"] >= 4 for chunk in data_chunks)
+    for index in range(1, 13):
+        assert sum(f"核对设备序号{index} |" in chunk.content for chunk in data_chunks) == 1
+
+
+def test_xlsx_does_not_infer_header_without_instruction_row() -> None:
+    table = ParsedElement(
+        ElementKind.TABLE,
+        "<table>...</table>",
+        0,
+        sheet_name="无列头",
+        heading_path=("无列头",),
+        table_rows=(
+            ("项目清单", "", ""),
+            ("第一批", "", ""),
+            ("设备甲", "保管员", "已入库"),
+            ("设备乙", "保管员", "已入库"),
+            ("设备丙", "保管员", "已入库"),
+            ("设备丁", "保管员", "已入库"),
+        ),
+    )
+    chunks = chunk_document(
+        _document(table),
+        config=ChunkConfig(max_tokens=55, overlap_tokens=8),
+    )
+    assert all(chunk.metadata.get("table_header_row") == 1 for chunk in chunks)
+    assert not any(chunk.metadata.get("table_preamble") for chunk in chunks)
+    assert any("设备甲" in chunk.content for chunk in chunks)
 
 
 def test_chunking_recursively_splits_long_text_with_overlap_within_budget() -> None:

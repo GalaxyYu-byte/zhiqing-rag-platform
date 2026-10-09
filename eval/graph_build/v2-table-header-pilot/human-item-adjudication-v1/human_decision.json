@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-09-30T06:44:33.520457+00:00",
+  "reviewer": "human_user_in_current_chat",
+  "verbatim_reply": "第一批按清单裁决",
+  "approval_basis": "direct_user_reply_to_the_complete_displayed_first_batch",
+  "approved_review_ids": [
+    "holdout-01-02:relation:33",
+    "holdout-01-02:relation:34",
+    "holdout-01-02:relation:35",
+    "holdout-01-02:relation:36",
+    "holdout-01-02:relation:37",
+    "holdout-01-02:relation:38",
+    "holdout-01-02:relation:39",
+    "holdout-01-02:relation:40"
+  ],
+  "displayed_batch_sha256": "aa462041ec97a361dc3063c8fec2c30d5ddf6e2b5f6a5b042f6cefd2d317a0e6",
+  "scope": "chunk support and quote support for these eight relation predictions only",
+  "does_not_approve": [
+    "other relation predictions",
+    "entities",
+    "new Gold policies",
+    "normalization",
+    "final quality acceptance"
+  ]
+}

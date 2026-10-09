@@ -1,0 +1,103 @@
+{
+  "checked": 8,
+  "old_bad_triples_absent": 8,
+  "scope": "Exact old incorrect triples in same frozen chunks; absence is not recall improvement or proof of all semantic correctness.",
+  "cases": [
+    {
+      "old_projection_id": 73,
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "正式文件",
+      "predicate": "HAS_FIELD",
+      "target": "确认人",
+      "old_condition": null,
+      "old_reason": "原文要求核对邮件、清单和正式文件各自的确认人，但没有明确声明正式文件定义了名为确认人的字段；核对属性不能直接确认HAS_FIELD结构关系。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    },
+    {
+      "old_projection_id": 73,
+      "document_id": 56,
+      "chunk_id": 158,
+      "source": "处理人仍应保留最后沟通内容和后续联系安排",
+      "predicate": "APPLIES_TO",
+      "target": "处理人",
+      "old_condition": null,
+      "old_reason": "该要求位于客户没有立即回复时这一条件下，预测condition_text为空，把条件性义务变成了无条件规则。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    },
+    {
+      "old_projection_id": 73,
+      "document_id": 56,
+      "chunk_id": 151,
+      "source": "有权决定的岗位",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "处理",
+      "old_condition": null,
+      "old_reason": "有权决定的岗位处理卡点只在条件不具备时发生；预测遗漏这个条件且处理端点过于笼统，不能确认无条件职责事实。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    },
+    {
+      "old_projection_id": 74,
+      "document_id": 71,
+      "chunk_id": 300,
+      "source": "执行结果",
+      "predicate": "GOVERNED_BY",
+      "target": "表格用角色或受控标识，不公开列出完整个人资料",
+      "old_condition": null,
+      "old_reason": "不公开完整个人资料的要求约束表格的表示方式；预测把该规则绑定到执行结果，原文不足以支持这个对象。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    },
+    {
+      "old_projection_id": 74,
+      "document_id": 71,
+      "chunk_id": 302,
+      "source": "正式文件",
+      "predicate": "HAS_FIELD",
+      "target": "形成时间",
+      "old_condition": null,
+      "old_reason": "原文要求核对正式文件等材料的形成时间，未说明它们包含名为形成时间的结构化字段，HAS_FIELD关系证据不足。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    },
+    {
+      "old_projection_id": 74,
+      "document_id": 71,
+      "chunk_id": 304,
+      "source": "访问权限定期复核",
+      "predicate": "HAS_STEP",
+      "target": "留下业务原因",
+      "old_condition": null,
+      "old_reason": "留下业务原因仅在保留权限时要求；预测HAS_STEP未携带此条件，不能当作无条件通用步骤。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    },
+    {
+      "old_projection_id": 74,
+      "document_id": 71,
+      "chunk_id": 298,
+      "source": "导出当前权限范围",
+      "predicate": "GOVERNED_BY",
+      "target": "进入下一步前，先确认上一环节的结果已经被接收",
+      "old_condition": null,
+      "old_reason": "先确认上一环节结果是进入下一步时的衔接要求；导出当前权限范围是第一步，原文未给出它的上一环节，把规则绑定到第一步依据不足。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    },
+    {
+      "old_projection_id": 75,
+      "document_id": 76,
+      "chunk_id": 331,
+      "source": "在工单中保留原因",
+      "predicate": "GOVERNED_BY",
+      "target": "多次转派说明分类或责任界定可能存在问题",
+      "old_condition": null,
+      "old_reason": "多次转派说明分类或责任界定可能存在问题是带有可能性的解释；原文中的义务是应在工单中保留原因。把这段可能性说明当作GOVERNED_BY规则对象，不能准确表达原文。",
+      "old_bad_triple_absent": true,
+      "remaining_matches": []
+    }
+  ]
+}

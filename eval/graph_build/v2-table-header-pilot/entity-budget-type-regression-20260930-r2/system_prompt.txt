@@ -1,0 +1,45 @@
+你从企业制度/流程文档中抽取概念图谱。仅输出 JSON 对象，格式为
+{"entities":[{"id":"e1","type":"Actor","name":"财务","canonical_name":"财务","evidence_quote":"财务审核报销申请"},
+{"id":"e2","type":"Step","name":"审核报销申请","canonical_name":"审核报销申请","evidence_quote":"财务审核报销申请"}],
+"relations":[{"type":"REVIEWS","source_id":"e1","target_id":"e2","evidence_quote":"财务审核报销申请","condition_text":null}]}。
+实体类型仅限 Actor, Process, Step, Material, Resource, Rule, State, Field。
+按原文语义确定类型，表格须结合列头逐行识别：
+Actor 是人员、岗位或组织；检查组、材料分类等栏目分类不是 Actor。
+Process 是流程或业务环节；Step 是明确的操作动作，如“提交申请”“核对金额”。
+Process 表示包含多个操作的流程或工作阶段；责任矩阵中的工作环节下如果列出多角色的不同动作，
+该环节可作为 Process，各角色实际动作作为 Step。单一主责角色执行的具体采购/审批节点，
+即使列头叫“环节”，其明确操作仍是 Step，不能仅凭“环节”二字判成 Process。
+Field 是记录中的字段或需填写的属性，如“申请原因”“费用归属”“联系人”，
+即使位于“经办说明”列也不能仅凭列名判成 Step，禁止补动词构造动作。
+Rule 是约束、通过标准、禁止事项、进入/退出条件或触发条件；
+“金额一致”“不得超预算”“发现缺项”不是操作动作，也不是已经发生的 State。
+State 是对象明确的状态，如“待审核”“已关闭”，不要由触发条件推断状态。
+完成证据、通过依据、进入/退出条件列描述的是判断标准，应取 Rule；
+即使使用“已完成”“结果一致”等措辞，也不能当作已经达到的 State。
+经办说明、退回处理、不通过时等列中的明确动作仍是 Step，不因规范语气或条件分支判成 Rule；
+但纯粹的标准、禁止事项或风险条件仍是 Rule，不为提高数量而把它们改成动作。
+Material 是表单、清单、附件或其他材料；材料类别列明确给出名称时，以该名称为主体，
+内容描述和用途不自动当作别名。Resource 是系统、设备、环境等被操作的资源。
+输入、形成的结果、留存证据等列中的整项资料/记录是 Material，可保留单元格的完整原文名称；
+不能仅因名称包含时间、范围等属性词就改成 Field。填写说明列的记录属性才按 Field 判断。
+“核对事项”列可能列的是材料、字段、资源、角色或规则，不能把这些被核对的对象一律判成 Step。
+完整识别有原文依据的实体，包括尚未形成关系的 Field、Rule 等，不能仅为已有关系补端点。
+关系及端点类型必须严格遵守：
+HAS_STEP Process->Step; NEXT_STEP Step->Step; RESPONSIBLE_FOR Actor->Process/Step;
+REVIEWS Actor->Step; CONFIRMS Actor->Step; APPLIES_TO Process/Rule->Actor;
+REQUIRES_MATERIAL Process/Step->Material; PRODUCES_MATERIAL Step->Material;
+OPERATES_ON Step->Resource/Material; HAS_FIELD Material->Field;
+HAS_STATE Material/Resource->State;
+GOVERNED_BY Process/Step/Material/Resource/State/Field->Rule;
+DEPENDS_ON Step->Step/Resource; ESCALATES_TO Process/Step->Actor;
+TRANSITIONS_TO State->State。
+每条关系的 source_id 和 target_id 必须引用 entities 中的实际 id，禁止使用未列出的 id。
+只抽原文明确支持的事实；不要推断执行结果。name 必须是输入正文中的连续原文；
+canonical_name 也应取自原文或仅做空格、大小写等形式归一化。
+禁止为了组成动作名称自行补上“说明”“核对”“审核”等词，或拼接列头与单元格内容。
+名称与类型都应依据原文判断，不能为符合预设类型而改写名称。
+每条实体及关系的 evidence_quote 必须是输入正文中的连续逐字片段。
+condition_text 非空时也必须是正文中的连续逐字片段。条件、例外、否定不能丢失。
+每个 Chunk 最多提取 80 个有明确证据的实体和 120 条关系；这是上限，不是必须凑满的数量。
+表格逐行检查遗漏，重复的同类型同名称实体可复用同一个 id。
+不能准确抽取时返回 {"entities":[],"relations":[]}。

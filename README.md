@@ -1,7 +1,7 @@
 # 知擎 RAG 平台
 
 新项目位于 `D:\code\zhiqing-rag-platform`，Python 固定为 **3.12**，使用 uv 管理环境和依赖。
-当前已完成开发环境、健康检查入口、文档上传接口、Vue 3 上传页面、独立数据库和 27 张业务表的设计与初始化；身份与知识库调试数据已录入。其他业务 API 与 Alembic 将后续完善。
+当前已完成开发环境、健康检查、登录与租户选择、文档上传和 Vue 3 页面、部门与知识库权限管理、独立数据库及业务表的设计与初始化；身份与知识库调试数据已录入。问答检索 API 与 Alembic 将后续完善。
 
 实体与技术方案文档单独维护；各业务模块将分阶段实现。
 
@@ -32,9 +32,9 @@ npm run dev
 ```
 
 访问 `http://127.0.0.1:5173`，Vite 默认把 `/api` 代理到 `http://127.0.0.1:8000`。
-页面从 `GET /api/knowledge-bases` 读取当前身份可写入的知识库，向
+页面从 `GET /api/knowledge-bases?access=READ` 读取当前身份可读取的知识库，上传选项只保留 WRITE/ADMIN 知识库，向
 `POST /api/documents/upload` 提交 `multipart/form-data`：`file`、实际数字
-`knowledge_base_id`。解析参数由服务端 `UPLOAD_CHUNK_SIZE`（默认 512）和
+`knowledge_base_id`、`confidentiality`（默认 1，部门内部）。解析参数由服务端 `UPLOAD_CHUNK_SIZE`（默认 512）和
 `UPLOAD_CHUNK_OVERLAP`（默认 48）统一管理，浏览器不能覆盖。
 
 上传校验实际文件内容、声明 MIME、完整性、文件名和大小；默认上限 50 MiB，
@@ -44,6 +44,15 @@ npm run dev
 返回 **202 Accepted**，包含字符串形式的文档/修订/索引批次/任务 ID、SHA-256、MIME、
 大小、创建时间以及 `STORED / PENDING` 状态。请求不执行解析或调用向量模型。
 
+更新已有文档使用 `POST /api/documents/{document_id}/revisions`，提交
+`multipart/form-data` 的 `file` 和 `expected_revision_id`。页面的“更新文件”按钮
+会使用当前期望修订作为并发校验值；过期修订返回 409，相同文件内容也返回 409。
+更新保留原 `document_id`，将新原文件写入独立对象键，新增递增的不可变修订、
+索引批次和处理任务；尚未完成的旧修订任务会取消。处理新修订期间，原
+`active_generation_id` 保持不变；成功后 Worker 原子切换，失败时旧批次继续可用。
+解析和切片仍会重新执行，向量化按实际 `embedding_content` 和模型配置查 Redis 缓存，
+只对未命中的分块调用模型。主列表按文档显示最新修订；“历史版本”展开后可查看和预览旧原文件。
+
 再开一个终端启动独立后台进程：
 
 ```powershell
@@ -52,8 +61,9 @@ uv run python -m zhiqing_rag.workers.ingestion
 ```
 
 Worker 从项目独立 PostgreSQL 的 `background_task` 表领取任务，下载并校验 MinIO
-原文件，随后解析、清洗、分块，调用现有 Embedding 模型生成 1024 维向量，并将分块
-正文、向量和来源引用写入 `document_chunk`。仅在完整性校验成功后，同一事务将
+原文件，随后解析、清洗、分块，先将正文和来源引用写入 `document_chunk`。图任务
+此时即可开始；文档 Worker 同时调用 Embedding 模型生成 1024 维向量并补写到这些分块。
+仅在向量完整性校验成功后，同一事务将
 索引批次置为 READY、文档置为 PUBLISHED 并切换活动索引指针，任务置为 SUCCEEDED。
 这表示文档已可供后续检索模块使用，问答检索 API 本身仍需后续实现。
 
@@ -67,9 +77,64 @@ Worker 从项目独立 PostgreSQL 的 `background_task` 表领取任务，下载
 租约过期后恢复任务；模型结果通过既有向量缓存复用。确定性解析/权限/模型配置错误
 直接标记失败。旧租约和非期望修订不允许发布。解析在可终止子进程中执行，
 避免 OCR 或 CPU 解析阻塞异步事件循环。失败后重试处理会创建新索引批次，保留
-不可变失败批次和历史尝试记录，不覆盖已完成批次。当前没有图谱任务的自动投递。
+不可变失败批次和历史尝试记录，不覆盖已完成批次。
 
-接口：页面通过 `GET /api/document-tasks/page` 分页查询有访问权限的任务，支持
+解析与分块完成后，Worker 先提交不含向量的 Chunk，同时写入独立的 `GRAPH` 任务和
+`graph_projection` 记录。随后向量生成和 Graph Worker 抽取可并行进行；图谱结果不会
+阻塞向量入库与文档发布，向量失败也不会取消图谱任务。文档仅在完整向量发布后可用。
+配置 `NEO4J_ENABLED=true`、Neo4j 连接、
+`DEEPSEEK_API_KEY` 后，单独启动 Graph Worker：
+
+```powershell
+uv run python -m zhiqing_rag.workers.graph
+```
+
+Graph Worker 按 Chunk 使用 DeepSeek JSON 模式抽取实体与关系，再严格校验 Schema、
+关系端点、实体名称和逐字证据。无效事实逐条丢弃，只有校验通过的结果才入图。
+实体名先做 Unicode、空格及大小写归一化；Neo4j 的
+实体、断言、证据采用稳定键，重试同一分块会替换该分块旧断言。证据保存租户、知识库、
+文档、修订、索引批次、Chunk、页码、章节、原文片段及引用位置。图谱只作为可重建投影；
+查询时仍需按 PostgreSQL 当前文档/批次和授权范围过滤。`start-dev.ps1` 在
+`NEO4J_ENABLED=true` 时会另开 Graph Worker 窗口。
+
+图谱增量更新按同一文档的 Chunk 正文 SHA-256 筛选，并再次比较完整正文；
+`chunk_index` 变化不会使相同正文重新抽取。命中相同 DeepSeek 模型和抽取规则版本时，
+Graph Worker 从 PostgreSQL 的 Chunk 元数据读取已校验的抽取结果，跳过模型调用，
+仍按新批次的 Chunk ID、页码和来源位置重新写入 Neo4j 证据。未命中的 Chunk 才请求
+DeepSeek；成功的抽取结果先存入 PostgreSQL，以便图写入失败后重试复用。分块边界
+变化导致正文变化时会重新抽取。上线前已经完成的旧图任务没有这份缓存，首次更新
+这些 Chunk 时需要抽取一次。该功能不使用 Redis。
+
+文档更新期间旧活动批次继续可用。新批次发布时，旧图投影在同一事务中标为
+`STALE`，并向 outbox 写入可重试的旧批次清理事件；未完成的旧图任务在更新时即取消。
+文档删除会先撤销可见性与租约，再留下独立于文档外键的图清理事件，因此文档记录
+删除后仍可继续清理 Neo4j。Graph Worker 同时消费清理事件；清理只删目标文档或
+批次的断言和证据，共享实体只有在无任何关系时才删除。图查询必须先调用
+`authorized_graph_projection(session, identity, document_id)` 获取当前用户可读且 `READY` 的活动批次，再限定 Neo4j 结果的
+租户、命名空间和批次；新图未就绪时仅使用向量检索。
+
+Graph Worker 每完成一个 Chunk 就保存游标和实体/关系键，失败后从未完成的
+Chunk 继续。模型连接异常、超时、429 或 5xx 使用带随机抖动的退避和 Worker
+冷却，不会紧接着请求下一任务；402 会暂停该 Worker 的模型请求，需恢复额度后
+重启 Worker 并显式重排失败任务。清理事件与模型调用独立，Neo4j 暂时不可用时
+按延迟重试。修改上述 Worker 代码后需要重启运行中的 Graph Worker 进程。
+
+数据库中旧的已发布分块可使用补录程序。默认只为当前活动索引中尚无图任务的批次
+幂等创建任务，运行中的 Graph Worker 会继续处理；`--run` 可在程序内立即转换，
+`--workers` 控制并发。先预览范围：
+
+```powershell
+uv run python scripts/backfill_graph.py --dry-run
+uv run python scripts/backfill_graph.py --run --workers 2
+```
+
+可用 `--tenant-id`、`--kb-id`、`--document-id`、`--limit` 缩小范围。
+失败任务可显式加 `--retry-failed` 重新排队；默认不重复处理已完成的图谱批次。
+DeepSeek 返回额度错误时，回填程序停止派发后续任务；额度恢复后运行
+`uv run python scripts/backfill_graph.py --retry-failed --run --workers 2` 继续处理。
+任务失败并排查原因后，可加 `--retry-failed --run` 重试；原任务与尝试历史保留。
+
+接口：页面通过 `GET /api/document-tasks/page` 分页查询有访问权限的文档最新修订，支持
 `offset`、`limit`（默认 10、最多 100）、`knowledge_base_id`、`search`、`status`、
 `date_from` 和 `date_to`。日期按北京时间计算，包含结束日期当天；响应返回
 `items`、`total`、`overall_total`、`overall_size` 和状态数量 `counts`。
@@ -80,12 +145,48 @@ Worker 从项目独立 PostgreSQL 的 `background_task` 表领取任务，下载
 页面关闭不停止后台任务。移除未上传文件仅清理本地列表；移除已上传文档需确认后
 永久删除服务器文档并停止后台处理。`GET /api/document-upload-settings` 提供只读解析配置。
 
-正式登录 API 尚未实现，本机联调使用服务端配置的 `admin@zhiqing.test` / `DEFAULT`
-开发身份；不会接收浏览器指定的用户或租户。必须为 `APP_ENV=dev`、回环地址绑定和
-本机请求，同时检查用户、租户、成员、部门启用状态以及知识库 WRITE/ADMIN 显式授权。
-可以使用 `DEV_UPLOAD_USER_EMAIL`、`DEV_UPLOAD_TENANT_CODE` 切换已有测试身份。
-关闭 `DEV_UPLOAD_IDENTITY_ENABLED` 或在非 dev 环境调用时返回 401；正式上线前需
-替换身份依赖为完整登录鉴权。其他配置见 `.env.example` 与 [前端说明](frontend/README.md)。
+页面采用邮箱和密码登录，随后选择当前账号可用的租户。选定租户后签发 15 分钟的
+Access Token 与 7 天的 Refresh Token；会话从选定租户起按固定期限到期，刷新不延长
+7 天期限。现有用户密码沿用初始化数据的 scrypt 哈希格式，不提供注册和找回密码。
+本机测试账号及密码可在已生成的 `data/dev-seed` 私有资料中查看，禁止提交这些资料。
+
+认证接口使用 `/api/auth` 前缀：
+
+- `POST /login`：提交 `email`、`password`，返回用户、可用租户及 5 分钟的一次性
+  `selection_token`。这个票据只能用于选租户，不能调用业务接口。
+- `POST /select-tenant`：提交 `selection_token`、`tenant_id`，返回 Access Token、用户
+  和当前租户，设置 Refresh Token Cookie。客户端不能选取未加入或已停用的租户。
+- `POST /refresh`：浏览器携带 Refresh Cookie，返回新 Access Token，并轮换 Refresh
+  Token。旧 Refresh Token 立即失效，新 Cookie 仍沿用原始会话到期时间。
+- `GET /me`：使用 Bearer Token 查询当前用户和租户。
+- `POST /logout`：使用当前 Access Token 或 Refresh Cookie，撤销这个账号在所有租户、
+  所有设备的登录会话，并清除当前 Cookie。
+
+Access Token 只保存在浏览器内存，请求通过 `Authorization: Bearer` 携带。
+Refresh Token 放 `HttpOnly` Cookie，Redis 仅保存摘要、会话信息和到期时间；数据库
+`auth_session` 保存会话及摘要审计记录，刷新校验以 Redis 为准。页面重新打开时通过
+Refresh Cookie 恢复登录。认证写接口要求 `X-Requested-With: XMLHttpRequest`，并校验
+浏览器 Origin。建议前端与 API 同站部署；生产环境必须使用 HTTPS，并启用
+`REFRESH_COOKIE_SECURE=true`。
+
+只有 `401 / ACCESS_TOKEN_EXPIRED` 才会触发前端共享的刷新请求，成功后原请求重试
+一次。其他 401 回到登录页，403 保留权限错误。所有文档、任务、知识库接口都要求正式
+登录，HTTP 不再提供开发身份绕过。每次请求读取数据库会话及账号、租户、成员和部门
+状态，校验授权版本，因此全设备退出后已有 Access Token 立即失效。知识库显式
+READ/WRITE/ADMIN 授权、文档部门范围及密级限制由业务模块实时校验。健康检查仍无需登录。
+
+登录前需配置至少 32 字节的随机 `JWT_SECRET_KEY`，并保证 PostgreSQL、Redis 可用；
+凭据与连接错误不会返回到客户端。Redis 丢失的 Refresh 会话要求重新登录，数据库
+或 Redis 故障返回脱敏的 503。其他配置见 `.env.example` 与 [前端说明](frontend/README.md)。
+
+认证集成测试使用真实 PostgreSQL 和 Redis，在唯一临时 schema 与 Redis 前缀中
+创建测试账号和会话，完成后清理；不改项目已有账号和会话，不调用模型。显式运行：
+
+```powershell
+$env:RUN_AUTH_INTEGRATION = '1'
+.\.venv\Scripts\pytest.exe -q tests\test_auth_integration.py
+Remove-Item Env:\RUN_AUTH_INTEGRATION
+```
 
 存储不可用或数据库失败返回脱敏的 503，不返回存储凭据或数据库连接信息。
 对象写入成功但数据库事务失败或提交结果未知时不删除对象，以免损坏已提交修订；
@@ -122,7 +223,38 @@ uv run ruff format --check .
 环境检查仅验证中间件连接、pgvector 扩展和存储桶存在性；不会建表、建桶或写入队列。
 当前连接独立数据库 `zhiqing_rag_platform`，项目 schema 为 `zhiqing_rag`。环境检查中的 `project_schema: present` 只表示 schema 存在，不代表业务表已初始化。
 模型项显示凭据是否配置，不代表已完成模型 API 调用验证。
-DeepSeek 为后续查询分析预留，可暂不配置。
+查询分析器已实现 `POST /api/query/analyze`，需要登录，接收当前问题并返回带原文依据的
+意图、实体、关键词、条件和上下文依赖。DeepSeek 未配置或分析失败时返回显式降级建议；
+不执行检索或回答生成。配置与接口详见 [查询分析器](docs/查询分析器.md)。
+QueryPlan 与确定性 Router 已实现 `POST /api/query/plan`，先确认当前用户可读资源范围，
+再调用 Analyzer 生成五类类型化计划；图谱未接入时回到基础路径，目录执行器未接入时
+明确返回能力限制。计划成功不表示已执行检索，详见 [查询路由](docs/查询路由.md)。
+基础混合检索已实现 `POST /api/query/search`，按服务端计划并行召回向量和 BM25，
+融合去重、可选重排后返回最多 5 条原文证据。发送原文给重排模型前及返回结果前复查
+当前权限和活动批次；失败有明确降级记录。配置与接口详见 [混合检索](docs/混合检索.md)。
+
+HTTP 鉴权、范围确认和检索仓储已接入进程内数据库连接池。沿用 `DB_POOL_SIZE`、
+`DB_MAX_OVERFLOW`、`DB_POOL_TIMEOUT`；每次事务结束归还连接，模型等待期间不占用
+检索连接，权限复核仍实时查询。启动不预先连接数据库，应用关闭时释放空闲连接。
+只读对比短连接与连接池（不读文档、不调用模型、不写业务数据）：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\benchmark_database_pool.py --samples 5
+```
+
+脚本分别输出首个冷连接、短连接与热池的耗时，以及事务恢复、断连恢复、并发独占
+检查。数值只反映数据库最小操作，不代表完整检索或模型耗时；前端复测应在后端
+加载新代码后连续查询同一个问题，对比第二、三次的检索执行和授权校验耗时。
+
+同一轮的会话、用户、租户成员、租户及部门状态已合并为一次 SELECT；各次复核仍
+独立实时读取，重排前后及 BM25 评分后复核均保留。只读核对原查询与新查询结果和耗时：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\benchmark_authorization_queries.py --samples 5
+```
+
+此脚本只读取一条当前会话的认证状态，不输出会话标识、用户信息或凭据；若无当前
+会话则跳过。它不调用模型、不读取文档原文、不写业务库。
 
 ## 技术组成
 
@@ -330,5 +462,58 @@ Remove-Item Env:\RUN_MINERU_INTEGRATION
 
 现阶段沿用已有服务实例与连接凭据。PostgreSQL 已新建独立数据库 `zhiqing_rag_platform`，其中 schema 为 `zhiqing_rag`；
 Redis/ARQ 使用 `zhiqing-rag:` 前缀；MinIO 对象使用 `zhiqing-rag-platform/` 前缀；
-Neo4j 预留 `GRAPH_NAMESPACE`。这些配置需要后续存储层、任务层和迁移代码落实。
-数据库、schema 与 27 张业务表已创建；身份与知识库调试数据已录入，文档类数据待后续离线导入。
+Neo4j 图谱投影使用 `GRAPH_NAMESPACE` 隔离项目；图谱任务复用现有 PostgreSQL 任务表。
+数据库、schema 与业务表已创建；身份与知识库调试数据已录入，文档可通过页面上传或本地开发工具导入。
+
+## 部门知识权限
+
+本次登录、租户选择、令牌刷新和部门文档授权的完整整理见
+[登录与知识权限设计及实现说明](D:/code/zhiqing-rag-platform/docs/登录与知识权限设计及实现说明.md)。
+
+授权顺序为当前登录身份 → 租户 → 知识库 ACL → 文档密级与部门/显式共享。
+知识库对用户和当前部门的授权取并集，等级为 READ < WRITE < ADMIN；部门树不自动继承，
+租户管理员也不能绕过知识库和文档权限。共享文档不会自动授予知识库权限或提高成员密级。
+
+新上传文档默认 `confidentiality=1`，所属部门和创建者由服务端填写。可选择的密级不能
+高于成员 `clearance`：0 内部公开、1 部门内部、2 机密。内部公开仍要求同租户和知识库 ACL；
+1/2 额外要求当前部门与文档部门相同，或对用户/当前部门显式共享。无部门归属的非公开文档
+默认仅创建者可见，可另外共享。有部门归属的文档在上传者调离部门后不再默认对其开放。
+历史文档保留原密级，新规则会收紧其可见范围；更新文件不会修改文档密级或所属部门。
+
+列表、统计、任务状态、修订历史、预览和原文件下载使用 READ 校验；新增、更新、删除、
+重试使用 WRITE 校验。跨部门 READ 共享只允许读取，即使知识库有 WRITE 权限也不能修改；
+还需要文档 WRITE 共享才可写入。权限管理要求知识库 ADMIN，并同时通过文档 WRITE 范围及密级校验。
+
+页面提供知识库“管理授权”和文档“权限”入口，支持用户/部门授权、撤销和文档密级调整。
+权限写入与 `knowledge_base.acl_version` 递增、审计记录在同一事务提交。撤销后下一次请求
+立即按新规则拒绝，前端同时清理列表/历史缓存、关闭旧预览并刷新同来源标签页。
+服务端不会将 ACL 长期写进 JWT；已有下载到本地的文件无法收回。
+后台解析、向量发布及图谱任务同样复查当前修订上传者的 WRITE 权限；调岗或撤销写权限后，后续处理与发布
+会被拒绝。权限事务和后台发布统一先锁知识库，再锁任务、文档和投影，避免反向等待。
+
+- `GET/POST /api/knowledge-bases/{kb_id}/permissions` 查看/添加或调整授权；
+  `DELETE .../permissions/{grant_id}` 撤销授权，必须保留至少一个可用 ADMIN。
+- `GET/POST /api/documents/{document_id}/permissions` 查看/添加或调整 READ/WRITE 共享；
+  `DELETE .../permissions/{grant_id}` 撤销共享。
+- `POST /api/documents/{document_id}/classification` 调整文档密级，提交 `{ "confidentiality": 1 }`。
+
+已有数据库只需执行幂等增量迁移，不回填授权或改动现有文档：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\migrate_document_permissions.py --dry-run
+.\.venv\Scripts\python.exe scripts\migrate_document_permissions.py
+```
+
+基础向量/关键词检索已复用 `authorized_chunk_statement(identity)` 所依赖的 READ 授权规则，
+在 SQL 中限制可见文档和当前 READY 批次，再执行检索排序；回答生成尚未实现。
+后续图检索使用 `authorized_graph_projection`，并限制其租户、namespace、generation。
+结果缓存需要包含当前身份/部门/密级和 ACL 版本；模型上下文、引用与会话历史也需重新检查权限。
+内部 `active_graph_projection` 仅查询发布状态，保留给可信后台任务使用，不可作为用户请求的授权入口。
+
+权限集成测试使用独立临时 schema 和 Redis 前缀，自动清理，不访问业务文件或调用模型：
+
+```powershell
+$env:RUN_PERMISSION_INTEGRATION = '1'
+.\.venv\Scripts\python.exe -m pytest tests\test_permissions_integration.py -q -p no:cacheprovider
+Remove-Item Env:\RUN_PERMISSION_INTEGRATION
+```

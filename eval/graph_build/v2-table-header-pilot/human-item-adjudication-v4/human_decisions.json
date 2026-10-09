@@ -1,0 +1,84 @@
+[
+  {
+    "recorded_at_utc": "2026-09-30T06:44:33.520457+00:00",
+    "reviewer": "human_user_in_current_chat",
+    "verbatim_reply": "第一批按清单裁决",
+    "approval_basis": "direct_user_reply_to_the_complete_displayed_first_batch",
+    "approved_review_ids": [
+      "holdout-01-02:relation:33",
+      "holdout-01-02:relation:34",
+      "holdout-01-02:relation:35",
+      "holdout-01-02:relation:36",
+      "holdout-01-02:relation:37",
+      "holdout-01-02:relation:38",
+      "holdout-01-02:relation:39",
+      "holdout-01-02:relation:40"
+    ],
+    "displayed_batch_sha256": "aa462041ec97a361dc3063c8fec2c30d5ddf6e2b5f6a5b042f6cefd2d317a0e6",
+    "scope": "chunk support and quote support for these eight relation predictions only",
+    "does_not_approve": [
+      "other relation predictions",
+      "entities",
+      "new Gold policies",
+      "normalization",
+      "final quality acceptance"
+    ]
+  },
+  {
+    "recorded_at_utc": "2026-09-30T06:50:05.464144+00:00",
+    "reviewer": "human_user_in_current_chat",
+    "verbatim_reply": "第二批 7 条均判 INSUFFICIENT",
+    "approval_basis": "direct_user_reply_to_the_complete_displayed_second_batch",
+    "approved_review_ids": [
+      "holdout-02-01:relation:1",
+      "holdout-02-01:relation:2",
+      "holdout-02-01:relation:3",
+      "holdout-02-01:relation:4",
+      "holdout-02-01:relation:5",
+      "holdout-02-01:relation:6",
+      "holdout-02-01:relation:7"
+    ],
+    "displayed_batch_sha256": "eab20625be5e2df7907ccf42b9e963c51e0ae25b9dc6cff19f5cf4fc4cf0bedd",
+    "scope": "chunk support and quote support for these seven relation predictions only"
+  },
+  {
+    "recorded_at_utc": "2026-09-30T06:57:38.293198+00:00",
+    "reviewer": "human_user_in_current_chat",
+    "verbatim_reply": "第三批 5 条均判 INSUFFICIENT",
+    "approval_basis": "direct_user_reply_to_the_complete_displayed_third_batch",
+    "approved_review_ids": [
+      "holdout-04-02:relation:1",
+      "holdout-04-02:relation:2",
+      "holdout-04-02:relation:3",
+      "holdout-04-02:relation:4",
+      "holdout-04-02:relation:5"
+    ],
+    "displayed_batch_sha256": "006f38c17d9f6bf1ee810763aac80b4cc9b90f28d1cb1415687a7b2b1badccb5",
+    "scope": "chunk support and quote support for these five relation predictions only"
+  },
+  {
+    "recorded_at_utc": "2026-09-30T07:04:09.555240+00:00",
+    "reviewer": "human_user_in_current_chat",
+    "verbatim_reply": "全部都判为INSUFFICIENT",
+    "approval_basis": "direct_all_reply_to_the_complete_displayed_fourth_batch",
+    "approved_review_ids": [
+      "holdout-02-01:relation:8",
+      "holdout-02-01:relation:9",
+      "holdout-02-01:relation:10",
+      "holdout-02-01:relation:11",
+      "holdout-02-01:relation:12",
+      "holdout-02-01:relation:13",
+      "holdout-02-01:relation:14",
+      "holdout-02-01:relation:15",
+      "holdout-02-02:relation:7",
+      "holdout-02-02:relation:8",
+      "holdout-02-02:relation:9",
+      "holdout-02-02:relation:10",
+      "holdout-02-02:relation:11",
+      "holdout-02-02:relation:12"
+    ],
+    "displayed_batch_sha256": "10aea1ae2b9e316bdb7010838467fcd2f1a6fa094a00c2357a7dd1c9dc24ce06",
+    "scope_resolution": "all refers to the current fourteen-item fourth batch only",
+    "scope": "chunk support and quote support for these fourteen relation predictions only"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "prediction_relation_count": 202,
+  "human_reviewed_relations": 8,
+  "human_pending_relations": 194,
+  "human_chunk_support_counts": {
+    "INSUFFICIENT": 4,
+    "SUPPORT": 4
+  },
+  "human_quote_support_counts": {
+    "INSUFFICIENT": 8
+  },
+  "reviewed_ids": [
+    "holdout-01-02:relation:33",
+    "holdout-01-02:relation:34",
+    "holdout-01-02:relation:35",
+    "holdout-01-02:relation:36",
+    "holdout-01-02:relation:37",
+    "holdout-01-02:relation:38",
+    "holdout-01-02:relation:39",
+    "holdout-01-02:relation:40"
+  ],
+  "entity_review": "PENDING",
+  "gold_added_policies_review": "PENDING",
+  "normalization_review": "PENDING",
+  "full_item_human_review": "PARTIAL",
+  "final_precision": null,
+  "final_recall": null,
+  "final_f1": null,
+  "formal_evidence_precision": null,
+  "scope": "eight explicit evidence decisions only; not entity, Gold or total quality approval"
+}

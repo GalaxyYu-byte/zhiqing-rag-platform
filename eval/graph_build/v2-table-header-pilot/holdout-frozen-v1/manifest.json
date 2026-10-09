@@ -1,0 +1,47 @@
+{
+  "schema_version": "graph-table-holdout-frozen-v1",
+  "created_at_utc": "2026-09-30T02:20:34.675670+00:00",
+  "sources": [
+    {
+      "source": "dox\\信息安全\\权限申请与复核责任矩阵.xlsx",
+      "source_sha256": "49d4874777877bf05f43001bcc67e762d8e88e6e683264562c160491e89bb006",
+      "frozen_filename": "sources/01.xlsx"
+    },
+    {
+      "source": "dox\\客户与交付\\客户工单状态与处理要求.xlsx",
+      "source_sha256": "66f36524234d8c6743eb81b309600caf6ae1a68f54cc21d6be46366eed03f576",
+      "frozen_filename": "sources/02.xlsx"
+    },
+    {
+      "source": "dox\\客户与交付\\项目交付物核对清单.xlsx",
+      "source_sha256": "19efd3e1f852497272e9f199d90f96926ebfc77a4dd60891c4cd6c53abf8b26e",
+      "frozen_filename": "sources/03.xlsx"
+    },
+    {
+      "source": "dox\\研发与产品\\版本发布前核对清单.xlsx",
+      "source_sha256": "ecdec5d9d90a4d0e7d7894020c32716658c3492e7d749306709ba14e775a1430",
+      "frozen_filename": "sources/04.xlsx"
+    },
+    {
+      "source": "dox\\财务与采购\\费用凭证核验要点.xlsx",
+      "source_sha256": "85980a6cc6ae8cddd9b7a4a2d97b2dfa7dfd4547fbb09eb85a0505c2465195a4",
+      "frozen_filename": "sources/05.xlsx"
+    },
+    {
+      "source": "dox\\财务与采购\\采购节点与交接说明.xlsx",
+      "source_sha256": "d6646d60442ebefcb79c611cffe75362f8a9921961bb6f582839168ed980470e",
+      "frozen_filename": "sources/06.xlsx"
+    }
+  ],
+  "case_count": 13,
+  "selected_gold_case_count": 4,
+  "selected_gold_entity_count": 57,
+  "selected_gold_relation_count": 30,
+  "cases_sha256": "e5393e794200d3cd5fa4fa2d834efa1db44dfe306d00b04877c5b1a0e3fd090f",
+  "prompt_sha256": "15b4b050432eee042992f4c4c55f5de86a8f53f679e661ace427d989092f5fa3",
+  "prompt_run_metadata_sha256": "9730f9377e367aea481159b7d96d61671923bd4b8ec87c7cfba831efc545753b",
+  "preexisting_fact_candidates_sha256": "64a34160c79eef0f0d7bbb15d97e70e48c5c10300cfdd98f1e45bfcfafb6b8f8",
+  "preexisting_chunk_checks_sha256": "060c2d30d9ac55ecf29b0d039d2a6f65669ad73ef91af667a40ab4e9c995b54a",
+  "extractor_source_sha256": "30dc6a7f4643a53db1e1eb7accd2867a87c9ca9f459106a7710e357e00225137",
+  "review_status": "codex_draft_independent_human_review_pending"
+}

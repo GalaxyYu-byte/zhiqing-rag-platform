@@ -1,0 +1,85 @@
+{
+  "schema": "graph-rebuild-review-v1",
+  "projection_id": 80,
+  "scope": {
+    "tenant_id": 1,
+    "kb_id": 2,
+    "document_id": 71,
+    "revision_id": 71,
+    "generation_id": 71
+  },
+  "namespace": "zhiqing-rag-platform:rebuild:91663dc597c94c799470a2cb8a1985cd",
+  "input_fingerprint": "570ec61abce35f7294fbf7a0c25e7819fd41430e7940907b74839ed73253b7ba",
+  "snapshot_fingerprint": "4c990448d1f981af9e3bb75807e20e7ee9eb7c3aa6960a16642b00db36855b8b",
+  "checked_at_utc": "2026-10-01T09:20:05.493377+00:00",
+  "counts": {
+    "entities": 97,
+    "evidence": 79,
+    "assertions": 32
+  },
+  "issues": [],
+  "structural_passed": true,
+  "reviewed_by": "",
+  "samples": [
+    {
+      "fact_key": "e95d21de7ef75df7d418eb6d891753f6d28001636833c51f47aad2be66fea212",
+      "source": "从自己的当前状态进入相应步骤",
+      "predicate": "NEXT_STEP",
+      "target": "按文末的完成条件回看",
+      "condition_text": null,
+      "quote": "阅读时可以从自己的当前状态进入相应步骤，处理完后再按文末的完成条件回看",
+      "chunk_id": 296,
+      "content": "权限复核是确认现有访问仍与工作职责相符，不应被当作对过去申请单的机械盖章。岗位变化、项目结束或资料敏感度变化都可能触发提前复核。 阅读时可以从自己的当前状态进入相应步骤，处理完后再按文末的完成条件回看。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "935072a0aef6dbf481b88c89230ede0678cb210538b36da6bd5ff8901b8ea78b",
+      "source": "业务负责人",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "联系业务负责人",
+      "condition_text": "无法确认某项权限用途时",
+      "quote": "无法确认某项权限用途时先联系业务负责人",
+      "chunk_id": 299,
+      "content": "无法确认某项权限用途时先联系业务负责人，必要时暂缓非必要访问；失联账户和长期不用权限应进入专项核查。 例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其他岗位决定时，连同背景、影响和可选处理方式一并移交。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "0223dd493d1d7a0a19f04387dfb7d935efc037a751591093a4e6433e19aa9532",
+      "source": "权限清单",
+      "predicate": "GOVERNED_BY",
+      "target": "按资源和职责组织",
+      "condition_text": null,
+      "quote": "权限清单应按资源和职责组织",
+      "chunk_id": 303,
+      "content": "权限清单应按资源和职责组织，避免让负责人在一长串技术角色名中盲目签字。对每项保留的访问，负责人应能说出当前工作理由；对已结束项目或离岗岗位，应明确移除或调整。执行后抽查实际系统结果，若清单与系统不一致，应记录差异并继续处理，而不是把复核表作为最终证明。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "190cb921cc30bd1daf6de332e5068ab08a4aac364603e42c5a13ac057ccf5d39",
+      "source": "按资源责任拆分",
+      "predicate": "NEXT_STEP",
+      "target": "确认必要性",
+      "condition_text": null,
+      "quote": "可先按资源责任拆分，再由了解工作职责的人确认必要性",
+      "chunk_id": 304,
+      "content": "复核名单若混合了系统账号、共享目录和临时链接，容易遗漏不同资源的管理人。可先按资源责任拆分，再由了解工作职责的人确认必要性。撤权后应抽查实际访问是否停止，尤其注意缓存或共享链接可能仍然有效。保留权限也应留下业务原因，以便下一轮复核能判断条件是否变化，而不是一再沿用前次勾选。 复核结论应区分“保留”“调整”“移除”和“待确认”，并为待确认项设置接手角色。把所有未回复项默认为保留，无法体现复核实际完成了什么。\n\n---\n\n检索词：访问权限定期复核；信息安全；资源负责人、部门负责人和系统管理员。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "e68c5950908bea9a68e7b9dad3b7719bfb207a02ae1f77016b88a047b33076af",
+      "source": "复核人",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "检查调整是否生效并记录遗留项",
+      "condition_text": null,
+      "quote": "复核人检查调整是否生效并记录遗留项",
+      "chunk_id": 301,
+      "content": "本事项以“复核人检查调整是否生效并记录遗留项”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+      "verdict": "PENDING",
+      "reason": ""
+    }
+  ]
+}

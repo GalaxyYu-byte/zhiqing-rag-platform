@@ -1,0 +1,85 @@
+{
+  "schema": "graph-rebuild-review-v1",
+  "projection_id": 77,
+  "scope": {
+    "tenant_id": 1,
+    "kb_id": 2,
+    "document_id": 71,
+    "revision_id": 71,
+    "generation_id": 71
+  },
+  "namespace": "zhiqing-rag-platform:rebuild:f5e80328cb484c929f3e8f9a17ce78a5",
+  "input_fingerprint": "570ec61abce35f7294fbf7a0c25e7819fd41430e7940907b74839ed73253b7ba",
+  "snapshot_fingerprint": "2f0a22a4820bcad4cdcbb5767bbed33b176054485c2249cb5e0c9bd1065d051e",
+  "checked_at_utc": "2026-10-01T09:13:08.478922+00:00",
+  "counts": {
+    "entities": 87,
+    "evidence": 79,
+    "assertions": 49
+  },
+  "issues": [],
+  "structural_passed": true,
+  "reviewed_by": "",
+  "samples": [
+    {
+      "fact_key": "adc80dc545313a6e70415fd2a2d39eebbf3cc0dd8d22b82044431576101e1ff9",
+      "source": "联系业务负责人",
+      "predicate": "NEXT_STEP",
+      "target": "暂缓非必要访问",
+      "condition_text": "必要时",
+      "quote": "无法确认某项权限用途时先联系业务负责人，必要时暂缓非必要访问",
+      "chunk_id": 299,
+      "content": "无法确认某项权限用途时先联系业务负责人，必要时暂缓非必要访问；失联账户和长期不用权限应进入专项核查。 例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其他岗位决定时，连同背景、影响和可选处理方式一并移交。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "8a614e5212d89314c09f29a7f81296cf35c22c787a2ee8de831b0e0ef42260a7",
+      "source": "访问控制",
+      "predicate": "GOVERNED_BY",
+      "target": "普通文档只保存定位和处理依据",
+      "condition_text": null,
+      "quote": "访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限；敏感内容应留在受控位置，普通文档只保存定位和处理依据。",
+      "chunk_id": 297,
+      "content": "启动这项工作时，先确认事项确实落在资源负责人、部门负责人和系统管理员的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限；敏感内容应留在受控位置，普通文档只保存定位和处理依据。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "3a60ed63bd26f156145a287c2e5fa5193b6dfec2e6d8456e7462da46eb57916e",
+      "source": "权限清单",
+      "predicate": "GOVERNED_BY",
+      "target": "权限清单应按资源和职责组织",
+      "condition_text": null,
+      "quote": "权限清单应按资源和职责组织，避免让负责人在一长串技术角色名中盲目签字。",
+      "chunk_id": 303,
+      "content": "权限清单应按资源和职责组织，避免让负责人在一长串技术角色名中盲目签字。对每项保留的访问，负责人应能说出当前工作理由；对已结束项目或离岗岗位，应明确移除或调整。执行后抽查实际系统结果，若清单与系统不一致，应记录差异并继续处理，而不是把复核表作为最终证明。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "1f0c4026d7973beaf9960ede1797953530134286168fd4981b4275ebadf916e6",
+      "source": "检查调整是否生效并记录遗留项",
+      "predicate": "GOVERNED_BY",
+      "target": "进入下一步前，先确认上一环节的结果已经被接收",
+      "condition_text": null,
+      "quote": "进入下一步前，先确认上一环节的结果已经被接收",
+      "chunk_id": 298,
+      "content": "1. 第一步，资源负责人导出当前权限范围。\n2. 第二步，部门负责人核对人员职责。\n3. 第三步，系统管理员处理调整。\n4. 第四步，复核人检查调整是否生效并记录遗留项。\n5. 这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "233a31b18dd6b26173fd6eeaef0b341eb10fae3e55328bc606693c7162602959",
+      "source": "附件",
+      "predicate": "GOVERNED_BY",
+      "target": "涉及个人或客户信息的附件应单独检查可见人员",
+      "condition_text": null,
+      "quote": "涉及个人或客户信息的附件应单独检查可见人员",
+      "chunk_id": 300,
+      "content": "保留复核范围、决定、执行结果和待处理差异；表格用角色或受控标识，不公开列出完整个人资料。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+      "verdict": "PENDING",
+      "reason": ""
+    }
+  ]
+}

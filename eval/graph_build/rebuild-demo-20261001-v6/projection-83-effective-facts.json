@@ -1,0 +1,282 @@
+[
+  {
+    "document_id": 71,
+    "fact_key": "0b09172b36ea1066cdd95886490b06e90ffe7f228f5102a6e2a003ead4f9121a",
+    "chunk_id": 296,
+    "source": "权限复核",
+    "predicate": "GOVERNED_BY",
+    "target": "确认现有访问仍与工作职责相符",
+    "condition": null,
+    "quote": "权限复核是确认现有访问仍与工作职责相符"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "d0094d3ae02dbe3c02618e01e43fb98119eca9a7881afbef88c489ff29f708e4",
+    "chunk_id": 296,
+    "source": "权限复核",
+    "predicate": "GOVERNED_BY",
+    "target": "不应被当作对过去申请单的机械盖章",
+    "condition": null,
+    "quote": "权限复核是确认现有访问仍与工作职责相符，不应被当作对过去申请单的机械盖章"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "3ad9ddfc8d43e991505e6cbeb55b80458d863ba342ef4c5ff9851fd481c28670",
+    "chunk_id": 297,
+    "source": "访问控制",
+    "predicate": "HAS_STEP",
+    "target": "共享",
+    "condition": null,
+    "quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "8f54f63775dbbe39267a0f97f1ced6de6b239ec02726886110c92a7d556cc315",
+    "chunk_id": 297,
+    "source": "访问控制",
+    "predicate": "HAS_STEP",
+    "target": "变更",
+    "condition": null,
+    "quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "7faecbeb14ab09e68db56f5f04d6591f4fa39661f819dc6a687548227da2a473",
+    "chunk_id": 297,
+    "source": "访问控制",
+    "predicate": "HAS_STEP",
+    "target": "回收",
+    "condition": null,
+    "quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "bc77c365042e2b9916ff7a6f19d3bb39277c7850fbe30fb96fa053a7b143fb63",
+    "chunk_id": 297,
+    "source": "访问控制",
+    "predicate": "GOVERNED_BY",
+    "target": "拥有链接或曾获批准并不意味着长期保留权限",
+    "condition": null,
+    "quote": "访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "a4fca7ce4ced453bbfec2702f8499e9adf287cd2040bba96acea745aa9e2859e",
+    "chunk_id": 298,
+    "source": "资源负责人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "导出当前权限范围",
+    "condition": null,
+    "quote": "第一步，资源负责人导出当前权限范围。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "254f6e1a441d70b9bd1329d9faf164ee85a45d913ceb757240dfd1974d8dc7e5",
+    "chunk_id": 298,
+    "source": "部门负责人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "核对人员职责",
+    "condition": null,
+    "quote": "第二步，部门负责人核对人员职责。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "640f0d16a3e6fce8169f95214eef4265fad9f7d137620c1b08a9eb9248def4d6",
+    "chunk_id": 298,
+    "source": "系统管理员",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "处理调整",
+    "condition": null,
+    "quote": "第三步，系统管理员处理调整。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "882c990ae8e487b20eab22a3ef637e39e88200a4a97806c1d82d4598efa0019f",
+    "chunk_id": 298,
+    "source": "复核人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "检查调整是否生效并记录遗留项",
+    "condition": null,
+    "quote": "第四步，复核人检查调整是否生效并记录遗留项。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "ac58dc44eebcb39617ce19a6f703f625c3b1179a873ad441c713275bffc15fd0",
+    "chunk_id": 298,
+    "source": "导出当前权限范围",
+    "predicate": "NEXT_STEP",
+    "target": "核对人员职责",
+    "condition": null,
+    "quote": "第一步，资源负责人导出当前权限范围。\n2. 第二步，部门负责人核对人员职责。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "1027524e60df0bd3d37912b84b5da2fef77478e99f162573e1eab180949fd3d5",
+    "chunk_id": 298,
+    "source": "核对人员职责",
+    "predicate": "NEXT_STEP",
+    "target": "处理调整",
+    "condition": null,
+    "quote": "第二步，部门负责人核对人员职责。\n3. 第三步，系统管理员处理调整。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "8425cbacdac2003b6ee23815d05904f53493859df6fba921ca187ef3e98228e8",
+    "chunk_id": 298,
+    "source": "处理调整",
+    "predicate": "NEXT_STEP",
+    "target": "检查调整是否生效并记录遗留项",
+    "condition": null,
+    "quote": "第三步，系统管理员处理调整。\n4. 第四步，复核人检查调整是否生效并记录遗留项。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "cf03a4a946be207d4cdbb242e8a2329033145e7938138ed784b8d4d5e1001102",
+    "chunk_id": 298,
+    "source": "核对人员职责",
+    "predicate": "GOVERNED_BY",
+    "target": "进入下一步前，先确认上一环节的结果已经被接收",
+    "condition": "进入下一步前",
+    "quote": "进入下一步前，先确认上一环节的结果已经被接收；如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "5a41593279eedc552790ec2f7e3ed0f9e315bea0eb3e9f5536ded9050e55e466",
+    "chunk_id": 298,
+    "source": "核对人员职责",
+    "predicate": "GOVERNED_BY",
+    "target": "如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+    "condition": "如果部门负责人核对人员职责无法完成",
+    "quote": "如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "55362c5d67b400e84d9455eaa62694eeb3f393b768e8d983a0a0e7de7ef5df76",
+    "chunk_id": 300,
+    "source": "涉及个人或客户信息的附件",
+    "predicate": "GOVERNED_BY",
+    "target": "共享范围以实际办理需要为准",
+    "condition": null,
+    "quote": "共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "5e39c0e9a282314c304a982d5e22f2b1be97e32c310823d6b071d25420bae245",
+    "chunk_id": 301,
+    "source": "复核人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "检查调整是否生效并记录遗留项",
+    "condition": null,
+    "quote": "复核人检查调整是否生效并记录遗留项"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "102516a38ceabaf3cdd8d49d2e753ffa1cd75a5c2399e4e0c9ab68da2c869929",
+    "chunk_id": 301,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "查看接收方能否据此继续工作",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "5dd299c5c70895f8607c9b138912ed2d541e8d545cd94bdb8e6bfed4c0fb27aa",
+    "chunk_id": 301,
+    "source": "同步修订入口说明",
+    "predicate": "GOVERNED_BY",
+    "target": "后续规则如有调整，由资料维护人同步修订入口说明",
+    "condition": "后续规则如有调整",
+    "quote": "后续规则如有调整，由资料维护人同步修订入口说明"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "0f13ec349e3a8c80661b6b853999952e1e10df67df9f8ae94583081a3d23be2c",
+    "chunk_id": 303,
+    "source": "权限清单",
+    "predicate": "GOVERNED_BY",
+    "target": "权限清单应按资源和职责组织",
+    "condition": null,
+    "quote": "权限清单应按资源和职责组织"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "380029e5d3ff879162d08a75e0a722e8b03f5e07c67dbd5ca035993cf6e2c196",
+    "chunk_id": 303,
+    "source": "抽查实际系统结果",
+    "predicate": "NEXT_STEP",
+    "target": "记录差异",
+    "condition": "若清单与系统不一致",
+    "quote": "执行后抽查实际系统结果，若清单与系统不一致，应记录差异并继续处理"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "b7e6ef10f05d2148707a8d8ed066ee6658f677d16af4e4da092dbafa0a1ec07c",
+    "chunk_id": 304,
+    "source": "了解工作职责的人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "确认必要性",
+    "condition": null,
+    "quote": "再由了解工作职责的人确认必要性"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "33cbb51d705359f99cefbd64f5c747023971d023988b4483f0afb89b01ccb130",
+    "chunk_id": 304,
+    "source": "设置接手角色",
+    "predicate": "GOVERNED_BY",
+    "target": "为待确认项设置接手角色",
+    "condition": null,
+    "quote": "并为待确认项设置接手角色"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "4400025c4cab5edab84cb8a31e95d046cf9177d8d17f9778c135f0ad762aa07f",
+    "chunk_id": 304,
+    "source": "复核结论",
+    "predicate": "GOVERNED_BY",
+    "target": "复核结论应区分“保留”“调整”“移除”和“待确认”",
+    "condition": null,
+    "quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "dc7685be944ad12ae1ce4949f32d789ba9057fa20480dbe5e10b30d780798318",
+    "chunk_id": 304,
+    "source": "复核结论",
+    "predicate": "HAS_STATE",
+    "target": "保留",
+    "condition": null,
+    "quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "37629fe4d22b1560c04f0ba5640205e27996e70476d76c556386056ce435ca11",
+    "chunk_id": 304,
+    "source": "复核结论",
+    "predicate": "HAS_STATE",
+    "target": "调整",
+    "condition": null,
+    "quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "bb37ad1b87c7839a0a918b013a757e845b19fcb71e657e32f5c4b9e791e190c7",
+    "chunk_id": 304,
+    "source": "复核结论",
+    "predicate": "HAS_STATE",
+    "target": "移除",
+    "condition": null,
+    "quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+  },
+  {
+    "document_id": 71,
+    "fact_key": "d14e7f8f08fc7ebada68a1346179ce7cd690e639fa16ebc7c0a84cb5ddaa59ea",
+    "chunk_id": 304,
+    "source": "复核结论",
+    "predicate": "HAS_STATE",
+    "target": "待确认",
+    "condition": null,
+    "quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+  }
+]

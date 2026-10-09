@@ -32,8 +32,15 @@ def page_api():
             limit=query["limit"],
         )
 
+    def revision_history(current, document_id):
+        assert current == identity
+        calls.append(("history", document_id))
+        return []
+
     service = SimpleNamespace(
-        repository=SimpleNamespace(paginate_tasks=paginate),
+        repository=SimpleNamespace(
+            paginate_tasks=paginate, revision_history=revision_history,
+        ),
         settings=Settings(_env_file=None, upload_chunk_size=256, upload_chunk_overlap=32),
     )
     app = create_app()
@@ -87,7 +94,33 @@ def test_invalid_pagination_filters_do_not_query_repository(page_api, params):
 def test_read_only_settings_come_from_server(page_api):
     response = page_api[0].get("/api/document-upload-settings")
     assert response.status_code == 200
-    assert response.json() == {"chunk_size": 256, "chunk_overlap": 32}
+    assert response.json() == {
+        "chunk_size": 256, "chunk_overlap": 32, "clearance": 2, "department_id": None,
+    }
+
+
+def test_revision_history_uses_document_id_and_current_identity(page_api):
+    client, calls = page_api
+    response = client.get("/api/documents/9007199254740993/revisions")
+    assert response.status_code == 200 and response.json() == []
+    assert calls == [("history", 9007199254740993)]
+
+
+def test_task_response_exposes_revision_and_publication_pointers():
+    row = {
+        "task_id": 10, "document_id": 20, "revision_id": 30, "revision_no": 2,
+        "generation_id": 40, "desired_revision_id": 30, "active_generation_id": 35,
+        "knowledge_base_id": 50, "original_filename": "手册.md", "file_size": 100,
+        "status": "PENDING", "stage": "QUEUED", "progress": 0,
+        "attempt_count": 0, "max_attempts": 3, "error_code": None,
+        "chunk_count": 0, "document_status": "PUBLISHED",
+        "created_at": datetime.now(UTC), "finished_at": None,
+    }
+    result = UploadRepository.task_response(row)
+    assert result.document_id == "20" and result.revision_id == "30"
+    assert result.revision_no == 2
+    assert result.desired_revision_id == "30"
+    assert result.active_generation_id == "35"
 
 
 def test_invalid_server_overlap_is_rejected():
@@ -128,7 +161,30 @@ def test_repository_limits_rows_and_keeps_tenant_clearance_and_grant_scope():
     statement, params = calls[0]
     assert "LIMIT %s OFFSET %s" in statement
     assert "task.tenant_id = %s" in statement and "doc.confidentiality <= %s" in statement
-    assert "knowledge_base_grant" in statement and "g.user_id = %s" in statement
-    assert params[:4] == (1, 5, 3, 4) and params[-2:] == (10, 60)
+    assert "knowledge_base_grant" in statement and "acl.user_id = %s" in statement
+    assert "document_access_grant" in statement and "doc.department_id = %s" in statement
+    assert params[-2:] == (10, 60)
+    assert statement.count("%s") == len(params)
     assert "strpos(lower(original_filename)" in statement
+    assert "SELECT DISTINCT ON (document_id) * FROM scoped_tasks" in statement
+    assert "ORDER BY document_id, revision_no DESC, task_id DESC" in statement
     assert result.overall_total == 80 and not result.items
+
+
+def test_revision_history_query_scopes_to_document_and_permissions():
+    repository = UploadRepository(None, "test")
+    calls = []
+
+    def query(statement, params):
+        calls.append((statement, params))
+        return SimpleNamespace(fetchall=lambda: [{"task_id": 1}])
+
+    repository.query = query
+    repository.task_rows(UploadIdentity(1, 2, 3, 4, 5), document_id=42)
+    statement, params = calls[0]
+    assert "task.document_id = %s" in statement
+    assert "doc.confidentiality <= %s" in statement
+    assert "knowledge_base_grant" in statement
+    assert "document_access_grant" in statement and "AS can_write" in statement
+    assert params[18:23] == (1, None, None, 42, 42) and params[-1] == 50
+    assert statement.count("%s") == len(params)

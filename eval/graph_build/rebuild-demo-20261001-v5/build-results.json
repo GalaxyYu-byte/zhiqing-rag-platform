@@ -1,0 +1,17 @@
+[
+  {
+    "projection_id": 80,
+    "status": "SUCCEEDED",
+    "finished_at_utc": "2026-10-01T09:20:04.170970+00:00"
+  },
+  {
+    "projection_id": 79,
+    "status": "SUCCEEDED",
+    "finished_at_utc": "2026-10-01T09:20:04.864125+00:00"
+  },
+  {
+    "projection_id": 81,
+    "status": "SUCCEEDED",
+    "finished_at_utc": "2026-10-01T09:21:15.494333+00:00"
+  }
+]

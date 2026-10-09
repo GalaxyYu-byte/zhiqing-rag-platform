@@ -1,0 +1,8 @@
+{
+  "support": 13,
+  "insufficient": 1,
+  "contradict": 1,
+  "switched": [],
+  "known_errors_still_present_outside_sample": true,
+  "reason": "Extended inspection found attribute-to-field guesses, omitted conditions, recipient-as-actor and negation reversal; no candidate activated."
+}

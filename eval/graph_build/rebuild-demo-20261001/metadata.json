@@ -1,0 +1,20 @@
+{
+  "started_at_utc": "2026-10-01T08:51:40.794737+00:00",
+  "extractor_version": "graph-extractor-v3",
+  "model": "deepseek-flash",
+  "system_prompt_fingerprint": "1854792823a2fe54857660df1d222d4e60017702852305f1992dd51e95f0663b",
+  "authorized_document_ids": [
+    56,
+    71,
+    76
+  ],
+  "authorized_chunk_count": 23,
+  "mode": "candidate_build_verify_then_switch_retained_old_graph",
+  "source_sha256_at_final_build": {
+    "src/zhiqing_rag/workers/graph_extraction.py": "b5ec290611f742f226d4382356b7c93576725a04e3796849cb96d03eff54cffb",
+    "src/zhiqing_rag/workers/graph_queue.py": "761b1dd0b15ed4c8ac89f9dfa250fbcc46335949f2bde53584ff5651ac85095c",
+    "src/zhiqing_rag/workers/rebuild_graph.py": "7210d4f5feed1f70e5e49cb9c158b1a2b02d6ddca5877194eac91135c9f03db8",
+    "src/zhiqing_rag/workers/graph_storage.py": "615c6551cd3dc90818decbd641919da63e44bb82a5ae3d27ae1e33079c84157d"
+  },
+  "result": "built_and_structurally_verified_semantic_review_not_passed_no_switch"
+}

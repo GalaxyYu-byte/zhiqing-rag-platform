@@ -1,0 +1,21 @@
+{
+  "schema_version": "graph-human-item-adjudication-v1",
+  "generator_sha256": "02cb3b4639f09c11e24d4f2738e9fa15b2977f40002680fbbcd0e8008ec87495",
+  "parent_files": {
+    "manifest.json": "900f198db3ecefd31db8b3d724838dbce9f1684cb994b9c0caa72234e65f58e0",
+    "cases.jsonl": "d663bfbc7068ce2edcf71c9b9c3ba2a85f71bf7612e28c6f9ad20985fe2648dd",
+    "evidence_review.jsonl": "95020125ed2e816a1946c6a088f6b44a5ae4f4b8d61765f59cea4c7a0cea5d76",
+    "entity_review.jsonl": "45df20e3b94c3268c27843f1c0399ce012c6bd92f6f600d9ad2021371adbeb0b",
+    "normalization_review.jsonl": "8dbef4bcbc1f4d0f12bde9aa66a8e64148d30137c5659dcd72149e78fe4c0880",
+    "第一批裁决-跨行错配.md": "aa462041ec97a361dc3063c8fec2c30d5ddf6e2b5f6a5b042f6cefd2d317a0e6"
+  },
+  "files": {
+    "evidence_review.jsonl": "beb88c8d927b5d373930dc492c4c360909317d0bf890fcf2e149fa3e67a205ed",
+    "human_decision.json": "69fa6fed9c88edd1efd547beb049371ac6ae2a4c64f2f35af4907817e9aa6b24",
+    "human_verdicts.jsonl": "51a2ace928b2302da8d9c2ec648e611dadfd6318e015f21eca19c05978250cca",
+    "README.md": "1e3fd62d408b4f42de96b0735507ab5229ff2cabbb7eaced35d273572c295fe8",
+    "summary.json": "9fe83ef020a6e5dc3e7500d30bbd5329f4d9cad350f211ef45d34acc1a871edf",
+    "第二批裁决-状态流转.md": "eab20625be5e2df7907ccf42b9e963c51e0ae25b9dc6cff19f5cf4fc4cf0bedd"
+  },
+  "full_item_human_review": "PARTIAL"
+}

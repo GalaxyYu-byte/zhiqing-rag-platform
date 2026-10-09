@@ -1,0 +1,7 @@
+{
+  "reviewer": "codex",
+  "support": 10,
+  "insufficient": 5,
+  "switched": [],
+  "reason": "Semantic errors remain; retain all v4 candidates as diagnostic records."
+}

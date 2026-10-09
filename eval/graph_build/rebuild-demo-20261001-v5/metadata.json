@@ -1,0 +1,18 @@
+{
+  "started_at_utc": "2026-10-01T09:18:51.698154+00:00",
+  "authorized_document_ids": [
+    56,
+    71,
+    76
+  ],
+  "authorized_unique_chunks": 23,
+  "extractor_version": "graph-extractor-v5",
+  "model": "deepseek-flash",
+  "system_prompt_sha256": "cda768e25cdca3e8c1f0115fe000caa05e43acabf8520935706f54b95eb985f2",
+  "sources": {
+    "src/zhiqing_rag/workers/graph_extraction.py": "649b2dda0520e3954ebba018d20f4678f6b7940c05e2fd70556a3e0662ec6c8f",
+    "src/zhiqing_rag/workers/rebuild_graph.py": "7210d4f5feed1f70e5e49cb9c158b1a2b02d6ddca5877194eac91135c9f03db8",
+    "src/zhiqing_rag/workers/graph_queue.py": "761b1dd0b15ed4c8ac89f9dfa250fbcc46335949f2bde53584ff5651ac85095c",
+    "src/zhiqing_rag/workers/graph_storage.py": "615c6551cd3dc90818decbd641919da63e44bb82a5ae3d27ae1e33079c84157d"
+  }
+}

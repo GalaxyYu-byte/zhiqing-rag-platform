@@ -1,0 +1,16 @@
+{
+  "started_at_utc": "2026-09-30T02:06:30.651683+00:00",
+  "targets_manifest_sha256": "448eecb4860bb7b61f3702e4aa1c633e230a578598983ef170cad312416838e7",
+  "model": "deepseek-flash",
+  "extractor_version": "graph-extractor-v1",
+  "extractor_source_sha256": "30dc6a7f4643a53db1e1eb7accd2867a87c9ca9f459106a7710e357e00225137",
+  "system_prompt_sha256": "15b4b050432eee042992f4c4c55f5de86a8f53f679e661ace427d989092f5fa3",
+  "table_guidance_experiment": true,
+  "mode": "isolated_current_extractor_no_database_writes",
+  "authorized_chunk_ids": [
+    "v2-83-01",
+    "v2-83-02",
+    "v2-89-01",
+    "v2-89-02"
+  ]
+}

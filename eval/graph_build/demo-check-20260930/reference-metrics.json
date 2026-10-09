@@ -1,0 +1,36 @@
+{
+  "dataset": "six-document-review-draft-v1",
+  "documents": 6,
+  "chunks": 13,
+  "prediction_run": "name-feedback-regression-20260930",
+  "metrics": {
+    "entity": {
+      "strict_gold_matches": 202,
+      "predictions": 266,
+      "gold_targets": 405,
+      "precision_conservative_reference": 0.7593984962406015,
+      "targeted_recall": 0.49876543209876545,
+      "f1_conservative_reference": 0.6020864381520119,
+      "unmatched_predictions_not_automatically_false": 64
+    },
+    "relation": {
+      "strict_gold_matches": 106,
+      "predictions": 202,
+      "gold_targets": 245,
+      "precision_conservative_reference": 0.5247524752475248,
+      "targeted_recall": 0.4326530612244898,
+      "f1_conservative_reference": 0.4742729306487696,
+      "unmatched_predictions_not_automatically_false": 96
+    }
+  },
+  "matching": "Entity type+normalized canonical name; Relation typed source+predicate+typed target+direction",
+  "scope": "reference Gold structural diagnostic metrics; conditional effects and semantic evidence support are separate",
+  "gold_exhaustive": false,
+  "human_full_gold_verified": false,
+  "annotation_timing": "post_prediction",
+  "inputs": {
+    "cases_sha256": "d663bfbc7068ce2edcf71c9b9c3ba2a85f71bf7612e28c6f9ad20985fe2648dd",
+    "predictions_sha256": "0fd226554fc70360bcad98fcd66b024127cd092ae432fc75e71310cec4b4dde3"
+  },
+  "interpretation": "Precision is a conservative known-Gold match ratio. Unmatched predictions stay unjudged, not FP. Recall covers labelled targets. F1 shares this reference scope and is not a full-quality acceptance score."
+}

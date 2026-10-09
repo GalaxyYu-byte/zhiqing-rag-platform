@@ -1,0 +1,222 @@
+[
+  {
+    "document_id": 76,
+    "fact_key": "04d4ad388351c071dfdd9ab17e5a251e1ee6fcb9aa4732dc6050b17a600289f3",
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "背景",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "782417997fe0ae98d89de6e4e676a2f8c712d69d35c93eee4d441548a646a80c",
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "紧急程度依据",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "d982ee34194a1a9dc96d97b581b1eef88d5a6c9975afae87c4a639abf41b767f",
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "相关版本",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "56c9d3578b14da977ccfb7f459ae30e6e1d0ec33f026c770a6fad707ca4f24a0",
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "承诺中的下次反馈动作",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "b6c71c0c80dd4b832814b8dea9cfc19430141304b95235e718ddbd1cda4b058e",
+    "chunk_id": 329,
+    "source": "受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "受理人整理问题摘要与原始描述",
+    "condition": null,
+    "quote": "第一步，受理人整理问题摘要与原始描述"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "971fa8db99f8095cd32691ddd674b5107d489952d01d1c2a0a37c380b5e2b78d",
+    "chunk_id": 329,
+    "source": "说明已核对和未核对的事实",
+    "predicate": "GOVERNED_BY",
+    "target": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+    "condition": "如果说明已核对和未核对的事实无法完成",
+    "quote": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "4a4638986132bb5dbff697e6f56644966cb9955138ee9a3ae2621af202c6bc87",
+    "chunk_id": 329,
+    "source": "接手方",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "列出缺口并回传受理人",
+    "condition": "接手方认为信息不足时",
+    "quote": "接手方认为信息不足时列出缺口并回传受理人"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "50ec50008c77bd84fff35a9f117302bc43edfdb5cb45ab258dbb9141406d1398",
+    "chunk_id": 330,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "查看接收方能否据此继续工作",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "bf259b327ee04490a32615b3ea6167d466e3820a90770ffb8df9ca8fb09f7d8d",
+    "chunk_id": 330,
+    "source": "同步修订入口说明",
+    "predicate": "GOVERNED_BY",
+    "target": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项",
+    "condition": "后续规则如有调整",
+    "quote": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "f0ab23493be15967d98eb239f4668cfa78ac9a188c276c767ca04e469901fd2a",
+    "chunk_id": 330,
+    "source": "内部责任转移",
+    "predicate": "GOVERNED_BY",
+    "target": "内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复",
+    "condition": null,
+    "quote": "内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "b04441ef7a203a9ed6039a9d6243db740658ecb6a3f7651881d6bd548c1adf1d",
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "客户诉求",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "f8d28057c3e6f82bf941de1a98bcbc787aae1f5cdb23013045b1d32632e3e598",
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "影响",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "4a569e92ff1d38fe04aaaf022d97518334eeb6710faccacfc0dc20bdf8db9484",
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "已做排查",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "9428e14cc2b05b90cf5839b69f52d4f33bcd0305d2ada6679d98d051abced1fd",
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "剩余问题",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "d4f46d7d760036002d005ecfef4e418c5348f3046ba4d50478031a132e51c198",
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "期望接手团队完成的动作",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "48fa471b14ac95842b13b3e8d6f782ce8181c315dbf18cbd40180716aaf4a561",
+    "chunk_id": 330,
+    "source": "原受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "继续负责客户状态通知",
+    "condition": "接收方确认后",
+    "quote": "接收方确认后，原受理人继续负责客户状态通知"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "c8f4e090d0e959d5c5d315b2c56d27d1aca3393e2c09cd996c4d14a2ae1467f3",
+    "chunk_id": 330,
+    "source": "先统一答复口径",
+    "predicate": "GOVERNED_BY",
+    "target": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息",
+    "condition": "内部讨论如改变结论",
+    "quote": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "f96220c7f433fefbc8b7fc9b166a835a17035da6678a0c68076ed07a64bb426d",
+    "chunk_id": 331,
+    "source": "接手团队",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "回传接收确认",
+    "condition": "收到请求后",
+    "quote": "接手团队收到请求后，可先回传接收确认和预计下一次内部反馈节点"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "2b81892654b5369acb25a9926cad45b30e3b0c2d3c0a4f0fa0b28729bacf00af",
+    "chunk_id": 331,
+    "source": "原受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "持续获得调查更新",
+    "condition": "若仍要面对客户",
+    "quote": "原受理人若仍要面对客户，应持续获得调查更新。"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "a86078e6a32a6d7a1008acc47d6acb071dc9eebbc54fbab335f88d605e90f6c9",
+    "chunk_id": 331,
+    "source": "在工单中保留原因",
+    "predicate": "GOVERNED_BY",
+    "target": "而不是把历史移交记录删除",
+    "condition": null,
+    "quote": "应在工单中保留原因，而不是把历史移交记录删除。"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "a717ece29870fa4e1f9c85ef1a915d428da3ff41aa91df08d8c8abb19af6d22d",
+    "chunk_id": 331,
+    "source": "转派记录",
+    "predicate": "GOVERNED_BY",
+    "target": "转派记录尽量使用工单内的结构化位置保存",
+    "condition": null,
+    "quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。"
+  },
+  {
+    "document_id": 76,
+    "fact_key": "db576f4f097f41b6cbdc3de948c0047fe60c9ea2b7fe7c6439ff703a49a3942e",
+    "chunk_id": 331,
+    "source": "转派记录",
+    "predicate": "GOVERNED_BY",
+    "target": "避免关键上下文只留在私人聊天中",
+    "condition": null,
+    "quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。"
+  }
+]

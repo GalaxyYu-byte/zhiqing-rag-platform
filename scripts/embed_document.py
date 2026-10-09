@@ -173,7 +173,7 @@ def main() -> None:
                 generation_no=1,
                 parser_version="document-processing-v1",
                 cleaner_version="cleaning-v1",
-                chunker_version="chunking-v1",
+                chunker_version="chunking-v2",
                 chunk_config=asdict(chunk_config),
                 chunk_count=len(embedded),
             )

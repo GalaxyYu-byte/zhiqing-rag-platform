@@ -1,0 +1,15 @@
+{
+  "replay_sha256": "560cfba67cf6de00ecf6295ed843545709e7e2b56e3fc65d44a25afef1d820fa",
+  "frozen_cases_sha256": "e5393e794200d3cd5fa4fa2d834efa1db44dfe306d00b04877c5b1a0e3fd090f",
+  "review_sha256": "1f26993eb8e76f86ca58c2c9be9632edf977a16e0e4d9e9dbcfb3631e1335e6c",
+  "reviewer": "Codex",
+  "independent_human_review": "PENDING",
+  "relation_counts": {
+    "SUPPORT": 117,
+    "INSUFFICIENT": 52
+  },
+  "entity_type_flags": 9,
+  "within_chunk_exact_duplicate_groups": 0,
+  "formal_evidence_precision": null,
+  "formal_normalization_error_rates": null
+}

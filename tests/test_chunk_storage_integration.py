@@ -19,7 +19,12 @@ from zhiqing_rag.modules.documents import (
     EmbeddingProfile,
     IndexGeneration,
 )
-from zhiqing_rag.modules.documents.chunk_storage import ChunkScope, save_embedded_chunks
+from zhiqing_rag.modules.documents.chunk_storage import (
+    ChunkScope,
+    complete_embedded_chunks,
+    save_embedded_chunks,
+    save_raw_chunks,
+)
 from zhiqing_rag.modules.knowledge import KnowledgeBase
 
 pytestmark = pytest.mark.skipif(
@@ -97,6 +102,23 @@ def embedded():
         EmbeddedChunk(chunk, (float(chunk.chunk_index + 1),) * 1024, "text-embedding-v3")
         for chunk in make_chunks()
     )
+
+
+def test_raw_chunks_can_be_read_before_embeddings_finish(target):
+    session, scope = target
+    items = embedded()
+    ids = save_raw_chunks(session, scope, tuple(item.chunk for item in items))
+    assert ids == save_raw_chunks(session, scope, tuple(item.chunk for item in items))
+    session.expire_all()
+    rows = session.scalars(
+        select(DocumentChunk)
+        .where(DocumentChunk.generation_id == scope.generation_id)
+        .order_by(DocumentChunk.chunk_index)
+    ).all()
+    assert len(rows) == 20 and all(row.embedding is None for row in rows)
+    assert session.get(IndexGeneration, scope.generation_id).status == "BUILDING"
+    assert complete_embedded_chunks(session, scope, items) == ids
+    assert session.get(IndexGeneration, scope.generation_id).status == "READY"
 
 
 def test_stores_20_chunks_preserves_mapping_and_marks_ready(target):

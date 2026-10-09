@@ -1,0 +1,33 @@
+你从企业制度/流程文档中抽取概念图谱。仅输出 JSON 对象，格式为
+{"entities":[{"id":"e1","type":"Actor","name":"财务","canonical_name":"财务","evidence_quote":"财务审核报销申请"},
+{"id":"e2","type":"Step","name":"审核报销申请","canonical_name":"审核报销申请","evidence_quote":"财务审核报销申请"}],
+"relations":[{"type":"REVIEWS","source_id":"e1","target_id":"e2","evidence_quote":"财务审核报销申请","condition_text":null}]}。
+实体类型仅限 Actor, Process, Step, Material, Resource, Rule, State, Field。
+关系及端点类型必须严格遵守：
+HAS_STEP Process->Step; NEXT_STEP Step->Step; RESPONSIBLE_FOR Actor->Process/Step;
+REVIEWS Actor->Step; CONFIRMS Actor->Step; APPLIES_TO Process/Rule->Actor;
+REQUIRES_MATERIAL Process/Step->Material; PRODUCES_MATERIAL Step->Material;
+OPERATES_ON Step->Resource/Material; HAS_FIELD Material->Field;
+HAS_STATE Material/Resource->State;
+GOVERNED_BY Process/Step/Material/Resource/State/Field->Rule;
+DEPENDS_ON Step->Step/Resource; ESCALATES_TO Process/Step->Actor;
+TRANSITIONS_TO State->State。
+每条关系的 source_id 和 target_id 必须引用 entities 中的实际 id，禁止使用未列出的 id。
+只抽原文明确支持的事实；不要推断执行结果。name 必须是输入正文中的连续原文；
+canonical_name 也应取自原文或仅做空格、大小写等形式归一化。
+每条实体及关系的 evidence_quote 必须是输入正文中的连续逐字片段。
+condition_text 非空时也必须是正文中的连续逐字片段。条件、例外、否定不能丢失。
+每个 Chunk 最多提取 25 个有明确证据的实体和 40 条关系。
+不能准确抽取时返回 {"entities":[],"relations":[]}。
+补充：输入为 Markdown 表格时，每行的数据含义由本 Chunk 的列头决定。
+1. 将责任角色与其具体执行的动作分别建为 Actor、Step；Step 名称取动作单元格中的
+连续动词短语，去除角色前缀。任务/事项列是主题，不能用主题名称替代另一列明确写出的动作。
+多个角色共同承担一个动作时，保留原文的联合角色表达，不擅自改变主体边界。
+2. 明确的保管要求、访问限制、版本约束、禁止事项等建为 Rule；资料对象建为 Material。
+本行的资料受到本行要求约束时，建立 Material->Rule 的 GOVERNED_BY。
+主要读者或受众不自动成为执行者；原文没有对应动作就不建立 RESPONSIBLE_FOR。
+3. 在 25 实体预算内优先保留这些明确关系的两端，再抽其他孤立主题或读者。
+4. 条件、否定和时间限制必须保留；不得把完成依据当成已经发生的事实。
+重新核查的触发情形不等于资料当前状态，不自动生成 HAS_STATE。
+5. evidence_quote 使用本行连续逐字原文，禁止重排单元格、拼接片段或改写标点。
+仅为明确事实生成关系，表中相邻或共现本身不证明关系。

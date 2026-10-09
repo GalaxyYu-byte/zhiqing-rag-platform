@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, model_validator
 
 class UploadParameters(BaseModel):
     knowledge_base_id: int = Field(gt=0)
+    confidentiality: int = Field(default=1, ge=0, le=2)
     chunk_size: int = Field(default=512, ge=128, le=2048)
     chunk_overlap: int = Field(default=48, ge=0)
 
@@ -24,6 +25,7 @@ class KnowledgeBaseOption(BaseModel):
     code: str
     name: str
     description: str
+    permission: Literal["READ", "WRITE", "ADMIN"] = "WRITE"
 
 
 class UploadResult(BaseModel):
@@ -46,7 +48,11 @@ class DocumentTaskStatus(BaseModel):
     task_id: str
     document_id: str
     revision_id: str
+    revision_no: int
     generation_id: str
+    # 页面用这两个指针区分“正在构建的修订”和“当前已发布的索引批次”。
+    desired_revision_id: str | None
+    active_generation_id: str | None
     knowledge_base_id: str
     original_filename: str
     file_size: int
@@ -58,6 +64,10 @@ class DocumentTaskStatus(BaseModel):
     error_code: str | None
     chunk_count: int
     document_status: str
+    department_id: str | None = None
+    confidentiality: int = 1
+    can_write: bool = False
+    can_manage_permissions: bool = False
     created_at: datetime
     finished_at: datetime | None
 

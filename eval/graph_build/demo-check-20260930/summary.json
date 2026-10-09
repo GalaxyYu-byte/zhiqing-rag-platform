@@ -1,0 +1,25 @@
+{
+  "captured_at_utc": "2026-09-30T07:22:12.624224+00:00",
+  "scope": "Demo offline graph build and direct Neo4j queries, not end-to-end GraphRAG QA",
+  "active_projections": 10,
+  "technical_issue_counts": {
+    "ORPHAN_ENTITY_GLOBAL": 30
+  },
+  "counts": {
+    "entities_by_generation_sum": 681,
+    "assertions": 419,
+    "evidence": 542,
+    "evidence_with_valid_quote_offset": 542
+  },
+  "query_smoke_passed": 3,
+  "query_smoke_total": 3,
+  "spotcheck_sampling": "2 assertions per document, SHA256 sorting with fixed seed demo-20260930, across 10 frozen docs",
+  "codex_spotcheck_counts": {
+    "SUPPORT": 10,
+    "INSUFFICIENT": 7,
+    "REVIEW_REQUIRED": 3
+  },
+  "quality_status": "NEEDS_FIX",
+  "overall_status": "TECHNICALLY_USABLE_QUALITY_NOT_PASSED",
+  "tests_passed": 25
+}

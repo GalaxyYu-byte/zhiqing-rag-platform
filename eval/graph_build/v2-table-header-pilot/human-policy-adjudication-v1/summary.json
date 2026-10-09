@@ -1,0 +1,72 @@
+{
+  "old_policy_counts": {
+    "gold_entities": 57,
+    "predicted_entities": 98,
+    "exact_entity_matches": 55,
+    "gold_relations": 30,
+    "predicted_relations": 62,
+    "exact_directed_triple_matches": 24
+  },
+  "approved_policy_counts": {
+    "gold_entities": 57,
+    "predicted_entities": 98,
+    "exact_entity_matches": 45,
+    "gold_relations": 30,
+    "predicted_relations": 62,
+    "exact_directed_triple_matches": 19
+  },
+  "documents": {
+    "dox\\客户与交付\\项目交付物核对清单.xlsx": {
+      "old": {
+        "gold_entities": 30,
+        "predicted_entities": 40,
+        "exact_entity_matches": 30,
+        "gold_relations": 15,
+        "predicted_relations": 15,
+        "exact_directed_triple_matches": 10
+      },
+      "new": {
+        "gold_entities": 30,
+        "predicted_entities": 40,
+        "exact_entity_matches": 20,
+        "gold_relations": 15,
+        "predicted_relations": 15,
+        "exact_directed_triple_matches": 5
+      }
+    },
+    "dox\\财务与采购\\采购节点与交接说明.xlsx": {
+      "old": {
+        "gold_entities": 27,
+        "predicted_entities": 58,
+        "exact_entity_matches": 25,
+        "gold_relations": 15,
+        "predicted_relations": 47,
+        "exact_directed_triple_matches": 14
+      },
+      "new": {
+        "gold_entities": 27,
+        "predicted_entities": 58,
+        "exact_entity_matches": 25,
+        "gold_relations": 15,
+        "predicted_relations": 47,
+        "exact_directed_triple_matches": 14
+      }
+    }
+  },
+  "approved_policy_entity_recall": 0.7894736842105263,
+  "approved_policy_triple_recall": 0.6333333333333333,
+  "derived_flag_counts": {
+    "policy_4:relation": 7,
+    "policy_2:entity": 11,
+    "policy_2:relation": 5,
+    "policy_3:entity": 15,
+    "policy_3:relation": 30,
+    "policy_5:relation": 14
+  },
+  "human_policy_status": "APPROVED",
+  "full_item_human_review": "PENDING",
+  "final_precision": null,
+  "final_f1": null,
+  "evidence_precision": null,
+  "scope": "same saved predictions; changed annotation policy; selected Gold covers 2 docs"
+}

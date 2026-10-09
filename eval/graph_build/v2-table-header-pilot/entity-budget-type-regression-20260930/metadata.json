@@ -1,0 +1,28 @@
+{
+  "started_at_utc": "2026-09-30T08:03:47.339339+00:00",
+  "model": "deepseek-flash",
+  "extractor_version": "graph-extractor-v3",
+  "max_output_tokens": 24576,
+  "timeout_seconds": 60.0,
+  "gold_sha256": "d663bfbc7068ce2edcf71c9b9c3ba2a85f71bf7612e28c6f9ad20985fe2648dd",
+  "baseline_sha256": "0fd226554fc70360bcad98fcd66b024127cd092ae432fc75e71310cec4b4dde3",
+  "frozen_cases_sha256": "e5393e794200d3cd5fa4fa2d834efa1db44dfe306d00b04877c5b1a0e3fd090f",
+  "system_prompt_sha256": "da64c51c48b2397994ade5f33faf33801ae00f559c8d3141d46158bd049974a3",
+  "extractor_source_sha256": "1472db0a3fc789c8e8261e8ba07609c33218a55d3c86c24e997bec684d78870c",
+  "authorized_case_ids": [
+    "holdout-01-01",
+    "holdout-01-02",
+    "holdout-02-01",
+    "holdout-02-02",
+    "holdout-03-01",
+    "holdout-03-02",
+    "holdout-04-01",
+    "holdout-04-02",
+    "holdout-05-01",
+    "holdout-05-02",
+    "holdout-05-03",
+    "holdout-06-01",
+    "holdout-06-02"
+  ],
+  "mode": "isolated_no_database_writes"
+}

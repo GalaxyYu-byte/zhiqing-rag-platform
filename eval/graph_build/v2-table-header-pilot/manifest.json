@@ -1,0 +1,22 @@
+{
+  "chunk_count": 6,
+  "chunker_version": "chunking-v2",
+  "created_at_utc": "2026-09-30T01:40:33.737313+00:00",
+  "data_chunk_count": 4,
+  "document_ids": [
+    83,
+    89
+  ],
+  "files": {
+    "chunks.jsonl": "3b12a83f9daaf1c0becee5679b7cc0306bcdb9175e31e33f64d3ebc16f55e148",
+    "gold_relation_outcomes.jsonl": "d2ce0a7f65015d23b5639ecd9cc19ea00afb7ee654866b40eb685a5be38feee9",
+    "proposals.jsonl": "5453bed4c09a8a2bf7e70a5d2fabd33450550c16f1b0bc81b70d714a9f4e3a57"
+  },
+  "gold_cases_sha256": "3eade8517f9210e7ee9887327e819909f4e00e69584ddadfbec1c34e6da00c18",
+  "gold_relation_count": 20,
+  "gold_relation_matches": 20,
+  "mode": "local_rechunk_and_offline_evidence_validation_no_graph_writes",
+  "proposal_relation_count": 30,
+  "schema_version": "graph-build-table-header-pilot-v2",
+  "source_manifest_sha256": "051977b9e26d17a87886b04715b301771389789c016439157c48458d1c1f106a"
+}

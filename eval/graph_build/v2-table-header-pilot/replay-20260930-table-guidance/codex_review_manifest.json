@@ -1,0 +1,12 @@
+{
+  "replay_sha256": "d10989a46fa2057977a4b8187cfb305efdab43bb89c15e58ff7fb830b4716aad",
+  "cases_sha256": "21a6e69ec8a7926b94c036b9606acfafafeb4124aa89c4ddc1ab85006696df2e",
+  "review_sha256": "a12bd5bfcdc9bad868e4cda4b2d09a332f03c40485b26dfcff3b58d2ed7d49f2",
+  "reviewer": "Codex",
+  "independent_human_review": "PENDING",
+  "counts": {
+    "SUPPORT": 47,
+    "INSUFFICIENT": 2
+  },
+  "formal_evidence_precision": null
+}

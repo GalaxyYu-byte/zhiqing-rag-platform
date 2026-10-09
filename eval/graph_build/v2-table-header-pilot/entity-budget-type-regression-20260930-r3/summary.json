@@ -1,0 +1,177 @@
+{
+  "baseline": {
+    "counts": {
+      "gold_entities": 405,
+      "predicted_entities": 266,
+      "exact_entity_matches": 202,
+      "gold_relations": 245,
+      "predicted_relations": 202,
+      "exact_directed_triple_matches": 106,
+      "failed_chunks": 0,
+      "api_attempts": 16,
+      "truncated_attempts": 0,
+      "entity_missing_name": 167,
+      "entity_hit": 202,
+      "conditional_eligible": 106,
+      "conditional_hits": 106,
+      "relation_missing_endpoint": 139,
+      "entity_wrong_type": 36
+    },
+    "documents": {
+      "dox\\信息安全\\权限申请与复核责任矩阵.xlsx": {
+        "gold_entities": 92,
+        "predicted_entities": 50,
+        "exact_entity_matches": 50,
+        "gold_relations": 126,
+        "predicted_relations": 61,
+        "exact_directed_triple_matches": 53
+      },
+      "dox\\客户与交付\\客户工单状态与处理要求.xlsx": {
+        "gold_entities": 70,
+        "predicted_entities": 43,
+        "exact_entity_matches": 42,
+        "gold_relations": 28,
+        "predicted_relations": 27,
+        "exact_directed_triple_matches": 0
+      },
+      "dox\\客户与交付\\项目交付物核对清单.xlsx": {
+        "gold_entities": 45,
+        "predicted_entities": 40,
+        "exact_entity_matches": 25,
+        "gold_relations": 15,
+        "predicted_relations": 15,
+        "exact_directed_triple_matches": 5
+      },
+      "dox\\研发与产品\\版本发布前核对清单.xlsx": {
+        "gold_entities": 64,
+        "predicted_entities": 35,
+        "exact_entity_matches": 8,
+        "gold_relations": 16,
+        "predicted_relations": 19,
+        "exact_directed_triple_matches": 1
+      },
+      "dox\\财务与采购\\费用凭证核验要点.xlsx": {
+        "gold_entities": 62,
+        "predicted_entities": 40,
+        "exact_entity_matches": 19,
+        "gold_relations": 0,
+        "predicted_relations": 33,
+        "exact_directed_triple_matches": 0
+      },
+      "dox\\财务与采购\\采购节点与交接说明.xlsx": {
+        "gold_entities": 72,
+        "predicted_entities": 58,
+        "exact_entity_matches": 58,
+        "gold_relations": 60,
+        "predicted_relations": 47,
+        "exact_directed_triple_matches": 47
+      }
+    },
+    "entity": {
+      "matches": 202,
+      "predictions": 266,
+      "gold_targets": 405,
+      "precision_conservative_reference": 0.7593984962406015,
+      "targeted_recall": 0.49876543209876545,
+      "f1_conservative_reference": 0.6020864381520119
+    },
+    "relation": {
+      "matches": 106,
+      "predictions": 202,
+      "gold_targets": 245,
+      "precision_conservative_reference": 0.5247524752475248,
+      "targeted_recall": 0.4326530612244898,
+      "f1_conservative_reference": 0.4742729306487696
+    }
+  },
+  "current": {
+    "counts": {
+      "gold_entities": 405,
+      "predicted_entities": 462,
+      "exact_entity_matches": 379,
+      "gold_relations": 245,
+      "predicted_relations": 291,
+      "exact_directed_triple_matches": 156,
+      "failed_chunks": 0,
+      "api_attempts": 13,
+      "truncated_attempts": 0,
+      "entity_hit": 379,
+      "conditional_eligible": 177,
+      "conditional_hits": 156,
+      "relation_missing_with_endpoints": 21,
+      "entity_wrong_type": 24,
+      "relation_missing_endpoint": 68,
+      "entity_missing_name": 2
+    },
+    "documents": {
+      "dox\\信息安全\\权限申请与复核责任矩阵.xlsx": {
+        "gold_entities": 92,
+        "predicted_entities": 93,
+        "exact_entity_matches": 92,
+        "gold_relations": 126,
+        "predicted_relations": 132,
+        "exact_directed_triple_matches": 126
+      },
+      "dox\\客户与交付\\客户工单状态与处理要求.xlsx": {
+        "gold_entities": 70,
+        "predicted_entities": 70,
+        "exact_entity_matches": 70,
+        "gold_relations": 28,
+        "predicted_relations": 42,
+        "exact_directed_triple_matches": 28
+      },
+      "dox\\客户与交付\\项目交付物核对清单.xlsx": {
+        "gold_entities": 45,
+        "predicted_entities": 70,
+        "exact_entity_matches": 45,
+        "gold_relations": 15,
+        "predicted_relations": 35,
+        "exact_directed_triple_matches": 0
+      },
+      "dox\\研发与产品\\版本发布前核对清单.xlsx": {
+        "gold_entities": 64,
+        "predicted_entities": 77,
+        "exact_entity_matches": 55,
+        "gold_relations": 16,
+        "predicted_relations": 35,
+        "exact_directed_triple_matches": 2
+      },
+      "dox\\财务与采购\\费用凭证核验要点.xlsx": {
+        "gold_entities": 62,
+        "predicted_entities": 78,
+        "exact_entity_matches": 60,
+        "gold_relations": 0,
+        "predicted_relations": 0,
+        "exact_directed_triple_matches": 0
+      },
+      "dox\\财务与采购\\采购节点与交接说明.xlsx": {
+        "gold_entities": 72,
+        "predicted_entities": 74,
+        "exact_entity_matches": 57,
+        "gold_relations": 60,
+        "predicted_relations": 47,
+        "exact_directed_triple_matches": 0
+      }
+    },
+    "entity": {
+      "matches": 379,
+      "predictions": 462,
+      "gold_targets": 405,
+      "precision_conservative_reference": 0.8203463203463204,
+      "targeted_recall": 0.9358024691358025,
+      "f1_conservative_reference": 0.8742791234140715
+    },
+    "relation": {
+      "matches": 156,
+      "predictions": 291,
+      "gold_targets": 245,
+      "precision_conservative_reference": 0.5360824742268041,
+      "targeted_recall": 0.636734693877551,
+      "f1_conservative_reference": 0.582089552238806
+    }
+  },
+  "gold_unchanged": true,
+  "independent_holdout": false,
+  "scope": "Post-prediction diagnostic Gold; unmatched predictions are unjudged. Structural matches do not establish evidence support or conditional effects.",
+  "finished_at_utc": "2026-09-30T08:14:44.633512+00:00"
+}

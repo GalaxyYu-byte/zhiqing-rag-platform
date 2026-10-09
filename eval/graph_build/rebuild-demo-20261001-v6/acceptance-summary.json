@@ -1,0 +1,371 @@
+{
+  "checked_at_utc": "2026-10-01T09:43:36.050318+00:00",
+  "authorized_documents": [
+    56,
+    71,
+    76
+  ],
+  "authorized_chunks": 23,
+  "extractor_version": "graph-extractor-v6",
+  "activations": [
+    {
+      "document_id": 56,
+      "new_projection_id": 82,
+      "new_namespace": "zhiqing-rag-platform:rebuild:e0b4c3c99a804cb5917bc0f86c2e9220",
+      "old_projection_id": 28,
+      "old_status": "STALE",
+      "status": "READY",
+      "counts": {
+        "entities": 97,
+        "evidence": 62,
+        "assertions": 17
+      },
+      "samples_support": 5,
+      "excluded_facts": 5
+    },
+    {
+      "document_id": 71,
+      "new_projection_id": 83,
+      "new_namespace": "zhiqing-rag-platform:rebuild:98704643e2f34bbf82954c0a97cb79c1",
+      "old_projection_id": 43,
+      "old_status": "STALE",
+      "status": "READY",
+      "counts": {
+        "entities": 112,
+        "evidence": 70,
+        "assertions": 28
+      },
+      "samples_support": 5,
+      "excluded_facts": 6
+    },
+    {
+      "document_id": 76,
+      "new_projection_id": 84,
+      "new_namespace": "zhiqing-rag-platform:rebuild:809737e15ed24b5f9cdafcc3472fee09",
+      "old_projection_id": 48,
+      "old_status": "STALE",
+      "status": "READY",
+      "counts": {
+        "entities": 92,
+        "evidence": 59,
+        "assertions": 22
+      },
+      "samples_support": 5,
+      "excluded_facts": 5
+    }
+  ],
+  "samples": {
+    "support": 15,
+    "insufficient": 0,
+    "contradict": 0,
+    "scope": "Post-filter Codex sample review, not full precision/recall/F1"
+  },
+  "raw_v6_relations": 83,
+  "excluded_v6_relations": 16,
+  "final_relations": 67,
+  "retained_old_graphs": [
+    {
+      "projection_id": 11,
+      "document_id": 34,
+      "unchanged": true
+    },
+    {
+      "projection_id": 14,
+      "document_id": 35,
+      "unchanged": true
+    },
+    {
+      "projection_id": 15,
+      "document_id": 36,
+      "unchanged": true
+    },
+    {
+      "projection_id": 16,
+      "document_id": 44,
+      "unchanged": true
+    },
+    {
+      "projection_id": 17,
+      "document_id": 45,
+      "unchanged": true
+    },
+    {
+      "projection_id": 18,
+      "document_id": 46,
+      "unchanged": true
+    },
+    {
+      "projection_id": 19,
+      "document_id": 47,
+      "unchanged": true
+    },
+    {
+      "projection_id": 20,
+      "document_id": 48,
+      "unchanged": true
+    },
+    {
+      "projection_id": 21,
+      "document_id": 49,
+      "unchanged": true
+    },
+    {
+      "projection_id": 22,
+      "document_id": 50,
+      "unchanged": true
+    },
+    {
+      "projection_id": 23,
+      "document_id": 51,
+      "unchanged": true
+    },
+    {
+      "projection_id": 24,
+      "document_id": 52,
+      "unchanged": true
+    },
+    {
+      "projection_id": 25,
+      "document_id": 53,
+      "unchanged": true
+    },
+    {
+      "projection_id": 26,
+      "document_id": 54,
+      "unchanged": true
+    },
+    {
+      "projection_id": 27,
+      "document_id": 55,
+      "unchanged": true
+    },
+    {
+      "projection_id": 28,
+      "document_id": 56,
+      "unchanged": true
+    },
+    {
+      "projection_id": 29,
+      "document_id": 57,
+      "unchanged": true
+    },
+    {
+      "projection_id": 30,
+      "document_id": 58,
+      "unchanged": true
+    },
+    {
+      "projection_id": 31,
+      "document_id": 59,
+      "unchanged": true
+    },
+    {
+      "projection_id": 32,
+      "document_id": 60,
+      "unchanged": true
+    },
+    {
+      "projection_id": 33,
+      "document_id": 61,
+      "unchanged": true
+    },
+    {
+      "projection_id": 34,
+      "document_id": 62,
+      "unchanged": true
+    },
+    {
+      "projection_id": 35,
+      "document_id": 63,
+      "unchanged": true
+    },
+    {
+      "projection_id": 36,
+      "document_id": 64,
+      "unchanged": true
+    },
+    {
+      "projection_id": 37,
+      "document_id": 65,
+      "unchanged": true
+    },
+    {
+      "projection_id": 38,
+      "document_id": 66,
+      "unchanged": true
+    },
+    {
+      "projection_id": 39,
+      "document_id": 67,
+      "unchanged": true
+    },
+    {
+      "projection_id": 40,
+      "document_id": 68,
+      "unchanged": true
+    },
+    {
+      "projection_id": 41,
+      "document_id": 69,
+      "unchanged": true
+    },
+    {
+      "projection_id": 42,
+      "document_id": 70,
+      "unchanged": true
+    },
+    {
+      "projection_id": 43,
+      "document_id": 71,
+      "unchanged": true
+    },
+    {
+      "projection_id": 44,
+      "document_id": 72,
+      "unchanged": true
+    },
+    {
+      "projection_id": 45,
+      "document_id": 73,
+      "unchanged": true
+    },
+    {
+      "projection_id": 46,
+      "document_id": 74,
+      "unchanged": true
+    },
+    {
+      "projection_id": 47,
+      "document_id": 75,
+      "unchanged": true
+    },
+    {
+      "projection_id": 48,
+      "document_id": 76,
+      "unchanged": true
+    },
+    {
+      "projection_id": 49,
+      "document_id": 77,
+      "unchanged": true
+    },
+    {
+      "projection_id": 50,
+      "document_id": 78,
+      "unchanged": true
+    },
+    {
+      "projection_id": 51,
+      "document_id": 79,
+      "unchanged": true
+    },
+    {
+      "projection_id": 52,
+      "document_id": 80,
+      "unchanged": true
+    },
+    {
+      "projection_id": 53,
+      "document_id": 82,
+      "unchanged": true
+    },
+    {
+      "projection_id": 54,
+      "document_id": 83,
+      "unchanged": true
+    },
+    {
+      "projection_id": 55,
+      "document_id": 84,
+      "unchanged": true
+    },
+    {
+      "projection_id": 56,
+      "document_id": 85,
+      "unchanged": true
+    },
+    {
+      "projection_id": 57,
+      "document_id": 86,
+      "unchanged": true
+    },
+    {
+      "projection_id": 58,
+      "document_id": 87,
+      "unchanged": true
+    },
+    {
+      "projection_id": 59,
+      "document_id": 88,
+      "unchanged": true
+    },
+    {
+      "projection_id": 60,
+      "document_id": 89,
+      "unchanged": true
+    },
+    {
+      "projection_id": 61,
+      "document_id": 90,
+      "unchanged": true
+    },
+    {
+      "projection_id": 62,
+      "document_id": 81,
+      "unchanged": true
+    }
+  ],
+  "unchanged_old_graph_count": 50,
+  "other_documents_active_unchanged": 47,
+  "active_query_checks": [
+    {
+      "document_id": 56,
+      "active_projection_id": 82,
+      "namespace": "zhiqing-rag-platform:rebuild:e0b4c3c99a804cb5917bc0f86c2e9220",
+      "cypher": "MATCH (a:Assertion)-[:SUBJECT]->(x:Entity), (a)-[:OBJECT]->(y:Entity), (a)-[:SUPPORTED_BY]->(ev:Evidence) WHERE a.namespace=$namespace AND a.tenant_id=1 AND a.document_id=$docid AND a.generation_id=$gen AND x.name=$source AND a.predicate=$predicate AND y.name=$target RETURN x.name AS source,a.predicate AS predicate,y.name AS target,ev.quote AS quote,ev.chunk_id AS chunk_id",
+      "rows": [
+        {
+          "source": "受理人",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "核对问题与影响",
+          "quote": "第一步，受理人核对问题与影响。",
+          "chunk_id": 153
+        }
+      ],
+      "passed": true
+    },
+    {
+      "document_id": 71,
+      "active_projection_id": 83,
+      "namespace": "zhiqing-rag-platform:rebuild:98704643e2f34bbf82954c0a97cb79c1",
+      "cypher": "MATCH (a:Assertion)-[:SUBJECT]->(x:Entity), (a)-[:OBJECT]->(y:Entity), (a)-[:SUPPORTED_BY]->(ev:Evidence) WHERE a.namespace=$namespace AND a.tenant_id=1 AND a.document_id=$docid AND a.generation_id=$gen AND x.name=$source AND a.predicate=$predicate AND y.name=$target RETURN x.name AS source,a.predicate AS predicate,y.name AS target,ev.quote AS quote,ev.chunk_id AS chunk_id",
+      "rows": [
+        {
+          "source": "资源负责人",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "导出当前权限范围",
+          "quote": "第一步，资源负责人导出当前权限范围。",
+          "chunk_id": 298
+        }
+      ],
+      "passed": true
+    },
+    {
+      "document_id": 76,
+      "active_projection_id": 84,
+      "namespace": "zhiqing-rag-platform:rebuild:809737e15ed24b5f9cdafcc3472fee09",
+      "cypher": "MATCH (a:Assertion)-[:SUBJECT]->(x:Entity), (a)-[:OBJECT]->(y:Entity), (a)-[:SUPPORTED_BY]->(ev:Evidence) WHERE a.namespace=$namespace AND a.tenant_id=1 AND a.document_id=$docid AND a.generation_id=$gen AND x.name=$source AND a.predicate=$predicate AND y.name=$target RETURN x.name AS source,a.predicate AS predicate,y.name AS target,ev.quote AS quote,ev.chunk_id AS chunk_id",
+      "rows": [
+        {
+          "source": "转派摘要",
+          "predicate": "HAS_FIELD",
+          "target": "影响",
+          "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作",
+          "chunk_id": 330
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "conclusion": "THREE_SELECTED_DEMO_DOCUMENTS_PASSED_AND_SWITCHED_WITH_OLD_VERSIONS_RETAINED"
+}

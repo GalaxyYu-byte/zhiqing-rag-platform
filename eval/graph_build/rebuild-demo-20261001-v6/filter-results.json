@@ -1,0 +1,32 @@
+[
+  {
+    "projection_id": 82,
+    "counts": {
+      "entities": 97,
+      "evidence": 62,
+      "assertions": 17
+    },
+    "issues": [],
+    "excluded_facts": 5
+  },
+  {
+    "projection_id": 83,
+    "counts": {
+      "entities": 112,
+      "evidence": 70,
+      "assertions": 28
+    },
+    "issues": [],
+    "excluded_facts": 6
+  },
+  {
+    "projection_id": 84,
+    "counts": {
+      "entities": 92,
+      "evidence": 59,
+      "assertions": 22
+    },
+    "issues": [],
+    "excluded_facts": 5
+  }
+]

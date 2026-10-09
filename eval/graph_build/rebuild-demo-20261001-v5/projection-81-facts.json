@@ -1,0 +1,314 @@
+[
+  {
+    "chunk_id": 328,
+    "source": "把这一点列为待确认事项",
+    "predicate": "GOVERNED_BY",
+    "target": "不要把发送通知当成已经完成交接",
+    "condition": "如果责任角色暂时没有确定",
+    "quote": "如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。"
+  },
+  {
+    "chunk_id": 328,
+    "source": "本文",
+    "predicate": "HAS_FIELD",
+    "target": "输入",
+    "condition": null,
+    "quote": "接收方应能从本文找到输入、未结事项和完成判断"
+  },
+  {
+    "chunk_id": 328,
+    "source": "本文",
+    "predicate": "HAS_FIELD",
+    "target": "未结事项",
+    "condition": null,
+    "quote": "接收方应能从本文找到输入、未结事项和完成判断"
+  },
+  {
+    "chunk_id": 328,
+    "source": "本文",
+    "predicate": "HAS_FIELD",
+    "target": "完成判断",
+    "condition": null,
+    "quote": "接收方应能从本文找到输入、未结事项和完成判断"
+  },
+  {
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "背景",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "紧急程度依据",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "相关版本",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "chunk_id": 329,
+    "source": "转派记录",
+    "predicate": "HAS_FIELD",
+    "target": "承诺中的下次反馈动作",
+    "condition": null,
+    "quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+  },
+  {
+    "chunk_id": 329,
+    "source": "客户敏感材料",
+    "predicate": "GOVERNED_BY",
+    "target": "客户敏感材料使用受控链接",
+    "condition": null,
+    "quote": "客户敏感材料使用受控链接"
+  },
+  {
+    "chunk_id": 329,
+    "source": "经办材料",
+    "predicate": "GOVERNED_BY",
+    "target": "经办材料请放在团队约定的受控位置",
+    "condition": null,
+    "quote": "经办材料请放在团队约定的受控位置"
+  },
+  {
+    "chunk_id": 329,
+    "source": "原件",
+    "predicate": "GOVERNED_BY",
+    "target": "如果补充材料改变了原有判断，应保留原件及修订说明",
+    "condition": "如果补充材料改变了原有判断",
+    "quote": "如果补充材料改变了原有判断，应保留原件及修订说明"
+  },
+  {
+    "chunk_id": 329,
+    "source": "修订说明",
+    "predicate": "GOVERNED_BY",
+    "target": "如果补充材料改变了原有判断，应保留原件及修订说明",
+    "condition": "如果补充材料改变了原有判断",
+    "quote": "如果补充材料改变了原有判断，应保留原件及修订说明"
+  },
+  {
+    "chunk_id": 329,
+    "source": "受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "受理人整理问题摘要与原始描述",
+    "condition": null,
+    "quote": "第一步，受理人整理问题摘要与原始描述"
+  },
+  {
+    "chunk_id": 329,
+    "source": "受理人整理问题摘要与原始描述",
+    "predicate": "REQUIRES_MATERIAL",
+    "target": "问题摘要",
+    "condition": null,
+    "quote": "第一步，受理人整理问题摘要与原始描述"
+  },
+  {
+    "chunk_id": 329,
+    "source": "受理人整理问题摘要与原始描述",
+    "predicate": "REQUIRES_MATERIAL",
+    "target": "原始描述",
+    "condition": null,
+    "quote": "第一步，受理人整理问题摘要与原始描述"
+  },
+  {
+    "chunk_id": 329,
+    "source": "受理人整理问题摘要与原始描述",
+    "predicate": "NEXT_STEP",
+    "target": "说明已核对和未核对的事实",
+    "condition": null,
+    "quote": "1) 第一步，受理人整理问题摘要与原始描述。\n2) 第二步，说明已核对和未核对的事实。"
+  },
+  {
+    "chunk_id": 329,
+    "source": "说明已核对和未核对的事实",
+    "predicate": "NEXT_STEP",
+    "target": "选择接手团队并确认接收",
+    "condition": null,
+    "quote": "2) 第二步，说明已核对和未核对的事实。\n3) 第三步，选择接手团队并确认接收。"
+  },
+  {
+    "chunk_id": 329,
+    "source": "选择接手团队并确认接收",
+    "predicate": "NEXT_STEP",
+    "target": "继续保持对外沟通窗口",
+    "condition": null,
+    "quote": "3) 第三步，选择接手团队并确认接收。\n4) 第四步，继续保持对外沟通窗口。"
+  },
+  {
+    "chunk_id": 329,
+    "source": "说明已核对和未核对的事实",
+    "predicate": "GOVERNED_BY",
+    "target": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停",
+    "condition": "如果说明已核对和未核对的事实无法完成",
+    "quote": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停"
+  },
+  {
+    "chunk_id": 329,
+    "source": "接手方",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "列出缺口并回传受理人",
+    "condition": "接手方认为信息不足时",
+    "quote": "接手方认为信息不足时列出缺口并回传受理人"
+  },
+  {
+    "chunk_id": 330,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "查看接收方能否据此继续工作",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作"
+  },
+  {
+    "chunk_id": 330,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "相关材料是否能从正式存放位置找到",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到"
+  },
+  {
+    "chunk_id": 330,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "遗留差异是否已经分派给具体岗位",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位"
+  },
+  {
+    "chunk_id": 330,
+    "source": "记录当前进展和下一步动作",
+    "predicate": "GOVERNED_BY",
+    "target": "尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结",
+    "condition": "尚缺少必要确认时",
+    "quote": "尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结"
+  },
+  {
+    "chunk_id": 330,
+    "source": "资料维护人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "同步修订入口说明",
+    "condition": null,
+    "quote": "由资料维护人同步修订入口说明"
+  },
+  {
+    "chunk_id": 330,
+    "source": "同步修订入口说明",
+    "predicate": "GOVERNED_BY",
+    "target": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项",
+    "condition": "后续规则如有调整",
+    "quote": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项"
+  },
+  {
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "客户诉求",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "影响",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "已做排查",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "剩余问题",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "chunk_id": 330,
+    "source": "转派摘要",
+    "predicate": "HAS_FIELD",
+    "target": "期望接手团队完成的动作",
+    "condition": null,
+    "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+  },
+  {
+    "chunk_id": 330,
+    "source": "原受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "继续负责客户状态通知",
+    "condition": "接收方确认后",
+    "quote": "接收方确认后，原受理人继续负责客户状态通知"
+  },
+  {
+    "chunk_id": 330,
+    "source": "先统一答复口径",
+    "predicate": "GOVERNED_BY",
+    "target": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息",
+    "condition": "内部讨论如改变结论",
+    "quote": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息"
+  },
+  {
+    "chunk_id": 331,
+    "source": "接手团队",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "回传接收确认",
+    "condition": "收到请求后",
+    "quote": "接手团队收到请求后，可先回传接收确认和预计下一次内部反馈节点"
+  },
+  {
+    "chunk_id": 331,
+    "source": "原受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "持续获得调查更新",
+    "condition": "若仍要面对客户",
+    "quote": "原受理人若仍要面对客户，应持续获得调查更新"
+  },
+  {
+    "chunk_id": 331,
+    "source": "在工单中保留原因",
+    "predicate": "REQUIRES_MATERIAL",
+    "target": "工单",
+    "condition": null,
+    "quote": "应在工单中保留原因"
+  },
+  {
+    "chunk_id": 331,
+    "source": "在工单中保留原因",
+    "predicate": "OPERATES_ON",
+    "target": "工单",
+    "condition": null,
+    "quote": "应在工单中保留原因"
+  },
+  {
+    "chunk_id": 331,
+    "source": "把历史移交记录删除",
+    "predicate": "OPERATES_ON",
+    "target": "历史移交记录",
+    "condition": null,
+    "quote": "而不是把历史移交记录删除"
+  },
+  {
+    "chunk_id": 331,
+    "source": "转派记录",
+    "predicate": "GOVERNED_BY",
+    "target": "避免关键上下文只留在私人聊天中",
+    "condition": null,
+    "quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中"
+  }
+]

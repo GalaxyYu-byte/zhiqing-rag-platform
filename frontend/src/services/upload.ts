@@ -1,3 +1,5 @@
+import { authClient, authenticatedFetch } from "./auth";
+
 export const uploadEndpoint =
   import.meta.env.VITE_UPLOAD_URL?.trim() || "/api/documents/upload";
 export const isDemoMode = import.meta.env.VITE_UPLOAD_MODE === "demo";
@@ -16,6 +18,7 @@ export interface KnowledgeBaseOption {
   id: string;
   name: string;
   description: string;
+  permission: "READ" | "WRITE" | "ADMIN";
 }
 
 export interface UploadResult {
@@ -31,7 +34,10 @@ export interface DocumentTaskStatus {
   task_id: string;
   document_id: string;
   revision_id: string;
+  revision_no: number;
   generation_id: string;
+  desired_revision_id: string | null;
+  active_generation_id: string | null;
   knowledge_base_id: string;
   original_filename: string;
   file_size: number;
@@ -45,15 +51,19 @@ export interface DocumentTaskStatus {
   chunk_count: number;
   document_status: string;
   created_at: string;
+  confidentiality: number;
+  department_id: string | null;
+  can_write: boolean;
+  can_manage_permissions: boolean;
 }
 
 const tasksEndpoint =
   import.meta.env.VITE_DOCUMENT_TASKS_URL || "/api/document-tasks";
 
-async function taskRequest<T>(url: string, method = "GET"): Promise<T> {
-  const response = await fetch(url, {
+async function taskRequest<T>(url: string, method = "GET", signal?: AbortSignal): Promise<T> {
+  const response = await authenticatedFetch(url, {
     method,
-    signal: AbortSignal.timeout(15_000),
+    signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15_000)]) : AbortSignal.timeout(15_000),
   });
   const body = await response.json().catch(() => null);
   if (!response.ok)
@@ -71,15 +81,24 @@ export interface DocumentTaskPage {
   counts: Record<string, number>;
 }
 export async function fetchDocumentTasks(query: URLSearchParams, signal: AbortSignal): Promise<DocumentTaskPage> {
-  const response = await fetch(`${tasksEndpoint}/page?${query}`, {
+  const response = await authenticatedFetch(`${tasksEndpoint}/page?${query}`, {
     signal: AbortSignal.any([signal, AbortSignal.timeout(15_000)]),
   });
   const body = await response.json().catch(() => null);
   if (!response.ok) throw new Error(errorMessage(body, "文档列表查询失败，请重试"));
   return body as DocumentTaskPage;
 }
-export const fetchUploadSettings = () =>
-  taskRequest<{ chunk_size: number; chunk_overlap: number }>("/api/document-upload-settings");
+export async function fetchDocumentRevisions(documentId: string, signal: AbortSignal): Promise<DocumentTaskStatus[]> {
+  const response = await authenticatedFetch(
+    `${documentsEndpoint}/${encodeURIComponent(documentId)}/revisions`,
+    { signal: AbortSignal.any([signal, AbortSignal.timeout(15_000)]) },
+  );
+  const body = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(errorMessage(body, "修订历史查询失败，请重试"));
+  return body as DocumentTaskStatus[];
+}
+export const fetchUploadSettings = (signal?: AbortSignal) =>
+  taskRequest<{ chunk_size: number; chunk_overlap: number; clearance: number; department_id: string | null }>("/api/document-upload-settings", "GET", signal);
 export const fetchDocumentTask = (id: string) =>
   taskRequest<DocumentTaskStatus>(`${tasksEndpoint}/${encodeURIComponent(id)}`);
 export const retryDocumentTask = (id: string) =>
@@ -91,7 +110,7 @@ export const retryDocumentTask = (id: string) =>
 export async function deleteDocument(id: string): Promise<void> {
   const endpoint =
     import.meta.env.VITE_DOCUMENTS_URL?.trim() || "/api/documents";
-  const response = await fetch(`${endpoint}/${encodeURIComponent(id)}`, {
+  const response = await authenticatedFetch(`${endpoint}/${encodeURIComponent(id)}`, {
     method: "DELETE",
     signal: AbortSignal.timeout(15_000),
   });
@@ -116,7 +135,7 @@ export interface DocumentPreview {
 const documentsEndpoint = import.meta.env.VITE_DOCUMENTS_URL?.trim() || "/api/documents";
 
 export async function fetchOriginalDocument(result: UploadResult, signal: AbortSignal): Promise<Blob> {
-  const response = await fetch(
+  const response = await authenticatedFetch(
     `${documentsEndpoint}/${encodeURIComponent(result.document_id)}/content?revision_id=${encodeURIComponent(result.revision_id)}`,
     { signal: AbortSignal.any([signal, AbortSignal.timeout(30_000)]) },
   );
@@ -132,7 +151,7 @@ export async function fetchDocumentPreview(
   const url = file
     ? `${documentsEndpoint}/preview`
     : `${documentsEndpoint}/${encodeURIComponent(result!.document_id)}/preview?revision_id=${encodeURIComponent(result!.revision_id)}`;
-  const response = await fetch(url, {
+  const response = await authenticatedFetch(url, {
     method: file ? "POST" : "GET", body,
     signal: AbortSignal.any([signal, AbortSignal.timeout(30_000)]),
   });
@@ -157,10 +176,11 @@ function errorMessage(body: unknown, fallback: string): string {
   return fallback;
 }
 
-export async function fetchKnowledgeBases(): Promise<KnowledgeBaseOption[]> {
-  const response = await fetch(
-    import.meta.env.VITE_KNOWLEDGE_BASES_URL || "/api/knowledge-bases",
-    { signal: AbortSignal.timeout(15_000) },
+export async function fetchKnowledgeBases(access: "READ" | "WRITE" = "WRITE", signal?: AbortSignal): Promise<KnowledgeBaseOption[]> {
+  const endpoint = import.meta.env.VITE_KNOWLEDGE_BASES_URL || "/api/knowledge-bases";
+  const response = await authenticatedFetch(
+    `${endpoint}${endpoint.includes("?") ? "&" : "?"}access=${access}`,
+    { signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15_000)]) : AbortSignal.timeout(15_000) },
   );
   if (!response.ok) {
     const body = await response.json().catch(() => null);
@@ -173,6 +193,10 @@ export interface UploadOptions {
   knowledgeBase: string;
   signal: AbortSignal;
   onProgress: (progress: number) => void;
+  confidentiality?: number;
+  // 存在 documentId 时改走新增修订接口；expectedRevisionId 用于并发版本校验。
+  documentId?: string;
+  expectedRevisionId?: string;
 }
 
 export function uploadDocument(
@@ -202,37 +226,49 @@ export function uploadDocument(
     });
   }
 
+  return authClient.authorizedRequest(
+    (token, signal) => sendUpload(file, options, token, signal),
+    async (response) => response.body,
+    options.signal,
+  ).then((response) => {
+    const result = response.body as Partial<UploadResult> | null;
+    if (response.status >= 200 && response.status < 300 && result?.status === "STORED" &&
+      result.document_id && result.task_id && result.processing_status === "PENDING")
+      return result as UploadResult;
+    throw new Error(errorMessage(response.body, `服务器返回 ${response.status}，未确认文件保存成功`));
+  });
+}
+
+function sendUpload(
+  file: File, options: UploadOptions, token: string, signal: AbortSignal,
+): Promise<{ status: number; body: unknown }> {
   return new Promise((resolve, reject) => {
+    if (signal.aborted) {
+      reject(new DOMException("已取消", "AbortError"));
+      return;
+    }
     const request = new XMLHttpRequest();
     const abort = () => request.abort();
-    const cleanup = () => options.signal.removeEventListener("abort", abort);
-    request.open("POST", uploadEndpoint);
+    const cleanup = () => signal.removeEventListener("abort", abort);
+    request.open(
+      "POST",
+      options.documentId
+        ? `${documentsEndpoint}/${encodeURIComponent(options.documentId)}/revisions`
+        : uploadEndpoint,
+    );
+    request.withCredentials = true;
+    request.setRequestHeader("Authorization", `Bearer ${token}`);
+    request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     request.responseType = "json";
     request.timeout = 120_000;
+    options.onProgress(0);
     request.upload.onprogress = (event) => {
       if (event.lengthComputable)
         options.onProgress(Math.round((event.loaded / event.total) * 100));
     };
     request.onload = () => {
       cleanup();
-      if (
-        request.status >= 200 &&
-        request.status < 300 &&
-        request.response?.status === "STORED" &&
-        request.response?.document_id &&
-        request.response?.task_id &&
-        request.response?.processing_status === "PENDING"
-      )
-        resolve(request.response);
-      else
-        reject(
-          new Error(
-            errorMessage(
-              request.response,
-              `服务器返回 ${request.status}，未确认文件保存成功`,
-            ),
-          ),
-        );
+      resolve({ status: request.status, body: request.response });
     };
     request.onerror = () => {
       cleanup();
@@ -246,10 +282,21 @@ export function uploadDocument(
       cleanup();
       reject(new DOMException("已取消", "AbortError"));
     };
-    options.signal.addEventListener("abort", abort, { once: true });
+    signal.addEventListener("abort", abort, { once: true });
     const body = new FormData();
     body.append("file", file);
-    body.append("knowledge_base_id", options.knowledgeBase);
+    if (options.documentId) {
+      // 知识库由后端按 documentId 查询，不信任浏览器传入的目标知识库。
+      if (!options.expectedRevisionId) {
+        cleanup();
+        reject(new Error("缺少当前修订编号，请刷新列表后重试"));
+        return;
+      }
+      body.append("expected_revision_id", options.expectedRevisionId);
+    } else {
+      body.append("knowledge_base_id", options.knowledgeBase);
+      body.append("confidentiality", String(options.confidentiality ?? 1));
+    }
     request.send(body);
   });
 }

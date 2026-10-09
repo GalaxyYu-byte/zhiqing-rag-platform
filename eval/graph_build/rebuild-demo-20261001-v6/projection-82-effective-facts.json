@@ -1,0 +1,172 @@
+[
+  {
+    "document_id": 56,
+    "fact_key": "bc1313de6bb52f6d0cef30e1ab1d8c5ce35611f95d228e048f7cd7a940ee8a7f",
+    "chunk_id": 150,
+    "source": "工单处理与关闭步骤",
+    "predicate": "APPLIES_TO",
+    "target": "客户支持及协作处理人",
+    "condition": null,
+    "quote": "工单处理与关闭步骤\n\n适用对象：客户支持及协作处理人"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "b39e24b39b8869d2d1a2bdda612c9540fef2f64a856a0f12e703e6904a435619",
+    "chunk_id": 151,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "按顺序推进",
+    "condition": null,
+    "quote": "经办人按顺序推进"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "6d895ca2df39686dcdf0a6d001b3c3cb7e46711741aae0945f45159f3f90e066",
+    "chunk_id": 152,
+    "source": "确定谁负责发起、谁负责核对、谁负责接收最终结果",
+    "predicate": "GOVERNED_BY",
+    "target": "如果责任角色暂时没有确定，应把这一点列为待确认事项",
+    "condition": "如果责任角色暂时没有确定",
+    "quote": "再确定谁负责发起、谁负责核对、谁负责接收最终结果。对客户的沟通必须保持同一事实口径。内部可以并行排查，外部仍应有明确的接收窗口；无法确认的原因、进度和完成时间要如实说明，避免把内部猜测变成客户可依赖的承诺。 如果责任角色暂时没有确定，应把这一点列为待确认事项，"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "018145d108f726e3bdab3d291cf67449dfadb34a630bb662e4470a73a7bf1dc7",
+    "chunk_id": 153,
+    "source": "受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "核对问题与影响",
+    "condition": null,
+    "quote": "第一步，受理人核对问题与影响。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "50c35c4fa1a842be7eb697c6b224f24bb6d665073f6a70177ac17ef213184050",
+    "chunk_id": 153,
+    "source": "处理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "记录分析和措施",
+    "condition": null,
+    "quote": "第二步，处理人记录分析和措施。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "9700bda90170b2ec28b36aa45e9243cb65c29ad4fd03dc1e18323f42d51fb36d",
+    "chunk_id": 153,
+    "source": "对外窗口",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "复核答复是否与证据一致",
+    "condition": null,
+    "quote": "第三步，对外窗口复核答复是否与证据一致。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "160ce7ac3fb75dc853656cfb8d4c98c1cf0d6d712aab70f8ce795b1a4e1c533c",
+    "chunk_id": 153,
+    "source": "核对问题与影响",
+    "predicate": "NEXT_STEP",
+    "target": "记录分析和措施",
+    "condition": null,
+    "quote": "第一步，受理人核对问题与影响。\n\n第二步，处理人记录分析和措施。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "d502d1d2453a1c8f51fcd4a4aa71e772200a7a70678ef554652d4f512d4d7581",
+    "chunk_id": 153,
+    "source": "记录分析和措施",
+    "predicate": "NEXT_STEP",
+    "target": "复核答复是否与证据一致",
+    "condition": null,
+    "quote": "第二步，处理人记录分析和措施。\n\n第三步，对外窗口复核答复是否与证据一致。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "8f3675ac60fe28f762d82006d9ec1e03ccbac87caab60331db3206057b22ec7c",
+    "chunk_id": 153,
+    "source": "复核答复是否与证据一致",
+    "predicate": "NEXT_STEP",
+    "target": "确认或按约定的沟通方式完成结果通知后再关闭",
+    "condition": null,
+    "quote": "第三步，对外窗口复核答复是否与证据一致。\n\n第四步，客户确认或按约定的沟通方式完成结果通知后再关闭。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "53250ed95ca93d474b63a0249df8e2b29e609569db1420a28613f7e88559605e",
+    "chunk_id": 153,
+    "source": "记录分析和措施",
+    "predicate": "GOVERNED_BY",
+    "target": "如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+    "condition": "如果处理人记录分析和措施无法完成",
+    "quote": "如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "012c873e2bca3146851eb23eee7380d756fc3aa74f43a264cdab36a48785cae1",
+    "chunk_id": 155,
+    "source": "重新评估",
+    "predicate": "GOVERNED_BY",
+    "target": "不能机械沿用旧结论",
+    "condition": "客户补充新信息时",
+    "quote": "客户补充新信息时重新评估，不能机械沿用旧结论。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "0723ee4a6081d5646a4f8a4f0865e1758226cb35272a2e261b29e452bdd69488",
+    "chunk_id": 156,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "查看接收方能否据此继续工作",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "b7dec3b70d58f1700616940784a22e996f1d148e16f0470637590eb9532b64cf",
+    "chunk_id": 157,
+    "source": "核对各自的适用对象、形成时间与确认人",
+    "predicate": "OPERATES_ON",
+    "target": "邮件",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "d96dfb9d4712653696ec2e6023e1be69f4621e38e2f2b5d2d442ea682bd8e6e3",
+    "chunk_id": 157,
+    "source": "核对各自的适用对象、形成时间与确认人",
+    "predicate": "OPERATES_ON",
+    "target": "清单",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "a8d6face4b29dff4df65c9262fa75e797f9085f61a8f83cc5a2854d9e6750010",
+    "chunk_id": 157,
+    "source": "核对各自的适用对象、形成时间与确认人",
+    "predicate": "OPERATES_ON",
+    "target": "正式文件",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "0976702f6c34268d5c77f0d2ba3e14e9d4d2b6e113df03f280c2fc6e32c99449",
+    "chunk_id": 158,
+    "source": "关闭摘要",
+    "predicate": "HAS_FIELD",
+    "target": "采用的解决方式",
+    "condition": null,
+    "quote": "关闭摘要应写出采用的解决方式和验证范围"
+  },
+  {
+    "document_id": 56,
+    "fact_key": "4768d1d33fe476bf94ca41a3eb95f2bfa8f2d042a942e492358846347011b2fe",
+    "chunk_id": 158,
+    "source": "关闭摘要",
+    "predicate": "HAS_FIELD",
+    "target": "验证范围",
+    "condition": null,
+    "quote": "关闭摘要应写出采用的解决方式和验证范围"
+  }
+]

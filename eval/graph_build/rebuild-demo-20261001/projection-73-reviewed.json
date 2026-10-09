@@ -1,0 +1,85 @@
+{
+  "schema": "graph-rebuild-review-v1",
+  "projection_id": 73,
+  "scope": {
+    "tenant_id": 1,
+    "kb_id": 5,
+    "document_id": 56,
+    "revision_id": 56,
+    "generation_id": 56
+  },
+  "namespace": "zhiqing-rag-platform:rebuild:239f93f38b81437dbca330decfc12667",
+  "input_fingerprint": "9fca051865fbf964f4f51c714f21dfe4df4aeea083f45fe1be932ff608d4e1e1",
+  "snapshot_fingerprint": "3b2e334bb137d9c5abce08bfc0a4b24899169fb2d7b1a86dca1f4331f792a495",
+  "checked_at_utc": "2026-10-01T08:59:50.213294+00:00",
+  "counts": {
+    "entities": 111,
+    "evidence": 75,
+    "assertions": 71
+  },
+  "issues": [],
+  "structural_passed": true,
+  "reviewed_by": "codex",
+  "samples": [
+    {
+      "fact_key": "b464634d7dc6366340a5701180f0a03c49d64eb567173a13668d45f4bf8beb64",
+      "source": "内部讨论",
+      "predicate": "GOVERNED_BY",
+      "target": "防止未经确认的猜测外发",
+      "condition_text": null,
+      "quote": "内部讨论与外部答复分别记录，防止未经确认的猜测外发",
+      "chunk_id": 154,
+      "content": "保留原问题、处理过程、涉及版本、验证结果和最终沟通内容；内部讨论与外部答复分别记录，防止未经确认的猜测外发。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+      "verdict": "SUPPORT",
+      "reason": "原文要求内部讨论与外部答复分开记录，并明确目的为防止未经确认的猜测外发；规则对象和方向得到支持。"
+    },
+    {
+      "fact_key": "52075c5e64ad265a300dd443278f724aff745db40edfa1059b9a5d83019d5a5b",
+      "source": "同步修订入口说明",
+      "predicate": "GOVERNED_BY",
+      "target": "避免旧稿继续指导新事项",
+      "condition_text": null,
+      "quote": "避免旧稿继续指导新事项",
+      "chunk_id": 156,
+      "content": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+      "verdict": "SUPPORT",
+      "reason": "完整Chunk明确说明资料维护人同步修订入口说明，以避免旧稿继续指导新事项；原文支持该动作遵循这项要求。引文只覆盖规则文字，查询时应同时返回完整Chunk。"
+    },
+    {
+      "fact_key": "fd79fb3da1bdf9c7423eac8f80ed8e0f96bc82ea7297d57b7283856cfb0e9388",
+      "source": "正式文件",
+      "predicate": "HAS_FIELD",
+      "target": "确认人",
+      "condition_text": null,
+      "quote": "先核对各自的适用对象、形成时间与确认人",
+      "chunk_id": 157,
+      "content": "关闭后如同一原因复发，应能追到原工单，但不能把新影响简单隐藏在旧记录下。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+      "verdict": "INSUFFICIENT",
+      "reason": "原文要求核对邮件、清单和正式文件各自的确认人，但没有明确声明正式文件定义了名为确认人的字段；核对属性不能直接确认HAS_FIELD结构关系。"
+    },
+    {
+      "fact_key": "6bf7769b2d6219f1c846a8f9e466629d11de316927a1d1104d0a397c8f1e2312",
+      "source": "处理人仍应保留最后沟通内容和后续联系安排",
+      "predicate": "APPLIES_TO",
+      "target": "处理人",
+      "condition_text": null,
+      "quote": "处理人仍应保留最后沟通内容和后续联系安排",
+      "chunk_id": 158,
+      "content": "工单状态变化要有对应的处理事实：受理说明问题已进入队列，处理中说明有人在推进，待客户确认说明已给出可检查结果。客户没有立即回复时，处理人仍应保留最后沟通内容和后续联系安排。关闭摘要应写出采用的解决方式和验证范围，方便以后遇到同类问题时复用经验。",
+      "verdict": "INSUFFICIENT",
+      "reason": "该要求位于客户没有立即回复时这一条件下，预测condition_text为空，把条件性义务变成了无条件规则。"
+    },
+    {
+      "fact_key": "258fd3537181bc815e08cd0abed87f4b4e0bb9bffe172ed4152a85fcbbbfbd4f",
+      "source": "有权决定的岗位",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "处理",
+      "condition_text": null,
+      "quote": "交给有权决定的岗位处理",
+      "chunk_id": 151,
+      "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+      "verdict": "INSUFFICIENT",
+      "reason": "有权决定的岗位处理卡点只在条件不具备时发生；预测遗漏这个条件且处理端点过于笼统，不能确认无条件职责事实。"
+    }
+  ]
+}

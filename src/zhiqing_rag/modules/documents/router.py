@@ -2,15 +2,17 @@
 
 from collections.abc import Iterator
 from datetime import date, datetime, time, timedelta, timezone
-from typing import Annotated
+from typing import Annotated, Literal
 from urllib.parse import quote
 
 import psycopg
-from fastapi import APIRouter, Depends, File, Form, Path, Query, Request, Response, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Path, Query, Response, UploadFile
 
 from zhiqing_rag.core.config import Settings, get_settings
 from zhiqing_rag.infrastructure.database.connection import database_connection
 from zhiqing_rag.infrastructure.object_storage import document_object_storage
+from zhiqing_rag.modules.identity.auth_schemas import AuthIdentity
+from zhiqing_rag.modules.identity.router import require_identity
 
 from .preview import preview_content
 from .repository import UploadRepository
@@ -28,25 +30,27 @@ from .service import DocumentUploadService
 router = APIRouter(prefix="/api", tags=["文档上传"])
 
 
-def require_local_development(request: Request, settings: Settings) -> None:
-    origin = request.headers.get("origin")
-    if origin and origin not in settings.cors_origins:
-        raise UploadError(403, "ORIGIN_FORBIDDEN", "不允许此页面来源访问上传接口")
-    if (
-        settings.app_env != "dev"
-        or not settings.dev_upload_identity_enabled
-        or settings.app_host not in {"127.0.0.1", "localhost", "::1"}
-        or not request.client
-        or request.client.host not in {"127.0.0.1", "::1"}
-    ):
-        raise UploadError(401, "AUTH_REQUIRED", "请接入正式登录鉴权；开发身份仅支持本机开发环境")
+def get_upload_identity(
+    identity: Annotated[AuthIdentity, Depends(require_identity)],
+) -> UploadIdentity:
+    """将已认证会话转换为文档用例身份，授权仍由业务仓储校验。"""
+    return UploadIdentity(
+        tenant_id=identity.tenant_id,
+        member_id=identity.member_id,
+        user_id=identity.user_id,
+        department_id=identity.department_id,
+        clearance=identity.clearance,
+    )
+
+
+IdentityDependency = Annotated[UploadIdentity, Depends(get_upload_identity)]
 
 
 def get_upload_service(
-    request: Request,
+    identity: IdentityDependency,
     settings: Annotated[Settings, Depends(get_settings)],
 ) -> Iterator[DocumentUploadService]:
-    require_local_development(request, settings)
+    # 鉴权先于业务数据库和对象存储连接；拒绝匿名请求时不访问这些依赖。
     try:
         with (
             database_connection(settings) as connection,
@@ -62,20 +66,13 @@ def get_upload_service(
 ServiceDependency = Annotated[DocumentUploadService, Depends(get_upload_service)]
 
 
-def get_upload_identity(service: ServiceDependency) -> UploadIdentity:
-    return service.repository.identity(
-        service.settings.dev_upload_user_email,
-        service.settings.dev_upload_tenant_code,
-    )
-
-
-IdentityDependency = Annotated[UploadIdentity, Depends(get_upload_identity)]
-
-
 @router.get("/knowledge-bases", response_model=list[KnowledgeBaseOption])
-def list_knowledge_bases(service: ServiceDependency, identity: IdentityDependency):
-    """返回当前服务端确认身份有 WRITE/ADMIN 授权且处于 ACTIVE 的知识库。"""
-    return service.repository.writable_bases(identity)
+def list_knowledge_bases(
+    service: ServiceDependency, identity: IdentityDependency,
+    access: Annotated[Literal["READ", "WRITE"], Query()] = "WRITE",
+):
+    """按当前服务端身份返回可读或可写知识库及其有效权限。"""
+    return service.repository.accessible_bases(identity, access)
 
 
 @router.post("/documents/upload", response_model=UploadResult, status_code=202)
@@ -84,11 +81,13 @@ def upload_document(
     identity: IdentityDependency,
     file: Annotated[UploadFile, File(description="原始文档，默认上限 50 MiB")],
     knowledge_base_id: Annotated[int, Form(gt=0)],
+    confidentiality: Annotated[int, Form(ge=0, le=2)] = 1,
 ):
     """保存原文件并在同一事务创建持久化异步索引任务，返回后由独立 Worker 处理。"""
     try:
         parameters = UploadParameters(
             knowledge_base_id=knowledge_base_id,
+            confidentiality=confidentiality,
             chunk_size=service.settings.upload_chunk_size,
             chunk_overlap=service.settings.upload_chunk_overlap,
         )
@@ -97,6 +96,44 @@ def upload_document(
         )
     finally:
         file.file.close()
+
+
+@router.post("/documents/{document_id}/revisions", response_model=UploadResult, status_code=202)
+def update_document(
+    document_id: Annotated[int, Path(gt=0)],
+    service: ServiceDependency,
+    identity: IdentityDependency,
+    file: Annotated[UploadFile, File(description="更新后的原始文档")],
+    expected_revision_id: Annotated[int, Form(gt=0)],
+):
+    """给现有文档新增文件修订，返回后台索引任务而不等待解析完成。
+
+    expected_revision_id 是客户端看到的当前期望修订；服务端用它拒绝过期页面的
+    并发覆盖。知识库 ID 从原文档读取，客户端不能借更新请求将文件移到其他知识库。
+    """
+    try:
+        kb_id = service.repository.update_target(identity, document_id, expected_revision_id)
+        parameters = UploadParameters(
+            knowledge_base_id=kb_id,
+            chunk_size=service.settings.upload_chunk_size,
+            chunk_overlap=service.settings.upload_chunk_overlap,
+        )
+        return service.upload(
+            file.file, file.filename or "", file.content_type, identity, parameters,
+            document_id=document_id, expected_revision_id=expected_revision_id,
+        )
+    finally:
+        file.file.close()
+
+
+@router.get("/documents/{document_id}/revisions", response_model=list[DocumentTaskStatus])
+def document_revisions(
+    document_id: Annotated[int, Path(gt=0)],
+    service: ServiceDependency,
+    identity: IdentityDependency,
+):
+    """按文档读取修订历史，使用与任务列表相同的租户和知识库授权范围。"""
+    return service.repository.revision_history(identity, document_id)
 
 
 @router.get("/document-tasks", response_model=list[DocumentTaskStatus])
@@ -109,6 +146,10 @@ def document_upload_settings(service: ServiceDependency, identity: IdentityDepen
     return {
         "chunk_size": service.settings.upload_chunk_size,
         "chunk_overlap": service.settings.upload_chunk_overlap,
+        "clearance": identity.clearance,
+        "department_id": (
+            str(identity.department_id) if identity.department_id is not None else None
+        ),
     }
 
 

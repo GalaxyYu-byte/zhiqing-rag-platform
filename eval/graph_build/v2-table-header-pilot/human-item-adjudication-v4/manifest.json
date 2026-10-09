@@ -1,0 +1,20 @@
+{
+  "schema_version": "graph-human-item-adjudication-v4",
+  "generator_sha256": "5ca5e2574bdb7fe98ae9120bfbccbc75d1dfaa93e08549c934677d2aa14f12b3",
+  "parent_files": {
+    "manifest.json": "d928e18238b4a96e985adaef25ebc3cc0c0520ae920806704df569679437ff23",
+    "evidence_review.jsonl": "29b0beaca76d9c94ba47cc3e8fb2110b07a0306f6d52a5ac743ed5cb025caae9",
+    "human_decisions.json": "6b8a6e99d562382f911064aa5b6efffe97583f88cfa86b9b779aa3eb91b9ce47",
+    "第四批裁决-保留与生成.md": "10aea1ae2b9e316bdb7010838467fcd2f1a6fa094a00c2357a7dd1c9dc24ce06"
+  },
+  "draft_cases_sha256": "d663bfbc7068ce2edcf71c9b9c3ba2a85f71bf7612e28c6f9ad20985fe2648dd",
+  "files": {
+    "evidence_review.jsonl": "aac29c0116e41ddb279b5f1d67a1a663b9a57fd9e476f9e6ee6b8529bec5bf45",
+    "human_decisions.json": "b1a9ba88974eaa3d35788c2a9459829ade71b9ba3775086fa581eb7dafd78a14",
+    "human_verdicts.jsonl": "a54d4874e1e142fbd32c8e5d1865c54791e9980cee3b761145dd2eaccef78ced",
+    "README.md": "718066ce303c7d75ef56f816ec0bd173c5a49079e35a2603c3f2a98206f4a5b2",
+    "summary.json": "c5fd716e58e1cb07899fac067a05962d52ad80905f6faf8c7a488f1766c75c7f",
+    "第五批裁决-说明字段与步骤.md": "a289c64c180b21c2e59555f8563f6cd4d0afb8f1ef2c8e16771095b120927365"
+  },
+  "full_item_human_review": "PARTIAL"
+}

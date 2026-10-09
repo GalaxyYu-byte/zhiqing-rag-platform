@@ -1,0 +1,28 @@
+{
+  "counts": {
+    "unavailable_chunks": 0,
+    "gold_entities": 37,
+    "predicted_entities": 82,
+    "exact_entity_matches": 36,
+    "gold_relations": 20,
+    "predicted_relations": 49,
+    "exact_directed_triple_matches": 19,
+    "failed_chunks": 0,
+    "conditional_eligible": 19,
+    "conditional_hits": 19,
+    "qualified_hits": 19,
+    "HIT": 19,
+    "MISSING_ENTITY_ENDPOINT": 1
+  },
+  "evaluation_status": "COMPLETE_RECALL_ONLY_HUMAN_REVIEW_PENDING",
+  "entity_recall": 0.972972972972973,
+  "triple_recall": 0.95,
+  "conditional_recall": 1.0,
+  "final_precision": null,
+  "final_f1": null,
+  "evidence_precision": null,
+  "normalization_error_rates": null,
+  "human_adjudication": "pending",
+  "baseline_scope": "original_two_documents_selected_targets_16/37_entities_5/20_triples",
+  "attribution_limit": "model_time_and_chunk_boundaries_changed_no_paired_control"
+}

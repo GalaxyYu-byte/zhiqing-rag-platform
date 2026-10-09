@@ -1,0 +1,1540 @@
+{
+  "projection_id": 83,
+  "projection_version": 6,
+  "namespace": "zhiqing-rag-platform:rebuild:98704643e2f34bbf82954c0a97cb79c1",
+  "model": "deepseek-flash",
+  "extractor_version": "graph-extractor-v6",
+  "status": "BUILDING",
+  "ready_at": "2026-10-01T09:28:01.594021+00:00",
+  "entity_count": 112,
+  "relation_count": 34,
+  "scope": {
+    "tenant_id": 1,
+    "kb_id": 2,
+    "document_id": 71,
+    "revision_id": 71,
+    "generation_id": 71
+  },
+  "task_id": 194,
+  "task_status": "SUCCEEDED",
+  "task_payload": {
+    "pipeline": "document-graph-rebuild-v1",
+    "entity_keys": [
+      "0160610fb58d346f063d4323a9fbc965b66fa2e9c6b68b2a14cb61cbf13132da",
+      "03718137acdc82d8c913df844f6cae75a10bded8219be62236bb9bf87a077ad1",
+      "057a4867348f158404634234b5c4e6fabaef32ea3aad2cdb13096b73ffbbba96",
+      "086756f63ac118cd003a3fac708253641d430c8408e913edb5e21510e36220ac",
+      "087a961be4c21fc149ec896600eb37ed6307f1c8091fa741b3610134fadf4931",
+      "09c95254bca23fa94eec06fcd93b9996f1583d7df3ac91a148d6e747304183f4",
+      "0b80af32800d8a220f3a037f4a12119a685a72deed383440107d18f26b2fa1a2",
+      "0bc613b64d6a063366782c5a80ac2d6d5bb138e913741e0a45c6d9862d86f706",
+      "0cfc834a8d55a03689d93d62c6653ef439b5791b663e62901b877ddf8a71f1bd",
+      "10165df5daded88c02ad332dfa9acdbc390f51f25121748885b8a19619878fca",
+      "11fdc95f3ddf4fc66f162f0ace0c5a8fea75d81efee05f0713a63a9d1a8d2b53",
+      "122259b9395991d73b8d859362e5d3f6611d224186b3a652dd9bbf0806b537ac",
+      "12b8100aa852ec16daabfb7075dc7e0ea1a6d80529f1cd721b1fabe4aeb2d469",
+      "1777a94727035adbaa4817c6745caa052d171b6d1c1e2f40e2090f59a0e81b77",
+      "17ecad75f7658d3e4f6ebb7ca4b547f6812927e30641c73954734ec8bd95e8f9",
+      "1a94bd4b22f2c27046eb5c3393fc05b52a6d32af1f51d58b669cc1be6febd718",
+      "1b679c39de6cf572c31126636016db6ac3e2e639c5042073cdd105ab87e72a59",
+      "1c0da40297850520d8961a43ad5f0c6e98e107c5d8a5275e98f31c0ce484ca40",
+      "1c2ec7c98c40ce1fc74a3bf4a568cf4823ec8ebf997c70f86b7e1bf188f64440",
+      "2156c30ecab5538cad6f64c0fead3113adc231774843e60723e3d30e609a5105",
+      "24666bc852aaef0aa1a90d45d3be247d1c4736abd6a5e9d40221f49f7d94eb46",
+      "248b066431ded7ce157e12e195a55ffb3b3c2d6ea5eef3c3185d118af9688a96",
+      "2734b65d072d733aa360f55305d187f9ffa9cecabb94c951bf60d6561d72e992",
+      "28e47f81281dc540f51375f5c856f26233fb5e6eac674529499af41b8fa6ae18",
+      "29d4807cb655c5ef57898f24bd52ca4e1be5ba91bfefbcc15fc47213227215fe",
+      "2bc4cce128be800b47fafc94f2bdc79344a42ba6881825c5538a47842f6768a5",
+      "2c2162e23e75df664c917453d0949f0432cd6dc9c3beca5d95b6eca18a984963",
+      "2e615faeb7caeb7bf73cb04e080bcbeb4438c3d7b59cbd2fa73837477518b5d8",
+      "32db2b1b01ef7a19507eeb4ffef837affc9ed9d136f373cb165e8ceff0b4a30b",
+      "3510ce75e0a14bc7ae9a77da63b32c0419383f4e548a8819663931e3736c4600",
+      "396387ea44ee22d81ac9abe708ab503138501e08a37ab175330a16524c364f11",
+      "3ae489c77c08367fdf07c450b72442ce8d9312d32d16c251c8a144994db11914",
+      "3d6f44215577981e60b453c96bb26c249c9dc7a1c2b26cefdebe3dca1fe6e17e",
+      "3e28066fb6498eca45b251e7d3fdb6552aba029fcd509a3c1ec4a3f834b4e394",
+      "443a08693920beaa6609345e694507fa27aaade86c78f5c7af5f877891e5936f",
+      "45e99dab125d2d58d0679738051d58c082a1c5888b317cdbf4d5571a34db26da",
+      "47656b0d966a836ba89b0e5dad0af27c4065e4aaf7c4d5ee64835790cc0c5a6a",
+      "4a4b799918c28402127ce7f828975445af803382f81209d3c4e6abb7c3ecf43f",
+      "4c25d24af00223d19fc69e1fbee99c4a99fe4d41468a59fda946ce178f358066",
+      "4f1979f158f1b47331b7c190f9e090dfcffe2d5a0bc512d4fc770fce90c2d5ae",
+      "4fabd058c8425e4f092a9db386574da0dfa69ea3f4bd456a15bbc9be7f330103",
+      "51da3a364b2eadd99a6675d6655f32df42756e5d4f59853f73e5fe5510ed4d66",
+      "53aeed25fd17f000d334a64e8bd0a9f58b3060dce097fb20960000155ea41aeb",
+      "5aa8346b6fbea178c4b5a53ff9339684cc831fdbca475fd151293a78102366fb",
+      "5b4d2073672ca0f8b842a0c709bb11e51eb55a66dfd4f0b76d514c72a9ab5345",
+      "5d2ee9d12221c2a63730d30b83b90cca266f1effcc5784f4c4a932f3427fd8ba",
+      "5e81ed3eacc7a0a8b110e07ca5d43895c8c75c958dd5de4369725491b2145296",
+      "63753583cd3202d9e66e8d242abec5f45fa034e7b1f7b40d81be50d333ac00db",
+      "6578534e287328bcdbcab67c1d65fe6252c5c8b591c5f32b4a08a66c09a8e5b3",
+      "65d1df946b2c437c1776facc880fe02effaf4338b799110ad37d8f974eb7f5cf",
+      "66be8534046b3d3c12a05e712a241bba7c37d9dcbfce47aa0ce1f5d44d87821d",
+      "68ab174f8a54c1423cb1297ced58f7824b1041ae6c9524b24402fe1d6cf13b6f",
+      "699eed447ca745d4de14165cb5ee0bfc237bfe5525ffefc3e5db321e5d0e63c6",
+      "6dfeceec8a7db1855dc447200ace375540928d66036dba38c023681cad83aba5",
+      "6fa9f10fde71cc52fe5af645a971c82061bb110e2a47aa8cf7147ccd17dc52b6",
+      "6fba748b271e4cf782bf42bc62dcc46c589946a6c76ede7c237d6333c31cb26b",
+      "71d7fd7accd91a70bda2510a6ce7ff9d4c23c02ee4f0768abdd840d2eb34f0fd",
+      "71f359164bd1971e2a183dcec93b35ca33bbc48305e552472483061ed0ab58d8",
+      "7ad606a764a87d3e49af97d22b7e45ce7ee4b74bf8090eb9530e6bc085978dbb",
+      "7b351dd78fcc42a009066da3740eb98380d00f233c8b6eae8376941bcefac5bd",
+      "7b3644bf1dbc04a58541bf10b75757d48fba2f81a60b8cf5d2fc80eabddbad49",
+      "7b6d21f4dde6ff3a29fe14236c6e9adc34b904c82594d5c3a16f6b23b7d96394",
+      "7c0bb187c1c915fb15d4bc653e28d9947ad643c039d7e1680ac3cfddd9cf7da0",
+      "7cc38c7873337d3221daf329f418919e1b265e4a161f7eead4ec6f3bac759a7e",
+      "7d202fc9362367ab54e7a5ee7f7d4c95cf795f52d7d83e1c7e7d5251a45d8cf0",
+      "7e4a0c673ecf68d5608a7c181780ef32d2a5d14b830eb7cd8372f19d0241e833",
+      "821175b368e97814f46d606a8fcb8ffe34f23b62788761ca28027c3216a57bcf",
+      "8465ef07927d669b2afc9dcfa19f6557b5f25b5eb3e894def1c8f03a2152d888",
+      "84c3ce2073d5b6fa98e1d1db64de9df9d2de9267cd471923c376d1b9318563b1",
+      "86cf44071a9353fa266d1551c52fcc4f25bcb14956476414776e44e086aeddb0",
+      "870c97c9b25eddf0f94339c4c9b2538f1ce19ac10ee5a91743dc8b5c67fbc39a",
+      "8b71ebc9a701f0726be2e1ef9dc0508352d8a3c2d8e61e0d93d09c0d91178242",
+      "8d281e6e274ad99f7cef05904d38a9306ae0490600c29557fcb2ad0bc32c8303",
+      "8e4ce5348fce85d59c9ebc405a6cad8ac82038a49a35410311f127c3542e5ef3",
+      "977713b821592202b43eb8bdedc924e46ceabbf63a6bcc302364d702fca15f4a",
+      "9c3cd28e65631dca30f357b987a963ce7241301635651a2d2df794835f9703f3",
+      "9c67f6760156c0b9949f681bf98389dfb2b17cab354716b55e2cef5502e8054f",
+      "9ea6b2929ddf83d00de93508140f9011cf50f013ba95b8393273f5845aaee693",
+      "9fa7c4137d88132e02e1145fa15ac2de0ce7b672fa8a5ce83e3b86f775baa855",
+      "a03e153aedfe910043091db507c2d6dde412463e4982223e3008a144c9bac1c0",
+      "a41b7ce5d2c2c709f27567884372b282ab4e3b881dc0a7e1ed001b8e6d0fbf1d",
+      "a58bedcac2e30bce78a2bd4d626432ede0f14f919a38c84f9f8b24b435e6b4af",
+      "ab9f7eeeeb605b1d57da0aca3471da6be393fe025c057a30ae042379206b9c53",
+      "b02b371c107ece461946dcfb6a32d3a56371836ba091ed3fcac8fa11af3bd309",
+      "b6bacb20667bc641c5ab1d052daea27909c6eefd1b7dd5e78e83aed8ae3e8999",
+      "ba1a1f886ca05e227c41b7778dacfa150805582437d89897b1d40289d2d034d6",
+      "ba5698fa8b5d83fc826f82063eadaed3a3304947ba8c2e3f822618061325ddd9",
+      "baa6b8313cc096bd8d8a41ec4842f40ffa22143449a1552874994b412332f6aa",
+      "be1ca105159eaa3d40c2c9252ba74f2d3d55bdb23ec2e1ff16a0d171ff5e6d3f",
+      "be417f3cc9d5159555aeba2bae1071d12d071c2c566a99c779d00dda8147887b",
+      "c34835b3d17cd42a69d7575576d8afa30a444a2cbac1ce89830cc5d65cffa2b9",
+      "c5e3bc3f13e23f29324b33915f2f241a578ab1b40159b1296a0fd4a987b16c21",
+      "c73c17dce374549c38593afc145fefa9aada11595462ec9bb727ce8a7720fea6",
+      "ca9bffcf8c9603c01745b0f67eeb046573d78d9cc0acb12a69ea036823d6c370",
+      "cbf7066033dffb1eb5577745e1da0a12e8d5f9d224b2e55e0403ab3a10e76904",
+      "cffb73c662fad510b6b036db8e5978f1c902862ab2cea5bfd76d9b9ac7a238bc",
+      "d07082e936709c14de497ba7a0095b99494d7f89b4e9c9e0d2186f39bf0d56b7",
+      "d22a6ceb66d79264be66efcff2300cf9bf794c811e29cd1e85de725a60379e0f",
+      "d3d44825bdf3e16e990e2a6c34f8896d70981d956dfce1908418b3637b99751b",
+      "d6a8fd2ce04dbc66420b2bc82416da356be851cc38142555f53e1fbd5e7af3e0",
+      "dc8177f7c7345e96351ea3655d7f99cf3f11d57086d6064d04dd64589c31d19e",
+      "dcf3c86170c144c80a8a9fb9cb6b5b5193a2f13ed3b05a700697e0ff1e6fbf6c",
+      "e673a0ffce98607aa6ea7823f052c27494ee1d09174b80dba60e851cc570c72d",
+      "ee3d439c04786ca5382141bf0deaf2ef193973a9de46a77df6509ea98681d7a4",
+      "efa38f58e4b5203c6181995e9f7c6b3c4ea961a2bbac7851b0e858128cd9c4d5",
+      "eff08e61558c5e4167ae1087b6f351075ed42d53caeabb1308979e850888c904",
+      "f21e5e94ad78ab3cbbcae63e4ff19307e8c5ca4cd97dc77492776ca97d0cb12b",
+      "f5b636a08157624bf37bb34c6dd4aa1391f4c99a8f3dae2e1d93f58f86ef5cf9",
+      "f5b66739a44350332fc8d5efb0309ed5cbf5b93d48eb85f5a9345e43495b0eee",
+      "fa40a51ebc630f3ecd7244fb9a88d08f9b10d9f32662585819965fd5cb2d084c",
+      "fddf3562e90ab170e1b2c3c71246a3650b06459e6d871cd2f9642b570d8704a5",
+      "fe191229f7ddea70ee9028cb3e9563828cc891cc096c65a740228c84df140618"
+    ],
+    "relation_keys": [
+      "0b09172b36ea1066cdd95886490b06e90ffe7f228f5102a6e2a003ead4f9121a",
+      "0d728d260817b2be2e265a4032f67dad8156a69a53d1551e557f9743a26428c7",
+      "0f13ec349e3a8c80661b6b853999952e1e10df67df9f8ae94583081a3d23be2c",
+      "102516a38ceabaf3cdd8d49d2e753ffa1cd75a5c2399e4e0c9ab68da2c869929",
+      "1027524e60df0bd3d37912b84b5da2fef77478e99f162573e1eab180949fd3d5",
+      "10fc8f846ff6181d433c18857f26edc0b9cbe3f35226713f37b94291aa85d905",
+      "11c445a5edec783c124f13e318c7ca690a068802263059c8769750ce82a6f24c",
+      "254f6e1a441d70b9bd1329d9faf164ee85a45d913ceb757240dfd1974d8dc7e5",
+      "33cbb51d705359f99cefbd64f5c747023971d023988b4483f0afb89b01ccb130",
+      "37629fe4d22b1560c04f0ba5640205e27996e70476d76c556386056ce435ca11",
+      "380029e5d3ff879162d08a75e0a722e8b03f5e07c67dbd5ca035993cf6e2c196",
+      "3ad9ddfc8d43e991505e6cbeb55b80458d863ba342ef4c5ff9851fd481c28670",
+      "3bdb6d2f1e92ce9a62113a0b8c60e6d887f5bd199398e64f4df63e88a88aa78f",
+      "4400025c4cab5edab84cb8a31e95d046cf9177d8d17f9778c135f0ad762aa07f",
+      "55362c5d67b400e84d9455eaa62694eeb3f393b768e8d983a0a0e7de7ef5df76",
+      "5a41593279eedc552790ec2f7e3ed0f9e315bea0eb3e9f5536ded9050e55e466",
+      "5dd299c5c70895f8607c9b138912ed2d541e8d545cd94bdb8e6bfed4c0fb27aa",
+      "5dfddff231431701b3730dc587c0fe7664eadc78b73ceaa98fa8d10a951dd19f",
+      "5e39c0e9a282314c304a982d5e22f2b1be97e32c310823d6b071d25420bae245",
+      "640f0d16a3e6fce8169f95214eef4265fad9f7d137620c1b08a9eb9248def4d6",
+      "7faecbeb14ab09e68db56f5f04d6591f4fa39661f819dc6a687548227da2a473",
+      "8425cbacdac2003b6ee23815d05904f53493859df6fba921ca187ef3e98228e8",
+      "882c990ae8e487b20eab22a3ef637e39e88200a4a97806c1d82d4598efa0019f",
+      "8f54f63775dbbe39267a0f97f1ced6de6b239ec02726886110c92a7d556cc315",
+      "a4fca7ce4ced453bbfec2702f8499e9adf287cd2040bba96acea745aa9e2859e",
+      "ac58dc44eebcb39617ce19a6f703f625c3b1179a873ad441c713275bffc15fd0",
+      "b7e6ef10f05d2148707a8d8ed066ee6658f677d16af4e4da092dbafa0a1ec07c",
+      "bb37ad1b87c7839a0a918b013a757e845b19fcb71e657e32f5c4b9e791e190c7",
+      "bc77c365042e2b9916ff7a6f19d3bb39277c7850fbe30fb96fa053a7b143fb63",
+      "cf03a4a946be207d4cdbb242e8a2329033145e7938138ed784b8d4d5e1001102",
+      "d0094d3ae02dbe3c02618e01e43fb98119eca9a7881afbef88c489ff29f708e4",
+      "d14e7f8f08fc7ebada68a1346179ce7cd690e639fa16ebc7c0a84cb5ddaa59ea",
+      "dc7685be944ad12ae1ce4949f32d789ba9057fa20480dbe5e10b30d780798318",
+      "f2c6690c3abc14da98108139932416086b28b5bc764b61d3631085caf78ddd3a"
+    ],
+    "extraction_cache": {
+      "295": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [],
+          "relations": []
+        },
+        "content_sha256": "49c561cd58b54ac965888584157234fceede5fde48f195ff807abeee4e980e1e",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "296": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "权限复核",
+              "type": "Process",
+              "canonical_name": "权限复核",
+              "evidence_quote": "权限复核是确认现有访问仍与工作职责相符"
+            },
+            {
+              "id": "e2",
+              "name": "确认现有访问仍与工作职责相符",
+              "type": "Rule",
+              "canonical_name": "确认现有访问仍与工作职责相符",
+              "evidence_quote": "权限复核是确认现有访问仍与工作职责相符"
+            },
+            {
+              "id": "e3",
+              "name": "不应被当作对过去申请单的机械盖章",
+              "type": "Rule",
+              "canonical_name": "不应被当作对过去申请单的机械盖章",
+              "evidence_quote": "不应被当作对过去申请单的机械盖章"
+            },
+            {
+              "id": "e4",
+              "name": "岗位变化、项目结束或资料敏感度变化都可能触发提前复核",
+              "type": "Rule",
+              "canonical_name": "岗位变化、项目结束或资料敏感度变化都可能触发提前复核",
+              "evidence_quote": "岗位变化、项目结束或资料敏感度变化都可能触发提前复核"
+            },
+            {
+              "id": "e5",
+              "name": "按文末的完成条件回看",
+              "type": "Rule",
+              "canonical_name": "按文末的完成条件回看",
+              "evidence_quote": "处理完后再按文末的完成条件回看"
+            }
+          ],
+          "relations": [
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e1",
+              "target_id": "e2",
+              "condition_text": null,
+              "evidence_quote": "权限复核是确认现有访问仍与工作职责相符"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e1",
+              "target_id": "e3",
+              "condition_text": null,
+              "evidence_quote": "权限复核是确认现有访问仍与工作职责相符，不应被当作对过去申请单的机械盖章"
+            }
+          ]
+        },
+        "content_sha256": "27630cc15b53a9af6325e0ceae70d418da47ca6c09e20ff083022e80bc39edae",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "297": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "资源负责人",
+              "type": "Actor",
+              "canonical_name": "资源负责人",
+              "evidence_quote": "先确认事项确实落在资源负责人、部门负责人和系统管理员的职责范围内"
+            },
+            {
+              "id": "e2",
+              "name": "部门负责人",
+              "type": "Actor",
+              "canonical_name": "部门负责人",
+              "evidence_quote": "先确认事项确实落在资源负责人、部门负责人和系统管理员的职责范围内"
+            },
+            {
+              "id": "e3",
+              "name": "系统管理员",
+              "type": "Actor",
+              "canonical_name": "系统管理员",
+              "evidence_quote": "先确认事项确实落在资源负责人、部门负责人和系统管理员的职责范围内"
+            },
+            {
+              "id": "e4",
+              "name": "访问控制",
+              "type": "Process",
+              "canonical_name": "访问控制",
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+            },
+            {
+              "id": "e5",
+              "name": "共享",
+              "type": "Step",
+              "canonical_name": "共享",
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+            },
+            {
+              "id": "e6",
+              "name": "变更",
+              "type": "Step",
+              "canonical_name": "变更",
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+            },
+            {
+              "id": "e7",
+              "name": "回收",
+              "type": "Step",
+              "canonical_name": "回收",
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+            },
+            {
+              "id": "e8",
+              "name": "拥有链接或曾获批准并不意味着长期保留权限",
+              "type": "Rule",
+              "canonical_name": "拥有链接或曾获批准并不意味着长期保留权限",
+              "evidence_quote": "拥有链接或曾获批准并不意味着长期保留权限"
+            },
+            {
+              "id": "e9",
+              "name": "敏感内容应留在受控位置",
+              "type": "Rule",
+              "canonical_name": "敏感内容应留在受控位置",
+              "evidence_quote": "敏感内容应留在受控位置"
+            },
+            {
+              "id": "e10",
+              "name": "普通文档只保存定位和处理依据",
+              "type": "Rule",
+              "canonical_name": "普通文档只保存定位和处理依据",
+              "evidence_quote": "普通文档只保存定位和处理依据"
+            },
+            {
+              "id": "e11",
+              "name": "如果责任角色暂时没有确定，应把这一点列为待确认事项",
+              "type": "Rule",
+              "canonical_name": "如果责任角色暂时没有确定，应把这一点列为待确认事项",
+              "evidence_quote": "如果责任角色暂时没有确定，应把这一点列为待确认事项"
+            },
+            {
+              "id": "e12",
+              "name": "不要把发送通知当成已经完成交接",
+              "type": "Rule",
+              "canonical_name": "不要把发送通知当成已经完成交接",
+              "evidence_quote": "不要把发送通知当成已经完成交接"
+            }
+          ],
+          "relations": [
+            {
+              "type": "HAS_STEP",
+              "source_id": "e4",
+              "target_id": "e5",
+              "condition_text": null,
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+            },
+            {
+              "type": "HAS_STEP",
+              "source_id": "e4",
+              "target_id": "e6",
+              "condition_text": null,
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+            },
+            {
+              "type": "HAS_STEP",
+              "source_id": "e4",
+              "target_id": "e7",
+              "condition_text": null,
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e4",
+              "target_id": "e8",
+              "condition_text": null,
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e4",
+              "target_id": "e9",
+              "condition_text": null,
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限；敏感内容应留在受控位置"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e4",
+              "target_id": "e10",
+              "condition_text": null,
+              "evidence_quote": "访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限；敏感内容应留在受控位置，普通文档只保存定位和处理依据。"
+            }
+          ]
+        },
+        "content_sha256": "60e264e8e6d243777446981e62e18a49cacafc00f089549921a4b3388c24c060",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "298": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "资源负责人",
+              "type": "Actor",
+              "canonical_name": "资源负责人",
+              "evidence_quote": "第一步，资源负责人导出当前权限范围。"
+            },
+            {
+              "id": "e2",
+              "name": "导出当前权限范围",
+              "type": "Step",
+              "canonical_name": "导出当前权限范围",
+              "evidence_quote": "第一步，资源负责人导出当前权限范围。"
+            },
+            {
+              "id": "e3",
+              "name": "部门负责人",
+              "type": "Actor",
+              "canonical_name": "部门负责人",
+              "evidence_quote": "第二步，部门负责人核对人员职责。"
+            },
+            {
+              "id": "e4",
+              "name": "核对人员职责",
+              "type": "Step",
+              "canonical_name": "核对人员职责",
+              "evidence_quote": "第二步，部门负责人核对人员职责。"
+            },
+            {
+              "id": "e5",
+              "name": "系统管理员",
+              "type": "Actor",
+              "canonical_name": "系统管理员",
+              "evidence_quote": "第三步，系统管理员处理调整。"
+            },
+            {
+              "id": "e6",
+              "name": "处理调整",
+              "type": "Step",
+              "canonical_name": "处理调整",
+              "evidence_quote": "第三步，系统管理员处理调整。"
+            },
+            {
+              "id": "e7",
+              "name": "复核人",
+              "type": "Actor",
+              "canonical_name": "复核人",
+              "evidence_quote": "第四步，复核人检查调整是否生效并记录遗留项。"
+            },
+            {
+              "id": "e8",
+              "name": "检查调整是否生效并记录遗留项",
+              "type": "Step",
+              "canonical_name": "检查调整是否生效并记录遗留项",
+              "evidence_quote": "第四步，复核人检查调整是否生效并记录遗留项。"
+            },
+            {
+              "id": "e9",
+              "name": "进入下一步前，先确认上一环节的结果已经被接收",
+              "type": "Rule",
+              "canonical_name": "进入下一步前，先确认上一环节的结果已经被接收",
+              "evidence_quote": "进入下一步前，先确认上一环节的结果已经被接收；"
+            },
+            {
+              "id": "e10",
+              "name": "如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+              "type": "Rule",
+              "canonical_name": "如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+              "evidence_quote": "如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+            }
+          ],
+          "relations": [
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e1",
+              "target_id": "e2",
+              "condition_text": null,
+              "evidence_quote": "第一步，资源负责人导出当前权限范围。"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e3",
+              "target_id": "e4",
+              "condition_text": null,
+              "evidence_quote": "第二步，部门负责人核对人员职责。"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e5",
+              "target_id": "e6",
+              "condition_text": null,
+              "evidence_quote": "第三步，系统管理员处理调整。"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e7",
+              "target_id": "e8",
+              "condition_text": null,
+              "evidence_quote": "第四步，复核人检查调整是否生效并记录遗留项。"
+            },
+            {
+              "type": "NEXT_STEP",
+              "source_id": "e2",
+              "target_id": "e4",
+              "condition_text": null,
+              "evidence_quote": "第一步，资源负责人导出当前权限范围。\n2. 第二步，部门负责人核对人员职责。"
+            },
+            {
+              "type": "NEXT_STEP",
+              "source_id": "e4",
+              "target_id": "e6",
+              "condition_text": null,
+              "evidence_quote": "第二步，部门负责人核对人员职责。\n3. 第三步，系统管理员处理调整。"
+            },
+            {
+              "type": "NEXT_STEP",
+              "source_id": "e6",
+              "target_id": "e8",
+              "condition_text": null,
+              "evidence_quote": "第三步，系统管理员处理调整。\n4. 第四步，复核人检查调整是否生效并记录遗留项。"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e4",
+              "target_id": "e9",
+              "condition_text": "进入下一步前",
+              "evidence_quote": "进入下一步前，先确认上一环节的结果已经被接收；如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e4",
+              "target_id": "e10",
+              "condition_text": "如果部门负责人核对人员职责无法完成",
+              "evidence_quote": "如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+            }
+          ]
+        },
+        "content_sha256": "0e3438875fc78fc0ba9f1f422028a2177b924b8a521425c187cc68a462287dae",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "299": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "业务负责人",
+              "type": "Actor",
+              "canonical_name": "业务负责人",
+              "evidence_quote": "无法确认某项权限用途时先联系业务负责人"
+            },
+            {
+              "id": "e2",
+              "name": "联系业务负责人",
+              "type": "Step",
+              "canonical_name": "联系业务负责人",
+              "evidence_quote": "无法确认某项权限用途时先联系业务负责人"
+            },
+            {
+              "id": "e3",
+              "name": "暂缓非必要访问",
+              "type": "Step",
+              "canonical_name": "暂缓非必要访问",
+              "evidence_quote": "必要时暂缓非必要访问"
+            },
+            {
+              "id": "e4",
+              "name": "专项核查",
+              "type": "Process",
+              "canonical_name": "专项核查",
+              "evidence_quote": "失联账户和长期不用权限应进入专项核查"
+            },
+            {
+              "id": "e5",
+              "name": "失联账户",
+              "type": "Material",
+              "canonical_name": "失联账户",
+              "evidence_quote": "失联账户和长期不用权限应进入专项核查"
+            },
+            {
+              "id": "e6",
+              "name": "长期不用权限",
+              "type": "Material",
+              "canonical_name": "长期不用权限",
+              "evidence_quote": "失联账户和长期不用权限应进入专项核查"
+            },
+            {
+              "id": "e7",
+              "name": "例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清",
+              "type": "Rule",
+              "canonical_name": "例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清",
+              "evidence_quote": "例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清"
+            },
+            {
+              "id": "e8",
+              "name": "临时处置",
+              "type": "Step",
+              "canonical_name": "临时处置",
+              "evidence_quote": "临时处置要标明仍待完成的核验"
+            },
+            {
+              "id": "e9",
+              "name": "仍待完成的核验",
+              "type": "Field",
+              "canonical_name": "仍待完成的核验",
+              "evidence_quote": "临时处置要标明仍待完成的核验"
+            },
+            {
+              "id": "e10",
+              "name": "移交",
+              "type": "Step",
+              "canonical_name": "移交",
+              "evidence_quote": "需要其他岗位决定时，连同背景、影响和可选处理方式一并移交"
+            },
+            {
+              "id": "e11",
+              "name": "背景",
+              "type": "Field",
+              "canonical_name": "背景",
+              "evidence_quote": "连同背景、影响和可选处理方式一并移交"
+            },
+            {
+              "id": "e12",
+              "name": "影响",
+              "type": "Field",
+              "canonical_name": "影响",
+              "evidence_quote": "连同背景、影响和可选处理方式一并移交"
+            },
+            {
+              "id": "e13",
+              "name": "可选处理方式",
+              "type": "Field",
+              "canonical_name": "可选处理方式",
+              "evidence_quote": "连同背景、影响和可选处理方式一并移交"
+            }
+          ],
+          "relations": []
+        },
+        "content_sha256": "aeb0d40dbea4f909b5e2ee7d10e84590f49a58d4921dfdcb1c03767d67f50f3f",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "300": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "复核范围",
+              "type": "Material",
+              "canonical_name": "复核范围",
+              "evidence_quote": "保留复核范围、决定、执行结果和待处理差异"
+            },
+            {
+              "id": "e2",
+              "name": "决定",
+              "type": "Material",
+              "canonical_name": "决定",
+              "evidence_quote": "保留复核范围、决定、执行结果和待处理差异"
+            },
+            {
+              "id": "e3",
+              "name": "执行结果",
+              "type": "Material",
+              "canonical_name": "执行结果",
+              "evidence_quote": "保留复核范围、决定、执行结果和待处理差异"
+            },
+            {
+              "id": "e4",
+              "name": "待处理差异",
+              "type": "Material",
+              "canonical_name": "待处理差异",
+              "evidence_quote": "保留复核范围、决定、执行结果和待处理差异"
+            },
+            {
+              "id": "e5",
+              "name": "表格用角色或受控标识，不公开列出完整个人资料",
+              "type": "Rule",
+              "canonical_name": "表格用角色或受控标识，不公开列出完整个人资料",
+              "evidence_quote": "表格用角色或受控标识，不公开列出完整个人资料"
+            },
+            {
+              "id": "e6",
+              "name": "经办材料",
+              "type": "Material",
+              "canonical_name": "经办材料",
+              "evidence_quote": "经办材料请放在团队约定的受控位置"
+            },
+            {
+              "id": "e7",
+              "name": "团队约定的受控位置",
+              "type": "Resource",
+              "canonical_name": "团队约定的受控位置",
+              "evidence_quote": "经办材料请放在团队约定的受控位置"
+            },
+            {
+              "id": "e8",
+              "name": "接手人",
+              "type": "Actor",
+              "canonical_name": "接手人",
+              "evidence_quote": "并让接手人能找到最初的申请、处理意见和最终确认"
+            },
+            {
+              "id": "e9",
+              "name": "最初的申请",
+              "type": "Material",
+              "canonical_name": "最初的申请",
+              "evidence_quote": "并让接手人能找到最初的申请、处理意见和最终确认"
+            },
+            {
+              "id": "e10",
+              "name": "处理意见",
+              "type": "Material",
+              "canonical_name": "处理意见",
+              "evidence_quote": "并让接手人能找到最初的申请、处理意见和最终确认"
+            },
+            {
+              "id": "e11",
+              "name": "最终确认",
+              "type": "Material",
+              "canonical_name": "最终确认",
+              "evidence_quote": "并让接手人能找到最初的申请、处理意见和最终确认"
+            },
+            {
+              "id": "e12",
+              "name": "补充材料",
+              "type": "Material",
+              "canonical_name": "补充材料",
+              "evidence_quote": "如果补充材料改变了原有判断，应保留原件及修订说明"
+            },
+            {
+              "id": "e13",
+              "name": "原件",
+              "type": "Material",
+              "canonical_name": "原件",
+              "evidence_quote": "如果补充材料改变了原有判断，应保留原件及修订说明"
+            },
+            {
+              "id": "e14",
+              "name": "修订说明",
+              "type": "Material",
+              "canonical_name": "修订说明",
+              "evidence_quote": "如果补充材料改变了原有判断，应保留原件及修订说明"
+            },
+            {
+              "id": "e15",
+              "name": "如果补充材料改变了原有判断，应保留原件及修订说明",
+              "type": "Rule",
+              "canonical_name": "如果补充材料改变了原有判断，应保留原件及修订说明",
+              "evidence_quote": "如果补充材料改变了原有判断，应保留原件及修订说明"
+            },
+            {
+              "id": "e16",
+              "name": "只覆盖旧附件，会让后续核对失去依据",
+              "type": "Rule",
+              "canonical_name": "只覆盖旧附件，会让后续核对失去依据",
+              "evidence_quote": "只覆盖旧附件，会让后续核对失去依据"
+            },
+            {
+              "id": "e17",
+              "name": "旧附件",
+              "type": "Material",
+              "canonical_name": "旧附件",
+              "evidence_quote": "只覆盖旧附件，会让后续核对失去依据"
+            },
+            {
+              "id": "e18",
+              "name": "共享范围以实际办理需要为准",
+              "type": "Rule",
+              "canonical_name": "共享范围以实际办理需要为准",
+              "evidence_quote": "共享范围以实际办理需要为准"
+            },
+            {
+              "id": "e19",
+              "name": "涉及个人或客户信息的附件",
+              "type": "Material",
+              "canonical_name": "涉及个人或客户信息的附件",
+              "evidence_quote": "涉及个人或客户信息的附件应单独检查可见人员"
+            },
+            {
+              "id": "e20",
+              "name": "单独检查可见人员",
+              "type": "Step",
+              "canonical_name": "单独检查可见人员",
+              "evidence_quote": "涉及个人或客户信息的附件应单独检查可见人员"
+            }
+          ],
+          "relations": [
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e12",
+              "target_id": "e15",
+              "condition_text": "如果补充材料改变了原有判断",
+              "evidence_quote": "如果补充材料改变了原有判断，应保留原件及修订说明"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e17",
+              "target_id": "e16",
+              "condition_text": null,
+              "evidence_quote": "只覆盖旧附件，会让后续核对失去依据"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e19",
+              "target_id": "e18",
+              "condition_text": null,
+              "evidence_quote": "共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员"
+            }
+          ]
+        },
+        "content_sha256": "163b31557e427b23b18df945bf19891b284773e82ade7d357cfd0287ccb36e4c",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "301": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "复核人",
+              "type": "Actor",
+              "canonical_name": "复核人",
+              "evidence_quote": "复核人检查调整是否生效并记录遗留项"
+            },
+            {
+              "id": "e2",
+              "name": "检查调整是否生效并记录遗留项",
+              "type": "Step",
+              "canonical_name": "检查调整是否生效并记录遗留项",
+              "evidence_quote": "复核人检查调整是否生效并记录遗留项"
+            },
+            {
+              "id": "e3",
+              "name": "经办人",
+              "type": "Actor",
+              "canonical_name": "经办人",
+              "evidence_quote": "经办人应查看接收方能否据此继续工作"
+            },
+            {
+              "id": "e4",
+              "name": "查看接收方能否据此继续工作",
+              "type": "Step",
+              "canonical_name": "查看接收方能否据此继续工作",
+              "evidence_quote": "经办人应查看接收方能否据此继续工作"
+            },
+            {
+              "id": "e7",
+              "name": "尚缺少必要确认时，记录当前进展和下一步动作",
+              "type": "Rule",
+              "canonical_name": "尚缺少必要确认时，记录当前进展和下一步动作",
+              "evidence_quote": "尚缺少必要确认时，记录当前进展和下一步动作"
+            },
+            {
+              "id": "e8",
+              "name": "不要把发送邮件、上传附件或口头告知直接视为办结",
+              "type": "Rule",
+              "canonical_name": "不要把发送邮件、上传附件或口头告知直接视为办结",
+              "evidence_quote": "不要把发送邮件、上传附件或口头告知直接视为办结"
+            },
+            {
+              "id": "e9",
+              "name": "资料维护人",
+              "type": "Actor",
+              "canonical_name": "资料维护人",
+              "evidence_quote": "由资料维护人同步修订入口说明"
+            },
+            {
+              "id": "e10",
+              "name": "同步修订入口说明",
+              "type": "Step",
+              "canonical_name": "同步修订入口说明",
+              "evidence_quote": "由资料维护人同步修订入口说明"
+            },
+            {
+              "id": "e11",
+              "name": "后续规则如有调整，由资料维护人同步修订入口说明",
+              "type": "Rule",
+              "canonical_name": "后续规则如有调整，由资料维护人同步修订入口说明",
+              "evidence_quote": "后续规则如有调整，由资料维护人同步修订入口说明"
+            },
+            {
+              "id": "e12",
+              "name": "避免旧稿继续指导新事项",
+              "type": "Rule",
+              "canonical_name": "避免旧稿继续指导新事项",
+              "evidence_quote": "避免旧稿继续指导新事项"
+            }
+          ],
+          "relations": [
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e1",
+              "target_id": "e2",
+              "condition_text": null,
+              "evidence_quote": "复核人检查调整是否生效并记录遗留项"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e3",
+              "target_id": "e4",
+              "condition_text": null,
+              "evidence_quote": "经办人应查看接收方能否据此继续工作"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e10",
+              "target_id": "e11",
+              "condition_text": "后续规则如有调整",
+              "evidence_quote": "后续规则如有调整，由资料维护人同步修订入口说明"
+            }
+          ]
+        },
+        "content_sha256": "20e9995e1f837212f17d9fc24c71fd19a89e5e39bc401908e5ad49acdc661799",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "302": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "权限结果被验证",
+              "type": "State",
+              "canonical_name": "权限结果被验证",
+              "evidence_quote": "复核完成的标志是权限结果被验证"
+            },
+            {
+              "id": "e2",
+              "name": "核对各自的适用对象、形成时间与确认人",
+              "type": "Step",
+              "canonical_name": "核对各自的适用对象、形成时间与确认人",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e3",
+              "name": "适用对象",
+              "type": "Field",
+              "canonical_name": "适用对象",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e4",
+              "name": "形成时间",
+              "type": "Field",
+              "canonical_name": "形成时间",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e5",
+              "name": "确认人",
+              "type": "Field",
+              "canonical_name": "确认人",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e6",
+              "name": "邮件",
+              "type": "Material",
+              "canonical_name": "邮件",
+              "evidence_quote": "同一事项若在邮件、清单和正式文件中出现不同说法"
+            },
+            {
+              "id": "e7",
+              "name": "清单",
+              "type": "Material",
+              "canonical_name": "清单",
+              "evidence_quote": "同一事项若在邮件、清单和正式文件中出现不同说法"
+            },
+            {
+              "id": "e8",
+              "name": "正式文件",
+              "type": "Material",
+              "canonical_name": "正式文件",
+              "evidence_quote": "同一事项若在邮件、清单和正式文件中出现不同说法"
+            },
+            {
+              "id": "e9",
+              "name": "把变化发给实际受影响的岗位",
+              "type": "Step",
+              "canonical_name": "把变化发给实际受影响的岗位",
+              "evidence_quote": "遇到范围变化时，应把变化发给实际受影响的岗位"
+            },
+            {
+              "id": "e10",
+              "name": "确认原安排是否仍然成立",
+              "type": "Step",
+              "canonical_name": "确认原安排是否仍然成立",
+              "evidence_quote": "并确认原安排是否仍然成立"
+            },
+            {
+              "id": "e11",
+              "name": "实际受影响的岗位",
+              "type": "Actor",
+              "canonical_name": "实际受影响的岗位",
+              "evidence_quote": "应把变化发给实际受影响的岗位"
+            }
+          ],
+          "relations": [
+            {
+              "type": "NEXT_STEP",
+              "source_id": "e9",
+              "target_id": "e10",
+              "condition_text": "遇到范围变化时",
+              "evidence_quote": "遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。"
+            }
+          ]
+        },
+        "content_sha256": "9c2e522d2abe2035b0b62960086063a649f647cf57db49e93478064350c2be9c",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "303": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "负责人",
+              "type": "Actor",
+              "canonical_name": "负责人",
+              "evidence_quote": "避免让负责人在一长串技术角色名中盲目签字"
+            },
+            {
+              "id": "e2",
+              "name": "权限清单",
+              "type": "Material",
+              "canonical_name": "权限清单",
+              "evidence_quote": "权限清单应按资源和职责组织"
+            },
+            {
+              "id": "e3",
+              "name": "复核表",
+              "type": "Material",
+              "canonical_name": "复核表",
+              "evidence_quote": "而不是把复核表作为最终证明"
+            },
+            {
+              "id": "e4",
+              "name": "权限清单应按资源和职责组织",
+              "type": "Rule",
+              "canonical_name": "权限清单应按资源和职责组织",
+              "evidence_quote": "权限清单应按资源和职责组织"
+            },
+            {
+              "id": "e5",
+              "name": "对每项保留的访问，负责人应能说出当前工作理由",
+              "type": "Rule",
+              "canonical_name": "对每项保留的访问，负责人应能说出当前工作理由",
+              "evidence_quote": "对每项保留的访问，负责人应能说出当前工作理由"
+            },
+            {
+              "id": "e6",
+              "name": "对已结束项目或离岗岗位，应明确移除或调整",
+              "type": "Rule",
+              "canonical_name": "对已结束项目或离岗岗位，应明确移除或调整",
+              "evidence_quote": "对已结束项目或离岗岗位，应明确移除或调整"
+            },
+            {
+              "id": "e7",
+              "name": "若清单与系统不一致，应记录差异并继续处理",
+              "type": "Rule",
+              "canonical_name": "若清单与系统不一致，应记录差异并继续处理",
+              "evidence_quote": "若清单与系统不一致，应记录差异并继续处理"
+            },
+            {
+              "id": "e8",
+              "name": "而不是把复核表作为最终证明",
+              "type": "Rule",
+              "canonical_name": "而不是把复核表作为最终证明",
+              "evidence_quote": "而不是把复核表作为最终证明"
+            },
+            {
+              "id": "e9",
+              "name": "抽查实际系统结果",
+              "type": "Step",
+              "canonical_name": "抽查实际系统结果",
+              "evidence_quote": "执行后抽查实际系统结果"
+            },
+            {
+              "id": "e10",
+              "name": "记录差异",
+              "type": "Step",
+              "canonical_name": "记录差异",
+              "evidence_quote": "应记录差异并继续处理"
+            },
+            {
+              "id": "e11",
+              "name": "继续处理",
+              "type": "Step",
+              "canonical_name": "继续处理",
+              "evidence_quote": "应记录差异并继续处理"
+            }
+          ],
+          "relations": [
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e2",
+              "target_id": "e4",
+              "condition_text": null,
+              "evidence_quote": "权限清单应按资源和职责组织"
+            },
+            {
+              "type": "NEXT_STEP",
+              "source_id": "e9",
+              "target_id": "e10",
+              "condition_text": "若清单与系统不一致",
+              "evidence_quote": "执行后抽查实际系统结果，若清单与系统不一致，应记录差异并继续处理"
+            }
+          ]
+        },
+        "content_sha256": "9f11e9bafed797a51f7d7481d3163da0cee37540c8c42ccfa3674f3a51ec9d77",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "304": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "按资源责任拆分",
+              "type": "Step",
+              "canonical_name": "按资源责任拆分",
+              "evidence_quote": "可先按资源责任拆分"
+            },
+            {
+              "id": "e2",
+              "name": "确认必要性",
+              "type": "Step",
+              "canonical_name": "确认必要性",
+              "evidence_quote": "再由了解工作职责的人确认必要性"
+            },
+            {
+              "id": "e3",
+              "name": "抽查实际访问是否停止",
+              "type": "Step",
+              "canonical_name": "抽查实际访问是否停止",
+              "evidence_quote": "撤权后应抽查实际访问是否停止"
+            },
+            {
+              "id": "e4",
+              "name": "留下业务原因",
+              "type": "Step",
+              "canonical_name": "留下业务原因",
+              "evidence_quote": "保留权限也应留下业务原因"
+            },
+            {
+              "id": "e5",
+              "name": "设置接手角色",
+              "type": "Step",
+              "canonical_name": "设置接手角色",
+              "evidence_quote": "并为待确认项设置接手角色"
+            },
+            {
+              "id": "e6",
+              "name": "撤权后应抽查实际访问是否停止",
+              "type": "Rule",
+              "canonical_name": "撤权后应抽查实际访问是否停止",
+              "evidence_quote": "撤权后应抽查实际访问是否停止"
+            },
+            {
+              "id": "e7",
+              "name": "保留权限也应留下业务原因",
+              "type": "Rule",
+              "canonical_name": "保留权限也应留下业务原因",
+              "evidence_quote": "保留权限也应留下业务原因"
+            },
+            {
+              "id": "e8",
+              "name": "把所有未回复项默认为保留",
+              "type": "Rule",
+              "canonical_name": "把所有未回复项默认为保留",
+              "evidence_quote": "把所有未回复项默认为保留"
+            },
+            {
+              "id": "e9",
+              "name": "复核结论应区分“保留”“调整”“移除”和“待确认”",
+              "type": "Rule",
+              "canonical_name": "复核结论应区分“保留”“调整”“移除”和“待确认”",
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "id": "e10",
+              "name": "为待确认项设置接手角色",
+              "type": "Rule",
+              "canonical_name": "为待确认项设置接手角色",
+              "evidence_quote": "并为待确认项设置接手角色"
+            },
+            {
+              "id": "e11",
+              "name": "保留",
+              "type": "State",
+              "canonical_name": "保留",
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "id": "e12",
+              "name": "调整",
+              "type": "State",
+              "canonical_name": "调整",
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "id": "e13",
+              "name": "移除",
+              "type": "State",
+              "canonical_name": "移除",
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "id": "e14",
+              "name": "待确认",
+              "type": "State",
+              "canonical_name": "待确认",
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "id": "e15",
+              "name": "业务原因",
+              "type": "Field",
+              "canonical_name": "业务原因",
+              "evidence_quote": "保留权限也应留下业务原因"
+            },
+            {
+              "id": "e16",
+              "name": "了解工作职责的人",
+              "type": "Actor",
+              "canonical_name": "了解工作职责的人",
+              "evidence_quote": "再由了解工作职责的人确认必要性"
+            },
+            {
+              "id": "e17",
+              "name": "接手角色",
+              "type": "Actor",
+              "canonical_name": "接手角色",
+              "evidence_quote": "并为待确认项设置接手角色"
+            },
+            {
+              "id": "e18",
+              "name": "系统账号",
+              "type": "Resource",
+              "canonical_name": "系统账号",
+              "evidence_quote": "复核名单若混合了系统账号、共享目录和临时链接"
+            },
+            {
+              "id": "e19",
+              "name": "共享目录",
+              "type": "Resource",
+              "canonical_name": "共享目录",
+              "evidence_quote": "复核名单若混合了系统账号、共享目录和临时链接"
+            },
+            {
+              "id": "e20",
+              "name": "临时链接",
+              "type": "Resource",
+              "canonical_name": "临时链接",
+              "evidence_quote": "复核名单若混合了系统账号、共享目录和临时链接"
+            },
+            {
+              "id": "e21",
+              "name": "缓存",
+              "type": "Resource",
+              "canonical_name": "缓存",
+              "evidence_quote": "尤其注意缓存或共享链接可能仍然有效"
+            },
+            {
+              "id": "e22",
+              "name": "共享链接",
+              "type": "Resource",
+              "canonical_name": "共享链接",
+              "evidence_quote": "尤其注意缓存或共享链接可能仍然有效"
+            },
+            {
+              "id": "e23",
+              "name": "复核名单",
+              "type": "Material",
+              "canonical_name": "复核名单",
+              "evidence_quote": "复核名单若混合了系统账号、共享目录和临时链接"
+            },
+            {
+              "id": "e24",
+              "name": "复核结论",
+              "type": "Material",
+              "canonical_name": "复核结论",
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            }
+          ],
+          "relations": [
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e16",
+              "target_id": "e2",
+              "condition_text": null,
+              "evidence_quote": "再由了解工作职责的人确认必要性"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e4",
+              "target_id": "e7",
+              "condition_text": null,
+              "evidence_quote": "保留权限也应留下业务原因"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e5",
+              "target_id": "e10",
+              "condition_text": null,
+              "evidence_quote": "并为待确认项设置接手角色"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e24",
+              "target_id": "e9",
+              "condition_text": null,
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "type": "HAS_STATE",
+              "source_id": "e24",
+              "target_id": "e11",
+              "condition_text": null,
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "type": "HAS_STATE",
+              "source_id": "e24",
+              "target_id": "e12",
+              "condition_text": null,
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "type": "HAS_STATE",
+              "source_id": "e24",
+              "target_id": "e13",
+              "condition_text": null,
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            },
+            {
+              "type": "HAS_STATE",
+              "source_id": "e24",
+              "target_id": "e14",
+              "condition_text": null,
+              "evidence_quote": "复核结论应区分“保留”“调整”“移除”和“待确认”"
+            }
+          ]
+        },
+        "content_sha256": "d498bdbf4851c805c072f8df29d3a943228bb7c0d7017c3e3860ed954a504f0a",
+        "extractor_version": "graph-extractor-v6"
+      }
+    },
+    "next_chunk_index": 10,
+    "input_fingerprint": "570ec61abce35f7294fbf7a0c25e7819fd41430e7940907b74839ed73253b7ba",
+    "base_projection_id": 43,
+    "projection_version": 6
+  },
+  "chunks": [
+    {
+      "id": 295,
+      "chunk_index": 0,
+      "content": "> 导入目标：tenant_id=1；knowledge_base_id=2（技术）\n\n> 办事指南 · 适用：资源负责人、部门负责人和系统管理员",
+      "content_sha256": "49c561cd58b54ac965888584157234fceede5fde48f195ff807abeee4e980e1e",
+      "page_number": null,
+      "section_title": "访问权限定期复核",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:3-3",
+          "lines:5-5"
+        ],
+        "heading_path": [
+          "访问权限定期复核"
+        ]
+      }
+    },
+    {
+      "id": 296,
+      "chunk_index": 1,
+      "content": "权限复核是确认现有访问仍与工作职责相符，不应被当作对过去申请单的机械盖章。岗位变化、项目结束或资料敏感度变化都可能触发提前复核。 阅读时可以从自己的当前状态进入相应步骤，处理完后再按文末的完成条件回看。",
+      "content_sha256": "27630cc15b53a9af6325e0ceae70d418da47ca6c09e20ff083022e80bc39edae",
+      "page_number": null,
+      "section_title": "这份指南解决什么",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:9-9"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "这份指南解决什么"
+        ]
+      }
+    },
+    {
+      "id": 297,
+      "chunk_index": 2,
+      "content": "启动这项工作时，先确认事项确实落在资源负责人、部门负责人和系统管理员的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限；敏感内容应留在受控位置，普通文档只保存定位和处理依据。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+      "content_sha256": "60e264e8e6d243777446981e62e18a49cacafc00f089549921a4b3388c24c060",
+      "page_number": null,
+      "section_title": "开始之前",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:13-13"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "开始之前"
+        ]
+      }
+    },
+    {
+      "id": 298,
+      "chunk_index": 3,
+      "content": "1. 第一步，资源负责人导出当前权限范围。\n2. 第二步，部门负责人核对人员职责。\n3. 第三步，系统管理员处理调整。\n4. 第四步，复核人检查调整是否生效并记录遗留项。\n5. 这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果部门负责人核对人员职责无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。",
+      "content_sha256": "0e3438875fc78fc0ba9f1f422028a2177b924b8a521425c187cc68a462287dae",
+      "page_number": null,
+      "section_title": "按顺序办理",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:17-22"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "按顺序办理"
+        ]
+      }
+    },
+    {
+      "id": 299,
+      "chunk_index": 4,
+      "content": "无法确认某项权限用途时先联系业务负责人，必要时暂缓非必要访问；失联账户和长期不用权限应进入专项核查。 例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其他岗位决定时，连同背景、影响和可选处理方式一并移交。",
+      "content_sha256": "aeb0d40dbea4f909b5e2ee7d10e84590f49a58d4921dfdcb1c03767d67f50f3f",
+      "page_number": null,
+      "section_title": "常见卡点",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:25-25"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "常见卡点"
+        ]
+      }
+    },
+    {
+      "id": 300,
+      "chunk_index": 5,
+      "content": "保留复核范围、决定、执行结果和待处理差异；表格用角色或受控标识，不公开列出完整个人资料。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+      "content_sha256": "163b31557e427b23b18df945bf19891b284773e82ade7d357cfd0287ccb36e4c",
+      "page_number": null,
+      "section_title": "要留下哪些材料",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:29-29"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "要留下哪些材料"
+        ]
+      }
+    },
+    {
+      "id": 301,
+      "chunk_index": 6,
+      "content": "本事项以“复核人检查调整是否生效并记录遗留项”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+      "content_sha256": "20e9995e1f837212f17d9fc24c71fd19a89e5e39bc401908e5ad49acdc661799",
+      "page_number": null,
+      "section_title": "确认完成",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:33-33"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "确认完成"
+        ]
+      }
+    },
+    {
+      "id": 302,
+      "chunk_index": 7,
+      "content": "复核完成的标志是权限结果被验证，不是审批意见已经发送。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+      "content_sha256": "9c2e522d2abe2035b0b62960086063a649f647cf57db49e93478064350c2be9c",
+      "page_number": null,
+      "section_title": "实际工作中的边界",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:37-37"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "实际工作中的边界"
+        ]
+      }
+    },
+    {
+      "id": 303,
+      "chunk_index": 8,
+      "content": "权限清单应按资源和职责组织，避免让负责人在一长串技术角色名中盲目签字。对每项保留的访问，负责人应能说出当前工作理由；对已结束项目或离岗岗位，应明确移除或调整。执行后抽查实际系统结果，若清单与系统不一致，应记录差异并继续处理，而不是把复核表作为最终证明。",
+      "content_sha256": "9f11e9bafed797a51f7d7481d3163da0cee37540c8c42ccfa3674f3a51ec9d77",
+      "page_number": null,
+      "section_title": "经办补充",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:41-41"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "经办补充"
+        ]
+      }
+    },
+    {
+      "id": 304,
+      "chunk_index": 9,
+      "content": "复核名单若混合了系统账号、共享目录和临时链接，容易遗漏不同资源的管理人。可先按资源责任拆分，再由了解工作职责的人确认必要性。撤权后应抽查实际访问是否停止，尤其注意缓存或共享链接可能仍然有效。保留权限也应留下业务原因，以便下一轮复核能判断条件是否变化，而不是一再沿用前次勾选。 复核结论应区分“保留”“调整”“移除”和“待确认”，并为待确认项设置接手角色。把所有未回复项默认为保留，无法体现复核实际完成了什么。\n\n---\n\n检索词：访问权限定期复核；信息安全；资源负责人、部门负责人和系统管理员。",
+      "content_sha256": "d498bdbf4851c805c072f8df29d3a943228bb7c0d7017c3e3860ed954a504f0a",
+      "page_number": null,
+      "section_title": "进一步说明",
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:45-45",
+          "lines:47-47",
+          "lines:49-49"
+        ],
+        "heading_path": [
+          "访问权限定期复核",
+          "进一步说明"
+        ]
+      }
+    }
+  ]
+}

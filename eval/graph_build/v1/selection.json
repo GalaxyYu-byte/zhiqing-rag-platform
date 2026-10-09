@@ -1,0 +1,126 @@
+{
+  "schema_version": "graph-build-input-v1",
+  "dataset_id": "graph-build-v1",
+  "documents": [
+    {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 35,
+      "revision_id": 35,
+      "generation_id": 35,
+      "source_path": "dox/人事与行政/员工入职资料准备说明.pdf",
+      "source_sha256": "239b325ea1b291209044e55bf78a63af951132c5b1e12175efb2378a89a6d5db",
+      "expected_chunks": 4,
+      "format": "PDF",
+      "selection_reason": "HR preparation with actors, materials and process steps"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 45,
+      "revision_id": 45,
+      "generation_id": 45,
+      "source_path": "dox/财务与采购/采购需求与审批边界.pdf",
+      "source_sha256": "a52bc64ac80e1fbb581c8039f0777975ce40b5b4697a2c97a2b66ff755170956",
+      "expected_chunks": 4,
+      "format": "PDF",
+      "selection_reason": "Finance approval boundaries and conditional rules"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 56,
+      "revision_id": 56,
+      "generation_id": 56,
+      "source_path": "dox/客户与交付/工单处理与关闭步骤.docx",
+      "source_sha256": "13df4b942df047438733db6d790b40ee9f67df58a94a6abae90ea928de5c7ef0",
+      "expected_chunks": 9,
+      "format": "DOCX",
+      "selection_reason": "Customer work order steps, responsibility and closure states"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 58,
+      "revision_id": 58,
+      "generation_id": 58,
+      "source_path": "dox/研发与产品/发布变更准备与回退指引.docx",
+      "source_sha256": "264caca41ebb70f80ace3da402bb4f221af1dba0c3ea753e1d1330bdd4f2ad8a",
+      "expected_chunks": 9,
+      "format": "DOCX",
+      "selection_reason": "Release preparation, verification and rollback dependencies"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 63,
+      "revision_id": 63,
+      "generation_id": 63,
+      "source_path": "dox/知识管理/文档命名与版本约定.md",
+      "source_sha256": "2e9789c094eb003847dc884a64008466d5ff0990e42f1010af13b6cf6832a669",
+      "expected_chunks": 10,
+      "format": "Markdown",
+      "selection_reason": "Naming and version rules with fewer explicit graph relations"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 71,
+      "revision_id": 71,
+      "generation_id": 71,
+      "source_path": "dox/信息安全/访问权限定期复核.md",
+      "source_sha256": "1e6cac1b299e6b572b5ef53d72e7268382d488c81011f4be56d09d3ec9aff455",
+      "expected_chunks": 10,
+      "format": "Markdown",
+      "selection_reason": "Security access review roles, triggers and conditions"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 73,
+      "revision_id": 73,
+      "generation_id": 73,
+      "source_path": "dox/财务与采购/财务单据退回原因说明.txt",
+      "source_sha256": "566d2259b84820f484f4d2949acec74de15373fa0bde056b32521fffb4280e1f",
+      "expected_chunks": 5,
+      "format": "TXT",
+      "selection_reason": "Finance rejection reasons and evidence requirements"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 76,
+      "revision_id": 76,
+      "generation_id": 76,
+      "source_path": "dox/客户与交付/服务请求转派提醒.txt",
+      "source_sha256": "c2f67a2d2d4327b07a286f0b9f4b1c3da8972c408b5bffb6e808b188219e0364",
+      "expected_chunks": 4,
+      "format": "TXT",
+      "selection_reason": "Customer request handoff and escalation responsibility"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 83,
+      "revision_id": 83,
+      "generation_id": 91,
+      "source_path": "dox/人事与行政/入职事项与责任分工.xlsx",
+      "source_sha256": "7388c78df8c68e1daff2c704f0cc02354606b93fe068345b25f2b530ffcbc9ec",
+      "expected_chunks": 2,
+      "format": "XLSX",
+      "selection_reason": "Spreadsheet responsibility matrix for onboarding steps"
+    },
+    {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 89,
+      "revision_id": 89,
+      "generation_id": 97,
+      "source_path": "dox/知识管理/内部资料分类与保管约定.xlsx",
+      "source_sha256": "4f62724b2c3e253e99d04d3b740fcd89e0809518d9963cd5339be9884ef93765",
+      "expected_chunks": 2,
+      "format": "XLSX",
+      "selection_reason": "Spreadsheet classification and retention rules"
+    }
+  ]
+}

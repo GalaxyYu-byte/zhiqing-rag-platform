@@ -1,0 +1,344 @@
+{
+  "checked_at_utc": "2026-10-01T09:03:33.477721+00:00",
+  "authorized_documents": [
+    56,
+    71,
+    76
+  ],
+  "authorized_chunks": 23,
+  "candidates": [
+    {
+      "projection_id": 73,
+      "structure_passed": true,
+      "activation_gate": "EVIDENCE_REVIEW_NOT_PASSED",
+      "counts": {
+        "entities": 111,
+        "evidence": 75,
+        "assertions": 71
+      },
+      "verdicts": {
+        "SUPPORT": 2,
+        "CONTRADICT": 0,
+        "INSUFFICIENT": 3
+      }
+    },
+    {
+      "projection_id": 74,
+      "structure_passed": true,
+      "activation_gate": "EVIDENCE_REVIEW_NOT_PASSED",
+      "counts": {
+        "entities": 105,
+        "evidence": 83,
+        "assertions": 92
+      },
+      "verdicts": {
+        "SUPPORT": 1,
+        "CONTRADICT": 0,
+        "INSUFFICIENT": 4
+      }
+    },
+    {
+      "projection_id": 75,
+      "structure_passed": true,
+      "activation_gate": "EVIDENCE_REVIEW_NOT_PASSED",
+      "counts": {
+        "entities": 107,
+        "evidence": 76,
+        "assertions": 71
+      },
+      "verdicts": {
+        "SUPPORT": 4,
+        "CONTRADICT": 0,
+        "INSUFFICIENT": 1
+      }
+    }
+  ],
+  "switched_documents": [],
+  "retained_baseline_graphs": [
+    {
+      "projection_id": 11,
+      "unchanged": true
+    },
+    {
+      "projection_id": 14,
+      "unchanged": true
+    },
+    {
+      "projection_id": 15,
+      "unchanged": true
+    },
+    {
+      "projection_id": 16,
+      "unchanged": true
+    },
+    {
+      "projection_id": 17,
+      "unchanged": true
+    },
+    {
+      "projection_id": 18,
+      "unchanged": true
+    },
+    {
+      "projection_id": 19,
+      "unchanged": true
+    },
+    {
+      "projection_id": 20,
+      "unchanged": true
+    },
+    {
+      "projection_id": 21,
+      "unchanged": true
+    },
+    {
+      "projection_id": 22,
+      "unchanged": true
+    },
+    {
+      "projection_id": 23,
+      "unchanged": true
+    },
+    {
+      "projection_id": 24,
+      "unchanged": true
+    },
+    {
+      "projection_id": 25,
+      "unchanged": true
+    },
+    {
+      "projection_id": 26,
+      "unchanged": true
+    },
+    {
+      "projection_id": 27,
+      "unchanged": true
+    },
+    {
+      "projection_id": 28,
+      "unchanged": true
+    },
+    {
+      "projection_id": 29,
+      "unchanged": true
+    },
+    {
+      "projection_id": 30,
+      "unchanged": true
+    },
+    {
+      "projection_id": 31,
+      "unchanged": true
+    },
+    {
+      "projection_id": 32,
+      "unchanged": true
+    },
+    {
+      "projection_id": 33,
+      "unchanged": true
+    },
+    {
+      "projection_id": 34,
+      "unchanged": true
+    },
+    {
+      "projection_id": 35,
+      "unchanged": true
+    },
+    {
+      "projection_id": 36,
+      "unchanged": true
+    },
+    {
+      "projection_id": 37,
+      "unchanged": true
+    },
+    {
+      "projection_id": 38,
+      "unchanged": true
+    },
+    {
+      "projection_id": 39,
+      "unchanged": true
+    },
+    {
+      "projection_id": 40,
+      "unchanged": true
+    },
+    {
+      "projection_id": 41,
+      "unchanged": true
+    },
+    {
+      "projection_id": 42,
+      "unchanged": true
+    },
+    {
+      "projection_id": 43,
+      "unchanged": true
+    },
+    {
+      "projection_id": 44,
+      "unchanged": true
+    },
+    {
+      "projection_id": 45,
+      "unchanged": true
+    },
+    {
+      "projection_id": 46,
+      "unchanged": true
+    },
+    {
+      "projection_id": 47,
+      "unchanged": true
+    },
+    {
+      "projection_id": 48,
+      "unchanged": true
+    },
+    {
+      "projection_id": 49,
+      "unchanged": true
+    },
+    {
+      "projection_id": 50,
+      "unchanged": true
+    },
+    {
+      "projection_id": 51,
+      "unchanged": true
+    },
+    {
+      "projection_id": 52,
+      "unchanged": true
+    },
+    {
+      "projection_id": 53,
+      "unchanged": true
+    },
+    {
+      "projection_id": 54,
+      "unchanged": true
+    },
+    {
+      "projection_id": 55,
+      "unchanged": true
+    },
+    {
+      "projection_id": 56,
+      "unchanged": true
+    },
+    {
+      "projection_id": 57,
+      "unchanged": true
+    },
+    {
+      "projection_id": 58,
+      "unchanged": true
+    },
+    {
+      "projection_id": 59,
+      "unchanged": true
+    },
+    {
+      "projection_id": 60,
+      "unchanged": true
+    },
+    {
+      "projection_id": 61,
+      "unchanged": true
+    },
+    {
+      "projection_id": 62,
+      "unchanged": true
+    }
+  ],
+  "unchanged_graph_count": 50,
+  "active_query_checks": [
+    {
+      "document_id": 56,
+      "active_projection_id": 28,
+      "namespace": "zhiqing-rag-platform",
+      "cypher": "MATCH (a:Assertion)-[:SUBJECT]->(x:Entity), (a)-[:OBJECT]->(y:Entity), (a)-[:SUPPORTED_BY]->(ev:Evidence) WHERE a.namespace=$namespace AND a.tenant_id=1 AND a.document_id=$docid AND a.generation_id=$gen AND a.predicate=$predicate RETURN x.name AS source,a.predicate AS predicate,y.name AS target,ev.quote AS quote ORDER BY a.key LIMIT 3",
+      "rows": [
+        {
+          "source": "受理人",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "核对问题与影响",
+          "quote": "第一步，受理人核对问题与影响。"
+        },
+        {
+          "source": "资料维护人",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "同步修订入口说明",
+          "quote": "由资料维护人同步修订入口说明"
+        },
+        {
+          "source": "经办人",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "按顺序推进",
+          "quote": "经办人按顺序推进"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "document_id": 71,
+      "active_projection_id": 43,
+      "namespace": "zhiqing-rag-platform",
+      "cypher": "MATCH (a:Assertion)-[:SUBJECT]->(x:Entity), (a)-[:OBJECT]->(y:Entity), (a)-[:SUPPORTED_BY]->(ev:Evidence) WHERE a.namespace=$namespace AND a.tenant_id=1 AND a.document_id=$docid AND a.generation_id=$gen AND a.predicate=$predicate RETURN x.name AS source,a.predicate AS predicate,y.name AS target,ev.quote AS quote ORDER BY a.key LIMIT 3",
+      "rows": [
+        {
+          "source": "经办人",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "记录当前进展和下一步动作",
+          "quote": "记录当前进展和下一步动作"
+        },
+        {
+          "source": "系统管理员",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "处理调整",
+          "quote": "系统管理员处理调整"
+        },
+        {
+          "source": "经办人",
+          "predicate": "RESPONSIBLE_FOR",
+          "target": "查看接收方能否据此继续工作",
+          "quote": "经办人应查看接收方能否据此继续工作"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "document_id": 76,
+      "active_projection_id": 48,
+      "namespace": "zhiqing-rag-platform",
+      "cypher": "MATCH (a:Assertion)-[:SUBJECT]->(x:Entity), (a)-[:OBJECT]->(y:Entity), (a)-[:SUPPORTED_BY]->(ev:Evidence) WHERE a.namespace=$namespace AND a.tenant_id=1 AND a.document_id=$docid AND a.generation_id=$gen AND a.predicate=$predicate RETURN x.name AS source,a.predicate AS predicate,y.name AS target,ev.quote AS quote ORDER BY a.key LIMIT 3",
+      "rows": [
+        {
+          "source": "转派摘要",
+          "predicate": "HAS_FIELD",
+          "target": "期望接手团队完成的动作",
+          "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+        },
+        {
+          "source": "转派摘要",
+          "predicate": "HAS_FIELD",
+          "target": "客户诉求",
+          "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+        },
+        {
+          "source": "转派摘要",
+          "predicate": "HAS_FIELD",
+          "target": "影响",
+          "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "conclusion": "STRUCTURE_PASSED_SEMANTIC_REVIEW_NOT_PASSED_OLD_GRAPH_RETAINED"
+}

@@ -68,7 +68,15 @@ class DocumentUploadService:
         mime_type: str | None,
         identity: UploadIdentity,
         parameters: UploadParameters,
+        *,
+        document_id: int | None = None,
+        expected_revision_id: int | None = None,
     ) -> UploadResult:
+        """新上传与原文档更新共用同一套文件校验和 MinIO 写入流程。
+
+        更新请求用 document_id 定位业务文档，并要求 expected_revision_id；最终并发
+        校验仍由数据库事务完成。无论哪种上传，都为文件生成独立对象键。
+        """
         if (
             not filename
             or len(filename) > 500
@@ -77,7 +85,19 @@ class DocumentUploadService:
             or any(ord(char) < 32 for char in filename)
         ):
             raise UploadError(422, "INVALID_FILENAME", "文件名无效或超过 500 字符")
-        self.repository.require_write(identity, parameters.knowledge_base_id)
+        if document_id is None:
+            if parameters.confidentiality > identity.clearance:
+                raise UploadError(
+                    403, "DOCUMENT_CLEARANCE_FORBIDDEN", "文档密级超过当前账号的访问级别",
+                )
+            self.repository.require_write(identity, parameters.knowledge_base_id)
+        else:
+            # 更新不能改动所属知识库；目标知识库必须从服务端原文档读取。
+            if expected_revision_id is None:
+                raise UploadError(422, "EXPECTED_REVISION_REQUIRED", "缺少当前修订编号")
+            kb_id = self.repository.update_target(identity, document_id, expected_revision_id)
+            if kb_id != parameters.knowledge_base_id:
+                raise UploadError(409, "KNOWLEDGE_BASE_CHANGED", "文档所属知识库已变更")
         profile_id = self.repository.embedding_profile(self.settings)
         with TemporaryDirectory(prefix="zhiqing-upload-") as directory:
             path = Path(directory) / "document.tmp"
@@ -99,7 +119,7 @@ class DocumentUploadService:
                 raise UploadError(
                     413 if error.code == "FILE_TOO_LARGE" else 422, error.code, str(error)
                 ) from error
-            # UUID 保证同名及同内容的独立上传不会覆盖对象；不使用用户文件名构造路径。
+            # 修订是不可变的：UUID 保证更新不会覆盖旧对象，用户文件名也不参与对象键。
             key = (
                 f"{self.settings.minio_object_prefix.rstrip('/')}/{identity.tenant_id}/"
                 f"{parameters.knowledge_base_id}/uploads/{uuid4().hex}/"
@@ -113,7 +133,7 @@ class DocumentUploadService:
                     503, "STORAGE_UNAVAILABLE", "文件存储暂不可用，请稍后重试"
                 ) from error
             try:
-                result = self.repository.persist(
+                persist_args = (
                     identity,
                     parameters,
                     filename,
@@ -123,14 +143,29 @@ class DocumentUploadService:
                     profile_id,
                     self.settings.ingestion_max_attempts,
                 )
+                result = (
+                    self.repository.persist(*persist_args)
+                    if document_id is None
+                    else self.repository.persist(
+                        *persist_args,
+                        document_id=document_id,
+                        expected_revision_id=expected_revision_id,
+                    )
+                )
                 # 退出数据库连接前显式提交，确认文件、修订与任务已持久化才返回 202。
                 self.repository.connection.commit()
                 return result
             except UploadError:
+                # 修订冲突、文件未变化等业务错误发生在提交前。删除这次 UUID 对象，
+                # 避免用户反复提交过期版本时在 MinIO 留下无引用文件。
+                try:
+                    self.storage.remove(self.storage.bucket, key)
+                except Exception as error:
+                    logger.warning("未提交原文件清理失败：%s", type(error).__name__)
                 raise
             except Exception as error:
-                # 提交结果可能未知；不要删掉可能已被已提交修订引用的对象。
-                # 后续孤儿清理由对象前缀与已提交修订核对后处理。
+                # 连接中断等异常下，数据库提交结果可能未知。保留对象以免误删已被
+                # 修订引用的原文件；后续需按对象键与已提交修订核对后清理孤儿对象。
                 logger.error("文档记录保存失败：%s", type(error).__name__)
                 raise UploadError(
                     503, "DATABASE_UNAVAILABLE", "文档记录保存失败，请稍后重试"

@@ -9,6 +9,8 @@ from uuid import uuid4
 import pytest
 from fastapi.testclient import TestClient
 from minio.error import S3Error
+from pydantic import SecretStr
+from sqlalchemy.orm import Session
 
 from zhiqing_rag.core.config import get_settings
 from zhiqing_rag.document_processing.embedding import EmbeddedChunk
@@ -16,9 +18,13 @@ from zhiqing_rag.infrastructure.database.connection import database_connection
 from zhiqing_rag.infrastructure.object_storage import document_object_storage
 from zhiqing_rag.main import create_app
 from zhiqing_rag.modules.documents.repository import UploadRepository
+from zhiqing_rag.modules.documents.router import get_upload_identity
 from zhiqing_rag.modules.documents.schemas import UploadError
 from zhiqing_rag.modules.documents.task_queue import IngestionQueue, LeaseLostError
-from zhiqing_rag.workers import ingestion, publication
+from zhiqing_rag.modules.retrieval import active_graph_projection
+from zhiqing_rag.workers import backfill_graph, graph, ingestion, publication
+from zhiqing_rag.workers.graph_extraction import Extraction
+from zhiqing_rag.workers.graph_queue import GraphQueue
 from zhiqing_rag.workers.publication import publish_chunks
 
 pytestmark = pytest.mark.skipif(
@@ -36,7 +42,10 @@ def uploaded():
             settings.dev_upload_user_email, settings.dev_upload_tenant_code
         )
         base = repository.writable_bases(identity)[0]
-    with TestClient(create_app(), client=("127.0.0.1", 54321)) as client:
+    # 此用例验证后台入库闭环，显式注入数据库已验证的测试身份。
+    app = create_app()
+    app.dependency_overrides[get_upload_identity] = lambda: identity
+    with TestClient(app, client=("127.0.0.1", 54321)) as client:
         try:
             response = client.post(
                 "/api/documents/upload",
@@ -56,6 +65,11 @@ def uploaded():
         finally:
             with database_connection(settings) as connection:
                 repository = UploadRepository(connection, settings.db_schema)
+                repository.query(
+                    """DELETE FROM {schema}.outbox_event WHERE tenant_id = %s
+                       AND aggregate_type = 'graph_cleanup' AND aggregate_id = %s""",
+                    (identity.tenant_id, str(body["document_id"])),
+                )
                 rows = repository.query(
                     """SELECT id, document_id, bucket, object_key FROM {schema}.document_revision
                        WHERE tenant_id = %s AND original_filename = %s""",
@@ -75,6 +89,7 @@ def uploaded():
                         (identity.tenant_id, identity.tenant_id, row["document_id"]),
                     )
                     for table in (
+                        "graph_projection",
                         "background_task",
                         "document_chunk",
                         "index_generation",
@@ -200,6 +215,17 @@ async def test_delete_published_document_unpublishes_index(uploaded, monkeypatch
         verify_publication(uploaded)
         assert client.delete(f"/api/documents/{body['document_id']}").status_code == 204
         assert_document_purged(settings, identity, body)
+        with database_connection(settings) as connection:
+            repository = UploadRepository(connection, settings.db_schema)
+            cleanup = repository.query(
+                """SELECT event_type, payload FROM {schema}.outbox_event
+                   WHERE tenant_id = %s AND aggregate_type = 'graph_cleanup'
+                     AND aggregate_id = %s""",
+                (identity.tenant_id, str(body["document_id"])),
+            ).fetchone()
+            assert cleanup is not None
+            assert cleanup["event_type"] == "GRAPH_PURGE_DOCUMENT"
+            assert settings.graph_namespace in cleanup["payload"]["namespaces"]
         assert client.get(f"/api/document-tasks/{body['task_id']}").status_code == 404
     finally:
         worker.engine.dispose()
@@ -271,6 +297,18 @@ def verify_publication(uploaded):
         ).fetchone()
         assert row["active_generation_id"] == int(body["generation_id"])
         assert row["status"] == "READY" and row["vector_count"] == status["chunk_count"]
+        graph = repository.query(
+            """SELECT task.status AS task_status, projection.status AS projection_status
+               FROM {schema}.background_task task
+               JOIN {schema}.graph_projection projection ON projection.tenant_id = task.tenant_id
+                 AND projection.generation_id = task.generation_id
+               WHERE task.tenant_id = %s AND task.document_id = %s
+                 AND task.task_type = 'GRAPH' AND projection.projection_version = 1""",
+            (identity.tenant_id, int(body["document_id"])),
+        ).fetchone()
+        assert graph is not None
+        assert graph["task_status"] in {"PENDING", "RUNNING", "RETRY_WAIT", "SUCCEEDED", "FAILED"}
+        assert graph["projection_status"] in {"BUILDING", "READY", "FAILED"}
 
 
 @pytest.mark.asyncio
@@ -290,6 +328,262 @@ async def test_worker_download_parse_embed_store_publish_and_no_duplicate(upload
         verify_publication(uploaded)
     finally:
         worker.engine.dispose()
+
+
+@pytest.mark.asyncio
+async def test_backfill_existing_published_chunks_is_idempotent(uploaded, monkeypatch):
+    settings, identity, body, _ = uploaded
+    monkeypatch.setattr(ingestion, "embed_chunks", fake_embeddings)
+    worker = ingestion.IngestionWorker(settings)
+    try:
+        lease = worker.queue.claim(worker.worker_id, int(body["task_id"]))
+        if lease is None:
+            pytest.skip("外部文档 Worker 已领取临时测试任务")
+        await worker.process(lease)
+        verify_publication(uploaded)
+        with database_connection(settings) as connection:
+            repository = UploadRepository(connection, settings.db_schema)
+            repository.query(
+                "DELETE FROM {schema}.graph_projection WHERE tenant_id = %s AND generation_id = %s",
+                (identity.tenant_id, int(body["generation_id"])),
+            )
+            repository.query(
+                "DELETE FROM {schema}.background_task WHERE tenant_id = %s "
+                "AND generation_id = %s AND task_type = 'GRAPH'",
+                (identity.tenant_id, int(body["generation_id"])),
+            )
+        candidates = backfill_graph.list_missing(
+            worker.engine, tenant_id=identity.tenant_id, document_id=int(body["document_id"])
+        )
+        assert len(candidates) == 1
+        assert candidates[0].generation_id == int(body["generation_id"])
+        first = backfill_graph.enqueue_candidate(worker.engine, settings, candidates[0])
+        assert first is not None
+        assert backfill_graph.enqueue_candidate(worker.engine, settings, candidates[0]) is None
+        assert (
+            backfill_graph.list_missing(
+                worker.engine, tenant_id=identity.tenant_id, document_id=int(body["document_id"])
+            )
+            == []
+        )
+        assert first in backfill_graph.list_pending(
+            worker.engine, tenant_id=identity.tenant_id, document_id=int(body["document_id"])
+        )
+        with database_connection(settings) as connection:
+            repository = UploadRepository(connection, settings.db_schema)
+            repository.query(
+                """UPDATE {schema}.background_task SET status = 'FAILED', stage = 'FAILED',
+                   attempt_count = 1, max_attempts = 1, finished_at = clock_timestamp(),
+                   error_code = 'GRAPH_PROCESSING_FAILED' WHERE tenant_id = %s AND id = %s""",
+                (identity.tenant_id, first),
+            )
+            repository.query(
+                """UPDATE {schema}.graph_projection SET status = 'FAILED',
+                   error_code = 'GRAPH_PROCESSING_FAILED'
+                   WHERE tenant_id = %s AND generation_id = %s""",
+                (identity.tenant_id, int(body["generation_id"])),
+            )
+        assert first in backfill_graph.list_pending(
+            worker.engine,
+            tenant_id=identity.tenant_id,
+            document_id=int(body["document_id"]),
+            statuses=("FAILED",),
+        )
+        assert backfill_graph.requeue_failed(worker.engine, settings, first)
+        assert first in backfill_graph.list_pending(
+            worker.engine, tenant_id=identity.tenant_id, document_id=int(body["document_id"])
+        )
+    finally:
+        worker.engine.dispose()
+
+
+@pytest.mark.asyncio
+async def test_updated_document_retires_old_graph_after_new_publication(uploaded, monkeypatch):
+    settings, identity, body, client = uploaded
+    monkeypatch.setattr(ingestion, "embed_chunks", fake_embeddings)
+    worker = ingestion.IngestionWorker(settings)
+    try:
+        first = worker.queue.claim(worker.worker_id, int(body["task_id"]))
+        if first is None:
+            pytest.skip("外部文档 Worker 已领取临时测试任务")
+        await worker.process(first)
+        with database_connection(settings) as connection:
+            repository = UploadRepository(connection, settings.db_schema)
+            original = repository.query(
+                """SELECT original_filename FROM {schema}.document_revision
+                   WHERE tenant_id = %s AND id = %s""",
+                (identity.tenant_id, int(body["revision_id"])),
+            ).fetchone()
+        updated = client.post(
+            f"/api/documents/{body['document_id']}/revisions",
+            files={
+                "file": (
+                    original["original_filename"],
+                    b"# Updated graph revision",
+                    "text/markdown",
+                )
+            },
+            data={"expected_revision_id": body["revision_id"]},
+        )
+        assert updated.status_code == 202, updated.text
+        newer = updated.json()
+        with database_connection(settings) as connection:
+            repository = UploadRepository(connection, settings.db_schema)
+            active = repository.query(
+                "SELECT active_generation_id FROM {schema}.document "
+                "WHERE tenant_id = %s AND id = %s",
+                (identity.tenant_id, int(body["document_id"])),
+            ).fetchone()
+            assert active["active_generation_id"] == int(body["generation_id"])
+        second = worker.queue.claim(worker.worker_id, int(newer["task_id"]))
+        if second is None:
+            pytest.skip("外部文档 Worker 已领取新修订测试任务")
+        await worker.process(second)
+        with database_connection(settings) as connection:
+            repository = UploadRepository(connection, settings.db_schema)
+            active = repository.query(
+                "SELECT active_generation_id FROM {schema}.document "
+                "WHERE tenant_id = %s AND id = %s",
+                (identity.tenant_id, int(body["document_id"])),
+            ).fetchone()
+            assert active["active_generation_id"] == int(newer["generation_id"])
+            old_projection = repository.query(
+                """SELECT status FROM {schema}.graph_projection
+                   WHERE tenant_id = %s AND generation_id = %s""",
+                (identity.tenant_id, int(body["generation_id"])),
+            ).fetchone()
+            assert old_projection["status"] == "STALE"
+            cleanup = repository.query(
+                """SELECT payload FROM {schema}.outbox_event
+                   WHERE tenant_id = %s AND event_type = 'GRAPH_PURGE_GENERATION'
+                     AND deduplication_key = %s""",
+                (identity.tenant_id, f"graph:purge:{body['generation_id']}:v1"),
+            ).fetchone()
+            assert cleanup is not None
+            assert cleanup["payload"]["generation_id"] == int(body["generation_id"])
+        with Session(worker.engine) as session:
+            visible = active_graph_projection(session, identity.tenant_id, int(body["document_id"]))
+            assert visible is None or visible.generation_id == int(newer["generation_id"])
+    finally:
+        worker.engine.dispose()
+
+
+@pytest.mark.asyncio
+async def test_graph_queued_while_embeddings_are_still_running(uploaded, monkeypatch):
+    settings, identity, body, _ = uploaded
+    entered = asyncio.Event()
+    release = asyncio.Event()
+
+    async def waiting_embeddings(chunks, *, settings, stats, **kwargs):
+        entered.set()
+        await release.wait()
+        return await fake_embeddings(chunks, settings=settings, stats=stats)
+
+    monkeypatch.setattr(ingestion, "embed_chunks", waiting_embeddings)
+    worker = ingestion.IngestionWorker(settings)
+    lease = worker.queue.claim(worker.worker_id, int(body["task_id"]))
+    processing = asyncio.create_task(worker.process(lease))
+    try:
+        await asyncio.wait_for(entered.wait(), 30)
+        with database_connection(settings) as connection:
+            repository = UploadRepository(connection, settings.db_schema)
+            row = repository.query(
+                """SELECT task.stage, doc.status AS document_status,
+                          (SELECT count(*) FROM {schema}.document_chunk chunk
+                           WHERE chunk.tenant_id = task.tenant_id
+                             AND chunk.generation_id = task.generation_id) AS chunks,
+                          (SELECT count(*) FROM {schema}.document_chunk chunk
+                           WHERE chunk.tenant_id = task.tenant_id
+                             AND chunk.generation_id = task.generation_id
+                             AND chunk.embedding IS NOT NULL) AS embedded,
+                          (SELECT count(*) FROM {schema}.background_task graph
+                           WHERE graph.tenant_id = task.tenant_id
+                             AND graph.generation_id = task.generation_id
+                             AND graph.task_type = 'GRAPH') AS graph_tasks,
+                          (SELECT min(graph.id) FROM {schema}.background_task graph
+                           WHERE graph.tenant_id = task.tenant_id
+                             AND graph.generation_id = task.generation_id
+                             AND graph.task_type = 'GRAPH') AS graph_task_id
+                   FROM {schema}.background_task task
+                   JOIN {schema}.document doc ON doc.tenant_id = task.tenant_id
+                     AND doc.id = task.document_id
+                   WHERE task.tenant_id = %s AND task.id = %s""",
+                (identity.tenant_id, int(body["task_id"])),
+            ).fetchone()
+        assert row["stage"] == "EMBEDDING"
+        assert row["document_status"] == "DRAFT"
+        assert row["chunks"] > 0 and row["embedded"] == 0
+        assert row["graph_tasks"] == 1
+
+        class FakeGraphStore:
+            def __init__(self, settings):
+                pass
+
+            async def prepare(self):
+                pass
+
+            async def write_chunk(self, scope, chunk, extraction):
+                return set(), set()
+
+            async def close(self):
+                pass
+
+        async def empty_extraction(settings, content):
+            return Extraction(entities=[], relations=[])
+
+        monkeypatch.setattr(graph, "GraphStore", FakeGraphStore)
+        monkeypatch.setattr(graph, "extract_chunk", empty_extraction)
+        graph_settings = settings.model_copy(
+            update={
+                "neo4j_enabled": True,
+                "deepseek_api_key": SecretStr("test"),
+            }
+        )
+        graph_worker = graph.GraphWorker(graph_settings)
+        saved_extraction = graph_worker.queue.save_extraction
+        cache_checked = []
+
+        def save_and_check(lease, chunk, extraction):
+            saved_extraction(lease, chunk, extraction)
+            assert graph_worker.queue.cached_extraction(lease, chunk) == extraction
+            assert (
+                graph_worker.queue.cached_extraction(
+                    lease, {**chunk, "id": chunk["id"] + 100000, "chunk_index": 99}
+                )
+                == extraction
+            )
+            assert (
+                graph_worker.queue.cached_extraction(
+                    lease, {**chunk, "content": chunk["content"] + "修改"}
+                )
+                is None
+            )
+            other_model_queue = GraphQueue(
+                graph_worker.engine,
+                graph_settings.model_copy(update={"graph_extraction_model": "other-model"}),
+            )
+            assert other_model_queue.cached_extraction(lease, chunk) is None
+            cache_checked.append(chunk["id"])
+
+        graph_worker.queue.save_extraction = save_and_check
+        await graph_worker.run(once=True, task_id=row["graph_task_id"])
+        assert len(cache_checked) == row["chunks"]
+        with database_connection(settings) as connection:
+            projection = (
+                UploadRepository(connection, settings.db_schema)
+                .query(
+                    """SELECT status FROM {schema}.graph_projection
+                   WHERE tenant_id = %s AND generation_id = %s""",
+                    (identity.tenant_id, int(body["generation_id"])),
+                )
+                .fetchone()
+            )
+        assert projection["status"] == "READY"
+    finally:
+        release.set()
+        await processing
+        worker.engine.dispose()
+    verify_publication(uploaded)
 
 
 def expire(settings, lease):
@@ -391,13 +685,13 @@ async def test_stale_revision_never_embeds_or_publishes(uploaded, monkeypatch):
 async def test_partial_vector_write_rolls_back_before_retry(uploaded, monkeypatch):
     settings, identity, body, _ = uploaded
     monkeypatch.setattr(ingestion, "embed_chunks", fake_embeddings)
-    original_save = publication.save_embedded_chunks
+    original_save = publication.complete_embedded_chunks
 
     def fail_after_insert(session, scope, chunks):
         original_save(session, scope, chunks)
         raise RuntimeError("模拟分块写入后发布失败")
 
-    monkeypatch.setattr(publication, "save_embedded_chunks", fail_after_insert)
+    monkeypatch.setattr(publication, "complete_embedded_chunks", fail_after_insert)
     worker = ingestion.IngestionWorker(settings)
     try:
         lease = worker.queue.claim(worker.worker_id, int(body["task_id"]))
@@ -408,9 +702,13 @@ async def test_partial_vector_write_rolls_back_before_retry(uploaded, monkeypatc
                 UploadRepository(connection, settings.db_schema)
                 .query(
                     """SELECT status, (SELECT count(*) FROM {schema}.document_chunk
-                   WHERE tenant_id = %s AND generation_id = %s) AS chunk_count
+                   WHERE tenant_id = %s AND generation_id = %s) AS chunk_count,
+                   (SELECT count(*) FROM {schema}.document_chunk WHERE tenant_id = %s
+                     AND generation_id = %s AND embedding IS NOT NULL) AS embedded_count
                    FROM {schema}.index_generation WHERE tenant_id = %s AND id = %s""",
                     (
+                        identity.tenant_id,
+                        int(body["generation_id"]),
                         identity.tenant_id,
                         int(body["generation_id"]),
                         identity.tenant_id,
@@ -419,7 +717,18 @@ async def test_partial_vector_write_rolls_back_before_retry(uploaded, monkeypatc
                 )
                 .fetchone()
             )
-            assert row["status"] == "BUILDING" and row["chunk_count"] == 0
+            assert row["status"] == "BUILDING" and row["chunk_count"] > 0
+            assert row["embedded_count"] == 0
+            graph_task = (
+                UploadRepository(connection, settings.db_schema)
+                .query(
+                    """SELECT status FROM {schema}.background_task
+                   WHERE tenant_id = %s AND generation_id = %s AND task_type = 'GRAPH'""",
+                    (identity.tenant_id, int(body["generation_id"])),
+                )
+                .fetchone()
+            )
+            assert graph_task is not None and graph_task["status"] != "CANCELLED"
     finally:
         worker.engine.dispose()
 

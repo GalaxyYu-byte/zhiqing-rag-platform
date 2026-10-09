@@ -1,0 +1,47 @@
+[
+  {
+    "projection_id": 82,
+    "structural_passed": true,
+    "samples_supported": 5,
+    "core_query": [
+      {
+        "source": "受理人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "核对问题与影响",
+        "quote": "第一步，受理人核对问题与影响。",
+        "chunk_id": 153
+      }
+    ],
+    "gate": "PASSED"
+  },
+  {
+    "projection_id": 83,
+    "structural_passed": true,
+    "samples_supported": 5,
+    "core_query": [
+      {
+        "source": "资源负责人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "导出当前权限范围",
+        "quote": "第一步，资源负责人导出当前权限范围。",
+        "chunk_id": 298
+      }
+    ],
+    "gate": "PASSED"
+  },
+  {
+    "projection_id": 84,
+    "structural_passed": true,
+    "samples_supported": 5,
+    "core_query": [
+      {
+        "source": "转派摘要",
+        "predicate": "HAS_FIELD",
+        "target": "影响",
+        "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作",
+        "chunk_id": 330
+      }
+    ],
+    "gate": "PASSED"
+  }
+]

@@ -1,0 +1,85 @@
+{
+  "schema": "graph-rebuild-review-v1",
+  "projection_id": 76,
+  "scope": {
+    "tenant_id": 1,
+    "kb_id": 5,
+    "document_id": 56,
+    "revision_id": 56,
+    "generation_id": 56
+  },
+  "namespace": "zhiqing-rag-platform:rebuild:bb5d397d48734b4b99b254061ffef21b",
+  "input_fingerprint": "9fca051865fbf964f4f51c714f21dfe4df4aeea083f45fe1be932ff608d4e1e1",
+  "snapshot_fingerprint": "7de88e6b996d1ab4c46a2aea6d348ccc2e12eb71c12d6afc417b91f75fd04ff5",
+  "checked_at_utc": "2026-10-01T09:13:00.992041+00:00",
+  "counts": {
+    "entities": 80,
+    "evidence": 66,
+    "assertions": 48
+  },
+  "issues": [],
+  "structural_passed": true,
+  "reviewed_by": "",
+  "samples": [
+    {
+      "fact_key": "4e3e4f19e7bdbb54a19b952a18fc159135db237485cd3de51f085b59bb005fff",
+      "source": "记录分析和措施",
+      "predicate": "GOVERNED_BY",
+      "target": "如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+      "condition_text": "如果处理人记录分析和措施无法完成",
+      "quote": "如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。",
+      "chunk_id": 153,
+      "content": "第一步，受理人核对问题与影响。\n\n第二步，处理人记录分析和措施。\n\n第三步，对外窗口复核答复是否与证据一致。\n\n第四步，客户确认或按约定的沟通方式完成结果通知后再关闭。\n\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "4691709618f563bc129a3b1a3b8c39ab011a74b63d6f4b667cc874754a4c529b",
+      "source": "经办人",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "记录当前进展和下一步动作",
+      "condition_text": "尚缺少必要确认时",
+      "quote": "尚缺少必要确认时，记录当前进展和下一步动作",
+      "chunk_id": 156,
+      "content": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "ad663ccfceb1d6b6f8bb76516a0b3506856db61b49a3dc0e76eff7bb5733fdcf",
+      "source": "修订说明",
+      "predicate": "GOVERNED_BY",
+      "target": "如果补充材料改变了原有判断，应保留原件及修订说明",
+      "condition_text": "如果补充材料改变了原有判断",
+      "quote": "如果补充材料改变了原有判断，应保留原件及修订说明",
+      "chunk_id": 154,
+      "content": "保留原问题、处理过程、涉及版本、验证结果和最终沟通内容；内部讨论与外部答复分别记录，防止未经确认的猜测外发。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "a3d2b75de017aab503d2796d870e76559a2dc6952bb9eb3a9efa52018c6da44e",
+      "source": "交给有权决定的岗位处理",
+      "predicate": "ESCALATES_TO",
+      "target": "有权决定的岗位",
+      "condition_text": "条件不具备时",
+      "quote": "经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+      "chunk_id": 151,
+      "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "7638c600ced8b0f5324f0ac64594756392e2e64e9d0e8bf9c503f7041185a9ad",
+      "source": "确定谁负责发起、谁负责核对、谁负责接收最终结果",
+      "predicate": "GOVERNED_BY",
+      "target": "不要把发送通知当成已经完成交接",
+      "condition_text": null,
+      "quote": "不要把发送通知当成已经完成交接",
+      "chunk_id": 152,
+      "content": "启动这项工作时，先确认事项确实落在客户支持及协作处理人的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。对客户的沟通必须保持同一事实口径。内部可以并行排查，外部仍应有明确的接收窗口；无法确认的原因、进度和完成时间要如实说明，避免把内部猜测变成客户可依赖的承诺。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+      "verdict": "PENDING",
+      "reason": ""
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "documents": 6,
+  "chunks": 13,
+  "gold_entities": 405,
+  "gold_relations": 245,
+  "entity_outcomes": {
+    "NAME_NOT_EXTRACTED": 167,
+    "HIT": 202,
+    "WRONG_TYPE": 36
+  },
+  "relation_outcomes": {
+    "HIT": 106,
+    "SOURCE_MISSING": 32,
+    "BOTH_ENDPOINTS_MISSING": 40,
+    "TARGET_MISSING": 67
+  },
+  "draft_entity_recall": 0.49876543209876545,
+  "draft_triple_recall": 0.4326530612244898,
+  "conditional_triple_recall": {
+    "hits": 106,
+    "eligible": 106
+  },
+  "evidence_codex_suggestions": {
+    "SUPPORT": 122,
+    "INSUFFICIENT": 66,
+    "REVIEW_REQUIRED": 14
+  },
+  "quote_support_codex_suggestions": {
+    "SUPPORT": 118,
+    "INSUFFICIENT": 70,
+    "REVIEW_REQUIRED": 14
+  },
+  "predicted_entity_review_count": 266,
+  "predicted_relation_review_count": 202,
+  "normalization_pair_count": 15,
+  "full_item_human_review": "PENDING",
+  "annotation_timing": "post_prediction",
+  "gold_coverage": "all data rows; explicitly selected columns/relations; not universally exhaustive",
+  "final_precision": null,
+  "final_recall": null,
+  "final_f1": null,
+  "formal_evidence_precision": null,
+  "duplicate_entity_rate": null,
+  "merge_error_rate": null,
+  "semantic_condition_recall": null,
+  "metrics_scope": "draft structural matches exclude pause/return effect correctness and independent human acceptance"
+}

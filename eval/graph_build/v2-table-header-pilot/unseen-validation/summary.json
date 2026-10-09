@@ -1,0 +1,8 @@
+{
+  "mode": "local_unseen_xlsx_no_model_or_graph_writes",
+  "row_relation_candidates": 30,
+  "same_chunk_header_count": 13,
+  "same_row_evidence_count": 30,
+  "unseen_data_chunk_count": 13,
+  "unseen_document_count": 6
+}

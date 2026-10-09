@@ -1,0 +1,23 @@
+{
+  "started_at_utc": "2026-09-30T02:21:00.670458+00:00",
+  "frozen_manifest_sha256": "f476481034a9c1fd66476fe95ec81e4541ed63d487920d079964f57bb25e6d6a",
+  "system_prompt_sha256": "15b4b050432eee042992f4c4c55f5de86a8f53f679e661ace427d989092f5fa3",
+  "extractor_source_sha256": "30dc6a7f4643a53db1e1eb7accd2867a87c9ca9f459106a7710e357e00225137",
+  "model": "deepseek-flash",
+  "authorized_case_ids": [
+    "holdout-01-01",
+    "holdout-01-02",
+    "holdout-02-01",
+    "holdout-02-02",
+    "holdout-03-01",
+    "holdout-03-02",
+    "holdout-04-01",
+    "holdout-04-02",
+    "holdout-05-01",
+    "holdout-05-02",
+    "holdout-05-03",
+    "holdout-06-01",
+    "holdout-06-02"
+  ],
+  "mode": "isolated_fixed_prompt_holdout_no_database_writes"
+}

@@ -1,4 +1,4 @@
-"""上传接口契约、文件校验、失败边界及本机开发身份限制。"""
+"""上传接口契约、文件校验、失败边界及正式登录鉴权。"""
 
 from datetime import UTC, datetime
 from io import BytesIO
@@ -6,14 +6,12 @@ from types import SimpleNamespace
 
 import pytest
 from fastapi.testclient import TestClient
-from starlette.requests import Request
 
 from zhiqing_rag.core.config import Settings, get_settings
 from zhiqing_rag.main import create_app
 from zhiqing_rag.modules.documents.router import (
     get_upload_identity,
     get_upload_service,
-    require_local_development,
 )
 from zhiqing_rag.modules.documents.schemas import (
     KnowledgeBaseOption,
@@ -34,6 +32,7 @@ class FakeRepository:
         self.forbidden = False
         self.fail_save = False
         self.fail_commit = False
+        self.fail_update_persist = False
         self.connection = SimpleNamespace(commit=self.commit)
 
     def commit(self):
@@ -41,10 +40,13 @@ class FakeRepository:
             raise RuntimeError("secret database password")
         self.commits += 1
 
-    def writable_bases(self, identity):
+    def accessible_bases(self, identity, permission="WRITE"):
         return [
             KnowledgeBaseOption(id="11", code="TECH", name="技术知识库", description="技术资料")
         ]
+
+    def writable_bases(self, identity):
+        return self.accessible_bases(identity)
 
     def require_write(self, identity, kb_id):
         if self.forbidden or kb_id != 11:
@@ -53,15 +55,27 @@ class FakeRepository:
     def embedding_profile(self, settings):
         return 7
 
+    def update_target(self, identity, document_id, expected_revision_id):
+        if document_id != 9007199254740993:
+            raise UploadError(404, "DOCUMENT_NOT_FOUND", "文档不存在")
+        if expected_revision_id != 42:
+            raise UploadError(409, "REVISION_CONFLICT", "文档已被更新")
+        self.require_write(identity, 11)
+        return 11
+
     def persist(
-        self, identity, parameters, filename, validated, bucket, key, profile_id, max_attempts
+        self, identity, parameters, filename, validated, bucket, key, profile_id, max_attempts,
+        document_id=None, expected_revision_id=None,
     ):
         if self.fail_save:
             raise RuntimeError("secret database password")
-        self.saved.append((identity, parameters, filename, validated, bucket, key))
+        if self.fail_update_persist and document_id is not None:
+            raise UploadError(409, "REVISION_CONFLICT", "文档已被更新")
+        self.saved.append((identity, parameters, filename, validated, bucket, key,
+                           document_id, expected_revision_id))
         return UploadResult(
             document_id="9007199254740993",
-            revision_id="42",
+            revision_id="45" if document_id is not None else "42",
             generation_id="43",
             task_id="44",
             knowledge_base_id="11",
@@ -116,6 +130,43 @@ def upload(
     )
 
 
+def update(client, expected_revision_id="42", name="新版手册.md", content=b"# New handbook"):
+    return client.post(
+        "/api/documents/9007199254740993/revisions",
+        files={"file": (name, content, "text/markdown")},
+        data={"expected_revision_id": expected_revision_id},
+    )
+
+
+def test_update_reuses_document_and_returns_new_revision(api):
+    client, repository, storage = api
+    response = update(client)
+    assert response.status_code == 202
+    assert response.json()["document_id"] == "9007199254740993"
+    assert response.json()["revision_id"] == "45"
+    assert repository.saved[0][-2:] == (9007199254740993, 42)
+    assert storage.objects[0][1] == b"# New handbook"
+    assert repository.commits == 1
+
+
+def test_update_rejects_stale_revision_before_storing(api):
+    client, repository, storage = api
+    response = update(client, expected_revision_id="41")
+    assert response.status_code == 409
+    assert response.json()["detail"]["code"] == "REVISION_CONFLICT"
+    assert not repository.saved and not storage.objects
+
+
+def test_update_cleans_uncommitted_file_after_concurrent_conflict(api):
+    client, repository, storage = api
+    repository.fail_update_persist = True
+    response = update(client)
+    assert response.status_code == 409
+    assert len(storage.objects) == 1
+    assert storage.removed == [(storage.bucket, storage.objects[0][0])]
+    assert not repository.saved
+
+
 def test_upload_persists_validated_file_and_returns_string_ids(api):
     client, repository, storage = api
     response = upload(client, chunk_size="256", chunk_overlap="32")
@@ -128,6 +179,7 @@ def test_upload_persists_validated_file_and_returns_string_ids(api):
     assert repository.commits == 1
     assert repository.saved[0][1].chunk_size == 512
     assert repository.saved[0][1].chunk_overlap == 48
+    assert repository.saved[0][1].confidentiality == 1
     key, data, mime, path = storage.objects[0]
     assert key.startswith("zhiqing-rag-platform/1/11/uploads/")
     assert "手册" not in key
@@ -139,6 +191,33 @@ def test_writable_knowledge_bases(api):
     response = api[0].get("/api/knowledge-bases")
     assert response.status_code == 200
     assert response.json()[0]["id"] == "11"
+
+
+def test_upload_accepts_explicit_classification_and_rejects_invalid_values(api):
+    client, repository, _ = api
+    assert upload(client, confidentiality="0").status_code == 202
+    assert repository.saved[-1][1].confidentiality == 0
+    assert upload(client, confidentiality="3").status_code == 422
+
+
+def test_upload_cannot_exceed_member_clearance(api):
+    client, repository, storage = api
+    client.app.dependency_overrides[get_upload_identity] = lambda: UploadIdentity(1, 2, 3, None, 0)
+    response = upload(client)
+    assert response.status_code == 403
+    assert response.json()["detail"]["code"] == "DOCUMENT_CLEARANCE_FORBIDDEN"
+    assert not repository.saved and not storage.objects
+    assert upload(client, confidentiality="0").status_code == 202
+
+
+def test_readable_knowledge_bases_access_parameter_is_validated(api, monkeypatch):
+    calls = []
+    monkeypatch.setattr(
+        api[1], "accessible_bases", lambda identity, access: calls.append(access) or [],
+    )
+    assert api[0].get("/api/knowledge-bases?access=READ").status_code == 200
+    assert api[0].get("/api/knowledge-bases?access=ADMIN").status_code == 422
+    assert calls == ["READ"]
 
 
 def test_delete_document_returns_empty_success(api, monkeypatch):
@@ -320,25 +399,56 @@ def test_invalid_filename_service(api, filename):
 
 
 @pytest.mark.parametrize(
-    "host,env,enabled,origin",
+    "method,path,kwargs",
     [
-        ("192.168.1.2", "dev", True, None),
-        ("127.0.0.1", "test", True, None),
-        ("127.0.0.1", "dev", False, None),
-        ("127.0.0.1", "dev", True, "https://untrusted.example"),
+        ("GET", "/api/knowledge-bases", {}),
+        ("GET", "/api/document-upload-settings", {}),
+        ("GET", "/api/document-tasks", {}),
+        ("GET", "/api/document-tasks/page", {}),
+        ("GET", "/api/document-tasks/1", {}),
+        ("POST", "/api/document-tasks/1/retry", {}),
+        ("GET", "/api/documents/1/revisions", {}),
+        ("GET", "/api/documents/1/content?revision_id=1", {}),
+        ("GET", "/api/documents/1/preview?revision_id=1", {}),
+        ("DELETE", "/api/documents/1", {}),
+        (
+            "POST", "/api/documents/upload",
+            {
+                "files": {"file": ("test.md", b"# test", "text/markdown")},
+                "data": {"knowledge_base_id": "11"},
+            },
+        ),
+        (
+            "POST", "/api/documents/1/revisions",
+            {
+                "files": {"file": ("test.md", b"# test", "text/markdown")},
+                "data": {"expected_revision_id": "1"},
+            },
+        ),
+        (
+            "POST", "/api/documents/preview",
+            {"files": {"file": ("test.md", b"# test", "text/markdown")}},
+        ),
     ],
 )
-def test_development_identity_is_restricted(host, env, enabled, origin):
-    headers = [(b"origin", origin.encode())] if origin else []
-    request = Request({"type": "http", "client": (host, 1234), "headers": headers})
-    settings = Settings(_env_file=None, app_env=env, dev_upload_identity_enabled=enabled)
-    with pytest.raises(UploadError):
-        require_local_development(request, settings)
+def test_all_document_endpoints_require_login_before_opening_services(
+    monkeypatch, method, path, kwargs
+):
+    import zhiqing_rag.modules.documents.router as document_router
+    import zhiqing_rag.modules.identity.router as auth_router
 
+    def unexpected_connection(*args, **kwargs):
+        pytest.fail("未认证请求不得打开数据库或对象存储连接")
 
-def test_loopback_development_identity_allowed():
-    request = Request({"type": "http", "client": ("127.0.0.1", 1234), "headers": []})
-    require_local_development(request, Settings(_env_file=None))
+    monkeypatch.setattr(document_router, "database_connection", unexpected_connection)
+    monkeypatch.setattr(document_router, "document_object_storage", unexpected_connection)
+    monkeypatch.setattr(auth_router, "database_connection", unexpected_connection)
+    monkeypatch.setattr(auth_router, "create_auth_redis", unexpected_connection)
+    app = create_app()
+    with TestClient(app) as client:
+        response = client.request(method, path, **kwargs)
+    assert response.status_code == 401
+    assert response.json()["detail"]["code"] == "AUTH_REQUIRED"
 
 
 def test_cors_preflight(api):
@@ -347,10 +457,14 @@ def test_cors_preflight(api):
         headers={
             "Origin": "http://127.0.0.1:5173",
             "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "Authorization,X-Requested-With",
         },
     )
     assert response.status_code == 200
     assert response.headers["access-control-allow-origin"] == "http://127.0.0.1:5173"
+    assert response.headers["access-control-allow-credentials"] == "true"
+    allowed_headers = response.headers["access-control-allow-headers"].lower()
+    assert "authorization" in allowed_headers and "x-requested-with" in allowed_headers
 
 
 def test_request_body_limit_before_multipart_parsing(api):
@@ -382,10 +496,3 @@ def test_streamed_body_limit_without_content_length(monkeypatch):
         )
     assert response.status_code == 413
     assert response.json()["detail"]["code"] == "FILE_TOO_LARGE"
-
-
-def test_development_identity_rejects_public_binding():
-    request = Request({"type": "http", "client": ("127.0.0.1", 1234), "headers": []})
-    settings = Settings(_env_file=None, app_host="0.0.0.0")
-    with pytest.raises(UploadError):
-        require_local_development(request, settings)

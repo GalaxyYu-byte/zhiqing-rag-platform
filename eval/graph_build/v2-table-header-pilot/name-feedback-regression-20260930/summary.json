@@ -1,0 +1,83 @@
+{
+  "counts": {
+    "unavailable_chunks": 0,
+    "failed_chunks": 0,
+    "api_attempts": 16,
+    "truncated_attempts": 0,
+    "all_predicted_entities": 266,
+    "all_predicted_relations": 202,
+    "gold_entities": 57,
+    "predicted_entities": 98,
+    "exact_entity_matches": 55,
+    "gold_relations": 30,
+    "predicted_relations": 62,
+    "exact_directed_triple_matches": 24,
+    "selected_unavailable_chunks": 0,
+    "HIT": 24,
+    "conditional_eligible": 29,
+    "conditional_hits": 24,
+    "RELATION_WITH_ENDPOINTS_PRESENT": 5,
+    "MISSING_ENTITY_ENDPOINT": 1
+  },
+  "documents": {
+    "dox\\信息安全\\权限申请与复核责任矩阵.xlsx": {
+      "chunks": 2,
+      "failed_chunks": 0,
+      "all_predicted_entities": 50,
+      "all_predicted_relations": 61
+    },
+    "dox\\客户与交付\\客户工单状态与处理要求.xlsx": {
+      "chunks": 2,
+      "failed_chunks": 0,
+      "all_predicted_entities": 43,
+      "all_predicted_relations": 27
+    },
+    "dox\\客户与交付\\项目交付物核对清单.xlsx": {
+      "chunks": 2,
+      "failed_chunks": 0,
+      "all_predicted_entities": 40,
+      "all_predicted_relations": 15,
+      "gold_entities": 30,
+      "predicted_entities": 40,
+      "exact_entity_matches": 30,
+      "gold_relations": 15,
+      "predicted_relations": 15,
+      "exact_directed_triple_matches": 10
+    },
+    "dox\\研发与产品\\版本发布前核对清单.xlsx": {
+      "chunks": 2,
+      "failed_chunks": 0,
+      "all_predicted_entities": 35,
+      "all_predicted_relations": 19
+    },
+    "dox\\财务与采购\\费用凭证核验要点.xlsx": {
+      "chunks": 3,
+      "failed_chunks": 0,
+      "all_predicted_entities": 40,
+      "all_predicted_relations": 33
+    },
+    "dox\\财务与采购\\采购节点与交接说明.xlsx": {
+      "chunks": 2,
+      "failed_chunks": 0,
+      "all_predicted_entities": 58,
+      "all_predicted_relations": 47,
+      "gold_entities": 27,
+      "predicted_entities": 58,
+      "exact_entity_matches": 25,
+      "gold_relations": 15,
+      "predicted_relations": 47,
+      "exact_directed_triple_matches": 14
+    }
+  },
+  "selected_entity_recall": 0.9649122807017544,
+  "selected_triple_recall": 0.8,
+  "conditional_recall": 0.8275862068965517,
+  "full_six_document_recall": null,
+  "final_precision": null,
+  "final_f1": null,
+  "evidence_precision": null,
+  "normalization_error_rates": null,
+  "human_adjudication": "PENDING",
+  "production_promotion": "NOT_ACCEPTED",
+  "scope": "13 chunks replayed; selected draft targets cover only two of six documents"
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "query": {
+      "name": "工单经办人的核对职责",
+      "document_id": 56,
+      "source": "经办人",
+      "predicate": "RESPONSIBLE_FOR"
+    },
+    "result_count": 5,
+    "results": [
+      {
+        "source": "经办人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "遗留差异是否已经分派给具体岗位",
+        "condition": null,
+        "quote": "经办人应查看接收方能否据此继续工作",
+        "document_id": 56,
+        "chunk_id": 156
+      },
+      {
+        "source": "经办人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "记录当前进展和下一步动作",
+        "condition": "尚缺少必要确认时",
+        "quote": "尚缺少必要确认时，记录当前进展和下一步动作",
+        "document_id": 56,
+        "chunk_id": 156
+      },
+      {
+        "source": "经办人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "相关材料是否能从正式存放位置找到",
+        "condition": null,
+        "quote": "经办人应查看接收方能否据此继续工作",
+        "document_id": 56,
+        "chunk_id": 156
+      },
+      {
+        "source": "经办人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "查看接收方能否据此继续工作",
+        "condition": null,
+        "quote": "经办人应查看接收方能否据此继续工作",
+        "document_id": 56,
+        "chunk_id": 156
+      },
+      {
+        "source": "经办人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "按顺序推进",
+        "condition": null,
+        "quote": "经办人按顺序推进",
+        "document_id": 56,
+        "chunk_id": 151
+      }
+    ]
+  },
+  {
+    "query": {
+      "name": "权限负责人职责",
+      "document_id": 71,
+      "source": "负责人",
+      "predicate": "RESPONSIBLE_FOR"
+    },
+    "result_count": 1,
+    "results": [
+      {
+        "source": "负责人",
+        "predicate": "RESPONSIBLE_FOR",
+        "target": "说出当前工作理由",
+        "condition": null,
+        "quote": "负责人应能说出当前工作理由",
+        "document_id": 71,
+        "chunk_id": 303
+      }
+    ]
+  },
+  {
+    "query": {
+      "name": "转派摘要包含的字段",
+      "document_id": 76,
+      "source": "转派摘要",
+      "predicate": "HAS_FIELD"
+    },
+    "result_count": 5,
+    "results": [
+      {
+        "source": "转派摘要",
+        "predicate": "HAS_FIELD",
+        "target": "期望接手团队完成的动作",
+        "condition": null,
+        "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作",
+        "document_id": 76,
+        "chunk_id": 330
+      },
+      {
+        "source": "转派摘要",
+        "predicate": "HAS_FIELD",
+        "target": "客户诉求",
+        "condition": null,
+        "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作",
+        "document_id": 76,
+        "chunk_id": 330
+      },
+      {
+        "source": "转派摘要",
+        "predicate": "HAS_FIELD",
+        "target": "剩余问题",
+        "condition": null,
+        "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作",
+        "document_id": 76,
+        "chunk_id": 330
+      },
+      {
+        "source": "转派摘要",
+        "predicate": "HAS_FIELD",
+        "target": "已做排查",
+        "condition": null,
+        "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作",
+        "document_id": 76,
+        "chunk_id": 330
+      },
+      {
+        "source": "转派摘要",
+        "predicate": "HAS_FIELD",
+        "target": "影响",
+        "condition": null,
+        "quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作",
+        "document_id": 76,
+        "chunk_id": 330
+      }
+    ]
+  }
+]

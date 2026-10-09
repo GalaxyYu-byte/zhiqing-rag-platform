@@ -1,0 +1,223 @@
+{
+  "checked_relations": 114,
+  "rejected_relations": 24,
+  "rejections": [
+    {
+      "document_id": 56,
+      "chunk_id": 151,
+      "source": "交给有权决定的岗位处理",
+      "predicate": "ESCALATES_TO",
+      "target": "有权决定的岗位",
+      "condition": null,
+      "reason": "关系遗漏原句前置条件"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 156,
+      "source": "查看接收方能否据此继续工作",
+      "predicate": "GOVERNED_BY",
+      "target": "客户确认或按约定的沟通方式完成结果通知后再关闭",
+      "condition": null,
+      "reason": "关系遗漏原句前置条件"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 156,
+      "source": "同步修订入口说明",
+      "predicate": "OPERATES_ON",
+      "target": "入口说明",
+      "condition": null,
+      "reason": "关系遗漏原句前置条件"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "邮件",
+      "predicate": "HAS_FIELD",
+      "target": "适用对象",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "邮件",
+      "predicate": "HAS_FIELD",
+      "target": "形成时间",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "邮件",
+      "predicate": "HAS_FIELD",
+      "target": "确认人",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "清单",
+      "predicate": "HAS_FIELD",
+      "target": "适用对象",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "清单",
+      "predicate": "HAS_FIELD",
+      "target": "形成时间",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "清单",
+      "predicate": "HAS_FIELD",
+      "target": "确认人",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "正式文件",
+      "predicate": "HAS_FIELD",
+      "target": "适用对象",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "正式文件",
+      "predicate": "HAS_FIELD",
+      "target": "形成时间",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "正式文件",
+      "predicate": "HAS_FIELD",
+      "target": "确认人",
+      "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 56,
+      "chunk_id": 157,
+      "source": "实际受影响的岗位",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "把变化发给实际受影响的岗位",
+      "condition": "遇到范围变化时",
+      "reason": "职责关系把动作对象误当执行人"
+    },
+    {
+      "document_id": 71,
+      "chunk_id": 296,
+      "source": "从自己的当前状态进入相应步骤",
+      "predicate": "NEXT_STEP",
+      "target": "按文末的完成条件回看",
+      "condition": null,
+      "reason": "关系遗漏原句前置条件"
+    },
+    {
+      "document_id": 71,
+      "chunk_id": 299,
+      "source": "业务负责人",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "联系业务负责人",
+      "condition": "无法确认某项权限用途时",
+      "reason": "职责关系把动作对象误当执行人"
+    },
+    {
+      "document_id": 71,
+      "chunk_id": 300,
+      "source": "附件",
+      "predicate": "HAS_FIELD",
+      "target": "个人或客户信息",
+      "condition": null,
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 71,
+      "chunk_id": 302,
+      "source": "实际受影响的岗位",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "把变化发给实际受影响的岗位",
+      "condition": "遇到范围变化时",
+      "reason": "职责关系把动作对象误当执行人"
+    },
+    {
+      "document_id": 71,
+      "chunk_id": 303,
+      "source": "复核表",
+      "predicate": "GOVERNED_BY",
+      "target": "而不是把复核表作为最终证明",
+      "condition": null,
+      "reason": "关系遗漏原句前置条件"
+    },
+    {
+      "document_id": 71,
+      "chunk_id": 304,
+      "source": "抽查实际访问是否停止",
+      "predicate": "GOVERNED_BY",
+      "target": "撤权后应抽查实际访问是否停止",
+      "condition": null,
+      "reason": "关系遗漏原句前置条件"
+    },
+    {
+      "document_id": 76,
+      "chunk_id": 328,
+      "source": "本文",
+      "predicate": "HAS_FIELD",
+      "target": "输入",
+      "condition": null,
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 76,
+      "chunk_id": 328,
+      "source": "本文",
+      "predicate": "HAS_FIELD",
+      "target": "未结事项",
+      "condition": null,
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 76,
+      "chunk_id": 328,
+      "source": "本文",
+      "predicate": "HAS_FIELD",
+      "target": "完成判断",
+      "condition": null,
+      "reason": "字段关系缺少明确内容归属证据"
+    },
+    {
+      "document_id": 76,
+      "chunk_id": 330,
+      "source": "资料维护人",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "同步修订入口说明",
+      "condition": null,
+      "reason": "关系遗漏原句前置条件"
+    },
+    {
+      "document_id": 76,
+      "chunk_id": 331,
+      "source": "把历史移交记录删除",
+      "predicate": "OPERATES_ON",
+      "target": "历史移交记录",
+      "condition": null,
+      "reason": "否定动作不能投影为肯定关系"
+    }
+  ],
+  "metric_scope": "Deterministic gate results on v5 diagnostic outputs; not precision, recall or adjudicated error rate."
+}

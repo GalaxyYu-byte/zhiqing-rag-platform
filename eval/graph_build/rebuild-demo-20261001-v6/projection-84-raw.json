@@ -1,0 +1,1133 @@
+{
+  "projection_id": 84,
+  "projection_version": 6,
+  "namespace": "zhiqing-rag-platform:rebuild:809737e15ed24b5f9cdafcc3472fee09",
+  "model": "deepseek-flash",
+  "extractor_version": "graph-extractor-v6",
+  "status": "BUILDING",
+  "ready_at": "2026-10-01T09:28:59.534990+00:00",
+  "entity_count": 92,
+  "relation_count": 27,
+  "scope": {
+    "tenant_id": 1,
+    "kb_id": 5,
+    "document_id": 76,
+    "revision_id": 76,
+    "generation_id": 76
+  },
+  "task_id": 195,
+  "task_status": "SUCCEEDED",
+  "task_payload": {
+    "pipeline": "document-graph-rebuild-v1",
+    "entity_keys": [
+      "00332152eff25ddb50d3bb1e617a3bfb58a9cb65ac49cd275d0d61e2d15d0a96",
+      "016dbe1bd9ec6ab13ef4643ea13fb314fe4c59e3b840466d4b8343c57de4816b",
+      "0418881e2f28731dce563754fabaeba52e56387871ef627569a2ad2f1c041a54",
+      "063fb3be454333e1950bfe07364f7675abd97b6add392993733a12b310fa2017",
+      "09e69155faa5774cc7c062bb6d825057ac67759dedfbd2c59667a0f3032dc4be",
+      "0d3c3cb7558a64ebda638f397282e748e9754933b2b0aba18ecbd4471b9619a2",
+      "12035d39007f936f71cec22fbf1e54e505b97b024fcdcba05657a223cd1a6a65",
+      "159e5028c6e71faca0ea30cf1db0750f6f9a5124e39e9f254d788a11c2e87bfd",
+      "17bcaa6bd90f9b267dd4431426c03c731ebf6bfeac7e94e0443a81809d9e9d8a",
+      "1a5683c7f75b50bdeda8cbe591d4db058d36230fc6c401e5d30eacc256aa3d12",
+      "1aa791f9719d5919ebe20dd9373f80c22f0cc273633cd9acfd2a0060c8e91f96",
+      "1f3e3bd01826b5346416b29a0b40bb5aef0bef89b0104a9fba9bd947feee90db",
+      "236b0156ab21a1c36e49f13d0e88ab1f60c6e54da34df707120264f4d9af9643",
+      "23cdbfe8d310798405aea5add5b48d4711ceaf35f408e566509c1820209a7e9c",
+      "24931f70db8002261995bdfcaa409b22491c573358dc4f765e6c070971323f2c",
+      "254fe8109c83c67ec21e31c86f1c92594f2261c3a3931e3d2106069bff8dab19",
+      "26019d306f43bfad4c6e042737c82449382b88acae94cc143074e2a45ed26e6e",
+      "2b4b3551916f7260362efbecd392bf67127b755e969bfc9d326966896323fd9a",
+      "31ad65075c12bd9fbc440a5f4c482b3496ff022ee6868aa390bfba48d7d6c29e",
+      "3649bcd938b291c1577284e235c510811c63019a748c47c70b5ea8364cebf6d7",
+      "384ad1d861f7685b989b04df35e1584ae324f5925f201526db48627807542b6f",
+      "3d7b498d9cfe57934d485602af1c5e036972d8d7e50a1f32bf28d5637e36b48f",
+      "3d9fa42398be58091c4280fc07b8ea89b2bb3a115b3ec749ce039ff1606aa8b9",
+      "3f6be1b9d9fa7a3fb48c1b9253faeb8e750e0520de4d39af6700383225cf20b4",
+      "40c53f11f5964570c911ba669a99c9de845fc831446f5d0a32a682999e20c8bc",
+      "48143e6d7a0688eae04d455edcd7234a542b52a7725910f3d5f455e93a4aa29b",
+      "4d2f132a598817a4f57915d30222bafd81925358394c1bc4a2f29898a59f77f2",
+      "4ddb0ec3cde0ef6bf4d92a5c5de6b56cabeb72091748272c360df28c193c3a3d",
+      "4e6dd72851c3fc722f9d0a5832da6776288275887b5b5139eb98993780d89e6b",
+      "4fd5d8d06708f7ed77432a26654f145cc15b2ade7776a86139b0650cc2d9449c",
+      "503b7371e09d0fd09aedb5479b304f9f1be8c9c0752c55e1e6cc6c3d3b1fe48e",
+      "543d7e0a2331db1ed5ca8237d7aaf8a63ba6a87a8ad8e49e2904a6db618bd7d1",
+      "5703d632f7624660c569fd5381b2e316929b51615b2f5dc1baae65cbf475f1b7",
+      "5cf961a46990d65b6427d8d90af75026f7549552016765460fa9c5b42b173b2f",
+      "5e85635bf00a0135019bc9ee36cf134b1270d4e8d7586c2f8cf8d2ac1873e134",
+      "61a93fceec1cb86459d36af679ad05e06619a02ee4f832d05ecf4305427615a6",
+      "63194fceb303dc5cf544ecb493b4d8cc8ad74a354e9829be6aaf1da0aeae1a6a",
+      "682a9b0b4365cc7984304075548ddca22fa841f0d2e657674ae120ac6d1910dc",
+      "6b3a7bba0a9c08c5b9b999d69ba91f7a5e08d8ab0af5bbaffc50f79dd057de39",
+      "6b826bae6e41a9c2ff260c65be74513c21158358220853126d1ac90e36084b6c",
+      "6c8a81bbc8bcf247dd328788e64a6da2001e7d8638d5cb46b9e24103ac9d20a7",
+      "6d40096fc7aa0fdf89fe28e0a22fd38f6c0e17418e5abf38569b9223396b620e",
+      "73795ed52f597e853313e45d47824b25de9f2c8b0332dc39a821da0e47540932",
+      "772743827f610033ef7443382ffc3ce1c24ee5ce808c09731191f121799b889b",
+      "77b567798f9a28229c5a709788e0123313b86eaf88d9801b694c6d3f94760216",
+      "7810c7ff5b151e4230a3761ad29e8d964bff75d0833d93299d0c171aa4e0907c",
+      "7cdc3b9c24ede5ffc850a3e8d010c6fa772a22d9775a2adbf9f7c54c40b3c277",
+      "7fc69eced4c95a32c2a6c83953974d7f5d86549addaf6686572e50efcee104c3",
+      "82ebca97008d2f910b46183a065d03bc73bfbb9753d1640593d088610e15af4d",
+      "8328c3cd4bb7b8af086b6fab0644408adf292c5f351daa6e1beeba08a4042ccc",
+      "86df827468711ffd16a25da85115ee43415a2b6e34486dc0c4ef127a4fa0f648",
+      "89c0cf435a1e9a6c0f77b4c7de02528c8542810c72ab1f20f5c80ca6c4d4b010",
+      "8aa6d02cbd7266b2a2932afca32a85582f0cee6372fac800a43565bc05c8d0d1",
+      "8bed9d4c63ab7f53fea22b33ae0143a16675bb722d4ceae6dd5bf2b0d981be72",
+      "8e931aa2391ec403cfc28f3f87edb0d0b279c2e34c58c38f5e6787f3d91796d0",
+      "8f724339f0912c010e4a09bfd4890f964d64dcc5c8b49280df1514c073fa2dfa",
+      "9694bb999b938b89f80640656ee20d15cebefb673ac697729816149d9d698585",
+      "976034658137475e9b53922cfdf3cde179ba83b4e941501110d811227c3f7cb2",
+      "9eade6258745fa89eff44866991b07ac398506680b30239f6b8b309206e45c4e",
+      "a2d4ad4d3e6e8c53ef3ea9bcf1aa20097d3bb83c36501c533ea5bd92cf1ac4ff",
+      "a5d0af29152b8a8f3da3951fd5276171ceac918d8b49688a2bdd89fb311d6729",
+      "aa194b795ebd9e9f04ae93a7650c35c43076768fc7ed83f68e6d27e534305cd8",
+      "aa36aa75c7fe5a999d5ca10c78b2e021b1cea0a52c3fdee00a7d0c302a96ea50",
+      "aa96998d2f65d7bd22efc89e7ed73f21743d45b48deb1c40836502a3964c47f0",
+      "b0ec8125695823f2de4fa4faa8e32fc0abb7d79391d0dc835b1d4659b394b6da",
+      "b161484e55d21dbd7fb79b657323d0e184c81d99ee6f46d94568d76dc658ffb6",
+      "b6f7e7c8ee5f5c651ec170963c195d0ffb65625eb7c558eb783d355b088bf317",
+      "b86c601c68ef655f48c60e844413909048f1d0db3ba3733d59286f12189a8467",
+      "c3d032af0a503c5ad8211484d849dd95d3795c03ec64bb21fc6f2f4b30cba6c3",
+      "c49662bacee9f6bfdaa6798d43ced062c0286454e08218b714076e214a1db156",
+      "cb17a340ffbdbd52623cab9d49104e0fa7df3ab15d8ff6d3a023775ceaa57de2",
+      "cd0cd787bb4ddcfa2420cb2dcce423c69c610235ad7dfdddb30db27dcb77d63d",
+      "d072e7473c8dc4555ab3a1d24731f3cc34b9829c6c61db9e1ad852f1531deac6",
+      "d4008e0797a931f73a854a205ded3bac6d8a97b172193290b43a0ad5881e5900",
+      "d6bc96728af025a860b68d6ccbd27b746fd5ba97ec8f017364c941778f75e2e4",
+      "d7d1b4dc092c4e9c7766f49bc24870ddb1a062e6930d7c374cfe080a2f649049",
+      "d8a863908fec8b060e395f57be3a30143e38fe7013ae33653d115d04ee93747d",
+      "d9f2217a9efa15cd4c7912693a5f2534b068c67c33276681c14fa55014a855f3",
+      "de052c4be3e0118760346f95ccc62c9c6bb4f3521eb5f31dc61262e720a008e2",
+      "decd3b3afdfe3b8b00eed93ef37e9e3b8413b972f089dd84b14bac8f3367100c",
+      "e3802663a4933dc1b6121f43c05b5b44c487342a96f560e1e9609f85a7d081ec",
+      "e39bb39a123b524e0f98d0b9ddb3231d5f81f673af445402938f69e0cd325464",
+      "ea7fe7b76957ae3d2f7a86e3057fb36492ec5ebc0bb7f0ecf705a17e57160597",
+      "ed64004cc91a8fd02188aa1841ff857133c73aad34f8f56dceecb122ab0e6a94",
+      "f1d8cbb6b4c3d19329245a71e441f966d4e0cf016512dfab58b51465884ff260",
+      "f30c2e366b1fd9c9f8e34c1031cf1d244299b5f2eea67b94fe5a9884e75f98e8",
+      "f41c2f11e65a393375e8e19b707fa7a8e18dbfd717d97033284dfa489f1bf9e6",
+      "f44fcfad1a71019baac580d97e523b8137a2b3c594efeb6a68a43f4173cf958e",
+      "f77fa7beea792d7545fc38dc6f4dcf40454e330f189922eba3aba57b6d717d20",
+      "fc57e7d089ef25d21f94dd5c74c378e6664e81bf5c7e9b28e809100182985100",
+      "fca46d184be49cdfe620f3787bb0b1e3e234106546ed0f48e40c7b4215ccbf0b",
+      "fe9d8d27755d9c964a6505881601da1f765a05c3e7e81baba0c34f9b041a0ec3"
+    ],
+    "relation_keys": [
+      "04d4ad388351c071dfdd9ab17e5a251e1ee6fcb9aa4732dc6050b17a600289f3",
+      "2abaf63ca01c26ed039289c8763e1655a8dd5396b8bfd583b2be54ccd0e8387b",
+      "2b81892654b5369acb25a9926cad45b30e3b0c2d3c0a4f0fa0b28729bacf00af",
+      "3b3002a896daddc3f4be57a1a6cd3466e7cdd84fc18c48f259d4a9403bfa0dcf",
+      "42b0cb65aa9898fa5d111860fde8aff4e6a382765256af522a9bd56368c5efdf",
+      "48fa471b14ac95842b13b3e8d6f782ce8181c315dbf18cbd40180716aaf4a561",
+      "4a4638986132bb5dbff697e6f56644966cb9955138ee9a3ae2621af202c6bc87",
+      "4a569e92ff1d38fe04aaaf022d97518334eeb6710faccacfc0dc20bdf8db9484",
+      "50ec50008c77bd84fff35a9f117302bc43edfdb5cb45ab258dbb9141406d1398",
+      "56c9d3578b14da977ccfb7f459ae30e6e1d0ec33f026c770a6fad707ca4f24a0",
+      "6108f0af1762f2ecf186a40edac7686f54bdbf6c508cf522122ad3aa5b467329",
+      "782417997fe0ae98d89de6e4e676a2f8c712d69d35c93eee4d441548a646a80c",
+      "9428e14cc2b05b90cf5839b69f52d4f33bcd0305d2ada6679d98d051abced1fd",
+      "971fa8db99f8095cd32691ddd674b5107d489952d01d1c2a0a37c380b5e2b78d",
+      "a717ece29870fa4e1f9c85ef1a915d428da3ff41aa91df08d8c8abb19af6d22d",
+      "a86078e6a32a6d7a1008acc47d6acb071dc9eebbc54fbab335f88d605e90f6c9",
+      "b04441ef7a203a9ed6039a9d6243db740658ecb6a3f7651881d6bd548c1adf1d",
+      "b378e4bac6a95ba6612209bd1aa0a9cf6ccb7ef7933fa0393167e746c732d1d4",
+      "b6c71c0c80dd4b832814b8dea9cfc19430141304b95235e718ddbd1cda4b058e",
+      "bf259b327ee04490a32615b3ea6167d466e3820a90770ffb8df9ca8fb09f7d8d",
+      "c8f4e090d0e959d5c5d315b2c56d27d1aca3393e2c09cd996c4d14a2ae1467f3",
+      "d4f46d7d760036002d005ecfef4e418c5348f3046ba4d50478031a132e51c198",
+      "d982ee34194a1a9dc96d97b581b1eef88d5a6c9975afae87c4a639abf41b767f",
+      "db576f4f097f41b6cbdc3de948c0047fe60c9ea2b7fe7c6439ff703a49a3942e",
+      "f0ab23493be15967d98eb239f4668cfa78ac9a188c276c767ca04e469901fd2a",
+      "f8d28057c3e6f82bf941de1a98bcbc787aae1f5cdb23013045b1d32632e3e598",
+      "f96220c7f433fefbc8b7fc9b166a835a17035da6678a0c68076ed07a64bb426d"
+    ],
+    "extraction_cache": {
+      "328": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "支持受理人",
+              "type": "Actor",
+              "canonical_name": "支持受理人",
+              "evidence_quote": "发给：支持受理人与接手团队"
+            },
+            {
+              "id": "e2",
+              "name": "接手团队",
+              "type": "Actor",
+              "canonical_name": "接手团队",
+              "evidence_quote": "发给：支持受理人与接手团队"
+            },
+            {
+              "id": "e3",
+              "name": "接收方",
+              "type": "Actor",
+              "canonical_name": "接收方",
+              "evidence_quote": "接收方应能从本文找到输入、未结事项和完成判断"
+            },
+            {
+              "id": "e4",
+              "name": "客户",
+              "type": "Actor",
+              "canonical_name": "客户",
+              "evidence_quote": "对客户的沟通必须保持同一事实口径"
+            },
+            {
+              "id": "e5",
+              "name": "服务请求转派提醒",
+              "type": "Process",
+              "canonical_name": "服务请求转派提醒",
+              "evidence_quote": "工作交接说明：服务请求转派提醒"
+            },
+            {
+              "id": "e6",
+              "name": "确认事项确实落在支持受理人与接手团队的职责范围内",
+              "type": "Step",
+              "canonical_name": "确认事项确实落在支持受理人与接手团队的职责范围内",
+              "evidence_quote": "先确认事项确实落在支持受理人与接手团队的职责范围内"
+            },
+            {
+              "id": "e7",
+              "name": "确定谁负责发起、谁负责核对、谁负责接收最终结果",
+              "type": "Step",
+              "canonical_name": "确定谁负责发起、谁负责核对、谁负责接收最终结果",
+              "evidence_quote": "再确定谁负责发起、谁负责核对、谁负责接收最终结果"
+            },
+            {
+              "id": "e8",
+              "name": "把这一点列为待确认事项",
+              "type": "Step",
+              "canonical_name": "把这一点列为待确认事项",
+              "evidence_quote": "如果责任角色暂时没有确定，应把这一点列为待确认事项"
+            },
+            {
+              "id": "e9",
+              "name": "文件",
+              "type": "Material",
+              "canonical_name": "文件",
+              "evidence_quote": "交接不能只停留在发送文件"
+            },
+            {
+              "id": "e10",
+              "name": "对客户的沟通必须保持同一事实口径",
+              "type": "Rule",
+              "canonical_name": "对客户的沟通必须保持同一事实口径",
+              "evidence_quote": "对客户的沟通必须保持同一事实口径"
+            },
+            {
+              "id": "e11",
+              "name": "外部仍应有明确的接收窗口",
+              "type": "Rule",
+              "canonical_name": "外部仍应有明确的接收窗口",
+              "evidence_quote": "外部仍应有明确的接收窗口"
+            },
+            {
+              "id": "e12",
+              "name": "无法确认的原因、进度和完成时间要如实说明",
+              "type": "Rule",
+              "canonical_name": "无法确认的原因、进度和完成时间要如实说明",
+              "evidence_quote": "无法确认的原因、进度和完成时间要如实说明"
+            },
+            {
+              "id": "e13",
+              "name": "避免把内部猜测变成客户可依赖的承诺",
+              "type": "Rule",
+              "canonical_name": "避免把内部猜测变成客户可依赖的承诺",
+              "evidence_quote": "避免把内部猜测变成客户可依赖的承诺"
+            },
+            {
+              "id": "e14",
+              "name": "不要把发送通知当成已经完成交接",
+              "type": "Rule",
+              "canonical_name": "不要把发送通知当成已经完成交接",
+              "evidence_quote": "不要把发送通知当成已经完成交接"
+            },
+            {
+              "id": "e15",
+              "name": "输入",
+              "type": "Field",
+              "canonical_name": "输入",
+              "evidence_quote": "接收方应能从本文找到输入、未结事项和完成判断"
+            },
+            {
+              "id": "e16",
+              "name": "未结事项",
+              "type": "Field",
+              "canonical_name": "未结事项",
+              "evidence_quote": "接收方应能从本文找到输入、未结事项和完成判断"
+            },
+            {
+              "id": "e17",
+              "name": "完成判断",
+              "type": "Field",
+              "canonical_name": "完成判断",
+              "evidence_quote": "接收方应能从本文找到输入、未结事项和完成判断"
+            },
+            {
+              "id": "e18",
+              "name": "待确认事项",
+              "type": "State",
+              "canonical_name": "待确认事项",
+              "evidence_quote": "应把这一点列为待确认事项"
+            }
+          ],
+          "relations": []
+        },
+        "content_sha256": "b75244b21bfe4d08677e2919b0336f7bd3daec637354d500fa16c96d294d448d",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "329": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "转派记录",
+              "type": "Material",
+              "canonical_name": "转派记录",
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "id": "e2",
+              "name": "背景",
+              "type": "Field",
+              "canonical_name": "背景",
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "id": "e3",
+              "name": "紧急程度依据",
+              "type": "Field",
+              "canonical_name": "紧急程度依据",
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "id": "e4",
+              "name": "相关版本",
+              "type": "Field",
+              "canonical_name": "相关版本",
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "id": "e5",
+              "name": "承诺中的下次反馈动作",
+              "type": "Field",
+              "canonical_name": "承诺中的下次反馈动作",
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "id": "e6",
+              "name": "客户敏感材料",
+              "type": "Material",
+              "canonical_name": "客户敏感材料",
+              "evidence_quote": "客户敏感材料使用受控链接"
+            },
+            {
+              "id": "e7",
+              "name": "受控链接",
+              "type": "Resource",
+              "canonical_name": "受控链接",
+              "evidence_quote": "客户敏感材料使用受控链接"
+            },
+            {
+              "id": "e8",
+              "name": "经办材料",
+              "type": "Material",
+              "canonical_name": "经办材料",
+              "evidence_quote": "经办材料请放在团队约定的受控位置"
+            },
+            {
+              "id": "e9",
+              "name": "团队约定的受控位置",
+              "type": "Resource",
+              "canonical_name": "团队约定的受控位置",
+              "evidence_quote": "经办材料请放在团队约定的受控位置"
+            },
+            {
+              "id": "e10",
+              "name": "最初的申请",
+              "type": "Material",
+              "canonical_name": "最初的申请",
+              "evidence_quote": "让接手人能找到最初的申请、处理意见和最终确认"
+            },
+            {
+              "id": "e11",
+              "name": "处理意见",
+              "type": "Material",
+              "canonical_name": "处理意见",
+              "evidence_quote": "让接手人能找到最初的申请、处理意见和最终确认"
+            },
+            {
+              "id": "e12",
+              "name": "最终确认",
+              "type": "Material",
+              "canonical_name": "最终确认",
+              "evidence_quote": "让接手人能找到最初的申请、处理意见和最终确认"
+            },
+            {
+              "id": "e13",
+              "name": "原件",
+              "type": "Material",
+              "canonical_name": "原件",
+              "evidence_quote": "应保留原件及修订说明"
+            },
+            {
+              "id": "e14",
+              "name": "修订说明",
+              "type": "Material",
+              "canonical_name": "修订说明",
+              "evidence_quote": "应保留原件及修订说明"
+            },
+            {
+              "id": "e15",
+              "name": "旧附件",
+              "type": "Material",
+              "canonical_name": "旧附件",
+              "evidence_quote": "只覆盖旧附件，会让后续核对失去依据"
+            },
+            {
+              "id": "e16",
+              "name": "只覆盖旧附件，会让后续核对失去依据",
+              "type": "Rule",
+              "canonical_name": "只覆盖旧附件，会让后续核对失去依据",
+              "evidence_quote": "只覆盖旧附件，会让后续核对失去依据"
+            },
+            {
+              "id": "e17",
+              "name": "共享范围以实际办理需要为准",
+              "type": "Rule",
+              "canonical_name": "共享范围以实际办理需要为准",
+              "evidence_quote": "共享范围以实际办理需要为准"
+            },
+            {
+              "id": "e18",
+              "name": "涉及个人或客户信息的附件应单独检查可见人员",
+              "type": "Rule",
+              "canonical_name": "涉及个人或客户信息的附件应单独检查可见人员",
+              "evidence_quote": "涉及个人或客户信息的附件应单独检查可见人员"
+            },
+            {
+              "id": "e19",
+              "name": "受理人整理问题摘要与原始描述",
+              "type": "Step",
+              "canonical_name": "受理人整理问题摘要与原始描述",
+              "evidence_quote": "第一步，受理人整理问题摘要与原始描述"
+            },
+            {
+              "id": "e20",
+              "name": "受理人",
+              "type": "Actor",
+              "canonical_name": "受理人",
+              "evidence_quote": "第一步，受理人整理问题摘要与原始描述"
+            },
+            {
+              "id": "e21",
+              "name": "问题摘要",
+              "type": "Material",
+              "canonical_name": "问题摘要",
+              "evidence_quote": "受理人整理问题摘要与原始描述"
+            },
+            {
+              "id": "e22",
+              "name": "原始描述",
+              "type": "Material",
+              "canonical_name": "原始描述",
+              "evidence_quote": "受理人整理问题摘要与原始描述"
+            },
+            {
+              "id": "e23",
+              "name": "说明已核对和未核对的事实",
+              "type": "Step",
+              "canonical_name": "说明已核对和未核对的事实",
+              "evidence_quote": "第二步，说明已核对和未核对的事实"
+            },
+            {
+              "id": "e24",
+              "name": "选择接手团队并确认接收",
+              "type": "Step",
+              "canonical_name": "选择接手团队并确认接收",
+              "evidence_quote": "第三步，选择接手团队并确认接收"
+            },
+            {
+              "id": "e25",
+              "name": "继续保持对外沟通窗口",
+              "type": "Step",
+              "canonical_name": "继续保持对外沟通窗口",
+              "evidence_quote": "第四步，继续保持对外沟通窗口"
+            },
+            {
+              "id": "e26",
+              "name": "进入下一步前，先确认上一环节的结果已经被接收",
+              "type": "Rule",
+              "canonical_name": "进入下一步前，先确认上一环节的结果已经被接收",
+              "evidence_quote": "进入下一步前，先确认上一环节的结果已经被接收"
+            },
+            {
+              "id": "e27",
+              "name": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+              "type": "Rule",
+              "canonical_name": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+              "evidence_quote": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成"
+            },
+            {
+              "id": "e28",
+              "name": "接手方",
+              "type": "Actor",
+              "canonical_name": "接手方",
+              "evidence_quote": "接手方认为信息不足时列出缺口并回传受理人"
+            },
+            {
+              "id": "e29",
+              "name": "列出缺口并回传受理人",
+              "type": "Step",
+              "canonical_name": "列出缺口并回传受理人",
+              "evidence_quote": "接手方认为信息不足时列出缺口并回传受理人"
+            },
+            {
+              "id": "e30",
+              "name": "未经确认的转派不能把工单视为已解决",
+              "type": "Rule",
+              "canonical_name": "未经确认的转派不能把工单视为已解决",
+              "evidence_quote": "未经确认的转派不能把工单视为已解决"
+            },
+            {
+              "id": "e31",
+              "name": "例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清",
+              "type": "Rule",
+              "canonical_name": "例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清",
+              "evidence_quote": "例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清"
+            },
+            {
+              "id": "e32",
+              "name": "临时处置要标明仍待完成的核验",
+              "type": "Rule",
+              "canonical_name": "临时处置要标明仍待完成的核验",
+              "evidence_quote": "临时处置要标明仍待完成的核验"
+            },
+            {
+              "id": "e33",
+              "name": "需要其他岗位决定时，连同背景、影响和可选处理方式一并移交",
+              "type": "Rule",
+              "canonical_name": "需要其他岗位决定时，连同背景、影响和可选处理方式一并移交",
+              "evidence_quote": "需要其他岗位决定时，连同背景、影响和可选处理方式一并移交"
+            }
+          ],
+          "relations": [
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e1",
+              "target_id": "e2",
+              "condition_text": null,
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e1",
+              "target_id": "e3",
+              "condition_text": null,
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e1",
+              "target_id": "e4",
+              "condition_text": null,
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e1",
+              "target_id": "e5",
+              "condition_text": null,
+              "evidence_quote": "转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e15",
+              "target_id": "e16",
+              "condition_text": null,
+              "evidence_quote": "只覆盖旧附件，会让后续核对失去依据"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e20",
+              "target_id": "e19",
+              "condition_text": null,
+              "evidence_quote": "第一步，受理人整理问题摘要与原始描述"
+            },
+            {
+              "type": "REQUIRES_MATERIAL",
+              "source_id": "e19",
+              "target_id": "e21",
+              "condition_text": null,
+              "evidence_quote": "受理人整理问题摘要与原始描述"
+            },
+            {
+              "type": "REQUIRES_MATERIAL",
+              "source_id": "e19",
+              "target_id": "e22",
+              "condition_text": null,
+              "evidence_quote": "受理人整理问题摘要与原始描述"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e23",
+              "target_id": "e27",
+              "condition_text": "如果说明已核对和未核对的事实无法完成",
+              "evidence_quote": "如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e28",
+              "target_id": "e29",
+              "condition_text": "接手方认为信息不足时",
+              "evidence_quote": "接手方认为信息不足时列出缺口并回传受理人"
+            }
+          ]
+        },
+        "content_sha256": "d39da23255373a7256611c84a523178e7353b48f9000ba38cd03092948a18178",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "330": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "接收确认",
+              "type": "Step",
+              "canonical_name": "接收确认",
+              "evidence_quote": "接收确认"
+            },
+            {
+              "id": "e2",
+              "name": "经办人",
+              "type": "Actor",
+              "canonical_name": "经办人",
+              "evidence_quote": "经办人应查看接收方能否据此继续工作"
+            },
+            {
+              "id": "e3",
+              "name": "查看接收方能否据此继续工作",
+              "type": "Step",
+              "canonical_name": "查看接收方能否据此继续工作",
+              "evidence_quote": "经办人应查看接收方能否据此继续工作"
+            },
+            {
+              "id": "e4",
+              "name": "相关材料",
+              "type": "Material",
+              "canonical_name": "相关材料",
+              "evidence_quote": "相关材料是否能从正式存放位置找到"
+            },
+            {
+              "id": "e5",
+              "name": "遗留差异",
+              "type": "Field",
+              "canonical_name": "遗留差异",
+              "evidence_quote": "遗留差异是否已经分派给具体岗位"
+            },
+            {
+              "id": "e6",
+              "name": "具体岗位",
+              "type": "Actor",
+              "canonical_name": "具体岗位",
+              "evidence_quote": "遗留差异是否已经分派给具体岗位"
+            },
+            {
+              "id": "e7",
+              "name": "尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结",
+              "type": "Rule",
+              "canonical_name": "尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结",
+              "evidence_quote": "尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结"
+            },
+            {
+              "id": "e8",
+              "name": "记录当前进展和下一步动作",
+              "type": "Step",
+              "canonical_name": "记录当前进展和下一步动作",
+              "evidence_quote": "记录当前进展和下一步动作"
+            },
+            {
+              "id": "e9",
+              "name": "资料维护人",
+              "type": "Actor",
+              "canonical_name": "资料维护人",
+              "evidence_quote": "由资料维护人同步修订入口说明"
+            },
+            {
+              "id": "e10",
+              "name": "同步修订入口说明",
+              "type": "Step",
+              "canonical_name": "同步修订入口说明",
+              "evidence_quote": "由资料维护人同步修订入口说明"
+            },
+            {
+              "id": "e11",
+              "name": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项",
+              "type": "Rule",
+              "canonical_name": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项",
+              "evidence_quote": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项"
+            },
+            {
+              "id": "e12",
+              "name": "内部责任转移",
+              "type": "Process",
+              "canonical_name": "内部责任转移",
+              "evidence_quote": "内部责任转移不改变对客户的沟通责任"
+            },
+            {
+              "id": "e13",
+              "name": "内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复",
+              "type": "Rule",
+              "canonical_name": "内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复",
+              "evidence_quote": "内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复"
+            },
+            {
+              "id": "e14",
+              "name": "先核对各自的适用对象、形成时间与确认人",
+              "type": "Step",
+              "canonical_name": "先核对各自的适用对象、形成时间与确认人",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e15",
+              "name": "适用对象",
+              "type": "Field",
+              "canonical_name": "适用对象",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e16",
+              "name": "形成时间",
+              "type": "Field",
+              "canonical_name": "形成时间",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e17",
+              "name": "确认人",
+              "type": "Field",
+              "canonical_name": "确认人",
+              "evidence_quote": "先核对各自的适用对象、形成时间与确认人"
+            },
+            {
+              "id": "e18",
+              "name": "仅凭其中一个环节，不能推定整件事已经结束",
+              "type": "Rule",
+              "canonical_name": "仅凭其中一个环节，不能推定整件事已经结束",
+              "evidence_quote": "仅凭其中一个环节，不能推定整件事已经结束"
+            },
+            {
+              "id": "e19",
+              "name": "把变化发给实际受影响的岗位",
+              "type": "Step",
+              "canonical_name": "把变化发给实际受影响的岗位",
+              "evidence_quote": "应把变化发给实际受影响的岗位"
+            },
+            {
+              "id": "e20",
+              "name": "实际受影响的岗位",
+              "type": "Actor",
+              "canonical_name": "实际受影响的岗位",
+              "evidence_quote": "应把变化发给实际受影响的岗位"
+            },
+            {
+              "id": "e21",
+              "name": "确认原安排是否仍然成立",
+              "type": "Step",
+              "canonical_name": "确认原安排是否仍然成立",
+              "evidence_quote": "并确认原安排是否仍然成立"
+            },
+            {
+              "id": "e22",
+              "name": "转派摘要",
+              "type": "Material",
+              "canonical_name": "转派摘要",
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "id": "e23",
+              "name": "客户诉求",
+              "type": "Field",
+              "canonical_name": "客户诉求",
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "id": "e24",
+              "name": "影响",
+              "type": "Field",
+              "canonical_name": "影响",
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "id": "e25",
+              "name": "已做排查",
+              "type": "Field",
+              "canonical_name": "已做排查",
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "id": "e26",
+              "name": "剩余问题",
+              "type": "Field",
+              "canonical_name": "剩余问题",
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "id": "e27",
+              "name": "期望接手团队完成的动作",
+              "type": "Field",
+              "canonical_name": "期望接手团队完成的动作",
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "id": "e28",
+              "name": "只写“请看附件”会让接手人重新阅读全部历史，延长处理时间",
+              "type": "Rule",
+              "canonical_name": "只写“请看附件”会让接手人重新阅读全部历史，延长处理时间",
+              "evidence_quote": "只写“请看附件”会让接手人重新阅读全部历史，延长处理时间"
+            },
+            {
+              "id": "e29",
+              "name": "接收方",
+              "type": "Actor",
+              "canonical_name": "接收方",
+              "evidence_quote": "接收方确认后，原受理人继续负责客户状态通知"
+            },
+            {
+              "id": "e30",
+              "name": "原受理人",
+              "type": "Actor",
+              "canonical_name": "原受理人",
+              "evidence_quote": "接收方确认后，原受理人继续负责客户状态通知"
+            },
+            {
+              "id": "e31",
+              "name": "继续负责客户状态通知",
+              "type": "Step",
+              "canonical_name": "继续负责客户状态通知",
+              "evidence_quote": "接收方确认后，原受理人继续负责客户状态通知"
+            },
+            {
+              "id": "e32",
+              "name": "先统一答复口径",
+              "type": "Step",
+              "canonical_name": "先统一答复口径",
+              "evidence_quote": "内部讨论如改变结论，应先统一答复口径"
+            },
+            {
+              "id": "e33",
+              "name": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息",
+              "type": "Rule",
+              "canonical_name": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息",
+              "evidence_quote": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息"
+            }
+          ],
+          "relations": [
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e2",
+              "target_id": "e3",
+              "condition_text": null,
+              "evidence_quote": "经办人应查看接收方能否据此继续工作"
+            },
+            {
+              "type": "REQUIRES_MATERIAL",
+              "source_id": "e3",
+              "target_id": "e4",
+              "condition_text": null,
+              "evidence_quote": "经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e10",
+              "target_id": "e11",
+              "condition_text": "后续规则如有调整",
+              "evidence_quote": "后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e12",
+              "target_id": "e13",
+              "condition_text": null,
+              "evidence_quote": "内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e22",
+              "target_id": "e23",
+              "condition_text": null,
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e22",
+              "target_id": "e24",
+              "condition_text": null,
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e22",
+              "target_id": "e25",
+              "condition_text": null,
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e22",
+              "target_id": "e26",
+              "condition_text": null,
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "type": "HAS_FIELD",
+              "source_id": "e22",
+              "target_id": "e27",
+              "condition_text": null,
+              "evidence_quote": "转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e30",
+              "target_id": "e31",
+              "condition_text": "接收方确认后",
+              "evidence_quote": "接收方确认后，原受理人继续负责客户状态通知"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e32",
+              "target_id": "e33",
+              "condition_text": "内部讨论如改变结论",
+              "evidence_quote": "内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息"
+            }
+          ]
+        },
+        "content_sha256": "0466275adc15fdecc209fdc2730d85d0e0ab6c04cfa0c1b8d2f2a1e1fa1a3f67",
+        "extractor_version": "graph-extractor-v6"
+      },
+      "331": {
+        "model": "deepseek-flash",
+        "extraction": {
+          "entities": [
+            {
+              "id": "e1",
+              "name": "接手团队",
+              "type": "Actor",
+              "canonical_name": "接手团队",
+              "evidence_quote": "接手团队收到请求后，可先回传接收确认和预计下一次内部反馈节点"
+            },
+            {
+              "id": "e2",
+              "name": "回传接收确认",
+              "type": "Step",
+              "canonical_name": "回传接收确认",
+              "evidence_quote": "可先回传接收确认"
+            },
+            {
+              "id": "e4",
+              "name": "原受理人",
+              "type": "Actor",
+              "canonical_name": "原受理人",
+              "evidence_quote": "原受理人若仍要面对客户，应持续获得调查更新。"
+            },
+            {
+              "id": "e5",
+              "name": "持续获得调查更新",
+              "type": "Step",
+              "canonical_name": "持续获得调查更新",
+              "evidence_quote": "原受理人若仍要面对客户，应持续获得调查更新。"
+            },
+            {
+              "id": "e6",
+              "name": "多次转派说明分类或责任界定可能存在问题",
+              "type": "Rule",
+              "canonical_name": "多次转派说明分类或责任界定可能存在问题",
+              "evidence_quote": "多次转派说明分类或责任界定可能存在问题"
+            },
+            {
+              "id": "e7",
+              "name": "在工单中保留原因",
+              "type": "Step",
+              "canonical_name": "在工单中保留原因",
+              "evidence_quote": "应在工单中保留原因，而不是把历史移交记录删除。"
+            },
+            {
+              "id": "e8",
+              "name": "而不是把历史移交记录删除",
+              "type": "Rule",
+              "canonical_name": "而不是把历史移交记录删除",
+              "evidence_quote": "应在工单中保留原因，而不是把历史移交记录删除。"
+            },
+            {
+              "id": "e9",
+              "name": "工单",
+              "type": "Material",
+              "canonical_name": "工单",
+              "evidence_quote": "应在工单中保留原因，而不是把历史移交记录删除。"
+            },
+            {
+              "id": "e10",
+              "name": "转派记录",
+              "type": "Material",
+              "canonical_name": "转派记录",
+              "evidence_quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。"
+            },
+            {
+              "id": "e11",
+              "name": "转派记录尽量使用工单内的结构化位置保存",
+              "type": "Rule",
+              "canonical_name": "转派记录尽量使用工单内的结构化位置保存",
+              "evidence_quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。"
+            },
+            {
+              "id": "e12",
+              "name": "避免关键上下文只留在私人聊天中",
+              "type": "Rule",
+              "canonical_name": "避免关键上下文只留在私人聊天中",
+              "evidence_quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。"
+            },
+            {
+              "id": "e13",
+              "name": "后续处理仍应能从同一处读懂历史",
+              "type": "Step",
+              "canonical_name": "后续处理仍应能从同一处读懂历史",
+              "evidence_quote": "接手人更换后，后续处理仍应能从同一处读懂历史。"
+            }
+          ],
+          "relations": [
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e1",
+              "target_id": "e2",
+              "condition_text": "收到请求后",
+              "evidence_quote": "接手团队收到请求后，可先回传接收确认和预计下一次内部反馈节点"
+            },
+            {
+              "type": "RESPONSIBLE_FOR",
+              "source_id": "e4",
+              "target_id": "e5",
+              "condition_text": "若仍要面对客户",
+              "evidence_quote": "原受理人若仍要面对客户，应持续获得调查更新。"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e7",
+              "target_id": "e8",
+              "condition_text": null,
+              "evidence_quote": "应在工单中保留原因，而不是把历史移交记录删除。"
+            },
+            {
+              "type": "REQUIRES_MATERIAL",
+              "source_id": "e7",
+              "target_id": "e9",
+              "condition_text": null,
+              "evidence_quote": "应在工单中保留原因，而不是把历史移交记录删除。"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e10",
+              "target_id": "e11",
+              "condition_text": null,
+              "evidence_quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。"
+            },
+            {
+              "type": "GOVERNED_BY",
+              "source_id": "e10",
+              "target_id": "e12",
+              "condition_text": null,
+              "evidence_quote": "转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。"
+            }
+          ]
+        },
+        "content_sha256": "0a4046d3210c01b8d9ca5ac4c0044797e1d3f429141ba820d4191cc113b10f66",
+        "extractor_version": "graph-extractor-v6"
+      }
+    },
+    "next_chunk_index": 4,
+    "input_fingerprint": "99f6fb0e92293f0f53ab53a6fe75fde0ef8d1ea0875365ea720f5f1ebc870223",
+    "base_projection_id": 48,
+    "projection_version": 6
+  },
+  "chunks": [
+    {
+      "id": 328,
+      "chunk_index": 0,
+      "content": "工作交接说明：服务请求转派提醒\n发给：支持受理人与接手团队\n\n各位同事：\n转派的目的在于让更合适的团队继续处理，而不是把工单从自己的队列移走。接手方需要清楚问题、影响、已做动作和下一步期待。 接收方应能从本文找到输入、未结事项和完成判断，交接不能只停留在发送文件。\n\n接收前应看\n----------\n启动这项工作时，先确认事项确实落在支持受理人与接手团队的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。对客户的沟通必须保持同一事实口径。内部可以并行排查，外部仍应有明确的接收窗口；无法确认的原因、进度和完成时间要如实说明，避免把内部猜测变成客户可依赖的承诺。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+      "content_sha256": "b75244b21bfe4d08677e2919b0336f7bd3daec637354d500fa16c96d294d448d",
+      "page_number": null,
+      "section_title": null,
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:1-2",
+          "lines:4-5",
+          "lines:7-9"
+        ],
+        "heading_path": []
+      }
+    },
+    {
+      "id": 329,
+      "chunk_index": 1,
+      "content": "应移交的资料\n------------\n转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作；客户敏感材料使用受控链接。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。\n\n交接动作\n--------\n1) 第一步，受理人整理问题摘要与原始描述。\n2) 第二步，说明已核对和未核对的事实。\n3) 第三步，选择接手团队并确认接收。\n4) 第四步，继续保持对外沟通窗口。\n5) 这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n\n不能接收的情况\n--------------\n接手方认为信息不足时列出缺口并回传受理人；未经确认的转派不能把工单视为已解决。 例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其他岗位决定时，连同背景、影响和可选处理方式一并移交。",
+      "content_sha256": "d39da23255373a7256611c84a523178e7353b48f9000ba38cd03092948a18178",
+      "page_number": null,
+      "section_title": null,
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:11-13",
+          "lines:15-21",
+          "lines:23-25"
+        ],
+        "heading_path": []
+      }
+    },
+    {
+      "id": 330,
+      "chunk_index": 2,
+      "content": "接收确认\n--------\n本事项以“继续保持对外沟通窗口”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。\n\n责任如何转移\n------------\n内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。\n\n经办补充\n--------\n转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作。只写“请看附件”会让接手人重新阅读全部历史，延长处理时间。接收方确认后，原受理人继续负责客户状态通知；内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息。",
+      "content_sha256": "0466275adc15fdecc209fdc2730d85d0e0ab6c04cfa0c1b8d2f2a1e1fa1a3f67",
+      "page_number": null,
+      "section_title": null,
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:27-29",
+          "lines:31-33",
+          "lines:35-37"
+        ],
+        "heading_path": []
+      }
+    },
+    {
+      "id": 331,
+      "chunk_index": 3,
+      "content": "进一步说明\n----------\n接手团队收到请求后，可先回传接收确认和预计下一次内部反馈节点；这不等于问题已有解决时间。原受理人若仍要面对客户，应持续获得调查更新。多次转派说明分类或责任界定可能存在问题，应在工单中保留原因，而不是把历史移交记录删除。最终复盘时才能看清延迟究竟发生在排查还是责任交接。 转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。接手人更换后，后续处理仍应能从同一处读懂历史。\n\n关联检索：客户与交付 / 服务请求转派提醒 / 支持受理人与接手团队",
+      "content_sha256": "0a4046d3210c01b8d9ca5ac4c0044797e1d3f429141ba820d4191cc113b10f66",
+      "page_number": null,
+      "section_title": null,
+      "start_offset": null,
+      "end_offset": null,
+      "metadata_": {
+        "kind": "text",
+        "source_refs": [
+          "lines:39-41",
+          "lines:43-43"
+        ],
+        "heading_path": []
+      }
+    }
+  ]
+}

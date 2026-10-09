@@ -6,6 +6,7 @@ from zhiqing_rag.modules import knowledge as _knowledge  # noqa: F401
 
 from .background_task import BackgroundTask
 from .document import Document
+from .document_access_grant import DocumentAccessGrant
 from .document_chunk import DocumentChunk
 from .document_revision import DocumentRevision
 from .embedding_profile import EmbeddingProfile
@@ -15,6 +16,7 @@ from .task_attempt import TaskAttempt
 
 __all__ = [
     "Document",
+    "DocumentAccessGrant",
     "DocumentRevision",
     "EmbeddingProfile",
     "IndexGeneration",

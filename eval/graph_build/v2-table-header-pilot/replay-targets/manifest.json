@@ -1,0 +1,12 @@
+{
+  "schema_version": "graph-table-replay-targets-v1",
+  "created_at_utc": "2026-09-30T02:02:53.604027+00:00",
+  "pilot_manifest_sha256": "f7df5b56d391c634b07e35dbe100a6e86007bdd4e31865483cc08066a431536e",
+  "source_gold_sha256": "3eade8517f9210e7ee9887327e819909f4e00e69584ddadfbec1c34e6da00c18",
+  "cases_sha256": "21a6e69ec8a7926b94c036b9606acfafafeb4124aa89c4ddc1ab85006696df2e",
+  "case_count": 4,
+  "scored_entity_targets": 37,
+  "endpoint_entity_count": 38,
+  "relation_targets": 20,
+  "review_status": "codex_relocated_draft_awaiting_human_review"
+}

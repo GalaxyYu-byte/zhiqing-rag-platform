@@ -30,7 +30,11 @@ from zhiqing_rag.modules.documents.task_queue import (
     TaskLease,
 )
 from zhiqing_rag.modules.schema import SCHEMA
-from zhiqing_rag.workers.publication import publish_chunks, verify_work_access
+from zhiqing_rag.workers.publication import (
+    publish_chunks,
+    stage_chunks_for_graph,
+    verify_work_access,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -191,8 +195,17 @@ class IngestionWorker:
                 raise
             await asyncio.to_thread(self.queue.heartbeat, lease, "PARSING", 15)
             chunks = await parse_chunks(self.settings, context, path)
-            await asyncio.to_thread(self.queue.heartbeat, lease, "EMBEDDING", 50)
             await asyncio.to_thread(verify_work_access, self.engine, lease)
+            await asyncio.to_thread(
+                stage_chunks_for_graph,
+                self.engine,
+                lease,
+                chunks,
+                self.settings.graph_extraction_model,
+                self.settings.graph_namespace,
+                self.settings.graph_max_attempts,
+            )
+            await asyncio.to_thread(self.queue.heartbeat, lease, "EMBEDDING", 50)
             stats = EmbeddingStats()
             embedded = await embed_chunks(chunks, settings=self.settings, stats=stats)
             await asyncio.to_thread(self.queue.heartbeat, lease, "SAVING", 85)

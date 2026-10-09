@@ -21,8 +21,8 @@ class Settings(BaseSettings):
     upload_max_file_size: int = Field(default=50 * 1024 * 1024, gt=0)
     upload_chunk_size: int = Field(default=512, ge=128, le=2048)
     upload_chunk_overlap: int = Field(default=48, ge=0)
-    # 正式登录尚未实现；开发身份只允许 dev 环境下的本机请求。
-    dev_upload_identity_enabled: bool = True
+    # 旧联调脚本仍使用这组测试身份设置；HTTP 接口统一要求正式登录。
+    dev_upload_identity_enabled: bool = False
     dev_upload_user_email: str = "admin@zhiqing.test"
     dev_upload_tenant_code: str = "DEFAULT"
     ingestion_poll_seconds: float = Field(default=2, gt=0, le=30)
@@ -61,7 +61,7 @@ class Settings(BaseSettings):
     neo4j_username: str = "neo4j"
     neo4j_password: SecretStr = Field(default=SecretStr(""), repr=False)
     neo4j_database: str = "neo4j"
-    graph_namespace: str = "zhiqing-rag-platform"
+    graph_namespace: str = Field(default="zhiqing-rag-platform", min_length=1, max_length=100)
 
     dashscope_api_key: SecretStr = Field(default=SecretStr(""), repr=False)
     openai_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
@@ -77,9 +77,21 @@ class Settings(BaseSettings):
         "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
     )
     reranker_model: str = "gte-rerank-v2"
+    query_embedding_timeout_seconds: float = Field(default=10, gt=0, le=60)
+    query_reranker_timeout_seconds: float = Field(default=10, gt=0, le=60)
+    query_reranker_enabled: bool = True
     deepseek_api_key: SecretStr = Field(default=SecretStr(""), repr=False)
     deepseek_base_url: str = "https://api.deepseek.com"
-    query_analyzer_model: str = "deepseek-flash"
+    query_analyzer_model: str = Field(default="deepseek-flash", min_length=1, max_length=150)
+    query_analyzer_enabled: bool = True
+    query_analyzer_timeout_seconds: float = Field(default=15, gt=0, le=60)
+    query_analyzer_max_output_tokens: int = Field(default=2048, ge=512, le=8192)
+    graph_extraction_model: str = Field(default="deepseek-flash", min_length=1, max_length=150)
+    graph_poll_seconds: float = Field(default=2, gt=0, le=30)
+    graph_lease_seconds: int = Field(default=120, ge=30, le=600)
+    graph_max_attempts: int = Field(default=3, ge=1, le=10)
+    graph_llm_timeout_seconds: float = Field(default=60, gt=0, le=300)
+    graph_llm_max_output_tokens: int = Field(default=24576, ge=4096, le=32768)
 
     jwt_secret_key: SecretStr = Field(default=SecretStr(""), repr=False)
     jwt_issuer: str = "zhiqing-rag-platform"

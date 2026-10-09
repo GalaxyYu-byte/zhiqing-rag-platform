@@ -1,0 +1,47 @@
+[
+  {
+    "document_id": 56,
+    "new_projection_id": 82,
+    "new_namespace": "zhiqing-rag-platform:rebuild:e0b4c3c99a804cb5917bc0f86c2e9220",
+    "old_projection_id": 28,
+    "old_status": "STALE",
+    "status": "READY",
+    "counts": {
+      "entities": 97,
+      "evidence": 62,
+      "assertions": 17
+    },
+    "samples_support": 5,
+    "excluded_facts": 5
+  },
+  {
+    "document_id": 71,
+    "new_projection_id": 83,
+    "new_namespace": "zhiqing-rag-platform:rebuild:98704643e2f34bbf82954c0a97cb79c1",
+    "old_projection_id": 43,
+    "old_status": "STALE",
+    "status": "READY",
+    "counts": {
+      "entities": 112,
+      "evidence": 70,
+      "assertions": 28
+    },
+    "samples_support": 5,
+    "excluded_facts": 6
+  },
+  {
+    "document_id": 76,
+    "new_projection_id": 84,
+    "new_namespace": "zhiqing-rag-platform:rebuild:809737e15ed24b5f9cdafcc3472fee09",
+    "old_projection_id": 48,
+    "old_status": "STALE",
+    "status": "READY",
+    "counts": {
+      "entities": 92,
+      "evidence": 59,
+      "assertions": 22
+    },
+    "samples_support": 5,
+    "excluded_facts": 5
+  }
+]

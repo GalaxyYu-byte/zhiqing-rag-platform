@@ -1,0 +1,27 @@
+{
+  "counts": {
+    "unavailable_chunks": 4,
+    "gold_entities": 37,
+    "predicted_entities": 0,
+    "exact_entity_matches": 0,
+    "gold_relations": 20,
+    "predicted_relations": 0,
+    "exact_directed_triple_matches": 0,
+    "failed_chunks": 4,
+    "conditional_eligible": 0,
+    "conditional_hits": 0,
+    "qualified_hits": 0,
+    "EXTRACTION_UNAVAILABLE": 20
+  },
+  "evaluation_status": "INCOMPLETE_API_UNAVAILABLE",
+  "entity_recall": null,
+  "triple_recall": null,
+  "conditional_recall": null,
+  "final_precision": null,
+  "final_f1": null,
+  "evidence_precision": null,
+  "normalization_error_rates": null,
+  "human_adjudication": "pending",
+  "baseline_scope": "original_two_documents_selected_targets_16/37_entities_5/20_triples",
+  "attribution_limit": "model_time_and_chunk_boundaries_changed_no_paired_control"
+}

@@ -1,0 +1,20 @@
+{
+  "extractor_version": "graph-extractor-v1",
+  "frozen_manifest_sha256": "051977b9e26d17a87886b04715b301771389789c016439157c48458d1c1f106a",
+  "gold_manifest_sha256": "bd34ee3a8b8f48370aa9057fae8ff5b7f2b03d28c9ce9aa10283e92aa9e1817f",
+  "mode": "current_model_replay_no_postgres_or_neo4j_writes",
+  "model": "deepseek-flash",
+  "schema_version": "graph-zero-chunk-replay-v1",
+  "snapshot_sha256": "119d2c5a760449fb9a0a5efe82b583c196172d1e27d56139462d0d97f80ba6ae",
+  "started_at_utc": "2026-09-30T00:56:42.628016+00:00",
+  "system_prompt_sha256": "b11e314afaa6d4c00d58a84ee45e7b9ebc157db4c55d52d9cf277c83fd8fe236",
+  "target_case_ids": [
+    "gb-35-00",
+    "gb-35-01",
+    "gb-45-00",
+    "gb-56-00",
+    "gb-71-07",
+    "gb-73-03",
+    "gb-76-01"
+  ]
+}

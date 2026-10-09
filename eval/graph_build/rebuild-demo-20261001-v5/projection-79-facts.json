@@ -1,0 +1,346 @@
+[
+  {
+    "chunk_id": 150,
+    "source": "工单处理与关闭步骤",
+    "predicate": "APPLIES_TO",
+    "target": "客户支持及协作处理人",
+    "condition": null,
+    "quote": "工单处理与关闭步骤\n\n适用对象：客户支持及协作处理人"
+  },
+  {
+    "chunk_id": 151,
+    "source": "工单",
+    "predicate": "GOVERNED_BY",
+    "target": "关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作",
+    "condition": null,
+    "quote": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。"
+  },
+  {
+    "chunk_id": 151,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "按顺序推进",
+    "condition": null,
+    "quote": "经办人按顺序推进"
+  },
+  {
+    "chunk_id": 151,
+    "source": "交给有权决定的岗位处理",
+    "predicate": "ESCALATES_TO",
+    "target": "有权决定的岗位",
+    "condition": null,
+    "quote": "并交给有权决定的岗位处理"
+  },
+  {
+    "chunk_id": 153,
+    "source": "受理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "核对问题与影响",
+    "condition": null,
+    "quote": "第一步，受理人核对问题与影响。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "处理人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "记录分析和措施",
+    "condition": null,
+    "quote": "第二步，处理人记录分析和措施。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "对外窗口",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "复核答复是否与证据一致",
+    "condition": null,
+    "quote": "第三步，对外窗口复核答复是否与证据一致。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "客户",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "确认或按约定的沟通方式完成结果通知后再关闭",
+    "condition": null,
+    "quote": "第四步，客户确认或按约定的沟通方式完成结果通知后再关闭。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "核对问题与影响",
+    "predicate": "NEXT_STEP",
+    "target": "记录分析和措施",
+    "condition": null,
+    "quote": "第一步，受理人核对问题与影响。\n\n第二步，处理人记录分析和措施。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "记录分析和措施",
+    "predicate": "NEXT_STEP",
+    "target": "复核答复是否与证据一致",
+    "condition": null,
+    "quote": "第二步，处理人记录分析和措施。\n\n第三步，对外窗口复核答复是否与证据一致。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "复核答复是否与证据一致",
+    "predicate": "NEXT_STEP",
+    "target": "确认或按约定的沟通方式完成结果通知后再关闭",
+    "condition": null,
+    "quote": "第三步，对外窗口复核答复是否与证据一致。\n\n第四步，客户确认或按约定的沟通方式完成结果通知后再关闭。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "记录分析和措施",
+    "predicate": "GOVERNED_BY",
+    "target": "进入下一步前，先确认上一环节的结果已经被接收",
+    "condition": "进入下一步前",
+    "quote": "进入下一步前，先确认上一环节的结果已经被接收；如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+  },
+  {
+    "chunk_id": 153,
+    "source": "记录分析和措施",
+    "predicate": "GOVERNED_BY",
+    "target": "如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成",
+    "condition": "如果处理人记录分析和措施无法完成",
+    "quote": "如果处理人记录分析和措施无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。"
+  },
+  {
+    "chunk_id": 155,
+    "source": "重新评估",
+    "predicate": "GOVERNED_BY",
+    "target": "不能机械沿用旧结论",
+    "condition": "客户补充新信息时",
+    "quote": "客户补充新信息时重新评估，不能机械沿用旧结论。"
+  },
+  {
+    "chunk_id": 155,
+    "source": "标明仍待完成的核验",
+    "predicate": "GOVERNED_BY",
+    "target": "把已知情况、尚待核实的内容和临时措施分别写清",
+    "condition": null,
+    "quote": "例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验"
+  },
+  {
+    "chunk_id": 155,
+    "source": "移交",
+    "predicate": "ESCALATES_TO",
+    "target": "其他岗位",
+    "condition": "需要其他岗位决定时",
+    "quote": "需要其他岗位决定时，连同背景、影响和可选处理方式一并移交"
+  },
+  {
+    "chunk_id": 155,
+    "source": "移交",
+    "predicate": "REQUIRES_MATERIAL",
+    "target": "背景、影响和可选处理方式",
+    "condition": "需要其他岗位决定时",
+    "quote": "需要其他岗位决定时，连同背景、影响和可选处理方式一并移交"
+  },
+  {
+    "chunk_id": 156,
+    "source": "经办人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "查看接收方能否据此继续工作",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作"
+  },
+  {
+    "chunk_id": 156,
+    "source": "资料维护人",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "同步修订入口说明",
+    "condition": "后续规则如有调整",
+    "quote": "后续规则如有调整，由资料维护人同步修订入口说明"
+  },
+  {
+    "chunk_id": 156,
+    "source": "查看接收方能否据此继续工作",
+    "predicate": "GOVERNED_BY",
+    "target": "客户确认或按约定的沟通方式完成结果通知后再关闭",
+    "condition": null,
+    "quote": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作"
+  },
+  {
+    "chunk_id": 156,
+    "source": "记录当前进展和下一步动作",
+    "predicate": "GOVERNED_BY",
+    "target": "尚缺少必要确认",
+    "condition": "尚缺少必要确认时",
+    "quote": "尚缺少必要确认时，记录当前进展和下一步动作"
+  },
+  {
+    "chunk_id": 156,
+    "source": "同步修订入口说明",
+    "predicate": "GOVERNED_BY",
+    "target": "后续规则如有调整",
+    "condition": "后续规则如有调整",
+    "quote": "后续规则如有调整，由资料维护人同步修订入口说明"
+  },
+  {
+    "chunk_id": 156,
+    "source": "查看接收方能否据此继续工作",
+    "predicate": "OPERATES_ON",
+    "target": "相关材料",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到"
+  },
+  {
+    "chunk_id": 156,
+    "source": "查看接收方能否据此继续工作",
+    "predicate": "OPERATES_ON",
+    "target": "正式存放位置",
+    "condition": null,
+    "quote": "经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到"
+  },
+  {
+    "chunk_id": 156,
+    "source": "同步修订入口说明",
+    "predicate": "OPERATES_ON",
+    "target": "入口说明",
+    "condition": null,
+    "quote": "由资料维护人同步修订入口说明"
+  },
+  {
+    "chunk_id": 157,
+    "source": "邮件",
+    "predicate": "HAS_FIELD",
+    "target": "适用对象",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "邮件",
+    "predicate": "HAS_FIELD",
+    "target": "形成时间",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "邮件",
+    "predicate": "HAS_FIELD",
+    "target": "确认人",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "清单",
+    "predicate": "HAS_FIELD",
+    "target": "适用对象",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "清单",
+    "predicate": "HAS_FIELD",
+    "target": "形成时间",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "清单",
+    "predicate": "HAS_FIELD",
+    "target": "确认人",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "正式文件",
+    "predicate": "HAS_FIELD",
+    "target": "适用对象",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "正式文件",
+    "predicate": "HAS_FIELD",
+    "target": "形成时间",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "正式文件",
+    "predicate": "HAS_FIELD",
+    "target": "确认人",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "核对各自的适用对象、形成时间与确认人",
+    "predicate": "OPERATES_ON",
+    "target": "邮件",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "核对各自的适用对象、形成时间与确认人",
+    "predicate": "OPERATES_ON",
+    "target": "清单",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "核对各自的适用对象、形成时间与确认人",
+    "predicate": "OPERATES_ON",
+    "target": "正式文件",
+    "condition": "同一事项若在邮件、清单和正式文件中出现不同说法",
+    "quote": "同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "分别表述",
+    "predicate": "GOVERNED_BY",
+    "target": "仅凭其中一个环节，不能推定整件事已经结束",
+    "condition": null,
+    "quote": "经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。"
+  },
+  {
+    "chunk_id": 157,
+    "source": "实际受影响的岗位",
+    "predicate": "RESPONSIBLE_FOR",
+    "target": "把变化发给实际受影响的岗位",
+    "condition": "遇到范围变化时",
+    "quote": "遇到范围变化时，应把变化发给实际受影响的岗位"
+  },
+  {
+    "chunk_id": 157,
+    "source": "把变化发给实际受影响的岗位",
+    "predicate": "NEXT_STEP",
+    "target": "确认原安排是否仍然成立",
+    "condition": "遇到范围变化时",
+    "quote": "遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。"
+  },
+  {
+    "chunk_id": 158,
+    "source": "关闭摘要",
+    "predicate": "HAS_FIELD",
+    "target": "采用的解决方式",
+    "condition": null,
+    "quote": "关闭摘要应写出采用的解决方式和验证范围"
+  },
+  {
+    "chunk_id": 158,
+    "source": "关闭摘要",
+    "predicate": "HAS_FIELD",
+    "target": "验证范围",
+    "condition": null,
+    "quote": "关闭摘要应写出采用的解决方式和验证范围"
+  },
+  {
+    "chunk_id": 158,
+    "source": "关闭摘要",
+    "predicate": "GOVERNED_BY",
+    "target": "关闭摘要应写出采用的解决方式和验证范围",
+    "condition": null,
+    "quote": "关闭摘要应写出采用的解决方式和验证范围"
+  }
+]

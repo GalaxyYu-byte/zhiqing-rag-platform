@@ -1,0 +1,53 @@
+[
+  {
+    "tenant_id": 1,
+    "document_id": 56,
+    "title": "工单处理与关闭步骤.docx",
+    "kb_id": 5,
+    "revision_id": 56,
+    "generation_id": 56,
+    "base_projection_id": 28,
+    "base_namespace": "zhiqing-rag-platform",
+    "base_extractor": "graph-extractor-v1",
+    "chunk_count": 9,
+    "input_fingerprint": "9fca051865fbf964f4f51c714f21dfe4df4aeea083f45fe1be932ff608d4e1e1",
+    "extractor_version": "graph-extractor-v3",
+    "model": "deepseek-flash",
+    "projection_id": 70,
+    "task_id": 181
+  },
+  {
+    "tenant_id": 1,
+    "document_id": 71,
+    "title": "访问权限定期复核.md",
+    "kb_id": 2,
+    "revision_id": 71,
+    "generation_id": 71,
+    "base_projection_id": 43,
+    "base_namespace": "zhiqing-rag-platform",
+    "base_extractor": "graph-extractor-v1",
+    "chunk_count": 10,
+    "input_fingerprint": "570ec61abce35f7294fbf7a0c25e7819fd41430e7940907b74839ed73253b7ba",
+    "extractor_version": "graph-extractor-v3",
+    "model": "deepseek-flash",
+    "projection_id": 71,
+    "task_id": 182
+  },
+  {
+    "tenant_id": 1,
+    "document_id": 76,
+    "title": "服务请求转派提醒.txt",
+    "kb_id": 5,
+    "revision_id": 76,
+    "generation_id": 76,
+    "base_projection_id": 48,
+    "base_namespace": "zhiqing-rag-platform",
+    "base_extractor": "graph-extractor-v1",
+    "chunk_count": 4,
+    "input_fingerprint": "99f6fb0e92293f0f53ab53a6fe75fde0ef8d1ea0875365ea720f5f1ebc870223",
+    "extractor_version": "graph-extractor-v3",
+    "model": "deepseek-flash",
+    "projection_id": 72,
+    "task_id": 183
+  }
+]

@@ -1,0 +1,85 @@
+{
+  "schema": "graph-rebuild-review-v1",
+  "projection_id": 83,
+  "scope": {
+    "tenant_id": 1,
+    "kb_id": 2,
+    "document_id": 71,
+    "revision_id": 71,
+    "generation_id": 71
+  },
+  "namespace": "zhiqing-rag-platform:rebuild:98704643e2f34bbf82954c0a97cb79c1",
+  "input_fingerprint": "570ec61abce35f7294fbf7a0c25e7819fd41430e7940907b74839ed73253b7ba",
+  "snapshot_fingerprint": "ce447e9b790be2ff54a8157a1b4a630a5921a4ca454ee7249c760d35be88707f",
+  "checked_at_utc": "2026-10-01T09:38:45.933246+00:00",
+  "counts": {
+    "entities": 112,
+    "evidence": 70,
+    "assertions": 28
+  },
+  "issues": [],
+  "structural_passed": true,
+  "reviewed_by": "",
+  "samples": [
+    {
+      "fact_key": "55362c5d67b400e84d9455eaa62694eeb3f393b768e8d983a0a0e7de7ef5df76",
+      "source": "涉及个人或客户信息的附件",
+      "predicate": "GOVERNED_BY",
+      "target": "共享范围以实际办理需要为准",
+      "condition_text": null,
+      "quote": "共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员",
+      "chunk_id": 300,
+      "content": "保留复核范围、决定、执行结果和待处理差异；表格用角色或受控标识，不公开列出完整个人资料。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "dc7685be944ad12ae1ce4949f32d789ba9057fa20480dbe5e10b30d780798318",
+      "source": "复核结论",
+      "predicate": "HAS_STATE",
+      "target": "保留",
+      "condition_text": null,
+      "quote": "复核结论应区分“保留”“调整”“移除”和“待确认”",
+      "chunk_id": 304,
+      "content": "复核名单若混合了系统账号、共享目录和临时链接，容易遗漏不同资源的管理人。可先按资源责任拆分，再由了解工作职责的人确认必要性。撤权后应抽查实际访问是否停止，尤其注意缓存或共享链接可能仍然有效。保留权限也应留下业务原因，以便下一轮复核能判断条件是否变化，而不是一再沿用前次勾选。 复核结论应区分“保留”“调整”“移除”和“待确认”，并为待确认项设置接手角色。把所有未回复项默认为保留，无法体现复核实际完成了什么。\n\n---\n\n检索词：访问权限定期复核；信息安全；资源负责人、部门负责人和系统管理员。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "5e39c0e9a282314c304a982d5e22f2b1be97e32c310823d6b071d25420bae245",
+      "source": "复核人",
+      "predicate": "RESPONSIBLE_FOR",
+      "target": "检查调整是否生效并记录遗留项",
+      "condition_text": null,
+      "quote": "复核人检查调整是否生效并记录遗留项",
+      "chunk_id": 301,
+      "content": "本事项以“复核人检查调整是否生效并记录遗留项”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "bc77c365042e2b9916ff7a6f19d3bb39277c7850fbe30fb96fa053a7b143fb63",
+      "source": "访问控制",
+      "predicate": "GOVERNED_BY",
+      "target": "拥有链接或曾获批准并不意味着长期保留权限",
+      "condition_text": null,
+      "quote": "访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限",
+      "chunk_id": 297,
+      "content": "启动这项工作时，先确认事项确实落在资源负责人、部门负责人和系统管理员的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。访问控制从业务必要性开始，持续到共享、变更和回收。拥有链接或曾获批准并不意味着长期保留权限；敏感内容应留在受控位置，普通文档只保存定位和处理依据。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+      "verdict": "PENDING",
+      "reason": ""
+    },
+    {
+      "fact_key": "380029e5d3ff879162d08a75e0a722e8b03f5e07c67dbd5ca035993cf6e2c196",
+      "source": "抽查实际系统结果",
+      "predicate": "NEXT_STEP",
+      "target": "记录差异",
+      "condition_text": "若清单与系统不一致",
+      "quote": "执行后抽查实际系统结果，若清单与系统不一致，应记录差异并继续处理",
+      "chunk_id": 303,
+      "content": "权限清单应按资源和职责组织，避免让负责人在一长串技术角色名中盲目签字。对每项保留的访问，负责人应能说出当前工作理由；对已结束项目或离岗岗位，应明确移除或调整。执行后抽查实际系统结果，若清单与系统不一致，应记录差异并继续处理，而不是把复核表作为最终证明。",
+      "verdict": "PENDING",
+      "reason": ""
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "graph-build-human-policy-adjudication-v1",
+  "parent_cases_sha256": "e5393e794200d3cd5fa4fa2d834efa1db44dfe306d00b04877c5b1a0e3fd090f",
+  "prediction_sha256": "0fd226554fc70360bcad98fcd66b024127cd092ae432fc75e71310cec4b4dde3",
+  "files": {
+    "human_decisions.json": "476a76e5bc2739ca5ac14d1b54c3945aa57f636a54421ae77e0e11cf7f937084",
+    "cases.jsonl": "3ddfa8f5bd1a5018ccdacaf2556dc1a4e0193ea4ebf92dbf06b2c793d3844460",
+    "gold_changes.jsonl": "dc06cd8f8d3c604b5e5b2bb50e3f4e0e373e3378d9eaa1a30b48a6b9ddaf2503",
+    "policy_application_flags.jsonl": "b01b6412fed80b3dfb6972d653385d552028ce405affcc2e088576622e793c59",
+    "summary.json": "8aef4ff7b94098fdf6bddec4c264ab8a0402e9ff3399f19a9167b07db9311f13"
+  },
+  "human_policy_status": "APPROVED",
+  "full_item_human_review": "PENDING"
+}

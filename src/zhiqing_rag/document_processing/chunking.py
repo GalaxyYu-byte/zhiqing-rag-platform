@@ -51,6 +51,22 @@ def _table_markdown(rows: tuple[tuple[str, ...], ...]) -> str:
     return "\n".join(lines)
 
 
+def _table_header_index(element: ParsedElement) -> int:
+    """Find a column header after sparse XLSX title/instruction rows."""
+    rows = element.table_rows
+    if element.sheet_name is None or len(rows) < 4 or len(rows[0]) < 2:
+        return 0
+    instruction = " ".join(cell.strip() for cell in rows[1] if cell.strip())
+    if not re.match(r"^(?:使用方式|使用说明|说明|备注|提示)\s*[:：]", instruction):
+        return 0
+    for index in range(2, min(5, len(rows) - 1)):
+        if all(sum(bool(cell.strip()) for cell in row) <= 1 for row in rows[:index]) and all(
+            cell.strip() for cell in rows[index]
+        ):
+            return index
+    return 0
+
+
 def _separators(text: str) -> tuple[str, ...]:
     """先保留段落和句子，再根据中英文比例选择细粒度边界。"""
     chinese = len(re.findall(r"[\u3400-\u9fff]", text))
@@ -286,27 +302,48 @@ def chunk_document(
             if count(whole) <= budget or len(rows) == 1:
                 emit(whole, [element], kind="table", extra={"row_start": 1, "row_end": len(rows)})
                 continue
-            header = rows[:1]
+            header_index = _table_header_index(element)
+            header = (rows[header_index],)
+            repeated_prefix = prefix
+            if header_index:
+                preamble = "\n".join(
+                    " ".join(cell for cell in row if cell) for row in rows[:header_index]
+                )
+                emit(
+                    prefix + preamble,
+                    [element],
+                    kind="table",
+                    extra={"row_start": 1, "row_end": header_index, "table_preamble": True},
+                )
+                repeated_prefix = ""
             group: list[tuple[str, ...]] = []
-            group_start = 2
-            for row_number, row in enumerate(rows[1:], start=2):
-                candidate = prefix + _table_markdown(header + tuple(group) + (row,))
+            group_start = header_index + 2
+            for row_number, row in enumerate(rows[header_index + 1 :], start=group_start):
+                candidate = repeated_prefix + _table_markdown(header + tuple(group) + (row,))
                 if group and count(candidate) > budget:
                     emit(
-                        prefix + _table_markdown(header + tuple(group)),
+                        repeated_prefix + _table_markdown(header + tuple(group)),
                         [element],
                         kind="table",
-                        extra={"row_start": group_start, "row_end": row_number - 1},
+                        extra={
+                            "row_start": group_start,
+                            "row_end": row_number - 1,
+                            "table_header_row": header_index + 1,
+                        },
                     )
                     group = []
                     group_start = row_number
                 group.append(row)
             if group:
                 emit(
-                    prefix + _table_markdown(header + tuple(group)),
+                    repeated_prefix + _table_markdown(header + tuple(group)),
                     [element],
                     kind="table",
-                    extra={"row_start": group_start, "row_end": len(rows)},
+                    extra={
+                        "row_start": group_start,
+                        "row_end": len(rows),
+                        "table_header_row": header_index + 1,
+                    },
                 )
             continue
 

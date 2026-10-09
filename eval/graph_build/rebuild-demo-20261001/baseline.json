@@ -1,0 +1,802 @@
+{
+  "11": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 34,
+      "revision_id": 34,
+      "generation_id": 34
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 34,
+      "evidence": 23,
+      "assertions": 21
+    },
+    "snapshot_fingerprint": "443b473914a3d9fffd149cd1df5a995b6d94127703402b2969ee596d0ab8b964"
+  },
+  "14": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 35,
+      "revision_id": 35,
+      "generation_id": 35
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 27,
+      "evidence": 21,
+      "assertions": 13
+    },
+    "snapshot_fingerprint": "963d7082c41ce5304fb49191d5c3bd1aa6efec14dd8a0f7793f18f853706ff2b"
+  },
+  "15": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 36,
+      "revision_id": 36,
+      "generation_id": 36
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 25,
+      "evidence": 16,
+      "assertions": 21
+    },
+    "snapshot_fingerprint": "020b81d623862f45f3bcb9b5e11315e76bb9b737c2dd2763fa9f71d9bb9cace2"
+  },
+  "16": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 44,
+      "revision_id": 44,
+      "generation_id": 44
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 22,
+      "evidence": 18,
+      "assertions": 29
+    },
+    "snapshot_fingerprint": "d57824f29783581babd9f25aff6a68c4f22075fbe1ff0c08bdafd3175da6f7ac"
+  },
+  "17": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 45,
+      "revision_id": 45,
+      "generation_id": 45
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 48,
+      "evidence": 33,
+      "assertions": 19
+    },
+    "snapshot_fingerprint": "df18f45b21558a49533531085cd7f1db4116bbc229d3bc7b56f6089227a02cb1"
+  },
+  "18": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 46,
+      "revision_id": 46,
+      "generation_id": 46
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 50,
+      "evidence": 29,
+      "assertions": 32
+    },
+    "snapshot_fingerprint": "6e32e04d7a7d02ed4a763f14a3be0ddd39e0d438db522a749b80d9f2c89c43ad"
+  },
+  "19": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 47,
+      "revision_id": 47,
+      "generation_id": 47
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 4,
+      "evidence": 1,
+      "assertions": 0
+    },
+    "snapshot_fingerprint": "8a2f661c35cc00ff8c9131fb5dad11fa096508149e9df2407a942908d8b97421"
+  },
+  "20": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 48,
+      "revision_id": 48,
+      "generation_id": 48
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 0,
+      "evidence": 0,
+      "assertions": 0
+    },
+    "snapshot_fingerprint": "bc9a238d189df55b4f3a9f21c84e9aadb5c55be1529d92ee37c384c7ea0c7da5"
+  },
+  "21": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 49,
+      "revision_id": 49,
+      "generation_id": 49
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 18,
+      "evidence": 16,
+      "assertions": 11
+    },
+    "snapshot_fingerprint": "cb256be903fec429884185b433ffaa8526e6735a2344f3bc7fbbfaf22876c647"
+  },
+  "22": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 50,
+      "revision_id": 50,
+      "generation_id": 50
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 29,
+      "evidence": 23,
+      "assertions": 13
+    },
+    "snapshot_fingerprint": "496446d34312986b3996bdaf7c18372b831925a0ab9c1e656cef6ddc4d6e2219"
+  },
+  "23": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 51,
+      "revision_id": 51,
+      "generation_id": 51
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 93,
+      "evidence": 67,
+      "assertions": 58
+    },
+    "snapshot_fingerprint": "8ff15160f53aaf81cca73d67ec9e3773b01a724617db24bde6b5c06c23bc18d1"
+  },
+  "24": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 52,
+      "revision_id": 52,
+      "generation_id": 52
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 108,
+      "evidence": 89,
+      "assertions": 74
+    },
+    "snapshot_fingerprint": "a1f646b2f7c47c092b970a2fc2f2b060a4fba2e1b5573107bb25843e12adfb63"
+  },
+  "25": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 53,
+      "revision_id": 53,
+      "generation_id": 53
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 94,
+      "evidence": 58,
+      "assertions": 66
+    },
+    "snapshot_fingerprint": "8085b65598aac49176d2788385fa87b9925bdab19516f00e7df1e5fd13afa7b6"
+  },
+  "26": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 54,
+      "revision_id": 54,
+      "generation_id": 54
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 99,
+      "evidence": 63,
+      "assertions": 62
+    },
+    "snapshot_fingerprint": "1444615421889cae48364a5577c677f7b9e943d74a09bc7a7989b9cde5ec8308"
+  },
+  "27": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 55,
+      "revision_id": 55,
+      "generation_id": 55
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 103,
+      "evidence": 65,
+      "assertions": 56
+    },
+    "snapshot_fingerprint": "8270cdd87e0d628abd8e73e7dc354b7d27a26d4958bda16b5f1a759f99fcdd65"
+  },
+  "28": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 56,
+      "revision_id": 56,
+      "generation_id": 56
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 81,
+      "evidence": 64,
+      "assertions": 60
+    },
+    "snapshot_fingerprint": "d8b0ea61d35af2aed7e377e86a17d3849ffef1cc111f4a6f16ea31058fb1b81a"
+  },
+  "29": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 57,
+      "revision_id": 57,
+      "generation_id": 57
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 99,
+      "evidence": 61,
+      "assertions": 73
+    },
+    "snapshot_fingerprint": "e40d9821142785574b26d12c5b803e4e090522d3376daa3bd61e9bb1f63e5586"
+  },
+  "30": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 58,
+      "revision_id": 58,
+      "generation_id": 58
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 108,
+      "evidence": 62,
+      "assertions": 57
+    },
+    "snapshot_fingerprint": "db987b1cb578056c7049b13064e427af787f32ce6f9715be416eb3d0ca2a20bb"
+  },
+  "31": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 59,
+      "revision_id": 59,
+      "generation_id": 59
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 60,
+      "evidence": 51,
+      "assertions": 49
+    },
+    "snapshot_fingerprint": "8103cb24fbcb38f81a21c644cca77abc030e0757bf03cf59232cdb10af3b59c6"
+  },
+  "32": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 60,
+      "revision_id": 60,
+      "generation_id": 60
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 84,
+      "evidence": 71,
+      "assertions": 42
+    },
+    "snapshot_fingerprint": "2618fa26c444ee6a3a250cf673fca01a682e96661c5616d902b59bfd9995ea7e"
+  },
+  "33": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 61,
+      "revision_id": 61,
+      "generation_id": 61
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 97,
+      "evidence": 77,
+      "assertions": 57
+    },
+    "snapshot_fingerprint": "3040e59f3630f52f116381ba99a9edf18332ff5846ce33b13a7d1718a2e2d37e"
+  },
+  "34": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 62,
+      "revision_id": 62,
+      "generation_id": 62
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 100,
+      "evidence": 77,
+      "assertions": 37
+    },
+    "snapshot_fingerprint": "968d48742f434273c3abaa947e3f86cce29050f3b2268be132e7938da8381dcf"
+  },
+  "35": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 63,
+      "revision_id": 63,
+      "generation_id": 63
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 109,
+      "evidence": 81,
+      "assertions": 57
+    },
+    "snapshot_fingerprint": "c971f36c3129d01d013dc94515c49a8a7bd9d4de0a160edf657c74536213e074"
+  },
+  "36": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 64,
+      "revision_id": 64,
+      "generation_id": 64
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 91,
+      "evidence": 84,
+      "assertions": 57
+    },
+    "snapshot_fingerprint": "0a71c2ff775ff559577ace60a1a69fd5f4e72f5174e51e4f5e4fc7b523688715"
+  },
+  "37": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 65,
+      "revision_id": 65,
+      "generation_id": 65
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 104,
+      "evidence": 80,
+      "assertions": 59
+    },
+    "snapshot_fingerprint": "900bb22a138a36b3f1cffdd26ace26c7f8837a71d5a911f82ddf494d744a76f0"
+  },
+  "38": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 66,
+      "revision_id": 66,
+      "generation_id": 66
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 81,
+      "evidence": 84,
+      "assertions": 54
+    },
+    "snapshot_fingerprint": "1cb8e25664f1c5081c3c8071fa0913801259872f69e8ff17137c50d2a7a030eb"
+  },
+  "39": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 67,
+      "revision_id": 67,
+      "generation_id": 67
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 102,
+      "evidence": 86,
+      "assertions": 65
+    },
+    "snapshot_fingerprint": "fa613137ba52746333a6bef5fd9cbfc920788eb0e49b5fb86141b9360e2e5708"
+  },
+  "40": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 68,
+      "revision_id": 68,
+      "generation_id": 68
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 115,
+      "evidence": 84,
+      "assertions": 55
+    },
+    "snapshot_fingerprint": "6780a6da74028c6c6695e519116a30dd990f8c9901ba19810bda4d4d9c0e3872"
+  },
+  "41": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 69,
+      "revision_id": 69,
+      "generation_id": 69
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 86,
+      "evidence": 67,
+      "assertions": 51
+    },
+    "snapshot_fingerprint": "6f9b0ce9ce2c0fea5645d246077b1ba1c7a384183a4d007085a0cbbe7d5a2bcd"
+  },
+  "42": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 70,
+      "revision_id": 70,
+      "generation_id": 70
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 117,
+      "evidence": 81,
+      "assertions": 75
+    },
+    "snapshot_fingerprint": "9780de2158964c5ba78e6fca38887055ed0a1c685691c02b46f7fa82a610f25c"
+  },
+  "43": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 71,
+      "revision_id": 71,
+      "generation_id": 71
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 96,
+      "evidence": 80,
+      "assertions": 49
+    },
+    "snapshot_fingerprint": "f73e4a46ece7fa838be2c279bdadca4836e58070c8e2420e4e2f64efa1f1f64a"
+  },
+  "44": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 72,
+      "revision_id": 72,
+      "generation_id": 72
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 97,
+      "evidence": 74,
+      "assertions": 69
+    },
+    "snapshot_fingerprint": "f30ada8a160bd681ad112dd42ec244685361587c0959ef7cc90fb98b1d0c1c8f"
+  },
+  "45": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 73,
+      "revision_id": 73,
+      "generation_id": 73
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 65,
+      "evidence": 59,
+      "assertions": 51
+    },
+    "snapshot_fingerprint": "79d31b3ee5e0d5ead028d63f8e1b87f2b5fabf0853f41adb0fbd6f1f78846b0b"
+  },
+  "46": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 74,
+      "revision_id": 74,
+      "generation_id": 74
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 81,
+      "evidence": 74,
+      "assertions": 54
+    },
+    "snapshot_fingerprint": "e9f2c81f576084a23b765706f78d75c10026262044440971a0dd23f729ced3e8"
+  },
+  "47": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 75,
+      "revision_id": 75,
+      "generation_id": 75
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 81,
+      "evidence": 75,
+      "assertions": 59
+    },
+    "snapshot_fingerprint": "2997c4fcfe2d66929c09e8487566372ac3fbdb11190faf1b902952171b05b748"
+  },
+  "48": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 76,
+      "revision_id": 76,
+      "generation_id": 76
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 54,
+      "evidence": 48,
+      "assertions": 45
+    },
+    "snapshot_fingerprint": "3dceeecda98ba40129a8e669c43ba2bb58d1b57c336f6b3a71286530a0b1563a"
+  },
+  "49": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 77,
+      "revision_id": 77,
+      "generation_id": 77
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 43,
+      "evidence": 27,
+      "assertions": 25
+    },
+    "snapshot_fingerprint": "28e264116a715d110172c137fe4e3cc7ad501da8256e24fa4d304d6942f61a44"
+  },
+  "50": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 78,
+      "revision_id": 78,
+      "generation_id": 78
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 67,
+      "evidence": 52,
+      "assertions": 40
+    },
+    "snapshot_fingerprint": "f2eb96489943cfcf07b476bd7f8b8038064b5530a7be4fab4925452905cda150"
+  },
+  "51": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 79,
+      "revision_id": 79,
+      "generation_id": 79
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 76,
+      "evidence": 50,
+      "assertions": 63
+    },
+    "snapshot_fingerprint": "dea7f35ed13eaf4c6f3736aa9762548940c87a83a091ff1ef0a452411507d8fc"
+  },
+  "52": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 80,
+      "revision_id": 80,
+      "generation_id": 80
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 39,
+      "evidence": 31,
+      "assertions": 34
+    },
+    "snapshot_fingerprint": "346ecc96be78160b1a54141ade41ad7daba457f553de1dd21d08dc6d56c29f79"
+  },
+  "53": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 82,
+      "revision_id": 82,
+      "generation_id": 82
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 56,
+      "evidence": 53,
+      "assertions": 50
+    },
+    "snapshot_fingerprint": "9619946457edd211ce9709e18223e13d8380f62bdb856cc96280b39915168070"
+  },
+  "54": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 3,
+      "document_id": 83,
+      "revision_id": 83,
+      "generation_id": 91
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 44,
+      "evidence": 46,
+      "assertions": 56
+    },
+    "snapshot_fingerprint": "36b87b016d2f22f13b6401792fc6d8baf1abaacc25b0d64dc3bf88d960f2e077"
+  },
+  "55": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 84,
+      "revision_id": 84,
+      "generation_id": 92
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 20,
+      "evidence": 20,
+      "assertions": 18
+    },
+    "snapshot_fingerprint": "370391d7f8e138ddcf25eefafe382fa8220b48139e97b9c2776f21af5683abb7"
+  },
+  "56": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 4,
+      "document_id": 85,
+      "revision_id": 85,
+      "generation_id": 93
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 69,
+      "evidence": 72,
+      "assertions": 73
+    },
+    "snapshot_fingerprint": "ae9b2e198849a5599008fbb0ae99beb2317a0498296818813e2537a633061107"
+  },
+  "57": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 86,
+      "revision_id": 86,
+      "generation_id": 94
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 49,
+      "evidence": 49,
+      "assertions": 20
+    },
+    "snapshot_fingerprint": "d7a21650e3b60b8b3a6547283c3659665bd9c52b0b160e52198bb60be940785c"
+  },
+  "58": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 5,
+      "document_id": 87,
+      "revision_id": 87,
+      "generation_id": 95
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 54,
+      "evidence": 60,
+      "assertions": 23
+    },
+    "snapshot_fingerprint": "b3dafc3f1f644fae5fb80be2ad95161f22deaab4a258da5da4315d14e1063cd4"
+  },
+  "59": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 88,
+      "revision_id": 88,
+      "generation_id": 96
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 35,
+      "evidence": 36,
+      "assertions": 31
+    },
+    "snapshot_fingerprint": "2b45523d3578af39fcd0820faf166d83b2f6216d0cd87bea62fa23ad445f2552"
+  },
+  "60": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 89,
+      "revision_id": 89,
+      "generation_id": 97
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 49,
+      "evidence": 48,
+      "assertions": 12
+    },
+    "snapshot_fingerprint": "094e946c541cce9fe3ee56f16fba56a73a3d05d299977089827751d761747718"
+  },
+  "61": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 2,
+      "document_id": 90,
+      "revision_id": 90,
+      "generation_id": 98
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 11,
+      "evidence": 39,
+      "assertions": 28
+    },
+    "snapshot_fingerprint": "921d8f4615808cf3c69d4ffcbb1e93683068005662ddae089f42f8faa1c0b169"
+  },
+  "62": {
+    "scope": {
+      "tenant_id": 1,
+      "kb_id": 1,
+      "document_id": 81,
+      "revision_id": 103,
+      "generation_id": 111
+    },
+    "namespace": "zhiqing-rag-platform",
+    "counts": {
+      "entities": 52,
+      "evidence": 33,
+      "assertions": 29
+    },
+    "snapshot_fingerprint": "83c98f93461eba92b6746710bf0d27a4e9a521a580eb46bcbf7a528382c222b7"
+  }
+}

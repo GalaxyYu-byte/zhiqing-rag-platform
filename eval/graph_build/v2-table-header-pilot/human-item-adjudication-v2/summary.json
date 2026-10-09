@@ -1,0 +1,38 @@
+{
+  "prediction_relation_count": 202,
+  "human_reviewed_relations": 15,
+  "human_pending_relations": 187,
+  "human_chunk_support_counts": {
+    "INSUFFICIENT": 11,
+    "SUPPORT": 4
+  },
+  "human_quote_support_counts": {
+    "INSUFFICIENT": 15
+  },
+  "reviewed_ids": [
+    "holdout-01-02:relation:33",
+    "holdout-01-02:relation:34",
+    "holdout-01-02:relation:35",
+    "holdout-01-02:relation:36",
+    "holdout-01-02:relation:37",
+    "holdout-01-02:relation:38",
+    "holdout-01-02:relation:39",
+    "holdout-01-02:relation:40",
+    "holdout-02-01:relation:1",
+    "holdout-02-01:relation:2",
+    "holdout-02-01:relation:3",
+    "holdout-02-01:relation:4",
+    "holdout-02-01:relation:5",
+    "holdout-02-01:relation:6",
+    "holdout-02-01:relation:7"
+  ],
+  "entity_review": "PENDING",
+  "gold_added_policies_review": "PENDING",
+  "normalization_review": "PENDING",
+  "full_item_human_review": "PARTIAL",
+  "final_precision": null,
+  "final_recall": null,
+  "final_f1": null,
+  "formal_evidence_precision": null,
+  "scope": "fifteen explicit evidence decisions; entities and new Gold policies pending"
+}

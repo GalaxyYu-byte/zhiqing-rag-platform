@@ -1,0 +1,20 @@
+{
+  "schema_version": "graph-six-document-review-draft-v1",
+  "parent_cases_sha256": "3ddfa8f5bd1a5018ccdacaf2556dc1a4e0193ea4ebf92dbf06b2c793d3844460",
+  "prediction_sha256": "0fd226554fc70360bcad98fcd66b024127cd092ae432fc75e71310cec4b4dde3",
+  "generator_sha256": "29fa7163ebd5126b0b74d7c8e55656245b1ecdeed087d26d76a74eb5573f8e29",
+  "annotation_timing": "post_prediction",
+  "human_review": "PENDING",
+  "files": {
+    "cases.jsonl": "d663bfbc7068ce2edcf71c9b9c3ba2a85f71bf7612e28c6f9ad20985fe2648dd",
+    "entity_recall_outcomes.jsonl": "6d616534add5085a970543af898e368fdc01929cc0ae4db505dbf326ac1179e3",
+    "entity_review.jsonl": "45df20e3b94c3268c27843f1c0399ce012c6bd92f6f600d9ad2021371adbeb0b",
+    "evidence_review.jsonl": "95020125ed2e816a1946c6a088f6b44a5ae4f4b8d61765f59cea4c7a0cea5d76",
+    "normalization_review.jsonl": "8dbef4bcbc1f4d0f12bde9aa66a8e64148d30137c5659dcd72149e78fe4c0880",
+    "README.md": "04f6cced19e81aec663dabce21cf8dec8104728c088167bc5ca531d5539a2c9a",
+    "relation_loss_outcomes.jsonl": "ff3906ce4822123e72957d58c86ae1fa2cb75674dd4f3be2b219de6568fbe3fb",
+    "summary.json": "c7ca44c66c9cf9904671edd75ace6341ee36c5965199ce5691cde9d32fae8969",
+    "人工裁决清单.md": "bd672d33be0130e611d2a87a2043fdf06a538030e479ec886906249e00843117",
+    "第一批裁决-跨行错配.md": "aa462041ec97a361dc3063c8fec2c30d5ddf6e2b5f6a5b042f6cefd2d317a0e6"
+  }
+}

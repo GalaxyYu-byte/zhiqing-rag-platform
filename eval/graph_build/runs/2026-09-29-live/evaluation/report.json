@@ -1,0 +1,351 @@
+{
+  "captured_at_utc": "2026-09-29T03:11:23.433134+00:00",
+  "fact_quality": {
+    "entity": {
+      "exact_type_name_match_count": 87,
+      "f1": null,
+      "gold_count": 165,
+      "precision": null,
+      "prediction_count": 719,
+      "targeted_recall": 0.5273,
+      "type_mismatch_candidates": 3,
+      "unjudged_prediction_count": 632
+    },
+    "evidence": {
+      "evidence_precision": null,
+      "exact_gold_quote_matches_on_matched_relations": 14,
+      "reason": "Verbatim occurrence and target-Gold matching do not establish entailment for unjudged predictions.",
+      "unsupported_fact_rate": null
+    },
+    "metric_gate": "Precision, F1, duplicate/merge rates and semantic evidence rates require exhaustive or adjudicated Gold.",
+    "normalization": {
+      "duplicate_entity_rate": null,
+      "merge_error_rate": null,
+      "reason": "Gold only marks ambiguous aliases; it has no adjudicated same/different identity pairs."
+    },
+    "population": "59 frozen chunks; two synthetic OCR cases have no live predictions",
+    "relation": {
+      "condition_mismatch_on_matched_relation": 11,
+      "directed_triple_and_condition_match_count": 29,
+      "direction_error_candidates": 0,
+      "exact_directed_triple_match_count": 40,
+      "f1": null,
+      "gold_count": 91,
+      "negative_context_candidates": 10,
+      "precision": null,
+      "prediction_count": 419,
+      "targeted_recall": 0.4396,
+      "unjudged_prediction_count": 379
+    },
+    "relation_strata": {
+      "boilerplate_consistency": {
+        "gold_count": 4,
+        "matched_count": 4,
+        "targeted_recall": 1.0
+      },
+      "condition": {
+        "gold_count": 29,
+        "matched_count": 13,
+        "targeted_recall": 0.4483
+      },
+      "cross_sentence": {
+        "gold_count": 45,
+        "matched_count": 26,
+        "targeted_recall": 0.5778
+      },
+      "layout_noise": {
+        "gold_count": 14,
+        "matched_count": 0,
+        "targeted_recall": 0.0
+      },
+      "multi_entity": {
+        "gold_count": 48,
+        "matched_count": 22,
+        "targeted_recall": 0.4583
+      },
+      "multi_relation": {
+        "gold_count": 63,
+        "matched_count": 31,
+        "targeted_recall": 0.4921
+      },
+      "negation": {
+        "gold_count": 34,
+        "matched_count": 7,
+        "targeted_recall": 0.2059
+      },
+      "no_positive_graph_fact": {
+        "gold_count": 0,
+        "matched_count": 0,
+        "targeted_recall": null
+      },
+      "ordinary_fact": {
+        "gold_count": 14,
+        "matched_count": 4,
+        "targeted_recall": 0.2857
+      },
+      "similar_entity_alias": {
+        "gold_count": 7,
+        "matched_count": 0,
+        "targeted_recall": 0.0
+      },
+      "table": {
+        "gold_count": 20,
+        "matched_count": 5,
+        "targeted_recall": 0.25
+      },
+      "time": {
+        "gold_count": 18,
+        "matched_count": 4,
+        "targeted_recall": 0.2222
+      }
+    },
+    "schema_capabilities": {
+      "condition_text": true,
+      "explicit_negation_predicate": false,
+      "explicit_temporal_qualifier": false
+    }
+  },
+  "gold_manifest_sha256": "bd34ee3a8b8f48370aa9057fae8ff5b7f2b03d28c9ce9aa10283e92aa9e1817f",
+  "projection_consistency": {
+    "global_orphan_entity_scope": "selected tenants and graph namespace, not only the 10 documents",
+    "inactive_generation_evidence_count": 0,
+    "issue_counts": {
+      "ORPHAN_ENTITY_GLOBAL": 30
+    },
+    "issues": [
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "0d85568de1d9a1c9887e964c8f9fa249b9047ec8d3cd8eb18a2aadbf7964bdac"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "12a2cd6af114c2f95cd5825738bb2e8e486fda66a07e17297feb5d5a09b96ba7"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "1ca9d5396eb54fe59f40a65076c9cb8d7402c1ad654734e645f24067bd281d5d"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "25f4cafc6d0e976d6aa14833c7aa15b0d30f54bd6fb9680838a56d8a8fb92a7e"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "2732f989b28d069f6b4a22d23126a19e217a16a77143e0443bdc84e3cfb4fd56"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "3b7cfd2760ae1d15b8aa1d8ee5e0a376a74caca6c74f502a1f57e75f053ff45a"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "3bfdc5bf0004cc103defea6799541998bc20aa270a0c81543614a544ea4648a7"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "494d3d6654e0269f40f0c833ce259720aac299234095c90472e4b98fbdfdbe43"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "4b81d46f7dbaae021946e794a79b02e99e0531b6f116b68fd8ff79fcd09213a0"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "4d4ebb22dfd392ba79c5dbeb5ffb8f6e99710fcc1e63d9a47b9864b73315d60d"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "6044019128daa9bd4712a3c1d3a6595153a70c41932cacf184d76c9931fec0fc"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "61836e864a894ea020aeffe3586a673a558bea6f387bba9a681996e648eeff86"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "686be7345d560a1bd719f1fc2501a18f5407b011f41c64224cbc34d3239ce6d9"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "6f7c95509a4bde70f5d9e3ccd4515f635e04c84ede46601bffe48810ad25a080"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "7508c5a93ee035deb11349457ae875807082ffef6e9fe8d68a833e3ff95e76b3"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "785d26b4d3b22dd3041f05d9a8b5e66ab5977f1edd42e49a601261e8eb8f48d5"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "8177d9869af671abbb1b951750f309200f05a43b2ded4962a06eb84495db66a0"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "89e31ac180a3f30330413a6283cdf05a92be1b10620590ac7b4c4ffe214eabcc"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "9014c2a1e3f99b103b2d05305f42fc986f027c1473bfd8b25774ce251295b5ef"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "9742949d1e8914fcf6d6dcc10700c0b51ad14fee3862c89153b744837faab42f"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "9b83eefddbb6489e03c810264643175d131e75d460ed4987fa830b502df3440e"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "9db807d594ecb705467f9125b1b8dca8c6d727685c8a2a4c5bac40a7df24538d"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "a113b905870dd2580a1833a93f1e22c02e68b66ab89cfff9aee44d0efc1246fc"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "d1e395f57b340cc0c37a620c5e1ee711497739bbccec6b239b4f29db2833c3c7"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "d9757538edd7f683ec5023c274138f2df6a2fae4423297f9c0fda22a98b4ce1a"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "deff71c48855dd6285583ed0cc7bb4553b448f36ebdaa43d8e4f9ca7d71e60e7"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "eb604efabb7eed4061d863432b4b5f267081beeb630ff2895060f3c58672c1cb"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "f109c9a8b0d9a80714a22ac65133ec905bc8380e6c598b8959fc39152540b39d"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "f3b79f1e11610fae7b1be13a1a98ed2ceaab349791f8d044836de0ae5ac85171"
+      },
+      {
+        "code": "ORPHAN_ENTITY_GLOBAL",
+        "entity_key": "fbd780be6dec9c40851fdff0cbeb64405276dd80fad184441b914f4ecac11271"
+      }
+    ],
+    "per_generation": [
+      {
+        "active": true,
+        "document_id": 35,
+        "entity_count_neo4j": 27,
+        "entity_count_postgres": 27,
+        "evidence_count_neo4j": 21,
+        "fact_count_neo4j": 13,
+        "fact_count_postgres": 13,
+        "generation_id": 35
+      },
+      {
+        "active": true,
+        "document_id": 45,
+        "entity_count_neo4j": 48,
+        "entity_count_postgres": 48,
+        "evidence_count_neo4j": 33,
+        "fact_count_neo4j": 19,
+        "fact_count_postgres": 19,
+        "generation_id": 45
+      },
+      {
+        "active": true,
+        "document_id": 56,
+        "entity_count_neo4j": 81,
+        "entity_count_postgres": 81,
+        "evidence_count_neo4j": 64,
+        "fact_count_neo4j": 60,
+        "fact_count_postgres": 60,
+        "generation_id": 56
+      },
+      {
+        "active": true,
+        "document_id": 58,
+        "entity_count_neo4j": 108,
+        "entity_count_postgres": 108,
+        "evidence_count_neo4j": 62,
+        "fact_count_neo4j": 57,
+        "fact_count_postgres": 57,
+        "generation_id": 58
+      },
+      {
+        "active": true,
+        "document_id": 63,
+        "entity_count_neo4j": 109,
+        "entity_count_postgres": 109,
+        "evidence_count_neo4j": 81,
+        "fact_count_neo4j": 57,
+        "fact_count_postgres": 57,
+        "generation_id": 63
+      },
+      {
+        "active": true,
+        "document_id": 71,
+        "entity_count_neo4j": 96,
+        "entity_count_postgres": 96,
+        "evidence_count_neo4j": 80,
+        "fact_count_neo4j": 49,
+        "fact_count_postgres": 49,
+        "generation_id": 71
+      },
+      {
+        "active": true,
+        "document_id": 73,
+        "entity_count_neo4j": 65,
+        "entity_count_postgres": 65,
+        "evidence_count_neo4j": 59,
+        "fact_count_neo4j": 51,
+        "fact_count_postgres": 51,
+        "generation_id": 73
+      },
+      {
+        "active": true,
+        "document_id": 76,
+        "entity_count_neo4j": 54,
+        "entity_count_postgres": 54,
+        "evidence_count_neo4j": 48,
+        "fact_count_neo4j": 45,
+        "fact_count_postgres": 45,
+        "generation_id": 76
+      },
+      {
+        "active": true,
+        "document_id": 83,
+        "entity_count_neo4j": 44,
+        "entity_count_postgres": 44,
+        "evidence_count_neo4j": 46,
+        "fact_count_neo4j": 56,
+        "fact_count_postgres": 56,
+        "generation_id": 91
+      },
+      {
+        "active": true,
+        "document_id": 89,
+        "entity_count_neo4j": 49,
+        "entity_count_postgres": 49,
+        "evidence_count_neo4j": 48,
+        "fact_count_neo4j": 12,
+        "fact_count_postgres": 12,
+        "generation_id": 97
+      }
+    ],
+    "raw_extraction_cache_chunks": 0,
+    "raw_to_neo4j_status": "unverified_missing_raw_extractions",
+    "selected_generation_counts": {
+      "assertions": 419,
+      "entities_by_generation_sum": 681,
+      "evidence": 542,
+      "evidence_with_valid_quote_offset": 542
+    }
+  },
+  "review_queue_count": 1011,
+  "schema_version": "graph-quality-report-v1",
+  "snapshot_sha256": "119d2c5a760449fb9a0a5efe82b583c196172d1e27d56139462d0d97f80ba6ae"
+}
