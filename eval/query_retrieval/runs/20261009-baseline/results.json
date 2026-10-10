@@ -1,0 +1,2970 @@
+{
+  "created_at": "2026-10-09T21:19:40.043158+08:00",
+  "dataset_sha256": "a00f83dc680aa4659c0957d0e9f49b8704f92188a2f2ac4755006bfdc46a0af2",
+  "analyzer_model": "deepseek-flash",
+  "embedding_model": "text-embedding-v3",
+  "reranker_model": "gte-rerank-v2",
+  "results": [
+    {
+      "id": "Q01",
+      "query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+      "kind": "answerable",
+      "elapsed_ms": 9455,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "35",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+          "analysis": {
+            "intent": "procedure",
+            "entities": [
+              {
+                "text": "新员工",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工准备入职资料时，需要本人逐项核对哪些信息？"
+                }
+              },
+              {
+                "text": "入职资料",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工准备入职资料时，需要本人逐项核对哪些信息？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "逐项核对",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "需要本人逐项核对哪些信息？"
+                }
+              },
+              {
+                "text": "信息",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "需要本人逐项核对哪些信息？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 2366
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+          "query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "65",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 0,
+              "content": "内部工作提示 / 人事与行政\n员工入职资料准备说明\n适用对象：新员工与用人部门\n各位同事：\n这份说明用于帮助新员工在入职前后准备可核验的个人资料，也让用人部门和人事经办人明确哪些事项需要本人确认。\n资料收集只服务于劳动关系建立、薪酬办理和工作身份开通，不应以方便为由扩大用途。 请相关岗位据此核对手中\n的事项；遇到与已确认文件不一致的情况，先说明差异，再决定下一步。\n办理次序\n第一步，用人部门确认岗位和到岗安排。\n第二步，人事经办人告知资料清单与提交渠道。\n第三步，员工逐项核对姓名、联系方式和证件信息。\n第四步，经办人确认缺项并反馈补交方式。\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果人事经办人告知资料清单与\n提交渠道无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n出现偏差时\n资料不完整时先说明缺失项与影响范围；信息相互矛盾时由本人核对原件，不能替员工推测或自行改写。 例外处理",
+              "token_count": 442,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.8287066715184865,
+                "bm25_rank": 1,
+                "bm25_score": 24.699463,
+                "fusion_score": 0.03278688524590164,
+                "rerank_score": 0.8515372590783284
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "357",
+              "knowledge_base_id": "3",
+              "document_id": "83",
+              "revision_id": "83",
+              "generation_id": "91",
+              "document_title": "入职事项与责任分工.xlsx",
+              "document_name": "入职事项与责任分工.xlsx",
+              "chunk_index": 0,
+              "content": "| 入职事项与责任分工 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 使用方式：按事项核对，空白不代表已完成；不填写个人或交易记录。 |  |  |  |  |\n| 阶段 | 事项 | 员工应做 | 办理岗位应做 | 完成依据 |\n| 准备 | 确认到岗与岗位 | 核对通知中的岗位和时间 | 用人部门确认安排 | 双方对到岗安排有一致理解 |\n| 准备 | 资料清单告知 | 按清单准备本人资料 | 人事说明用途和提交渠道 | 资料清单可被员工查阅 |\n| 准备 | 身份信息核对 | 确认姓名与证件信息 | 人事核对必要信息 | 差异项有本人确认结果 |\n| 准备 | 劳动关系文件 | 阅读并提出疑问 | 人事提供待签版本和说明 | 正式文件已按规定确认 |\n| 准备 | 薪酬办理信息 | 通过受控渠道提供必要信息 | 人事确认项目是否完整 | 办理信息可供后续核对 |\n| 到岗 | 设备需求 | 说明岗位使用需要 | 主管与行政确认配置 | 设备安排已明确 |\n| 到岗 | 设备交付 | 检查设备与配件 | 行政登记交付状态 | 双方确认交接内容 |\n| 到岗 | 基础账号 | 说明履职资源需求 | 主管批准后由管理员开通 | 实际权限与批准范围一致 |",
+              "token_count": 486,
+              "page_number": null,
+              "section_title": "入职办理",
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.7476191075075218,
+                "bm25_rank": 2,
+                "bm25_score": 21.66957,
+                "fusion_score": 0.031754032258064516,
+                "rerank_score": 0.3902622581800912
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "67",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 2,
+              "content": "式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行\n\n和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响\n的岗位，并确认原安排是否仍然成立。\n结束前核对\n本事项以“经办人确认缺项并反馈补交方式”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料\n是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，\n不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧\n稿继续指导新事项。\n经办补充\n入职资料清单应按办理事项分组，例如身份核验、劳动关系文件、薪酬办理所需信息与设备账号准备。经办人只向员\n工索取当前步骤确实需要的材料，并告知提交位置。姓名或证件信息有差异时，先让员工本人确认原件，再更正业务\n记录；不能把聊天窗口中的一次回复当成长期保存的权威资料。\n需要现在做什么",
+              "token_count": 457,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7649140357971191,
+                "bm25_rank": 5,
+                "bm25_score": 17.160088,
+                "fusion_score": 0.0315136476426799,
+                "rerank_score": 0.21637378568266416
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "213",
+              "knowledge_base_id": "3",
+              "document_id": "62",
+              "revision_id": "62",
+              "generation_id": "62",
+              "document_title": "新员工第一周办事指南.md",
+              "document_name": "新员工第一周办事指南.md",
+              "chunk_index": 8,
+              "content": "新员工应优先获得岗位任务和支持渠道，而不是收到一批没有优先级的链接。设备、账号、团队资料和培训可以分日完成，未开通的资源写入待办清单。遇到涉及客户或敏感资料的工作，先确认授权范围；不要借用同事账号。第一周结束前可与主管核对仍未解决的问题，避免其长期悬而未决。",
+              "token_count": 161,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 13,
+                "dense_score": 0.6754606575322983,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.0136986301369863,
+                "rerank_score": 0.21206445854261402
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "207",
+              "knowledge_base_id": "3",
+              "document_id": "62",
+              "revision_id": "62",
+              "generation_id": "62",
+              "document_title": "新员工第一周办事指南.md",
+              "document_name": "新员工第一周办事指南.md",
+              "chunk_index": 2,
+              "content": "启动这项工作时，先确认事项确实落在新员工的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。涉及员工身份、工作安排和资产交接的资料应由有办理职责的人查看。办事效率不能以扩大个人信息传播为代价；当多个岗位参与时，交接记录要让下一位经办人知道自己接收了什么、还缺什么。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+              "token_count": 211,
+              "page_number": null,
+              "section_title": "开始之前",
+              "scores": {
+                "dense_rank": 6,
+                "dense_score": 0.6970434965465381,
+                "bm25_rank": 20,
+                "bm25_score": 13.657955,
+                "fusion_score": 0.027651515151515153,
+                "rerank_score": 0.20692911017453508
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 595,
+            "dense_ms": 1956,
+            "bm25_ms": 2222,
+            "fusion_ms": 0,
+            "authorization_ms": 2975,
+            "rerank_ms": 510,
+            "total_ms": 6035
+          }
+        }
+      }
+    },
+    {
+      "id": "Q02",
+      "query": "采购需求在进入供应商沟通前，应先说明哪些内容？",
+      "kind": "answerable",
+      "elapsed_ms": 10487,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "45",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "采购需求在进入供应商沟通前，应先说明哪些内容？",
+          "analysis": {
+            "intent": "procedure",
+            "entities": [
+              {
+                "text": "采购需求",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "采购需求在进入供应商沟通前，应先说明哪些内容？"
+                }
+              },
+              {
+                "text": "供应商沟通",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "采购需求在进入供应商沟通前，应先说明哪些内容？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "采购需求",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "采购需求在进入供应商沟通前，应先说明哪些内容？"
+                }
+              },
+              {
+                "text": "供应商沟通",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "采购需求在进入供应商沟通前，应先说明哪些内容？"
+                }
+              },
+              {
+                "text": "进入",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "采购需求在进入供应商沟通前，应先说明哪些内容？"
+                }
+              },
+              {
+                "text": "先说明",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "采购需求在进入供应商沟通前，应先说明哪些内容？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": true,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1255
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "采购需求在进入供应商沟通前，应先说明哪些内容？",
+          "query": "采购需求在进入供应商沟通前，应先说明哪些内容？",
+          "requested_route": "hybrid_graph",
+          "reason_code": "GRAPH_NOT_READY",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [
+            "图谱预检查与在线召回尚未接入，规划基础混合检索。"
+          ],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "82",
+              "knowledge_base_id": "4",
+              "document_id": "45",
+              "revision_id": "45",
+              "generation_id": "45",
+              "document_title": "采购需求与审批边界.pdf",
+              "document_name": "采购需求与审批边界.pdf",
+              "chunk_index": 0,
+              "content": "业务备忘 / 财务与采购\n采购需求与审批边界\n适用对象：需求部门、采购人员和审批人\n事项判断\n采购需求单应先说明业务问题、使用场景、交付要求和预算来源，再进入供应商沟通。需求提出与采购承诺不是同一\n行为，任何对外价格或交期承诺都要有明确的授权基础。 下面记录这项工作的判断依据、接续动作和不能直接推出\n的结论，供后续讨论时回查。\n决定边界\n提出需求的人不应把未获批准的供应商报价写成公司已经接受的交易条件。 同一事项若在邮件、清单和正式文件中\n出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述\n；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排\n是否仍然成立。\n为什么提出这项要求\n启动这项工作时，先确认事项确实落在需求部门、采购人员和审批人的职责范围内，再确定谁负责发起、谁负责核对、",
+              "token_count": 425,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.751544505541867,
+                "bm25_rank": 1,
+                "bm25_score": 28.162306,
+                "fusion_score": 0.03278688524590164,
+                "rerank_score": 0.66283396105402
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "86",
+              "knowledge_base_id": "4",
+              "document_id": "46",
+              "revision_id": "46",
+              "generation_id": "46",
+              "document_title": "供应商资料核查说明.pdf",
+              "document_name": "供应商资料核查说明.pdf",
+              "chunk_index": 0,
+              "content": "经办核对单 / 财务与采购\n供应商资料核查说明\n适用对象：采购、需求部门及合同经办人\n核对目的\n供应商核查关注主体身份、业务能力、履约方式和利益冲突。资料齐全只说明文件已收集，仍需判断文件是否适用于\n当前采购事项。 请逐项核对，不要以一项材料齐全代替整条业务链的检查。\n逐项检查\n第一步，采购人员核对主体名称与基本资质。\n第二步，需求部门确认产品或服务能力。\n第三步，合同经办人核对签约主体与收款信息的一致性。\n第四步，异常交由相应负责人处理。\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果需求部门确认产品或服务能\n力无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n可接受的依据\n保留公开可核验的主体资料、供应范围说明、授权文件和核查结论；不得在共享表中写入账户口令或私人联系信息。\n经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了",
+              "token_count": 431,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 7,
+                "dense_score": 0.6881746874063883,
+                "bm25_rank": 3,
+                "bm25_score": 26.125643,
+                "fusion_score": 0.030798389007344232,
+                "rerank_score": 0.23075364438067458
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "83",
+              "knowledge_base_id": "4",
+              "document_id": "45",
+              "revision_id": "45",
+              "generation_id": "45",
+              "document_title": "采购需求与审批边界.pdf",
+              "document_name": "采购需求与审批边界.pdf",
+              "chunk_index": 1,
+              "content": "实落在需求部门、采购人员和审批人的职责范围内，再确定谁负责发起、谁负责核对、\n\n谁负责接收最终结果。支出与采购要把业务必要性、批准过程、实际交付和后续支付分开。凭证的作用是支持核验已\n经发生的事实；资料不能因为格式齐全就自动证明价格合理、交付合格或付款已完成。 如果责任角色暂时没有确定\n，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。\n各环节如何衔接\n第一步，需求部门描述用途、数量依据和验收条件。\n第二步，采购人员核对可替代方案与供应方式。\n第三步，审批人确认必要性与资金安排。\n第四步，完成批准后再开展对外采购动作。\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果采购人员核对可替代方案与\n供应方式无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n应交付的依据\n保存需求说明、方案比较依据、审批意见、订单或合同以及验收结果；资料应能回答为什么采购、买什么和如何判断\n交付合格。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充",
+              "token_count": 490,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.6968589090708606,
+                "bm25_rank": 8,
+                "bm25_score": 21.664438,
+                "fusion_score": 0.030090497737556562,
+                "rerank_score": 0.19265728153711673
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "85",
+              "knowledge_base_id": "4",
+              "document_id": "45",
+              "revision_id": "45",
+              "generation_id": "45",
+              "document_title": "采购需求与审批边界.pdf",
+              "document_name": "采购需求与审批边界.pdf",
+              "chunk_index": 3,
+              "content": "如有调整，由资料维护人同步修订入口说明，避免旧\n稿继续指导新事项。\n经办补充\n\n需求说明应尽量采用可验收的语言，例如服务要解决的具体工作问题、交付形式和必须满足的使用条件。写成某个供\n应商品牌或单一报价容易把方案选择提前固定。采购人员比较方案时应把功能适配、交付能力和后续支持放在同一语\n境中解释，而不是仅列价格。",
+              "token_count": 172,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7086012785793226,
+                "bm25_rank": 6,
+                "bm25_score": 22.81767,
+                "fusion_score": 0.03128054740957967,
+                "rerank_score": 0.19148481773642323
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "362",
+              "knowledge_base_id": "4",
+              "document_id": "85",
+              "revision_id": "85",
+              "generation_id": "93",
+              "document_title": "采购节点与交接说明.xlsx",
+              "document_name": "采购节点与交接说明.xlsx",
+              "chunk_index": 0,
+              "content": "| 采购节点与交接说明 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 使用方式：按事项核对，空白不代表已完成；不填写个人或交易记录。 |  |  |  |  |\n| 环节 | 主责角色 | 输入 | 形成的结果 | 暂停或退回条件 |\n| 需求提出 | 需求部门 | 用途、交付要求、验收口径 | 可供评估的需求说明 | 业务问题不清 |\n| 必要性核对 | 部门负责人 | 需求说明、已有资源情况 | 是否继续采购的意见 | 已有资源未核对 |\n| 方案比较 | 采购人员 | 需求与供应方案 | 可解释的方案差异 | 仅有单一报价且无依据 |\n| 主体核查 | 采购人员 | 供应商主体与资质材料 | 核查意见 | 主体或授权关系不明 |\n| 能力确认 | 需求部门 | 产品或服务说明 | 适用性意见 | 关键交付条件无法满足 |\n| 资金确认 | 审批岗位 | 预算来源与预计支出 | 批准或退回意见 | 资金安排不明确 |\n| 合同准备 | 合同经办人 | 批准范围与业务条款 | 待会签文本 | 合同范围偏离批准内容 |\n| 会签复核 | 相关审核岗位 | 条款、附件及风险说明 | 逐项意见与决定 | 关键条款尚有分歧 |",
+              "token_count": 481,
+              "page_number": null,
+              "section_title": "采购路径",
+              "scores": {
+                "dense_rank": 3,
+                "dense_score": 0.7027598684000746,
+                "bm25_rank": 7,
+                "bm25_score": 22.751276,
+                "fusion_score": 0.030798389007344232,
+                "rerank_score": 0.1875924408905654
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 318,
+            "dense_ms": 2542,
+            "bm25_ms": 2861,
+            "fusion_ms": 0,
+            "authorization_ms": 4619,
+            "rerank_ms": 461,
+            "total_ms": 7944
+          }
+        }
+      }
+    },
+    {
+      "id": "Q03",
+      "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+      "kind": "answerable",
+      "elapsed_ms": 8550,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "56",
+          "hit": true,
+          "ranks": [
+            5
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "工单",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "关闭",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              },
+              {
+                "text": "客户确认",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              },
+              {
+                "text": "通知条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 981
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "151",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 1,
+              "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 94,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.792410445665692,
+                "bm25_rank": 20,
+                "bm25_score": 15.158029,
+                "fusion_score": 0.02889344262295082,
+                "rerank_score": 0.6752399266665783
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "150",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 0,
+              "content": "操作流程\n\n工单处理与关闭步骤\n\n适用对象：客户支持及协作处理人 资料类别：客户与交付",
+              "token_count": 41,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.7260845303535461,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.015625,
+                "rerank_score": 0.19651304755881255
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "158",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 8,
+              "content": "工单状态变化要有对应的处理事实：受理说明问题已进入队列，处理中说明有人在推进，待客户确认说明已给出可检查结果。客户没有立即回复时，处理人仍应保留最后沟通内容和后续联系安排。关闭摘要应写出采用的解决方式和验证范围，方便以后遇到同类问题时复用经验。",
+              "token_count": 125,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7616279579179276,
+                "bm25_rank": 21,
+                "bm25_score": 15.150316,
+                "fusion_score": 0.028474711270410194,
+                "rerank_score": 0.19315330124713279
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "365",
+              "knowledge_base_id": "5",
+              "document_id": "86",
+              "revision_id": "86",
+              "generation_id": "94",
+              "document_title": "客户工单状态与处理要求.xlsx",
+              "document_name": "客户工单状态与处理要求.xlsx",
+              "chunk_index": 1,
+              "content": "| 客户工单状态与处理要求 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 已关闭 | 处理结果被接收 | 写出关闭摘要 | 解决方式、版本、验证范围 | 遗留项是否有人负责 |\n| 重新打开 | 出现新影响或结果未生效 | 比对旧结论与新事实 | 变化时间与触发条件 | 是否需要调整处理级别 |\n| 争议待定 | 原因或责任尚不清晰 | 分开事实与推断 | 争议点和决定路径 | 是否已有授权的结论 |\n| 需升级 | 影响扩大或存在安全迹象 | 通知相应负责人并保全事实 | 升级原因和影响范围 | 对外口径是否一致 |\n| 转产品评估 | 问题涉及需求边界 | 提供客户场景和期望结果 | 需求说明与待澄清事项 | 是否仍需支持临时答复 |\n| 转技术排查 | 需要日志或代码分析 | 说明复现条件与已做排查 | 必要的受控证据 | 是否获得接手确认 |\n| 回访观察 | 已解决但需关注稳定性 | 确认结果持续有效 | 观察范围与反馈 | 是否可以正式结束跟进 |\n| 状态名称用于本文的工作说明，不是某个已上线系统的固定枚举。 |  |  |  |  |",
+              "token_count": 452,
+              "page_number": null,
+              "section_title": "工单流转",
+              "scores": {
+                "dense_rank": 3,
+                "dense_score": 0.7434506416320801,
+                "bm25_rank": 8,
+                "bm25_score": 17.146828,
+                "fusion_score": 0.03057889822595705,
+                "rerank_score": 0.19257787432792367
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "156",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 6,
+              "content": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 182,
+              "page_number": null,
+              "section_title": "关闭条件",
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.7258469895033247,
+                "bm25_rank": 13,
+                "bm25_score": 15.900282,
+                "fusion_score": 0.029083245521601686,
+                "rerank_score": 0.18729200715768068
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 369,
+            "dense_ms": 1935,
+            "bm25_ms": 2095,
+            "fusion_ms": 0,
+            "authorization_ms": 3219,
+            "rerank_ms": 483,
+            "total_ms": 6006
+          }
+        }
+      }
+    },
+    {
+      "id": "Q04",
+      "query": "发布变更准备时，回退触发条件和责任人由谁确认？",
+      "kind": "answerable",
+      "elapsed_ms": 11717,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "58",
+          "hit": true,
+          "ranks": [
+            1,
+            3
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "发布变更准备时，回退触发条件和责任人由谁确认？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "发布变更准备",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发布变更准备时，回退触发条件和责任人由谁确认？"
+                }
+              },
+              {
+                "text": "回退触发条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发布变更准备时，回退触发条件和责任人由谁确认？"
+                }
+              },
+              {
+                "text": "责任人",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发布变更准备时，回退触发条件和责任人由谁确认？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "发布变更准备",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发布变更准备时，回退触发条件和责任人由谁确认？"
+                }
+              },
+              {
+                "text": "回退触发条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发布变更准备时，回退触发条件和责任人由谁确认？"
+                }
+              },
+              {
+                "text": "责任人",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发布变更准备时，回退触发条件和责任人由谁确认？"
+                }
+              },
+              {
+                "text": "确认",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发布变更准备时，回退触发条件和责任人由谁确认？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": true,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 2020
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "发布变更准备时，回退触发条件和责任人由谁确认？",
+          "query": "发布变更准备时，回退触发条件和责任人由谁确认？",
+          "requested_route": "hybrid_graph",
+          "reason_code": "GRAPH_NOT_READY",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [
+            "图谱预检查与在线召回尚未接入，规划基础混合检索。"
+          ],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "171",
+              "knowledge_base_id": "2",
+              "document_id": "58",
+              "revision_id": "58",
+              "generation_id": "58",
+              "document_title": "发布变更准备与回退指引.docx",
+              "document_name": "发布变更准备与回退指引.docx",
+              "chunk_index": 3,
+              "content": "第一步，发布负责人汇总变更清单。\n\n第二步，研发核对部署与数据影响。\n\n第三步，质量确认验证范围。\n\n第四步，支持人员准备对外说明。\n\n第五步，各方确认回退触发条件和责任人。\n\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果研发核对部署与数据影响无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。",
+              "token_count": 182,
+              "page_number": null,
+              "section_title": "经办步骤",
+              "scores": {
+                "dense_rank": 7,
+                "dense_score": 0.6674826937955156,
+                "bm25_rank": 1,
+                "bm25_score": 25.760372,
+                "fusion_score": 0.03131881575727918,
+                "rerank_score": 0.6589840003462389
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "369",
+              "knowledge_base_id": "2",
+              "document_id": "88",
+              "revision_id": "88",
+              "generation_id": "96",
+              "document_title": "版本发布前核对清单.xlsx",
+              "document_name": "版本发布前核对清单.xlsx",
+              "chunk_index": 1,
+              "content": "| 版本发布前核对清单 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 回退 | 触发条件 | 明确何时停止继续 | 负责人知道决定路径 | 暂缓发布 |\n| 沟通 | 支持团队 | 说明用户可见变化 | 支持口径已确认 | 补充帮助资料 |\n| 沟通 | 受影响方 | 确定必要通知范围 | 沟通安排明确 | 调整发布时间 |\n| 执行 | 操作责任 | 发布与观察分工清楚 | 责任角色确认 | 先明确接手人 |\n| 观察 | 运行指标 | 列出需看的错误和业务结果 | 观察入口可用 | 补足监测 |\n| 归档 | 发布记录 | 保留执行与验证结果 | 可追溯到最终版本 | 补齐记录再关闭 |\n| 此清单用于发布准备；没有任何一行代表实际发布已经执行。 |  |  |  |  |",
+              "token_count": 311,
+              "page_number": null,
+              "section_title": "发布前",
+              "scores": {
+                "dense_rank": 11,
+                "dense_score": 0.649308127247323,
+                "bm25_rank": 2,
+                "bm25_score": 24.895098,
+                "fusion_score": 0.03021353930031804,
+                "rerank_score": 0.4200509652856256
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "174",
+              "knowledge_base_id": "2",
+              "document_id": "58",
+              "revision_id": "58",
+              "generation_id": "58",
+              "document_title": "发布变更准备与回退指引.docx",
+              "document_name": "发布变更准备与回退指引.docx",
+              "chunk_index": 6,
+              "content": "本事项以“各方确认回退触发条件和责任人”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 177,
+              "page_number": null,
+              "section_title": "关闭条件",
+              "scores": {
+                "dense_rank": 3,
+                "dense_score": 0.7284506883084005,
+                "bm25_rank": 5,
+                "bm25_score": 18.436642,
+                "fusion_score": 0.03125763125763126,
+                "rerank_score": 0.4034261556276825
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "168",
+              "knowledge_base_id": "2",
+              "document_id": "58",
+              "revision_id": "58",
+              "generation_id": "58",
+              "document_title": "发布变更准备与回退指引.docx",
+              "document_name": "发布变更准备与回退指引.docx",
+              "chunk_index": 0,
+              "content": "操作流程\n\n发布变更准备与回退指引\n\n适用对象：发布负责人、研发、质量和支持人员 资料类别：研发与产品",
+              "token_count": 53,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.735777371903305,
+                "bm25_rank": 4,
+                "bm25_score": 21.472033,
+                "fusion_score": 0.031754032258064516,
+                "rerank_score": 0.3530261017314635
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "169",
+              "knowledge_base_id": "2",
+              "document_id": "58",
+              "revision_id": "58",
+              "generation_id": "58",
+              "document_title": "发布变更准备与回退指引.docx",
+              "document_name": "发布变更准备与回退指引.docx",
+              "chunk_index": 1,
+              "content": "一次发布需要同时说明变更内容、依赖条件、验证方法和出现异常时的回退路径。只要缺少任何一项，就难以判断发布后问题是否由本次变更引起。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 96,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.6754914909015357,
+                "bm25_rank": 3,
+                "bm25_score": 23.709429,
+                "fusion_score": 0.03125763125763126,
+                "rerank_score": 0.26432439051130086
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 387,
+            "dense_ms": 2095,
+            "bm25_ms": 1796,
+            "fusion_ms": 0,
+            "authorization_ms": 3617,
+            "rerank_ms": 508,
+            "total_ms": 6609
+          }
+        }
+      }
+    },
+    {
+      "id": "Q05",
+      "query": "文档版本记录至少需要说明哪三项信息？",
+      "kind": "answerable",
+      "elapsed_ms": 6915,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "63",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "文档版本记录至少需要说明哪三项信息？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [],
+            "keywords": [
+              {
+                "text": "文档版本记录",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "文档版本记录至少需要说明哪三项信息？"
+                }
+              },
+              {
+                "text": "三项信息",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "文档版本记录至少需要说明哪三项信息？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 947
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "文档版本记录至少需要说明哪三项信息？",
+          "query": "文档版本记录至少需要说明哪三项信息？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "219",
+              "knowledge_base_id": "1",
+              "document_id": "63",
+              "revision_id": "63",
+              "generation_id": "63",
+              "document_title": "文档命名与版本约定.md",
+              "document_name": "文档命名与版本约定.md",
+              "chunk_index": 4,
+              "content": "版本记录至少说明变更位置、影响对象和确认人角色；附件与正文保持同一适用版本，不让读者自行猜测对应关系。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+              "token_count": 208,
+              "page_number": null,
+              "section_title": "应保留的信息",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.7569751062713552,
+                "bm25_rank": 2,
+                "bm25_score": 18.650938,
+                "fusion_score": 0.03252247488101534,
+                "rerank_score": 0.7286209080627815
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "276",
+              "knowledge_base_id": "2",
+              "document_id": "69",
+              "revision_id": "69",
+              "generation_id": "69",
+              "document_title": "发布记录编写指南.md",
+              "document_name": "发布记录编写指南.md",
+              "chunk_index": 1,
+              "content": "发布记录应回答变更了什么、哪些用户或服务受影响、验证了什么以及需要注意什么。它面向后续维护，不能只复制提交记录。 维护者写作与发布时均可按此约定核对，避免读者在多个版本之间自行猜测。",
+              "token_count": 110,
+              "page_number": null,
+              "section_title": "写作目标",
+              "scores": {
+                "dense_rank": 24,
+                "dense_score": 0.6511699585014668,
+                "bm25_rank": 27,
+                "bm25_score": 10.376924,
+                "fusion_score": 0.023399014778325122,
+                "rerank_score": 0.1986543131329364
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "95",
+              "knowledge_base_id": "5",
+              "document_id": "48",
+              "revision_id": "48",
+              "generation_id": "48",
+              "document_title": "项目交付资料管理办法.pdf",
+              "document_name": "项目交付资料管理办法.pdf",
+              "chunk_index": 1,
+              "content": "经过复核的说明与记录。\n第三步，接收人按清单核对版本和可读性。\n第四步，差异项明确责任人和补齐路径。\n\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果各模块负责人提交经过复核\n的说明与记录无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n常见卡点\n文件版本冲突时以双方确认的交付基线核对；缺少关键资料时记录差异，不能用“已口头说明”替代可交付内容。\n例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其\n他岗位决定时，连同背景、影响和可选处理方式一并移交。\n要留下哪些材料\n交付包至少能定位范围说明、部署或使用说明、变更记录、问题清单和验收依据；每份文件注明适用版本与维护责任。\n经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了\n原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个\n人或客户信息的附件应单独检查可见人员。\n确认完成",
+              "token_count": 488,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 28,
+                "dense_score": 0.6445688432969088,
+                "bm25_rank": 1,
+                "bm25_score": 18.944916,
+                "fusion_score": 0.027757078986587184,
+                "rerank_score": 0.19534970350107522
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "118",
+              "knowledge_base_id": "3",
+              "document_id": "52",
+              "revision_id": "52",
+              "generation_id": "52",
+              "document_title": "印章使用申请与留痕指引.docx",
+              "document_name": "印章使用申请与留痕指引.docx",
+              "chunk_index": 4,
+              "content": "留存申请、审批依据、盖章文件版本和经办记录；归档件应能与实际对外文件对应，不保留只有标题而无正文的空白记录。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+              "token_count": 203,
+              "page_number": null,
+              "section_title": "过程记录",
+              "scores": {
+                "dense_rank": 17,
+                "dense_score": 0.659374992921954,
+                "bm25_rank": 7,
+                "bm25_score": 13.172296,
+                "fusion_score": 0.027912386121341344,
+                "rerank_score": 0.1892722633692946
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "224",
+              "knowledge_base_id": "1",
+              "document_id": "63",
+              "revision_id": "63",
+              "generation_id": "63",
+              "document_title": "文档命名与版本约定.md",
+              "document_name": "文档命名与版本约定.md",
+              "chunk_index": 9,
+              "content": "文件正文的第一段应让读者快速判断“这份资料解决什么问题”。标题若只写部门、日期或“重要通知”，搜索结果中就很难与其他文件区分。版本说明也应指出实际变化：仅调整排版、补充说明、改变办理步骤的影响各不相同。维护者在替换文件时还要检查目录页、交叉链接和搜索关键词，避免旧标题继续引导读者进入失效版本。 多人协作编辑时先确定一个权威位置，再决定谁负责合并意见。把带有不同修改意见的附件互相覆盖，会让版本号看似递增，实际却丢失决定过程。\n\n---\n\n检索词：文档命名与版本约定；知识管理；文档创建者与维护者。",
+              "token_count": 282,
+              "page_number": null,
+              "section_title": "进一步说明",
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.7009280084457438,
+                "bm25_rank": 26,
+                "bm25_score": 10.539022,
+                "fusion_score": 0.02701252236135957,
+                "rerank_score": 0.1875924408905654
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 375,
+            "dense_ms": 1593,
+            "bm25_ms": 1836,
+            "fusion_ms": 0,
+            "authorization_ms": 2633,
+            "rerank_ms": 483,
+            "total_ms": 5084
+          }
+        }
+      }
+    },
+    {
+      "id": "Q06",
+      "query": "哪些变化可能触发访问权限的提前复核？",
+      "kind": "answerable",
+      "elapsed_ms": 7326,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "71",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "哪些变化可能触发访问权限的提前复核？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "访问权限",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "哪些变化可能触发访问权限的提前复核？"
+                }
+              },
+              {
+                "text": "提前复核",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "哪些变化可能触发访问权限的提前复核？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "变化",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "哪些变化可能触发访问权限的提前复核？"
+                }
+              },
+              {
+                "text": "触发",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "哪些变化可能触发访问权限的提前复核？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1141
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "哪些变化可能触发访问权限的提前复核？",
+          "query": "哪些变化可能触发访问权限的提前复核？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "296",
+              "knowledge_base_id": "2",
+              "document_id": "71",
+              "revision_id": "71",
+              "generation_id": "71",
+              "document_title": "访问权限定期复核.md",
+              "document_name": "访问权限定期复核.md",
+              "chunk_index": 1,
+              "content": "权限复核是确认现有访问仍与工作职责相符，不应被当作对过去申请单的机械盖章。岗位变化、项目结束或资料敏感度变化都可能触发提前复核。 阅读时可以从自己的当前状态进入相应步骤，处理完后再按文末的完成条件回看。",
+              "token_count": 127,
+              "page_number": null,
+              "section_title": "这份指南解决什么",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.8269917512230655,
+                "bm25_rank": 1,
+                "bm25_score": 25.447212,
+                "fusion_score": 0.03278688524590164,
+                "rerank_score": 0.8223594151997645
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "304",
+              "knowledge_base_id": "2",
+              "document_id": "71",
+              "revision_id": "71",
+              "generation_id": "71",
+              "document_title": "访问权限定期复核.md",
+              "document_name": "访问权限定期复核.md",
+              "chunk_index": 9,
+              "content": "复核名单若混合了系统账号、共享目录和临时链接，容易遗漏不同资源的管理人。可先按资源责任拆分，再由了解工作职责的人确认必要性。撤权后应抽查实际访问是否停止，尤其注意缓存或共享链接可能仍然有效。保留权限也应留下业务原因，以便下一轮复核能判断条件是否变化，而不是一再沿用前次勾选。 复核结论应区分“保留”“调整”“移除”和“待确认”，并为待确认项设置接手角色。把所有未回复项默认为保留，无法体现复核实际完成了什么。\n\n---\n\n检索词：访问权限定期复核；信息安全；资源负责人、部门负责人和系统管理员。",
+              "token_count": 258,
+              "page_number": null,
+              "section_title": "进一步说明",
+              "scores": {
+                "dense_rank": 3,
+                "dense_score": 0.711214444375469,
+                "bm25_rank": 3,
+                "bm25_score": 17.297537,
+                "fusion_score": 0.031746031746031744,
+                "rerank_score": 0.20295304589151808
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "355",
+              "knowledge_base_id": "2",
+              "document_id": "82",
+              "revision_id": "82",
+              "generation_id": "82",
+              "document_title": "远程协作文件安全提示.txt",
+              "document_name": "远程协作文件安全提示.txt",
+              "chunk_index": 2,
+              "content": "结束前核对\n----------\n本事项以“协作结束后复核临时访问权”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。\n\n经办补充\n--------\n在线会议中共享整个桌面可能暴露无关窗口，发送链接也可能因为默认权限过宽而扩大受众。协作人应提前准备必要文件与受控目录，结束后收回临时访问。需要本地处理的工作副本应有清楚的归还或删除路径，不能长期留在个人下载目录。发现误共享时先限制访问，再保留事实并报告。",
+              "token_count": 321,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 11,
+                "dense_score": 0.6368927549389829,
+                "bm25_rank": 6,
+                "bm25_score": 15.679972,
+                "fusion_score": 0.029236022193768675,
+                "rerank_score": 0.19733937109952082
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "302",
+              "knowledge_base_id": "2",
+              "document_id": "71",
+              "revision_id": "71",
+              "generation_id": "71",
+              "document_title": "访问权限定期复核.md",
+              "document_name": "访问权限定期复核.md",
+              "chunk_index": 7,
+              "content": "复核完成的标志是权限结果被验证，不是审批意见已经发送。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 177,
+              "page_number": null,
+              "section_title": "实际工作中的边界",
+              "scores": {
+                "dense_rank": 6,
+                "dense_score": 0.687073765360682,
+                "bm25_rank": 29,
+                "bm25_score": 11.181447,
+                "fusion_score": 0.026387470207694927,
+                "rerank_score": 0.19030983642877547
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "373",
+              "knowledge_base_id": "2",
+              "document_id": "90",
+              "revision_id": "90",
+              "generation_id": "98",
+              "document_title": "权限申请与复核责任矩阵.xlsx",
+              "document_name": "权限申请与复核责任矩阵.xlsx",
+              "chunk_index": 1,
+              "content": "| 权限申请与复核责任矩阵 |  |  |  |  |  |\n| --- | --- | --- | --- | --- | --- |\n| 项目结束 | 说明不再使用 | 确认工作交接 | 决定保留必要历史访问 | 移除非必要权限 | 撤权结果被核对 |\n| 定期复核 | 解释仍需访问的理由 | 检查成员职责 | 决定保留调整或移除 | 执行变化 | 清单与系统结果一致 |\n| 离岗处理 | 完成业务交接 | 通知相关责任人 | 核对受控资料接收 | 关闭工作访问 | 业务与技术结果均确认 |\n| 误授权处理 | 立即停止不必要使用 | 协调止损 | 评估资料影响 | 收紧并保留日志 | 影响和修正可追溯 |\n| 共享链接检查 | 说明使用目的 | 确认协作范围 | 核对接收对象 | 调整访问设置 | 链接范围符合目的 |\n| 未确认权限 | 补充说明 | 明确临时责任 | 决定暂停或继续 | 不擅自扩大 | 待定项有接手人 |\n| 复核关闭 | 确认可完成工作 | 确认岗位需求满足 | 确认资源边界满足 | 确认设置生效 | 四方信息一致 |\n| 矩阵描述职责，不存放人员姓名、账号、密码或实际权限记录。 |  |  |  |  |  |",
+              "token_count": 473,
+              "page_number": null,
+              "section_title": "权限责任",
+              "scores": {
+                "dense_rank": 10,
+                "dense_score": 0.6446595384079084,
+                "bm25_rank": 5,
+                "bm25_score": 16.18107,
+                "fusion_score": 0.02967032967032967,
+                "rerank_score": 0.18847290933182853
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 323,
+            "dense_ms": 2004,
+            "bm25_ms": 1897,
+            "fusion_ms": 0,
+            "authorization_ms": 2474,
+            "rerank_ms": 472,
+            "total_ms": 5273
+          }
+        }
+      }
+    },
+    {
+      "id": "Q07",
+      "query": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？",
+      "kind": "answerable",
+      "elapsed_ms": 2234,
+      "http_status": 200,
+      "passed": false,
+      "reference_hits": [
+        {
+          "document_id": "73",
+          "hit": false,
+          "ranks": []
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？",
+          "analysis": {
+            "intent": "procedure",
+            "entities": [
+              {
+                "text": "财务单据",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+                }
+              },
+              {
+                "text": "凭证",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+                }
+              },
+              {
+                "text": "自制截图",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "退回",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+                }
+              },
+              {
+                "text": "无法取得",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+                }
+              },
+              {
+                "text": "代替",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+                }
+              }
+            ],
+            "constraints": [
+              {
+                "field": "business_status",
+                "operator": "eq",
+                "value": "退回",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+                }
+              }
+            ],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1366
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？",
+          "query": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？",
+          "requested_route": "hybrid",
+          "reason_code": "METADATA_FILTERS_NOT_READY",
+          "planning_status": "unsupported",
+          "constraints": [
+            {
+              "field": "business_status",
+              "operator": "eq",
+              "value": "退回",
+              "evidence": {
+                "source": "query",
+                "history_index": null,
+                "quote": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？"
+              }
+            }
+          ],
+          "warnings": [],
+          "message": "已保留元数据条件，过滤与日期解析尚未接入，不能忽略条件扩大检索。",
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "unsupported",
+          "evidence": [],
+          "degradation_codes": [],
+          "message": "已保留元数据条件，过滤与日期解析尚未接入，不能忽略条件扩大检索。",
+          "trace": {
+            "dense_status": "skipped",
+            "bm25_status": "skipped",
+            "rerank_status": "skipped",
+            "dense_count": 0,
+            "bm25_count": 0,
+            "fused_count": 0,
+            "authorized_count": 0,
+            "returned_count": 0,
+            "embedding_ms": 0,
+            "dense_ms": 0,
+            "bm25_ms": 0,
+            "fusion_ms": 0,
+            "authorization_ms": 0,
+            "rerank_ms": 0,
+            "total_ms": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "Q08",
+      "query": "服务请求转派摘要应包含哪些内容？",
+      "kind": "answerable",
+      "elapsed_ms": 9592,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "76",
+          "hit": true,
+          "ranks": [
+            2
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "服务请求转派摘要应包含哪些内容？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "服务请求转派摘要",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "服务请求转派摘要应包含哪些内容？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "服务请求转派摘要",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "服务请求转派摘要应包含哪些内容？"
+                }
+              },
+              {
+                "text": "包含哪些内容",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "服务请求转派摘要应包含哪些内容？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1265
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "服务请求转派摘要应包含哪些内容？",
+          "query": "服务请求转派摘要应包含哪些内容？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "328",
+              "knowledge_base_id": "5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "document_title": "服务请求转派提醒.txt",
+              "document_name": "服务请求转派提醒.txt",
+              "chunk_index": 0,
+              "content": "工作交接说明：服务请求转派提醒\n发给：支持受理人与接手团队\n\n各位同事：\n转派的目的在于让更合适的团队继续处理，而不是把工单从自己的队列移走。接手方需要清楚问题、影响、已做动作和下一步期待。 接收方应能从本文找到输入、未结事项和完成判断，交接不能只停留在发送文件。\n\n接收前应看\n----------\n启动这项工作时，先确认事项确实落在支持受理人与接手团队的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。对客户的沟通必须保持同一事实口径。内部可以并行排查，外部仍应有明确的接收窗口；无法确认的原因、进度和完成时间要如实说明，避免把内部猜测变成客户可依赖的承诺。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+              "token_count": 340,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.7571123097605903,
+                "bm25_rank": 3,
+                "bm25_score": 13.926323,
+                "fusion_score": 0.032266458495966696,
+                "rerank_score": 0.41116440285282985
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "330",
+              "knowledge_base_id": "5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "document_title": "服务请求转派提醒.txt",
+              "document_name": "服务请求转派提醒.txt",
+              "chunk_index": 2,
+              "content": "接收确认\n--------\n本事项以“继续保持对外沟通窗口”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。\n\n责任如何转移\n------------\n内部责任转移不改变对客户的沟通责任，避免多团队分别给出冲突答复。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。\n\n经办补充\n--------\n转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作。只写“请看附件”会让接手人重新阅读全部历史，延长处理时间。接收方确认后，原受理人继续负责客户状态通知；内部讨论如改变结论，应先统一答复口径，避免客户从不同团队收到不一致的信息。",
+              "token_count": 506,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.6975045800209045,
+                "bm25_rank": 2,
+                "bm25_score": 15.631669,
+                "fusion_score": 0.03225806451612903,
+                "rerank_score": 0.26659375311355393
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "329",
+              "knowledge_base_id": "5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "document_title": "服务请求转派提醒.txt",
+              "document_name": "服务请求转派提醒.txt",
+              "chunk_index": 1,
+              "content": "应移交的资料\n------------\n转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作；客户敏感材料使用受控链接。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。\n\n交接动作\n--------\n1) 第一步，受理人整理问题摘要与原始描述。\n2) 第二步，说明已核对和未核对的事实。\n3) 第三步，选择接手团队并确认接收。\n4) 第四步，继续保持对外沟通窗口。\n5) 这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n\n不能接收的情况\n--------------\n接手方认为信息不足时列出缺口并回传受理人；未经确认的转派不能把工单视为已解决。 例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其他岗位决定时，连同背景、影响和可选处理方式一并移交。",
+              "token_count": 508,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.671711802482605,
+                "bm25_rank": 7,
+                "bm25_score": 12.376939,
+                "fusion_score": 0.03055037313432836,
+                "rerank_score": 0.18975137021831281
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "331",
+              "knowledge_base_id": "5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "document_title": "服务请求转派提醒.txt",
+              "document_name": "服务请求转派提醒.txt",
+              "chunk_index": 3,
+              "content": "进一步说明\n----------\n接手团队收到请求后，可先回传接收确认和预计下一次内部反馈节点；这不等于问题已有解决时间。原受理人若仍要面对客户，应持续获得调查更新。多次转派说明分类或责任界定可能存在问题，应在工单中保留原因，而不是把历史移交记录删除。最终复盘时才能看清延迟究竟发生在排查还是责任交接。 转派记录尽量使用工单内的结构化位置保存，避免关键上下文只留在私人聊天中。接手人更换后，后续处理仍应能从同一处读懂历史。\n\n关联检索：客户与交付 / 服务请求转派提醒 / 支持受理人与接手团队",
+              "token_count": 248,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 3,
+                "dense_score": 0.6826449821802997,
+                "bm25_rank": 1,
+                "bm25_score": 17.326748,
+                "fusion_score": 0.032266458495966696,
+                "rerank_score": 0.18933217271583533
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "244",
+              "knowledge_base_id": "5",
+              "document_id": "65",
+              "revision_id": "65",
+              "generation_id": "65",
+              "document_title": "客户需求记录字段指南.md",
+              "document_name": "客户需求记录字段指南.md",
+              "chunk_index": 9,
+              "content": "需求被转交给产品团队时，应附上尚待验证的假设，而不是把所有空白都填成确定结论。某项功能可能只解决少数角色的步骤，也可能影响全部客户流程，记录中应说明目前掌握的范围。产品评审后若决定暂不进入计划，客户经理仍需能解释原因与可能的替代方式；因此原始问题、内部分析和最终决定应保持可区分。 一个客户请求可能包含多个独立问题，记录人应拆开描述，避免某一部分被采纳后整条需求被误标为完成。不同问题可以有不同责任团队和确认时间。\n\n---\n\n检索词：客户需求记录字段指南；客户与交付；客户经理、产品经理和实施人员。",
+              "token_count": 268,
+              "page_number": null,
+              "section_title": "进一步说明",
+              "scores": {
+                "dense_rank": 18,
+                "dense_score": 0.6084405650567378,
+                "bm25_rank": 5,
+                "bm25_score": 13.290451,
+                "fusion_score": 0.028205128205128206,
+                "rerank_score": 0.16088590540897682
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 378,
+            "dense_ms": 2073,
+            "bm25_ms": 1754,
+            "fusion_ms": 0,
+            "authorization_ms": 4081,
+            "rerank_ms": 561,
+            "total_ms": 7094
+          }
+        }
+      }
+    },
+    {
+      "id": "Q09",
+      "query": "新员工基础账号开通前由谁批准，之后由谁开通？",
+      "kind": "answerable",
+      "elapsed_ms": 8797,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "83",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "新员工基础账号开通前由谁批准，之后由谁开通？",
+          "analysis": {
+            "intent": "procedure",
+            "entities": [
+              {
+                "text": "新员工基础账号",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工基础账号开通前由谁批准，之后由谁开通？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "批准",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工基础账号开通前由谁批准，之后由谁开通？"
+                }
+              },
+              {
+                "text": "开通",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工基础账号开通前由谁批准，之后由谁开通？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": true,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1152
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "新员工基础账号开通前由谁批准，之后由谁开通？",
+          "query": "新员工基础账号开通前由谁批准，之后由谁开通？",
+          "requested_route": "hybrid_graph",
+          "reason_code": "GRAPH_NOT_READY",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [
+            "图谱预检查与在线召回尚未接入，规划基础混合检索。"
+          ],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "357",
+              "knowledge_base_id": "3",
+              "document_id": "83",
+              "revision_id": "83",
+              "generation_id": "91",
+              "document_title": "入职事项与责任分工.xlsx",
+              "document_name": "入职事项与责任分工.xlsx",
+              "chunk_index": 0,
+              "content": "| 入职事项与责任分工 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 使用方式：按事项核对，空白不代表已完成；不填写个人或交易记录。 |  |  |  |  |\n| 阶段 | 事项 | 员工应做 | 办理岗位应做 | 完成依据 |\n| 准备 | 确认到岗与岗位 | 核对通知中的岗位和时间 | 用人部门确认安排 | 双方对到岗安排有一致理解 |\n| 准备 | 资料清单告知 | 按清单准备本人资料 | 人事说明用途和提交渠道 | 资料清单可被员工查阅 |\n| 准备 | 身份信息核对 | 确认姓名与证件信息 | 人事核对必要信息 | 差异项有本人确认结果 |\n| 准备 | 劳动关系文件 | 阅读并提出疑问 | 人事提供待签版本和说明 | 正式文件已按规定确认 |\n| 准备 | 薪酬办理信息 | 通过受控渠道提供必要信息 | 人事确认项目是否完整 | 办理信息可供后续核对 |\n| 到岗 | 设备需求 | 说明岗位使用需要 | 主管与行政确认配置 | 设备安排已明确 |\n| 到岗 | 设备交付 | 检查设备与配件 | 行政登记交付状态 | 双方确认交接内容 |\n| 到岗 | 基础账号 | 说明履职资源需求 | 主管批准后由管理员开通 | 实际权限与批准范围一致 |",
+              "token_count": 486,
+              "page_number": null,
+              "section_title": "入职办理",
+              "scores": {
+                "dense_rank": null,
+                "dense_score": null,
+                "bm25_rank": 1,
+                "bm25_score": 24.478266,
+                "fusion_score": 0.01639344262295082,
+                "rerank_score": 0.18718181389859434
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "213",
+              "knowledge_base_id": "3",
+              "document_id": "62",
+              "revision_id": "62",
+              "generation_id": "62",
+              "document_title": "新员工第一周办事指南.md",
+              "document_name": "新员工第一周办事指南.md",
+              "chunk_index": 8,
+              "content": "新员工应优先获得岗位任务和支持渠道，而不是收到一批没有优先级的链接。设备、账号、团队资料和培训可以分日完成，未开通的资源写入待办清单。遇到涉及客户或敏感资料的工作，先确认授权范围；不要借用同事账号。第一周结束前可与主管核对仍未解决的问题，避免其长期悬而未决。",
+              "token_count": 161,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.6758626715891382,
+                "bm25_rank": 2,
+                "bm25_score": 20.486814,
+                "fusion_score": 0.03252247488101534,
+                "rerank_score": 0.18202418285897487
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "207",
+              "knowledge_base_id": "3",
+              "document_id": "62",
+              "revision_id": "62",
+              "generation_id": "62",
+              "document_title": "新员工第一周办事指南.md",
+              "document_name": "新员工第一周办事指南.md",
+              "chunk_index": 2,
+              "content": "启动这项工作时，先确认事项确实落在新员工的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。涉及员工身份、工作安排和资产交接的资料应由有办理职责的人查看。办事效率不能以扩大个人信息传播为代价；当多个岗位参与时，交接记录要让下一位经办人知道自己接收了什么、还缺什么。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+              "token_count": 211,
+              "page_number": null,
+              "section_title": "开始之前",
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.654618144035344,
+                "bm25_rank": 22,
+                "bm25_score": 15.564872,
+                "fusion_score": 0.027579737335834898,
+                "rerank_score": 0.17790042191613162
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "178",
+              "knowledge_base_id": "2",
+              "document_id": "59",
+              "revision_id": "59",
+              "generation_id": "59",
+              "document_title": "账号开通与权限申请流程.docx",
+              "document_name": "账号开通与权限申请流程.docx",
+              "chunk_index": 1,
+              "content": "工作账号与权限应基于具体岗位任务申请，并在任务变化时调整。申请表记录的是经批准的访问需求，不是任何人获得全部系统权限的凭证。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 102,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.6698114472740133,
+                "bm25_rank": 24,
+                "bm25_score": 15.226293,
+                "fusion_score": 0.02803379416282642,
+                "rerank_score": 0.17138037507415105
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "177",
+              "knowledge_base_id": "2",
+              "document_id": "59",
+              "revision_id": "59",
+              "generation_id": "59",
+              "document_title": "账号开通与权限申请流程.docx",
+              "document_name": "账号开通与权限申请流程.docx",
+              "chunk_index": 0,
+              "content": "操作流程\n\n账号开通与权限申请流程\n\n适用对象：申请人、直属负责人和系统管理员 资料类别：信息安全",
+              "token_count": 46,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 8,
+                "dense_score": 0.6341613909102326,
+                "bm25_rank": 11,
+                "bm25_score": 17.005587,
+                "fusion_score": 0.028790389395194696,
+                "rerank_score": 0.16863623033027353
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 384,
+            "dense_ms": 1918,
+            "bm25_ms": 3166,
+            "fusion_ms": 0,
+            "authorization_ms": 3119,
+            "rerank_ms": 484,
+            "total_ms": 6770
+          }
+        }
+      }
+    },
+    {
+      "id": "Q10",
+      "query": "人事资料保管要关注什么，发生什么变化需要重新核查？",
+      "kind": "answerable",
+      "elapsed_ms": 8325,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "89",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "人事资料保管要关注什么，发生什么变化需要重新核查？",
+          "analysis": {
+            "intent": "explanation",
+            "entities": [
+              {
+                "text": "人事资料保管",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "人事资料保管要关注什么"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "重新核查",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "发生什么变化需要重新核查"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 873
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "人事资料保管要关注什么，发生什么变化需要重新核查？",
+          "query": "人事资料保管要关注什么，发生什么变化需要重新核查？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "370",
+              "knowledge_base_id": "1",
+              "document_id": "89",
+              "revision_id": "89",
+              "generation_id": "97",
+              "document_title": "内部资料分类与保管约定.xlsx",
+              "document_name": "内部资料分类与保管约定.xlsx",
+              "chunk_index": 0,
+              "content": "| 内部资料分类与保管约定 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 使用方式：按事项核对，空白不代表已完成；不填写个人或交易记录。 |  |  |  |  |\n| 资料类型 | 主要读者 | 典型内容 | 保管关注点 | 需要重新核查时 |\n| 公开说明 | 外部读者 | 产品介绍与公开指引 | 发布前检查对外口径 | 产品或条款变化 |\n| 内部办事指南 | 员工 | 流程和责任入口 | 标明适用岗位与版本 | 部门职责变化 |\n| 人事资料 | 办理岗位 | 劳动关系和入离职材料 | 限制个人信息访问 | 岗位或保留要求变化 |\n| 财务凭证 | 财务与审核岗位 | 审批、票据和付款依据 | 原件与申请可对应 | 票据规则变化 |\n| 采购资料 | 采购与需求岗位 | 需求、报价、合同和验收 | 版本与主体一致 | 供应关系变化 |\n| 客户资料 | 服务与交付岗位 | 需求、问题与交付信息 | 按项目和职责授权 | 项目结束或授权变化 |\n| 合同文本 | 经办与审核岗位 | 已签署文件及附件 | 区分草稿与正式版本 | 补充协议签署 |\n| 技术设计 | 研发与维护岗位 | 架构、接口与约束 | 标明适用版本 | 系统变更 |",
+              "token_count": 491,
+              "page_number": null,
+              "section_title": "分类保管",
+              "scores": {
+                "dense_rank": 3,
+                "dense_score": 0.7081718270881086,
+                "bm25_rank": 5,
+                "bm25_score": 20.61192,
+                "fusion_score": 0.03125763125763126,
+                "rerank_score": 0.4324372186337826
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "202",
+              "knowledge_base_id": "3",
+              "document_id": "61",
+              "revision_id": "61",
+              "generation_id": "61",
+              "document_title": "常见假勤问题答疑.md",
+              "document_name": "常见假勤问题答疑.md",
+              "chunk_index": 7,
+              "content": "本事项以“人事按已批准结果更新出勤记录”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 196,
+              "page_number": null,
+              "section_title": "延伸问答",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.7273647947690026,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.01639344262295082,
+                "rerank_score": 0.18951186489319233
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "68",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 3,
+              "content": "原件，再更正业务\n记录；不能把聊天窗口中的一次回复当成长期保存的权威资料。\n需要现在做什么\n\n启动这项工作时，先确认事项确实落在新员工与用人部门的职责范围内，再确定谁负责发起、谁负责核对、谁负责接\n收最终结果。涉及员工身份、工作安排和资产交接的资料应由有办理职责的人查看。办事效率不能以扩大个人信息传\n播为代价；当多个岗位参与时，交接记录要让下一位经办人知道自己接收了什么、还缺什么。 如果责任角色暂时没\n有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+              "token_count": 251,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 8,
+                "dense_score": 0.6746004819869995,
+                "bm25_rank": 2,
+                "bm25_score": 21.373055,
+                "fusion_score": 0.030834914611005692,
+                "rerank_score": 0.17744465468239587
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "381",
+              "knowledge_base_id": "1",
+              "document_id": "81",
+              "revision_id": "103",
+              "generation_id": "111",
+              "document_title": "资料失效与撤回处理.txt",
+              "document_name": "资料失效与撤回处理.txt",
+              "chunk_index": 1,
+              "content": "请随事项保存\n------------\n保留撤回原因、影响范围、替代资料位置和处理结果；旧版可受控保留用于追溯，但不能继续作为现行答复来源。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。\n\n不要作出的推断\n--------------\n上传新文件不自动让所有旧引用失效，发布和检索范围需要分别核对。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 380,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 9,
+                "dense_score": 0.6745117112703163,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.014492753623188406,
+                "rerank_score": 0.1757113202646939
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "354",
+              "knowledge_base_id": "2",
+              "document_id": "82",
+              "revision_id": "82",
+              "generation_id": "82",
+              "document_title": "远程协作文件安全提示.txt",
+              "document_name": "远程协作文件安全提示.txt",
+              "chunk_index": 1,
+              "content": "请随事项保存\n------------\n保留必要的共享审批与访问范围，不把工作文件长期放在个人设备或公开链接中；离线副本按业务结束时间处理。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。\n\n不要作出的推断\n--------------\n远程位置改变不改变资料归属与保密要求，个人便利不能替代公司存放规则。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 379,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 12,
+                "dense_score": 0.6626015700460428,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.013888888888888888,
+                "rerank_score": 0.1745647991488059
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 449,
+            "dense_ms": 2178,
+            "bm25_ms": 1834,
+            "fusion_ms": 0,
+            "authorization_ms": 3331,
+            "rerank_ms": 487,
+            "total_ms": 6446
+          }
+        }
+      }
+    },
+    {
+      "id": "Q11",
+      "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+      "kind": "answerable",
+      "elapsed_ms": 9628,
+      "http_status": 200,
+      "passed": false,
+      "reference_hits": [
+        {
+          "document_id": "56",
+          "hit": false,
+          "ranks": []
+        },
+        {
+          "document_id": "76",
+          "hit": false,
+          "ranks": []
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "工单转派",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单转派"
+                }
+              },
+              {
+                "text": "工单关闭",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单关闭"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "确认条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "确认条件"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1013
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "151",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 1,
+              "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 94,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.7725073234732568,
+                "bm25_rank": 15,
+                "bm25_score": 13.832109,
+                "fusion_score": 0.029726775956284153,
+                "rerank_score": 0.37147808597525356
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "328",
+              "knowledge_base_id": "5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "document_title": "服务请求转派提醒.txt",
+              "document_name": "服务请求转派提醒.txt",
+              "chunk_index": 0,
+              "content": "工作交接说明：服务请求转派提醒\n发给：支持受理人与接手团队\n\n各位同事：\n转派的目的在于让更合适的团队继续处理，而不是把工单从自己的队列移走。接手方需要清楚问题、影响、已做动作和下一步期待。 接收方应能从本文找到输入、未结事项和完成判断，交接不能只停留在发送文件。\n\n接收前应看\n----------\n启动这项工作时，先确认事项确实落在支持受理人与接手团队的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。对客户的沟通必须保持同一事实口径。内部可以并行排查，外部仍应有明确的接收窗口；无法确认的原因、进度和完成时间要如实说明，避免把内部猜测变成客户可依赖的承诺。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+              "token_count": 340,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 6,
+                "dense_score": 0.7252037361385678,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.015151515151515152,
+                "rerank_score": 0.19576411177431813
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "158",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 8,
+              "content": "工单状态变化要有对应的处理事实：受理说明问题已进入队列，处理中说明有人在推进，待客户确认说明已给出可检查结果。客户没有立即回复时，处理人仍应保留最后沟通内容和后续联系安排。关闭摘要应写出采用的解决方式和验证范围，方便以后遇到同类问题时复用经验。",
+              "token_count": 125,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.7289753990754736,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.015384615384615385,
+                "rerank_score": 0.18657041422700774
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "365",
+              "knowledge_base_id": "5",
+              "document_id": "86",
+              "revision_id": "86",
+              "generation_id": "94",
+              "document_title": "客户工单状态与处理要求.xlsx",
+              "document_name": "客户工单状态与处理要求.xlsx",
+              "chunk_index": 1,
+              "content": "| 客户工单状态与处理要求 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 已关闭 | 处理结果被接收 | 写出关闭摘要 | 解决方式、版本、验证范围 | 遗留项是否有人负责 |\n| 重新打开 | 出现新影响或结果未生效 | 比对旧结论与新事实 | 变化时间与触发条件 | 是否需要调整处理级别 |\n| 争议待定 | 原因或责任尚不清晰 | 分开事实与推断 | 争议点和决定路径 | 是否已有授权的结论 |\n| 需升级 | 影响扩大或存在安全迹象 | 通知相应负责人并保全事实 | 升级原因和影响范围 | 对外口径是否一致 |\n| 转产品评估 | 问题涉及需求边界 | 提供客户场景和期望结果 | 需求说明与待澄清事项 | 是否仍需支持临时答复 |\n| 转技术排查 | 需要日志或代码分析 | 说明复现条件与已做排查 | 必要的受控证据 | 是否获得接手确认 |\n| 回访观察 | 已解决但需关注稳定性 | 确认结果持续有效 | 观察范围与反馈 | 是否可以正式结束跟进 |\n| 状态名称用于本文的工作说明，不是某个已上线系统的固定枚举。 |  |  |  |  |",
+              "token_count": 452,
+              "page_number": null,
+              "section_title": "工单流转",
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7426191568374634,
+                "bm25_rank": 2,
+                "bm25_score": 17.188705,
+                "fusion_score": 0.03225806451612903,
+                "rerank_score": 0.17583302622001992
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "157",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 7,
+              "content": "关闭后如同一原因复发，应能追到原工单，但不能把新影响简单隐藏在旧记录下。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 176,
+              "page_number": null,
+              "section_title": "职责边界",
+              "scores": {
+                "dense_rank": 8,
+                "dense_score": 0.7024663686752319,
+                "bm25_rank": 17,
+                "bm25_score": 13.68939,
+                "fusion_score": 0.027692895339954164,
+                "rerank_score": 0.17153029595687846
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 402,
+            "dense_ms": 2285,
+            "bm25_ms": 2272,
+            "fusion_ms": 0,
+            "authorization_ms": 3739,
+            "rerank_ms": 495,
+            "total_ms": 6921
+          }
+        }
+      }
+    },
+    {
+      "id": "C01",
+      "query": "海王星分公司2027年度年假具体有多少天？",
+      "kind": "unanswerable",
+      "elapsed_ms": 2117,
+      "http_status": 200,
+      "passed": null,
+      "reference_hits": [],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "海王星分公司2027年度年假具体有多少天？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "海王星分公司",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "海王星分公司"
+                }
+              },
+              {
+                "text": "2027年度年假",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "2027年度年假"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "年假",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "年假"
+                }
+              },
+              {
+                "text": "具体有多少天",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "具体有多少天"
+                }
+              }
+            ],
+            "constraints": [
+              {
+                "field": "department",
+                "operator": "eq",
+                "value": "海王星分公司",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "海王星分公司"
+                }
+              },
+              {
+                "field": "event_time",
+                "operator": "eq",
+                "value": "2027年度",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "2027年度"
+                }
+              }
+            ],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1009
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "海王星分公司2027年度年假具体有多少天？",
+          "query": "海王星分公司2027年度年假具体有多少天？",
+          "requested_route": "hybrid",
+          "reason_code": "METADATA_FILTERS_NOT_READY",
+          "planning_status": "unsupported",
+          "constraints": [
+            {
+              "field": "department",
+              "operator": "eq",
+              "value": "海王星分公司",
+              "evidence": {
+                "source": "query",
+                "history_index": null,
+                "quote": "海王星分公司"
+              }
+            },
+            {
+              "field": "event_time",
+              "operator": "eq",
+              "value": "2027年度",
+              "evidence": {
+                "source": "query",
+                "history_index": null,
+                "quote": "2027年度"
+              }
+            }
+          ],
+          "warnings": [],
+          "message": "已保留元数据条件，过滤与日期解析尚未接入，不能忽略条件扩大检索。",
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "unsupported",
+          "evidence": [],
+          "degradation_codes": [],
+          "message": "已保留元数据条件，过滤与日期解析尚未接入，不能忽略条件扩大检索。",
+          "trace": {
+            "dense_status": "skipped",
+            "bm25_status": "skipped",
+            "rerank_status": "skipped",
+            "dense_count": 0,
+            "bm25_count": 0,
+            "fused_count": 0,
+            "authorized_count": 0,
+            "returned_count": 0,
+            "embedding_ms": 0,
+            "dense_ms": 0,
+            "bm25_ms": 0,
+            "fusion_ms": 0,
+            "authorization_ms": 0,
+            "rerank_ms": 0,
+            "total_ms": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "C02",
+      "query": "那它呢？",
+      "kind": "clarify",
+      "elapsed_ms": 2600,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [],
+      "route": "clarify",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "那它呢？",
+          "analysis": {
+            "intent": "other",
+            "entities": [],
+            "keywords": [],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": true,
+            "clarification_question": "请问“它”指的是什么？您想了解关于什么的哪方面信息？"
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1139
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "那它呢？",
+          "query": "那它呢？",
+          "requested_route": "clarify",
+          "reason_code": "CLARIFICATION_REQUIRED",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "clarify",
+          "params": {
+            "question": "请问“它”指的是什么？您想了解关于什么的哪方面信息？"
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "skipped",
+          "evidence": [],
+          "degradation_codes": [],
+          "message": "此计划无需文档检索",
+          "trace": {
+            "dense_status": "skipped",
+            "bm25_status": "skipped",
+            "rerank_status": "skipped",
+            "dense_count": 0,
+            "bm25_count": 0,
+            "fused_count": 0,
+            "authorized_count": 0,
+            "returned_count": 0,
+            "embedding_ms": 0,
+            "dense_ms": 0,
+            "bm25_ms": 0,
+            "fusion_ms": 0,
+            "authorization_ms": 0,
+            "rerank_ms": 0,
+            "total_ms": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "C03",
+      "query": "当前知识库有多少份文档？",
+      "kind": "unsupported",
+      "elapsed_ms": 1654,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [],
+      "route": "structured",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "当前知识库有多少份文档？",
+          "analysis": {
+            "intent": "statistics",
+            "entities": [],
+            "keywords": [
+              {
+                "text": "知识库",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "当前知识库有多少份文档？"
+                }
+              },
+              {
+                "text": "文档",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "当前知识库有多少份文档？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 791
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "当前知识库有多少份文档？",
+          "query": "当前知识库有多少份文档？",
+          "requested_route": "structured",
+          "reason_code": "CATALOG_EXECUTOR_NOT_READY",
+          "planning_status": "unsupported",
+          "constraints": [],
+          "warnings": [],
+          "message": "已识别目录操作，目录查询执行器尚未接入。",
+          "route": "structured",
+          "params": {
+            "operation": "count_documents",
+            "scope": "authorized_published_documents",
+            "offset": 0,
+            "limit": 20
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "unsupported",
+          "evidence": [],
+          "degradation_codes": [],
+          "message": "已识别目录操作，目录查询执行器尚未接入。",
+          "trace": {
+            "dense_status": "skipped",
+            "bm25_status": "skipped",
+            "rerank_status": "skipped",
+            "dense_count": 0,
+            "bm25_count": 0,
+            "fused_count": 0,
+            "authorized_count": 0,
+            "returned_count": 0,
+            "embedding_ms": 0,
+            "dense_ms": 0,
+            "bm25_ms": 0,
+            "fusion_ms": 0,
+            "authorization_ms": 0,
+            "rerank_ms": 0,
+            "total_ms": 0
+          }
+        }
+      }
+    }
+  ],
+  "scope": {
+    "knowledge_base_ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "authorized_document_count": 51,
+    "published_document_count": 50
+  },
+  "verified_source_count": 11,
+  "summary": {
+    "answerable_count": 11,
+    "full_hit_count": 9,
+    "median_ms": 8438
+  },
+  "evaluation_session_revoked": true,
+  "analyzer_prompt_sha256": "f1c0bb37985eff20e887dd02424b4b0ea7628e33a79571cf1c1e697bd3e4c013",
+  "reranker_input": "content_only"
+}

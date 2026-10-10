@@ -1,0 +1,604 @@
+{
+  "created_at": "2026-10-10T08:52:59.722838+00:00",
+  "case_id": "Q03",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+  "events": [
+    {
+      "event": "progress",
+      "data": {
+        "stage": "analysis"
+      }
+    },
+    {
+      "event": "progress",
+      "data": {
+        "stage": "retrieval"
+      }
+    },
+    {
+      "event": "progress",
+      "data": {
+        "stage": "generation"
+      }
+    },
+    {
+      "event": "progress",
+      "data": {
+        "stage": "review"
+      }
+    },
+    {
+      "event": "answer",
+      "data": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "工单",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "关闭",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              },
+              {
+                "text": "客户确认",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              },
+              {
+                "text": "通知条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1471
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "156",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 6,
+              "content": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 182,
+              "page_number": null,
+              "section_title": "关闭条件",
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.7258469895033247,
+                "bm25_rank": 11,
+                "bm25_score": 17.404432,
+                "fusion_score": 0.029709507042253523,
+                "rerank_score": 0.7877331281661136
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "151",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 1,
+              "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 94,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.792410445665692,
+                "bm25_rank": 21,
+                "bm25_score": 16.287445,
+                "fusion_score": 0.0287391216352965,
+                "rerank_score": 0.4300523738526234
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "158",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 8,
+              "content": "工单状态变化要有对应的处理事实：受理说明问题已进入队列，处理中说明有人在推进，待客户确认说明已给出可检查结果。客户没有立即回复时，处理人仍应保留最后沟通内容和后续联系安排。关闭摘要应写出采用的解决方式和验证范围，方便以后遇到同类问题时复用经验。",
+              "token_count": 125,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7616279579179276,
+                "bm25_rank": 19,
+                "bm25_score": 16.455738,
+                "fusion_score": 0.02878726010616578,
+                "rerank_score": 0.3540942109434389
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "431",
+              "knowledge_base_id": "5",
+              "document_id": "86",
+              "revision_id": "86",
+              "generation_id": "133",
+              "document_title": "客户工单状态与处理要求.xlsx",
+              "document_name": "客户工单状态与处理要求.xlsx",
+              "chunk_index": 1,
+              "content": "| 工作状态 | 进入条件 | 经办动作 | 需要留下的内容 | 离开该状态前核对 |\n| --- | --- | --- | --- | --- |\n| 新受理 | 收到客户问题 | 确认问题与影响并指定窗口 | 客户原始描述和接收时间 | 问题主题是否清楚 |\n| 待补充 | 缺少复现或范围信息 | 向客户提出有目的的问题 | 缺少的条件与沟通记录 | 信息是否足以继续核查 |\n| 内部核查 | 已有基本现象 | 定位版本、路径和可能影响 | 已做检查与未确认事项 | 是否需要其他岗位协作 |\n| 协作处理中 | 问题跨出当前职责 | 转交背景与预期动作 | 接手确认和下一次反馈安排 | 客户窗口是否仍明确 |\n| 临时措施 | 有缓解影响的办法 | 核对措施适用范围并告知 | 措施内容、限制和验证结果 | 是否仍需根因处理 |\n| 待验证 | 处理动作已实施 | 复核原问题与相邻路径 | 验证过程及适用版本 | 客户侧是否能使用结果 |\n| 待客户确认 | 已给出可检查答复 | 说明结果和仍有限制 | 发送内容与时间 | 是否取得确认或有后续安排 |\n| 已关闭 | 处理结果被接收 | 写出关闭摘要 | 解决方式、版本、验证范围 | 遗留项是否有人负责 |",
+              "token_count": 467,
+              "page_number": null,
+              "section_title": "工单流转",
+              "scores": {
+                "dense_rank": 8,
+                "dense_score": 0.7040718970255926,
+                "bm25_rank": 2,
+                "bm25_score": 21.23488,
+                "fusion_score": 0.030834914611005692,
+                "rerank_score": 0.20727961350872695
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "157",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 7,
+              "content": "关闭后如同一原因复发，应能追到原工单，但不能把新影响简单隐藏在旧记录下。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 176,
+              "page_number": null,
+              "section_title": "职责边界",
+              "scores": {
+                "dense_rank": 15,
+                "dense_score": 0.6808370351791382,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.013333333333333334,
+                "rerank_score": 0.20692911017453508
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "rerank_query_count": 1,
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 227,
+            "dense_ms": 960,
+            "bm25_ms": 727,
+            "fusion_ms": 0,
+            "authorization_ms": 1412,
+            "rerank_ms": 307,
+            "total_ms": 2908
+          }
+        },
+        "answer": {
+          "status": "answered",
+          "statements": [
+            {
+              "text": "工单可以关闭之前，需要满足客户确认或按约定的沟通方式完成结果通知。",
+              "citations": [
+                {
+                  "citation_id": "E1",
+                  "quote": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。"
+                }
+              ]
+            }
+          ],
+          "message": null,
+          "codes": [],
+          "model": "qwen-plus",
+          "review_status": "passed",
+          "trace": {
+            "generation_ms": 1934,
+            "review_ms": 4184,
+            "authorization_ms": 1869,
+            "total_ms": 8052,
+            "context_tokens": 1378,
+            "input_tokens": 3136,
+            "output_tokens": 235
+          }
+        }
+      }
+    },
+    {
+      "event": "done",
+      "data": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "工单",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "关闭",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              },
+              {
+                "text": "客户确认",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              },
+              {
+                "text": "通知条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单可以关闭之前，需要满足什么客户确认或通知条件？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1471
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "156",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 6,
+              "content": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 182,
+              "page_number": null,
+              "section_title": "关闭条件",
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.7258469895033247,
+                "bm25_rank": 11,
+                "bm25_score": 17.404432,
+                "fusion_score": 0.029709507042253523,
+                "rerank_score": 0.7877331281661136
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "151",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 1,
+              "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 94,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.792410445665692,
+                "bm25_rank": 21,
+                "bm25_score": 16.287445,
+                "fusion_score": 0.0287391216352965,
+                "rerank_score": 0.4300523738526234
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "158",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 8,
+              "content": "工单状态变化要有对应的处理事实：受理说明问题已进入队列，处理中说明有人在推进，待客户确认说明已给出可检查结果。客户没有立即回复时，处理人仍应保留最后沟通内容和后续联系安排。关闭摘要应写出采用的解决方式和验证范围，方便以后遇到同类问题时复用经验。",
+              "token_count": 125,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7616279579179276,
+                "bm25_rank": 19,
+                "bm25_score": 16.455738,
+                "fusion_score": 0.02878726010616578,
+                "rerank_score": 0.3540942109434389
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "431",
+              "knowledge_base_id": "5",
+              "document_id": "86",
+              "revision_id": "86",
+              "generation_id": "133",
+              "document_title": "客户工单状态与处理要求.xlsx",
+              "document_name": "客户工单状态与处理要求.xlsx",
+              "chunk_index": 1,
+              "content": "| 工作状态 | 进入条件 | 经办动作 | 需要留下的内容 | 离开该状态前核对 |\n| --- | --- | --- | --- | --- |\n| 新受理 | 收到客户问题 | 确认问题与影响并指定窗口 | 客户原始描述和接收时间 | 问题主题是否清楚 |\n| 待补充 | 缺少复现或范围信息 | 向客户提出有目的的问题 | 缺少的条件与沟通记录 | 信息是否足以继续核查 |\n| 内部核查 | 已有基本现象 | 定位版本、路径和可能影响 | 已做检查与未确认事项 | 是否需要其他岗位协作 |\n| 协作处理中 | 问题跨出当前职责 | 转交背景与预期动作 | 接手确认和下一次反馈安排 | 客户窗口是否仍明确 |\n| 临时措施 | 有缓解影响的办法 | 核对措施适用范围并告知 | 措施内容、限制和验证结果 | 是否仍需根因处理 |\n| 待验证 | 处理动作已实施 | 复核原问题与相邻路径 | 验证过程及适用版本 | 客户侧是否能使用结果 |\n| 待客户确认 | 已给出可检查答复 | 说明结果和仍有限制 | 发送内容与时间 | 是否取得确认或有后续安排 |\n| 已关闭 | 处理结果被接收 | 写出关闭摘要 | 解决方式、版本、验证范围 | 遗留项是否有人负责 |",
+              "token_count": 467,
+              "page_number": null,
+              "section_title": "工单流转",
+              "scores": {
+                "dense_rank": 8,
+                "dense_score": 0.7040718970255926,
+                "bm25_rank": 2,
+                "bm25_score": 21.23488,
+                "fusion_score": 0.030834914611005692,
+                "rerank_score": 0.20727961350872695
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "157",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 7,
+              "content": "关闭后如同一原因复发，应能追到原工单，但不能把新影响简单隐藏在旧记录下。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 176,
+              "page_number": null,
+              "section_title": "职责边界",
+              "scores": {
+                "dense_rank": 15,
+                "dense_score": 0.6808370351791382,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.013333333333333334,
+                "rerank_score": 0.20692911017453508
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "rerank_query_count": 1,
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 227,
+            "dense_ms": 960,
+            "bm25_ms": 727,
+            "fusion_ms": 0,
+            "authorization_ms": 1412,
+            "rerank_ms": 307,
+            "total_ms": 2908
+          }
+        },
+        "answer": {
+          "status": "answered",
+          "statements": [
+            {
+              "text": "工单可以关闭之前，需要满足客户确认或按约定的沟通方式完成结果通知。",
+              "citations": [
+                {
+                  "citation_id": "E1",
+                  "quote": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。"
+                }
+              ]
+            }
+          ],
+          "message": null,
+          "codes": [],
+          "model": "qwen-plus",
+          "review_status": "passed",
+          "trace": {
+            "generation_ms": 1934,
+            "review_ms": 4184,
+            "authorization_ms": 1869,
+            "total_ms": 8052,
+            "context_tokens": 1378,
+            "input_tokens": 3136,
+            "output_tokens": 235
+          }
+        }
+      }
+    }
+  ],
+  "scope": {
+    "knowledge_base_ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "authorized_document_count": 51,
+    "published_document_count": 50
+  },
+  "verified_source_count": 2,
+  "source_transitions": [
+    {
+      "case_id": "Q03",
+      "document_id": "56",
+      "revision_id": "56",
+      "original_generation_id": "56",
+      "original_chunk_index": 3,
+      "file_sha256": "13df4b942df047438733db6d790b40ee9f67df58a94a6abae90ea928de5c7ef0",
+      "current_sources": [
+        {
+          "generation_id": "56",
+          "chunk_id": "153",
+          "chunk_index": 3,
+          "content_sha256": "da12abd65f69798822693b16ec5342ee80bad818c22584335a59bf16b6261b62"
+        },
+        {
+          "generation_id": "56",
+          "chunk_id": "156",
+          "chunk_index": 6,
+          "content_sha256": "2e0db8592e22bded87371ad7f316819efbd749c35f4bcbfc302d322cff51f5d0"
+        }
+      ]
+    }
+  ],
+  "http_status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "cache_control": "no-store",
+  "proxy_buffering": "no",
+  "reference_check": {
+    "passed": true,
+    "reference_hits": [
+      {
+        "document_id": "56",
+        "hit": true,
+        "ranks": [
+          1
+        ]
+      }
+    ]
+  },
+  "citations_valid": true,
+  "verified_statement_prefixes": true,
+  "success": true,
+  "evaluation_session_revoked": true
+}

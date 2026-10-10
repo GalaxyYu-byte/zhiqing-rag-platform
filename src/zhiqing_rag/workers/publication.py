@@ -25,6 +25,20 @@ from zhiqing_rag.modules.knowledge import KnowledgeBase
 from zhiqing_rag.modules.knowledge.permissions import document_access_condition
 from zhiqing_rag.modules.retrieval import GraphProjection
 from zhiqing_rag.workers.graph_extraction import EXTRACTOR_VERSION
+from zhiqing_rag.workers.index_snapshot import chunk_fingerprint
+
+
+def verify_reindex_base(task: BackgroundTask, document: Document, chunks=None) -> None:
+    """同一修订重建也必须校验预览时的发布指针和解析输入。"""
+    expected = task.payload.get("expected_active_generation_id")
+    if expected is not None and document.active_generation_id != expected:
+        raise ProcessingError("BASE_GENERATION_CHANGED")
+    fingerprint = task.payload.get("expected_chunks_fingerprint")
+    if chunks is not None and fingerprint is not None and (
+        len(chunks) != task.payload.get("expected_chunk_count")
+        or chunk_fingerprint(chunks) != fingerprint
+    ):
+        raise ProcessingError("REINDEX_PREVIEW_CHANGED")
 
 
 def lock_work_knowledge_base(session: Session, tenant_id: int, document_id: int) -> int:
@@ -172,6 +186,7 @@ def stage_chunks_for_graph(
         if document is None or document.kb_id != kb_id:
             raise ProcessingError("REVISION_UNAVAILABLE")
         verify_access(session, document, lease.revision_id)
+        verify_reindex_base(task, document, chunks)
         scope = ChunkScope(
             lease.tenant_id,
             document.kb_id,
@@ -224,6 +239,16 @@ def stage_chunks_for_graph(
 def publish_chunks(engine, lease: TaskLease, embedded, metrics: dict) -> None:
     with Session(engine) as session, session.begin():
         kb_id = lock_work_knowledge_base(session, lease.tenant_id, lease.document_id)
+        # 图任务也先锁任务再锁文档；先统一锁住本文件任务，避免取消旧图租约时反向等待。
+        document_tasks = session.scalars(
+            select(BackgroundTask)
+            .where(
+                BackgroundTask.tenant_id == lease.tenant_id,
+                BackgroundTask.document_id == lease.document_id,
+            )
+            .order_by(BackgroundTask.id)
+            .with_for_update()
+        ).all()
         task = session.scalar(
             select(BackgroundTask)
             .where(
@@ -255,6 +280,7 @@ def publish_chunks(engine, lease: TaskLease, embedded, metrics: dict) -> None:
         if document is None or document.kb_id != kb_id:
             raise ProcessingError("REVISION_UNAVAILABLE")
         verify_access(session, document, lease.revision_id)
+        verify_reindex_base(task, document, tuple(item.chunk for item in embedded))
         scope = ChunkScope(
             lease.tenant_id,
             document.kb_id,
@@ -268,6 +294,28 @@ def publish_chunks(engine, lease: TaskLease, embedded, metrics: dict) -> None:
         generation.first_published_at = now
         old_generation_id = document.active_generation_id
         if old_generation_id is not None and old_generation_id != lease.generation_id:
+            # 同一 revision 的旧 GRAPH 任务否则可在新索引发布后把 STALE 图重新置 READY。
+            for old_task in document_tasks:
+                if (
+                    old_task.generation_id == old_generation_id
+                    and old_task.task_type == "GRAPH"
+                    and old_task.status in ("PENDING", "RUNNING", "RETRY_WAIT")
+                ):
+                    old_task.status = old_task.stage = "CANCELLED"
+                    old_task.error_code = "GENERATION_SUPERSEDED"
+                    old_task.finished_at = now
+                    old_task.lease_owner = old_task.lease_expires_at = None
+                    old_task.lease_epoch += 1
+                    for old_attempt in session.scalars(
+                        select(TaskAttempt).where(
+                            TaskAttempt.tenant_id == lease.tenant_id,
+                            TaskAttempt.task_id == old_task.id,
+                            TaskAttempt.status == "RUNNING",
+                        )
+                    ):
+                        old_attempt.status = "CANCELLED"
+                        old_attempt.error_code = "GENERATION_SUPERSEDED"
+                        old_attempt.finished_at = now
             old_projections = session.scalars(
                 select(GraphProjection)
                 .where(

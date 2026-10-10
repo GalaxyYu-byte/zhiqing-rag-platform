@@ -1,0 +1,266 @@
+{
+  "version": 3,
+  "description": "保持v2全部问题与逐字依据；在首次调用前增加三道显式并列问题作为扩展开发回归。",
+  "source": "eval/graph_build/v1/chunks.jsonl",
+  "cases": [
+    {
+      "id": "Q01",
+      "query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+      "format": "PDF",
+      "references": [
+        {
+          "document_id": "35",
+          "chunk_index": 0,
+          "quotes": [
+            "员工逐项核对姓名、联系方式和证件信息"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "query": "采购需求在进入供应商沟通前，应先说明哪些内容？",
+      "format": "PDF",
+      "references": [
+        {
+          "document_id": "45",
+          "chunk_index": 0,
+          "quotes": [
+            "业务问题、使用场景、交付要求和预算来源"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+      "format": "DOCX",
+      "references": [
+        {
+          "document_id": "56",
+          "chunk_index": 3,
+          "quotes": [
+            "客户确认或按约定的沟通方式完成结果通知后再关闭"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "query": "发布变更准备时，回退触发条件和责任人由谁确认？",
+      "format": "DOCX",
+      "references": [
+        {
+          "document_id": "58",
+          "chunk_index": 3,
+          "quotes": [
+            "各方确认回退触发条件和责任人"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "query": "文档版本记录至少需要说明哪三项信息？",
+      "format": "Markdown",
+      "references": [
+        {
+          "document_id": "63",
+          "chunk_index": 4,
+          "quotes": [
+            "变更位置、影响对象和确认人角色"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "query": "哪些变化可能触发访问权限的提前复核？",
+      "format": "Markdown",
+      "references": [
+        {
+          "document_id": "71",
+          "chunk_index": 1,
+          "quotes": [
+            "岗位变化、项目结束或资料敏感度变化"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q07",
+      "query": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？",
+      "format": "TXT",
+      "references": [
+        {
+          "document_id": "73",
+          "chunk_index": 0,
+          "quotes": [
+            "说明原因并交由财务依据制度判断",
+            "不以自制截图充当正式票据"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q08",
+      "query": "服务请求转派摘要应包含哪些内容？",
+      "format": "TXT",
+      "references": [
+        {
+          "document_id": "76",
+          "chunk_index": 2,
+          "quotes": [
+            "客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q09",
+      "query": "新员工基础账号开通前由谁批准，之后由谁开通？",
+      "format": "XLSX",
+      "references": [
+        {
+          "document_id": "83",
+          "chunk_index": 0,
+          "quotes": [
+            "主管批准后由管理员开通",
+            "实际权限与批准范围一致"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "query": "人事资料保管要关注什么，发生什么变化需要重新核查？",
+      "format": "XLSX",
+      "references": [
+        {
+          "document_id": "89",
+          "chunk_index": 0,
+          "quotes": [
+            "限制个人信息访问",
+            "岗位或保留要求变化"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q11",
+      "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+      "format": "cross_document",
+      "references": [
+        {
+          "document_id": "56",
+          "chunk_index": 3,
+          "quotes": [
+            "客户确认或按约定的沟通方式完成结果通知后再关闭"
+          ]
+        },
+        {
+          "document_id": "76",
+          "chunk_index": 1,
+          "quotes": [
+            "选择接手团队并确认接收",
+            "未经确认的转派不能把工单视为已解决"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C01",
+      "query": "海王星分公司2027年度年假具体有多少天？",
+      "kind": "unanswerable",
+      "references": [],
+      "expected_answer_status": "unsupported"
+    },
+    {
+      "id": "C02",
+      "query": "那它呢？",
+      "kind": "clarify",
+      "references": [],
+      "expected_route": "clarify",
+      "expected_retrieval_status": "skipped"
+    },
+    {
+      "id": "C03",
+      "query": "当前知识库有多少份文档？",
+      "kind": "unsupported",
+      "references": [],
+      "expected_route": "structured",
+      "expected_retrieval_status": "unsupported"
+    },
+    {
+      "id": "C04",
+      "query": "蓝鲸咖啡机的保修期限是多久？",
+      "kind": "unanswerable",
+      "references": [],
+      "expected_answer_status": "insufficient"
+    },
+    {
+      "id": "Q12",
+      "query": "工单关闭和工单转派各自需要满足什么确认条件？",
+      "format": "cross_document",
+      "references": [
+        {
+          "document_id": "56",
+          "chunk_index": 3,
+          "quotes": [
+            "客户确认或按约定的沟通方式完成结果通知后再关闭"
+          ]
+        },
+        {
+          "document_id": "76",
+          "chunk_index": 1,
+          "quotes": [
+            "选择接手团队并确认接收",
+            "未经确认的转派不能把工单视为已解决"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q13",
+      "query": "新员工信息核对和文档版本记录分别应包含哪些信息？",
+      "format": "cross_document",
+      "references": [
+        {
+          "document_id": "35",
+          "chunk_index": 0,
+          "quotes": [
+            "员工逐项核对姓名、联系方式和证件信息"
+          ]
+        },
+        {
+          "document_id": "63",
+          "chunk_index": 4,
+          "quotes": [
+            "变更位置、影响对象和确认人角色"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q14",
+      "query": "服务请求转派摘要和文档版本记录分别应包含哪些信息？",
+      "format": "cross_document",
+      "references": [
+        {
+          "document_id": "76",
+          "chunk_index": 2,
+          "quotes": [
+            "客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作"
+          ]
+        },
+        {
+          "document_id": "63",
+          "chunk_index": 4,
+          "quotes": [
+            "变更位置、影响对象和确认人角色"
+          ]
+        }
+      ]
+    }
+  ]
+}

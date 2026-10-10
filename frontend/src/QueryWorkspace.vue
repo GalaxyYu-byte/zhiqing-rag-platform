@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 import { FileText, LoaderCircle, Search, RefreshCw, X, ShieldCheck } from "lucide-vue-next";
 import { isDemoMode, type KnowledgeBaseOption } from "./services/upload";
-import { searchQuery, QuerySearchError, type QuerySearchResponse, type QueryRoute } from "./services/query";
+import { searchQuery, streamAnswerQuery, QuerySearchError, type QuerySearchResponse, type QueryAnswerResponse, type QueryAnswerResult, type QueryAnswerStage, type QueryRoute } from "./services/query";
 import { analysisFailureLabel, queryStatus, slowestQueryStage } from "./services/query-diagnostics";
 
 const props = defineProps<{ bases: KnowledgeBaseOption[]; basesLoading: boolean; basesError: string }>();
@@ -12,7 +12,18 @@ const selectedBase = ref("");
 const busy = ref(false);
 const error = ref("");
 const notice = ref("");
-const result = ref<QuerySearchResponse | null>(null);
+const result = ref<QuerySearchResponse | QueryAnswerResponse | null>(null);
+const answer = computed(() => result.value && "answer" in result.value ? result.value.answer : null);
+const mode = ref<"search" | "answer">("answer");
+const progressMessage = ref("");
+const progressLabels: Record<QueryAnswerStage, string> = {
+  analysis: "正在分析问题…", retrieval: "正在检索资料…",
+  generation: "正在根据资料生成回答…", review: "正在核对回答的原文依据…",
+};
+const answerLabels: Record<QueryAnswerResult["status"], string> = {
+  answered: "回答", insufficient: "资料不足", rejected: "本次回答未发布",
+  unavailable: "回答暂不可用", skipped: "请补充问题", unsupported: "当前问题暂不支持",
+};
 const submittedScope = ref("");
 const requestElapsedMs = ref(0);
 const resultStatus = computed(() => result.value ? queryStatus(result.value) : null);
@@ -48,10 +59,12 @@ function invalidate() {
   busy.value = false;
   result.value = null;
   error.value = "";
+  progressMessage.value = "";
+  requestElapsedMs.value = 0;
 }
 function cancel() {
   invalidate();
-  notice.value = "已取消本次检索。";
+  notice.value = mode.value === "answer" ? "已取消本次回答。" : "已取消本次检索。";
 }
 function reloadBases() {
   invalidate();
@@ -60,7 +73,7 @@ function reloadBases() {
 }
 watch([query, selectedBase], () => { invalidate(); notice.value = ""; }, { flush: "sync" });
 watch(() => props.bases, (bases) => {
-  result.value = null;
+  invalidate();
   if (selectedBase.value && !bases.some((base) => base.id === selectedBase.value)) {
     selectedBase.value = "";
     notice.value = "原知识库已不可用，请重新确认检索范围。";
@@ -68,9 +81,10 @@ watch(() => props.bases, (bases) => {
 }, { flush: "sync" });
 onBeforeUnmount(invalidate);
 
-async function submit() {
+async function submit(requestMode: "search" | "answer" = "answer") {
   if (!canSearch.value) return;
   invalidate();
+  mode.value = requestMode;
   notice.value = "";
   const version = requestVersion;
   const request = new AbortController();
@@ -79,18 +93,29 @@ async function submit() {
   const started = performance.now();
   submittedScope.value = props.bases.find((base) => base.id === selectedBase.value)?.name || "全部可读知识库";
   try {
-    const response = await searchQuery(query.value, selectedBase.value, request.signal);
+    const response = requestMode === "answer"
+      ? await streamAnswerQuery(query.value, selectedBase.value, request.signal, (event) => {
+        if (version !== requestVersion || request.signal.aborted) return;
+        if (event.type === "progress") progressMessage.value = progressLabels[event.stage];
+        else {
+          // 客户端仅回调已核验的完整陈述；流中断时清除尚未完成的结果。
+          result.value = event.response;
+          requestElapsedMs.value = Math.max(0, Math.round(performance.now() - started));
+        }
+      })
+      : await searchQuery(query.value, selectedBase.value, request.signal);
     if (version === requestVersion && !request.signal.aborted) {
       requestElapsedMs.value = Math.max(0, Math.round(performance.now() - started));
       result.value = response;
     }
   } catch (cause) {
     if (version !== requestVersion || request.signal.aborted) return;
-    error.value = cause instanceof Error && cause.name === "TimeoutError" ? "检索等待超过 2 分钟，请稍后重试。"
-      : cause instanceof Error ? cause.message : "检索失败，请检查网络后重试。";
+    result.value = null;
+    error.value = cause instanceof Error && cause.name === "TimeoutError" ? "请求等待超过 2 分钟，请稍后重试。"
+      : cause instanceof Error ? cause.message : "请求失败，请检查网络后重试。";
     if (cause instanceof QuerySearchError && cause.status === 403) emit("reloadBases");
   } finally {
-    if (version === requestVersion) { busy.value = false; controller = undefined; }
+    if (version === requestVersion) { busy.value = false; controller = undefined; progressMessage.value = ""; }
   }
 }
 </script>
@@ -98,12 +123,12 @@ async function submit() {
 <template>
   <div class="query-workspace">
     <div class="page-heading">
-      <div><h1>智能问答 <span class="query-tag">检索测试</span></h1><p>输入问题，检查检索到的文档原文。当前阶段仅展示检索证据。</p></div>
+      <div><h1>智能问答 <span class="query-tag">单轮回答</span></h1><p>输入问题，根据当前可读文档生成回答并查看原文依据。</p></div>
     </div>
     <section class="card query-form-card" aria-labelledby="query-form-title">
-      <h2 id="query-form-title">检索问题</h2>
+      <h2 id="query-form-title">你的问题</h2>
       <p v-if="isDemoMode" class="query-message">当前为离线演示。请使用 API 模式并登录后测试真实检索。</p>
-      <form @submit.prevent="submit">
+      <form @submit.prevent="submit()">
         <label for="query-scope">知识库范围</label>
         <div class="query-scope-row">
           <select id="query-scope" v-model="selectedBase" :disabled="isDemoMode || basesLoading || busy || !!basesError">
@@ -116,21 +141,31 @@ async function submit() {
         <p v-else-if="basesError" class="query-error" role="alert">{{ basesError }}</p>
         <p v-else-if="!isDemoMode && !bases.length" class="query-hint">当前没有可读知识库，请联系管理员授权。</p>
         <label for="query-text">你的问题</label>
-        <textarea id="query-text" v-model="query" maxlength="2000" rows="4" placeholder="例如：工单关闭前需要谁确认？" @keydown.ctrl.enter.prevent="submit" @keydown.meta.enter.prevent="submit"></textarea>
+        <textarea id="query-text" v-model="query" maxlength="2000" rows="4" placeholder="例如：工单关闭前需要谁确认？" @keydown.ctrl.enter.prevent="submit()" @keydown.meta.enter.prevent="submit()"></textarea>
         <div class="query-form-footer">
-          <span class="query-hint">{{ query.length }}/2000 · Ctrl / ⌘ + Enter 检索</span>
+          <span class="query-hint">{{ query.length }}/2000 · Ctrl / ⌘ + Enter 提问</span>
           <div class="query-actions">
             <button v-if="busy" type="button" class="button secondary" @click="cancel"><X :size="15" />取消</button>
-            <button type="submit" class="button primary" :disabled="!canSearch"><LoaderCircle v-if="busy" :size="17" class="spin" /><Search v-else :size="17" />{{ busy ? '正在检索…' : '开始检索' }}</button>
+            <button type="button" class="button secondary" :disabled="!canSearch" @click="submit('search')">仅检索证据</button>
+            <button type="submit" class="button primary" :disabled="!canSearch"><LoaderCircle v-if="busy" :size="17" class="spin" /><Search v-else :size="17" />{{ busy ? (mode === 'answer' ? '正在生成回答…' : '正在检索…') : '生成回答' }}</button>
           </div>
         </div>
       </form>
-      <p v-if="busy" class="query-hint" role="status" aria-live="polite">正在分析问题并检索文档，首次调用可能需要较长时间。</p>
+      <p v-if="busy" class="query-hint" role="status" aria-live="polite">{{ mode === 'answer' ? (progressMessage || '正在连接问答服务…') : '正在分析问题并检索文档，请稍候。' }}</p>
       <p v-if="error" class="query-error" role="alert">{{ error }}</p>
       <p v-if="notice" class="query-message" role="status">{{ notice }}</p>
     </section>
 
     <section v-if="result" class="query-results" aria-labelledby="query-results-title" aria-live="polite">
+      <article v-if="answer" class="card query-answer" aria-labelledby="query-answer-title">
+        <h2 id="query-answer-title">{{ answerLabels[answer.status] }}</h2>
+        <p v-if="answer.message" class="query-message">{{ answer.message }}</p>
+        <div v-for="(statement, index) in answer.statements" :key="index" class="answer-statement">
+          <p>{{ statement.text }} <a v-for="citation in statement.citations" :key="citation.citation_id + citation.quote" :href="`#query-evidence-${citation.citation_id}`" class="answer-reference">[{{ citation.citation_id }}]</a></p>
+          <details class="answer-quotes"><summary>查看这段回答的原文依据</summary><blockquote v-for="citation in statement.citations" :key="citation.citation_id + citation.quote"><span class="query-citation">{{ citation.citation_id }}</span> {{ citation.quote }}</blockquote></details>
+        </div>
+        <p class="query-hint">回答生成 {{ time(answer.trace.generation_ms) }} · 证据复核 {{ time(answer.trace.review_ms) }}</p>
+      </article>
       <div class="card query-summary">
         <div class="query-result-heading"><h2 id="query-results-title">检索结果</h2><span class="query-tag" :class="{ warning: resultStatus?.warning }">{{ resultStatus?.label }}</span></div>
         <p class="query-hint">{{ submittedScope }} · {{ routeLabels[result.plan.route] }} · {{ result.retrieval.evidence.length }} 条原文证据</p>
@@ -157,23 +192,31 @@ async function submit() {
           </dl>
           <p v-if="result.analysis.analysis" class="query-hint">问题意图：{{ result.analysis.analysis.intent }}</p>
           <p v-for="warning in result.plan.warnings" :key="warning" class="query-hint">{{ warning }}</p>
-          <p class="query-hint">本次等待包括网络、身份与范围校验及分析和检索。召回分支并行执行，各阶段耗时不能直接相加；最耗时阶段用于定位等待位置。</p>
+          <p class="query-hint">本次等待包括网络、身份与范围校验、分析、检索及本次执行的回答生成和复核。召回分支并行执行，各阶段耗时不能直接相加；最耗时阶段用于定位等待位置。</p>
         </details>
       </div>
-      <article v-for="item in result.retrieval.evidence" :key="item.chunk_id" class="card query-evidence">
+      <article v-for="item in result.retrieval.evidence" :id="`query-evidence-${item.citation_id}`" :key="item.chunk_id" class="card query-evidence" tabindex="-1">
         <div class="query-evidence-heading"><span class="query-citation">{{ item.citation_id }}</span><FileText :size="18" /><h3>{{ item.document_title || item.document_name }}</h3><span class="query-hint">第 {{ item.rank }} 条</span></div>
         <p class="query-source">{{ item.document_name }}<span v-if="item.page_number !== null"> · 第 {{ item.page_number }} 页</span><span v-if="item.section_title"> · {{ item.section_title }}</span> · 分块 {{ item.chunk_index + 1 }}</p>
         <div class="query-original">{{ item.content }}</div>
       </article>
     </section>
-    <div v-else-if="!busy && !error" class="query-empty"><Search :size="30" /><p>检索结果会显示在这里</p><span>建议先用已入库文档中的具体问题进行测试。</span></div>
-    <footer class="page-footer"><span>知擎 · 检索测试</span><span><ShieldCheck :size="13" />按当前账号权限检索已发布文档</span></footer>
+    <div v-else-if="!busy && !error" class="query-empty"><Search :size="30" /><p>回答与原文证据会显示在这里</p><span>建议先用已入库文档中的具体问题进行测试。</span></div>
+    <footer class="page-footer"><span>知擎 · 智能问答</span><span><ShieldCheck :size="13" />按当前账号权限检索已发布文档</span></footer>
   </div>
 </template>
 
 <style scoped>
 .query-workspace { max-width: 1120px; margin: 0 auto; }
-.query-form-card, .query-summary, .query-evidence { padding: 24px; }
+.query-form-card, .query-summary, .query-evidence, .query-answer { padding: 24px; }
+.answer-statement { line-height: 1.8; margin-bottom: 18px; overflow-wrap: anywhere; }
+.answer-statement p { white-space: pre-wrap; }
+.answer-reference { color: #167c70; font-weight: 600; text-decoration: none; padding: 2px 4px; }
+.answer-reference:focus-visible { outline: 2px solid #167c70; }
+.answer-quotes { font-size: 13px; color: #52645c; }
+.answer-quotes summary { cursor: pointer; }
+.answer-quotes blockquote { margin: 12px 0; border-left: 3px solid #c9ded4; padding: 8px 14px; background: #f7faf8; white-space: pre-wrap; }
+.query-evidence:target { outline: 2px solid #167c70; scroll-margin-top: 20px; }
 h2 { font-size: 17px; margin: 0 0 18px; }
 .query-tag { display: inline-flex; align-items: center; vertical-align: middle; font-size: 12px; font-weight: 500; padding: 5px 9px; border-radius: 6px; background: #e8f5ef; color: #167c70; }
 h1 .query-tag { margin-left: 8px; }
@@ -208,10 +251,11 @@ textarea:focus, select:focus { outline: 2px solid #167c70; outline-offset: 2px; 
 .query-empty p { color: #53675c; font-size: 15px; }
 .query-empty span { font-size: 13px; }
 @media (max-width: 640px) {
-  .query-form-card, .query-summary, .query-evidence { padding: 18px; }
+  .query-form-card, .query-summary, .query-evidence, .query-answer { padding: 18px; }
   .query-scope-row { flex-wrap: wrap; }
   .query-scope-row select { flex-basis: 100%; }
   .query-trace { grid-template-columns: 1fr; }
   .query-form-footer .query-actions { width: 100%; justify-content: flex-end; }
+  .query-actions { flex-wrap: wrap; }
 }
 </style>

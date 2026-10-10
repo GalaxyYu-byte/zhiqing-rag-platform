@@ -20,7 +20,7 @@ from zhiqing_rag.main import create_app
 from zhiqing_rag.modules.documents.repository import UploadRepository
 from zhiqing_rag.modules.documents.router import get_upload_identity
 from zhiqing_rag.modules.documents.schemas import UploadError
-from zhiqing_rag.modules.documents.task_queue import IngestionQueue, LeaseLostError
+from zhiqing_rag.modules.documents.task_queue import IngestionQueue, LeaseLostError, ProcessingError
 from zhiqing_rag.modules.retrieval import active_graph_projection
 from zhiqing_rag.workers import backfill_graph, graph, ingestion, publication
 from zhiqing_rag.workers.graph_extraction import Extraction
@@ -150,8 +150,10 @@ def test_delete_cancels_processing_and_survives_reload(uploaded, running):
             queue.heartbeat(lease)
         worker = ingestion.IngestionWorker(settings)
         try:
-            with pytest.raises(LeaseLostError):
+            # 文档已彻底删除，发布在知识库/文档范围检查时即拒绝，不能继续写入。
+            with pytest.raises(ProcessingError) as error:
                 publish_chunks(worker.engine, lease, (), {})
+            assert error.value.code == "REVISION_UNAVAILABLE"
         finally:
             worker.engine.dispose()
     assert_document_purged(settings, identity, body)
@@ -189,7 +191,7 @@ def assert_document_purged(settings, identity, body):
             assert count["count"] == 0, table
 
 
-def test_delete_rejects_other_tenant_and_insufficient_clearance(uploaded):
+def test_delete_rejects_other_tenant_and_changed_identity(uploaded):
     settings, identity, body, client = uploaded
     with database_connection(settings) as connection:
         repository = UploadRepository(connection, settings.db_schema)
@@ -199,7 +201,9 @@ def test_delete_rejects_other_tenant_and_insufficient_clearance(uploaded):
         assert error.value.status_code == 404
         with pytest.raises(UploadError) as error:
             repository.delete_document(replace(identity, clearance=-1), int(body["document_id"]))
-        assert error.value.status_code == 404
+        # 身份快照被改写时先返回授权变更；不会使用旧身份继续判断文档可见性。
+        assert error.value.status_code == 403
+        assert error.value.code == "IDENTITY_UNAVAILABLE"
     assert task_response(uploaded)["document_status"] == "DRAFT"
 
 

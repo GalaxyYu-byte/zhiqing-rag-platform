@@ -1,0 +1,317 @@
+{
+  "created_at": "2026-10-10T16:15:54.369795+08:00",
+  "dataset_sha256": "7bed30b91eb84a5c84cba546731e8049df50db8b2254f95e07821c13736d919e",
+  "analyzer_prompt_sha256": "264359dfa7f5e2693ba438cecfea7735ec8251982e12ab4bdb86c7b699638274",
+  "reranker_input": "document_title_name_section_content",
+  "analyzer_model": "deepseek-flash",
+  "embedding_model": "text-embedding-v3",
+  "reranker_model": "gte-rerank-v2",
+  "results": [
+    {
+      "id": "Q11",
+      "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+      "kind": "answerable",
+      "elapsed_ms": 25226,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "56",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        },
+        {
+          "document_id": "76",
+          "hit": true,
+          "ranks": [
+            5
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "工单转派",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单转派"
+                }
+              },
+              {
+                "text": "工单关闭",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单关闭"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "确认条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "确认条件"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1594
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "156",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 6,
+              "content": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 182,
+              "page_number": null,
+              "section_title": "关闭条件",
+              "scores": {
+                "dense_rank": 15,
+                "dense_score": 0.6946602281725555,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.013333333333333334,
+                "rerank_score": 0.4019943272321105
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "328",
+              "knowledge_base_id": "5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "document_title": "服务请求转派提醒.txt",
+              "document_name": "服务请求转派提醒.txt",
+              "chunk_index": 0,
+              "content": "工作交接说明：服务请求转派提醒\n发给：支持受理人与接手团队\n\n各位同事：\n转派的目的在于让更合适的团队继续处理，而不是把工单从自己的队列移走。接手方需要清楚问题、影响、已做动作和下一步期待。 接收方应能从本文找到输入、未结事项和完成判断，交接不能只停留在发送文件。\n\n接收前应看\n----------\n启动这项工作时，先确认事项确实落在支持受理人与接手团队的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果。对客户的沟通必须保持同一事实口径。内部可以并行排查，外部仍应有明确的接收窗口；无法确认的原因、进度和完成时间要如实说明，避免把内部猜测变成客户可依赖的承诺。 如果责任角色暂时没有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+              "token_count": 340,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 6,
+                "dense_score": 0.7252037361385678,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.015151515151515152,
+                "rerank_score": 0.18128759608048645
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "364",
+              "knowledge_base_id": "5",
+              "document_id": "86",
+              "revision_id": "86",
+              "generation_id": "94",
+              "document_title": "客户工单状态与处理要求.xlsx",
+              "document_name": "客户工单状态与处理要求.xlsx",
+              "chunk_index": 0,
+              "content": "| 客户工单状态与处理要求 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 使用方式：按事项核对，空白不代表已完成；不填写个人或交易记录。 |  |  |  |  |\n| 工作状态 | 进入条件 | 经办动作 | 需要留下的内容 | 离开该状态前核对 |\n| 新受理 | 收到客户问题 | 确认问题与影响并指定窗口 | 客户原始描述和接收时间 | 问题主题是否清楚 |\n| 待补充 | 缺少复现或范围信息 | 向客户提出有目的的问题 | 缺少的条件与沟通记录 | 信息是否足以继续核查 |\n| 内部核查 | 已有基本现象 | 定位版本、路径和可能影响 | 已做检查与未确认事项 | 是否需要其他岗位协作 |\n| 协作处理中 | 问题跨出当前职责 | 转交背景与预期动作 | 接手确认和下一次反馈安排 | 客户窗口是否仍明确 |\n| 临时措施 | 有缓解影响的办法 | 核对措施适用范围并告知 | 措施内容、限制和验证结果 | 是否仍需根因处理 |\n| 待验证 | 处理动作已实施 | 复核原问题与相邻路径 | 验证过程及适用版本 | 客户侧是否能使用结果 |\n| 待客户确认 | 已给出可检查答复 | 说明结果和仍有限制 | 发送内容与时间 | 是否取得确认或有后续安排 |",
+              "token_count": 477,
+              "page_number": null,
+              "section_title": "工单流转",
+              "scores": {
+                "dense_rank": 3,
+                "dense_score": 0.7315870741482701,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.015873015873015872,
+                "rerank_score": 0.1772825647353548
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "151",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 1,
+              "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 94,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.7725073234732568,
+                "bm25_rank": 15,
+                "bm25_score": 13.832109,
+                "fusion_score": 0.029726775956284153,
+                "rerank_score": 0.21718812182322753
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "329",
+              "knowledge_base_id": "5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "document_title": "服务请求转派提醒.txt",
+              "document_name": "服务请求转派提醒.txt",
+              "chunk_index": 1,
+              "content": "应移交的资料\n------------\n转派记录保留背景、紧急程度依据、相关版本和承诺中的下次反馈动作；客户敏感材料使用受控链接。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。\n\n交接动作\n--------\n1) 第一步，受理人整理问题摘要与原始描述。\n2) 第二步，说明已核对和未核对的事实。\n3) 第三步，选择接手团队并确认接收。\n4) 第四步，继续保持对外沟通窗口。\n5) 这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n\n不能接收的情况\n--------------\n接手方认为信息不足时列出缺口并回传受理人；未经确认的转派不能把工单视为已解决。 例外处理的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其他岗位决定时，连同背景、影响和可选处理方式一并移交。",
+              "token_count": 508,
+              "page_number": null,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.7305797338485718,
+                "bm25_rank": 4,
+                "bm25_score": 15.809742,
+                "fusion_score": 0.03125,
+                "rerank_score": 0.16550638166014572
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "rerank_query_count": 3,
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 302,
+            "dense_ms": 1012,
+            "bm25_ms": 674,
+            "fusion_ms": 0,
+            "authorization_ms": 1574,
+            "rerank_ms": 482,
+            "total_ms": 3371
+          }
+        },
+        "answer": {
+          "status": "answered",
+          "statements": [
+            {
+              "text": "工单转派需要接收方确认，且交接动作须按顺序完成：第一步整理问题摘要与原始描述，第二步说明已核对和未核对的事实，第三步选择接手团队并确认接收，第四步继续保持对外沟通窗口；进入下一步前须确认上一环节结果已被接收，未经确认的转派不能视为已解决。",
+              "citations": [
+                {
+                  "citation_id": "E5",
+                  "quote": "交接动作\n--------\n1) 第一步，受理人整理问题摘要与原始描述。\n2) 第二步，说明已核对和未核对的事实。\n3) 第三步，选择接手团队并确认接收。\n4) 第四步，继续保持对外沟通窗口。\n5) 这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果说明已核对和未核对的事实无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n\n不能接收的情况\n--------------\n接手方认为信息不足时列出缺口并回传受理人；未经确认的转派不能把工单视为已解决。"
+                }
+              ]
+            },
+            {
+              "text": "工单关闭需满足客户确认或按约定沟通方式完成结果通知，且经办人须核对：接收方能否据此继续工作、相关材料是否能从正式存放位置找到、遗留差异是否已分派给具体岗位；缺少必要确认时不得办结，仅发送邮件、上传附件或口头告知不视为关闭。",
+              "citations": [
+                {
+                  "citation_id": "E1",
+                  "quote": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。"
+                }
+              ]
+            }
+          ],
+          "message": null,
+          "codes": [],
+          "model": "qwen-plus",
+          "review_status": "passed",
+          "trace": {
+            "generation_ms": 9992,
+            "review_ms": 7918,
+            "authorization_ms": 1907,
+            "total_ms": 19893,
+            "context_tokens": 1954,
+            "input_tokens": 3886,
+            "output_tokens": 767
+          }
+        }
+      },
+      "answer_status": "answered",
+      "citation_valid": true,
+      "answer_status_matches": true
+    }
+  ],
+  "mode": "answer",
+  "answer_model": "qwen-plus",
+  "scope": {
+    "knowledge_base_ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "authorized_document_count": 51,
+    "published_document_count": 50
+  },
+  "verified_source_count": 2,
+  "source_transitions": [],
+  "source_mode": "frozen_exact",
+  "summary": {
+    "answerable_count": 1,
+    "full_hit_count": 1,
+    "median_ms": 25226
+  },
+  "evaluation_session_revoked": true
+}

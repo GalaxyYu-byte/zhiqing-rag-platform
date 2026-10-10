@@ -1,0 +1,552 @@
+{
+  "created_at": "2026-10-09T22:13:48.237883+08:00",
+  "dataset_sha256": "7bed30b91eb84a5c84cba546731e8049df50db8b2254f95e07821c13736d919e",
+  "analyzer_prompt_sha256": "264359dfa7f5e2693ba438cecfea7735ec8251982e12ab4bdb86c7b699638274",
+  "reranker_input": "document_title_name_section_content",
+  "analyzer_model": "deepseek-flash",
+  "embedding_model": "text-embedding-v3",
+  "reranker_model": "gte-rerank-v2",
+  "results": [
+    {
+      "id": "Q11",
+      "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+      "kind": "answerable",
+      "elapsed_ms": 9951,
+      "http_status": 200,
+      "passed": false,
+      "reference_hits": [
+        {
+          "document_id": "56",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        },
+        {
+          "document_id": "76",
+          "hit": false,
+          "ranks": []
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "工单转派",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单转派"
+                }
+              },
+              {
+                "text": "工单关闭",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "工单关闭"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "确认条件",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "确认条件"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1559
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "156",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 6,
+              "content": "本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 182,
+              "page_number": null,
+              "section_title": "关闭条件",
+              "scores": {
+                "dense_rank": 15,
+                "dense_score": 0.6946602281725555,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.013333333333333334,
+                "rerank_score": 0.4021989947782591
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "151",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 1,
+              "content": "工单是客户问题从受理到答复的工作线索。关闭条件应围绕客户问题是否得到明确处理，而不是内部处理人是否完成自己的一个动作。 经办人按顺序推进；条件不具备时记录卡点，并交给有权决定的岗位处理。",
+              "token_count": 94,
+              "page_number": null,
+              "section_title": "工作入口",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.7725073234732568,
+                "bm25_rank": 15,
+                "bm25_score": 13.832109,
+                "fusion_score": 0.029726775956284153,
+                "rerank_score": 0.2173044309118571
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "158",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 8,
+              "content": "工单状态变化要有对应的处理事实：受理说明问题已进入队列，处理中说明有人在推进，待客户确认说明已给出可检查结果。客户没有立即回复时，处理人仍应保留最后沟通内容和后续联系安排。关闭摘要应写出采用的解决方式和验证范围，方便以后遇到同类问题时复用经验。",
+              "token_count": 125,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.7289753990754736,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.015384615384615385,
+                "rerank_score": 0.19194218556372666
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "157",
+              "knowledge_base_id": "5",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "document_title": "工单处理与关闭步骤.docx",
+              "document_name": "工单处理与关闭步骤.docx",
+              "chunk_index": 7,
+              "content": "关闭后如同一原因复发，应能追到原工单，但不能把新影响简单隐藏在旧记录下。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 176,
+              "page_number": null,
+              "section_title": "职责边界",
+              "scores": {
+                "dense_rank": 8,
+                "dense_score": 0.7024663686752319,
+                "bm25_rank": 17,
+                "bm25_score": 13.68939,
+                "fusion_score": 0.027692895339954164,
+                "rerank_score": 0.1887528013471706
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "365",
+              "knowledge_base_id": "5",
+              "document_id": "86",
+              "revision_id": "86",
+              "generation_id": "94",
+              "document_title": "客户工单状态与处理要求.xlsx",
+              "document_name": "客户工单状态与处理要求.xlsx",
+              "chunk_index": 1,
+              "content": "| 客户工单状态与处理要求 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 已关闭 | 处理结果被接收 | 写出关闭摘要 | 解决方式、版本、验证范围 | 遗留项是否有人负责 |\n| 重新打开 | 出现新影响或结果未生效 | 比对旧结论与新事实 | 变化时间与触发条件 | 是否需要调整处理级别 |\n| 争议待定 | 原因或责任尚不清晰 | 分开事实与推断 | 争议点和决定路径 | 是否已有授权的结论 |\n| 需升级 | 影响扩大或存在安全迹象 | 通知相应负责人并保全事实 | 升级原因和影响范围 | 对外口径是否一致 |\n| 转产品评估 | 问题涉及需求边界 | 提供客户场景和期望结果 | 需求说明与待澄清事项 | 是否仍需支持临时答复 |\n| 转技术排查 | 需要日志或代码分析 | 说明复现条件与已做排查 | 必要的受控证据 | 是否获得接手确认 |\n| 回访观察 | 已解决但需关注稳定性 | 确认结果持续有效 | 观察范围与反馈 | 是否可以正式结束跟进 |\n| 状态名称用于本文的工作说明，不是某个已上线系统的固定枚举。 |  |  |  |  |",
+              "token_count": 452,
+              "page_number": null,
+              "section_title": "工单流转",
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7426191568374634,
+                "bm25_rank": 2,
+                "bm25_score": 17.188705,
+                "fusion_score": 0.03225806451612903,
+                "rerank_score": 0.18678095829672883
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 356,
+            "dense_ms": 1774,
+            "bm25_ms": 1173,
+            "fusion_ms": 0,
+            "authorization_ms": 2126,
+            "rerank_ms": 582,
+            "total_ms": 4840
+          }
+        },
+        "answer": {
+          "status": "insufficient",
+          "statements": [],
+          "message": "当前可读资料不足以完整回答这个问题。",
+          "codes": [],
+          "model": "qwen-plus",
+          "review_status": "skipped",
+          "trace": {
+            "generation_ms": 736,
+            "review_ms": 0,
+            "authorization_ms": 1838,
+            "total_ms": 2684,
+            "context_tokens": 1362,
+            "input_tokens": 1349,
+            "output_tokens": 9
+          }
+        }
+      },
+      "answer_status": "insufficient",
+      "citation_valid": true,
+      "answer_status_matches": false,
+      "captured_model_outputs": [
+        {
+          "stage": "generation",
+          "value": {
+            "status": "insufficient",
+            "statements": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "C04",
+      "query": "蓝鲸咖啡机的保修期限是多久？",
+      "kind": "unanswerable",
+      "elapsed_ms": 8492,
+      "http_status": 200,
+      "passed": null,
+      "reference_hits": [],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "蓝鲸咖啡机的保修期限是多久？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "蓝鲸咖啡机",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "蓝鲸咖啡机的保修期限是多久？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "保修期限",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "蓝鲸咖啡机的保修期限是多久？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 787
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "蓝鲸咖啡机的保修期限是多久？",
+          "query": "蓝鲸咖啡机的保修期限是多久？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "129",
+              "knowledge_base_id": "3",
+              "document_id": "53",
+              "revision_id": "53",
+              "generation_id": "53",
+              "document_title": "办公设备领用归还流程.docx",
+              "document_name": "办公设备领用归还流程.docx",
+              "chunk_index": 6,
+              "content": "本事项以“归还时共同核对设备状态并交由技术人员处理工作数据”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 186,
+              "page_number": null,
+              "section_title": "关闭条件",
+              "scores": {
+                "dense_rank": 6,
+                "dense_score": 0.42468894793656786,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.015151515151515152,
+                "rerank_score": 0.04943123785098773
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "131",
+              "knowledge_base_id": "3",
+              "document_id": "53",
+              "revision_id": "53",
+              "generation_id": "53",
+              "document_title": "办公设备领用归还流程.docx",
+              "document_name": "办公设备领用归还流程.docx",
+              "chunk_index": 8,
+              "content": "设备编号是追踪实物的关键，交接时应与实际机身或管理标签核对。使用过程中若更换配件或维修，应让记录与当前状态同步。归还前由技术人员按工作资料保留要求处理本地文件，不能要求使用人把登录密码写在设备旁。设备可重新发放的判断还应包括可用性与数据清理状态。",
+              "token_count": 129,
+              "page_number": null,
+              "section_title": "经办补充",
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.4736113689426048,
+                "bm25_rank": 3,
+                "bm25_score": 8.773466,
+                "fusion_score": 0.032266458495966696,
+                "rerank_score": 0.0461539301896548
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "126",
+              "knowledge_base_id": "3",
+              "document_id": "53",
+              "revision_id": "53",
+              "generation_id": "53",
+              "document_title": "办公设备领用归还流程.docx",
+              "document_name": "办公设备领用归还流程.docx",
+              "chunk_index": 3,
+              "content": "第一步，需求部门说明岗位设备需求。\n\n第二步，行政核对可用设备并登记交付。\n\n第三步，使用人检查外观与配件。\n\n第四步，归还时共同核对设备状态并交由技术人员处理工作数据。\n\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果行政核对可用设备并登记交付无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。",
+              "token_count": 175,
+              "page_number": null,
+              "section_title": "经办步骤",
+              "scores": {
+                "dense_rank": 7,
+                "dense_score": 0.42343713571319497,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.014925373134328358,
+                "rerank_score": 0.006712913609243052
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "234",
+              "knowledge_base_id": "2",
+              "document_id": "64",
+              "revision_id": "64",
+              "generation_id": "64",
+              "document_title": "文件共享与外发核对.md",
+              "document_name": "文件共享与外发核对.md",
+              "chunk_index": 9,
+              "content": "外发前最好以最终接收方式预览一次：打开下载后的文件，确认没有多余工作表、隐藏批注、内部链接和不该出现的元数据。需要同时发送正文与附件时，应逐一核对其版本。若收件范围含多个组织，尽量分别提供所需内容，避免一份文件暴露与某个接收方无关的信息。完成发送后保存的是审批与发送范围，而不是无期限的公开链接。 若文件必须转成其他格式，转换后的正文、批注和附件也要重新检查。格式转换可能改变可见内容，因此原版审核结论不能机械套用到导出的新文件。\n\n---\n\n检索词：文件共享与外发核对；信息安全；文件发送人、内容负责人和接收窗口。",
+              "token_count": 256,
+              "page_number": null,
+              "section_title": "进一步说明",
+              "scores": {
+                "dense_rank": null,
+                "dense_score": null,
+                "bm25_rank": 1,
+                "bm25_score": 12.561486,
+                "fusion_score": 0.01639344262295082,
+                "rerank_score": 0.005949579483329656
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "231",
+              "knowledge_base_id": "2",
+              "document_id": "64",
+              "revision_id": "64",
+              "generation_id": "64",
+              "document_title": "文件共享与外发核对.md",
+              "document_name": "文件共享与外发核对.md",
+              "chunk_index": 6,
+              "content": "可分享链接不等于永久授权，期限、下载能力和转发范围要与业务目的相符。 同一事项若在邮件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排是否仍然成立。",
+              "token_count": 191,
+              "page_number": null,
+              "section_title": "检查中容易漏掉的点",
+              "scores": {
+                "dense_rank": null,
+                "dense_score": null,
+                "bm25_rank": 2,
+                "bm25_score": 11.20922,
+                "fusion_score": 0.016129032258064516,
+                "rerank_score": 0.005949579483329656
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 304,
+            "dense_ms": 1505,
+            "bm25_ms": 1203,
+            "fusion_ms": 0,
+            "authorization_ms": 2029,
+            "rerank_ms": 528,
+            "total_ms": 4367
+          }
+        },
+        "answer": {
+          "status": "insufficient",
+          "statements": [],
+          "message": "当前可读资料不足以完整回答这个问题。",
+          "codes": [],
+          "model": "qwen-plus",
+          "review_status": "skipped",
+          "trace": {
+            "generation_ms": 726,
+            "review_ms": 0,
+            "authorization_ms": 1750,
+            "total_ms": 2478,
+            "context_tokens": 1272,
+            "input_tokens": 1244,
+            "output_tokens": 9
+          }
+        }
+      },
+      "answer_status": "insufficient",
+      "citation_valid": true,
+      "answer_status_matches": true,
+      "captured_model_outputs": [
+        {
+          "stage": "generation",
+          "value": {
+            "status": "insufficient",
+            "statements": []
+          }
+        }
+      ]
+    }
+  ],
+  "mode": "answer",
+  "answer_model": "qwen-plus",
+  "scope": {
+    "knowledge_base_ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "authorized_document_count": 51,
+    "published_document_count": 50
+  },
+  "verified_source_count": 2,
+  "summary": {
+    "answerable_count": 1,
+    "full_hit_count": 0,
+    "median_ms": 9222
+  },
+  "evaluation_session_revoked": true
+}

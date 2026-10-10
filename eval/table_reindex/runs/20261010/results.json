@@ -1,0 +1,445 @@
+{
+  "tenant_id": 1,
+  "targets": [
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90
+  ],
+  "before_active_generations": {
+    "62": 62,
+    "7": null,
+    "44": 44,
+    "65": 65,
+    "57": 57,
+    "49": 49,
+    "45": 45,
+    "67": 67,
+    "69": 69,
+    "53": 53,
+    "54": 54,
+    "55": 55,
+    "46": 46,
+    "56": 56,
+    "47": 47,
+    "59": 59,
+    "60": 60,
+    "61": 61,
+    "48": 48,
+    "63": 63,
+    "35": 35,
+    "34": 34,
+    "36": 36,
+    "64": 64,
+    "66": 66,
+    "68": 68,
+    "50": 50,
+    "51": 51,
+    "52": 52,
+    "74": 74,
+    "75": 75,
+    "82": 82,
+    "83": 91,
+    "84": 92,
+    "85": 93,
+    "86": 94,
+    "87": 95,
+    "88": 96,
+    "89": 97,
+    "90": 98,
+    "81": 111,
+    "58": 58,
+    "70": 70,
+    "71": 71,
+    "72": 72,
+    "73": 73,
+    "76": 76,
+    "77": 77,
+    "78": 78,
+    "79": 79,
+    "80": 80
+  },
+  "documents": [
+    {
+      "tenant_id": 1,
+      "document_id": 83,
+      "title": "入职事项与责任分工.xlsx",
+      "revision_id": 83,
+      "base_generation_id": 91,
+      "base_chunk_count": 2,
+      "base_fingerprint": "97058151776f365e9d7761851ca0dd581dc911a521469cc4ca805c95fc0b5c46",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 3,
+      "target_fingerprint": "993d1193516f2de9c09c1eb03f28e7da30d8665d6397807ce2369e873a503e8c",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:入职办理!A1:E19",
+          "old_chunk_indices": [
+            0,
+            1
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 130,
+      "task_id": 196,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 3
+    },
+    {
+      "tenant_id": 1,
+      "document_id": 84,
+      "title": "费用凭证核验要点.xlsx",
+      "revision_id": 84,
+      "base_generation_id": 92,
+      "base_chunk_count": 3,
+      "base_fingerprint": "97651c1f10c19d6ea071390769f8794645442856c2eb506b61af8c3c10c29dc8",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 4,
+      "target_fingerprint": "e6dfb9ff496d620cac7c9a86a896cbd21636003ae6f3f48084f30b9b00c682c9",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:凭证核验!A1:E19",
+          "old_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 131,
+      "task_id": 197,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 4
+    },
+    {
+      "tenant_id": 1,
+      "document_id": 85,
+      "title": "采购节点与交接说明.xlsx",
+      "revision_id": 85,
+      "base_generation_id": 93,
+      "base_chunk_count": 2,
+      "base_fingerprint": "26478054fda7e0566e810bcdac3f0220f838f83a52a5c9322172d4ce4f9202f4",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 3,
+      "target_fingerprint": "eeece2227c2e96615b7312810ecdd8ae1c5bea667c3dc9b8bcd9e5394006f523",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:采购路径!A1:E19",
+          "old_chunk_indices": [
+            0,
+            1
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 132,
+      "task_id": 198,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 3
+    },
+    {
+      "tenant_id": 1,
+      "document_id": 86,
+      "title": "客户工单状态与处理要求.xlsx",
+      "revision_id": 86,
+      "base_generation_id": 94,
+      "base_chunk_count": 2,
+      "base_fingerprint": "35ff3a93f617f1b07200fb6e7dbda9d259b5eac3e0e4bea4e16a8f4a12a74931",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 3,
+      "target_fingerprint": "31550f69b5051e486d253130f945009eec87933959377f6e1938ed8b6ff2072b",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:工单流转!A1:E18",
+          "old_chunk_indices": [
+            0,
+            1
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 133,
+      "task_id": 199,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 3
+    },
+    {
+      "tenant_id": 1,
+      "document_id": 87,
+      "title": "项目交付物核对清单.xlsx",
+      "revision_id": 87,
+      "base_generation_id": 95,
+      "base_chunk_count": 2,
+      "base_fingerprint": "4b9acbeb8d34bbef64a517ad9e1bdd08c2392265b41d04966db856eef0e174e8",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 3,
+      "target_fingerprint": "0570efad09a5bc166e4d44a715d7a77b5d68ce35c03f5ddcd1173fd77a3cc0cf",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:交付物!A1:E19",
+          "old_chunk_indices": [
+            0,
+            1
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 134,
+      "task_id": 200,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 3
+    },
+    {
+      "tenant_id": 1,
+      "document_id": 88,
+      "title": "版本发布前核对清单.xlsx",
+      "revision_id": 88,
+      "base_generation_id": 96,
+      "base_chunk_count": 2,
+      "base_fingerprint": "73521c7e0c70b494e970b4b775f6958f03d1273bdb15a914eddd6cc8c377d2fd",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 3,
+      "target_fingerprint": "23d422e6745497bd2add54e6be8e444b406bef9a06e5c3705b59ec649e0e6f04",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:发布前!A1:E20",
+          "old_chunk_indices": [
+            0,
+            1
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 135,
+      "task_id": 201,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 3
+    },
+    {
+      "tenant_id": 1,
+      "document_id": 89,
+      "title": "内部资料分类与保管约定.xlsx",
+      "revision_id": 89,
+      "base_generation_id": 97,
+      "base_chunk_count": 2,
+      "base_fingerprint": "c420d23e3a3a505df7c663a5ca6f488533c24cda6f6908efd324d61768b3a94b",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 3,
+      "target_fingerprint": "fe3489822ab8648e9850327e63993d32a5df8c37bd3e73333a51812d1fdf10a6",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:分类保管!A1:E19",
+          "old_chunk_indices": [
+            0,
+            1
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 136,
+      "task_id": 202,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 3
+    },
+    {
+      "tenant_id": 1,
+      "document_id": 90,
+      "title": "权限申请与复核责任矩阵.xlsx",
+      "revision_id": 90,
+      "base_generation_id": 98,
+      "base_chunk_count": 2,
+      "base_fingerprint": "5bd54e250da29484b5c15a26c687db2ae8d123964d7200af19a888e75a313906",
+      "chunker_version": "chunking-v3-table-header",
+      "needs_reindex": true,
+      "reason": "SPARSE_TABLE_HEADER_CHANGED",
+      "target_chunk_count": 3,
+      "target_fingerprint": "80f727653d406369ada8a3b6d41bf59b2d1c77e21a94ab86f0d2d84d2a1f64f1",
+      "affected_tables": [
+        {
+          "source_ref": "sheet:权限责任!A1:F18",
+          "old_chunk_indices": [
+            0,
+            1
+          ],
+          "new_chunk_indices": [
+            0,
+            1,
+            2
+          ],
+          "header_rows": [
+            1,
+            3
+          ]
+        }
+      ],
+      "generation_id": 137,
+      "task_id": 203,
+      "old_chunks_unchanged": true,
+      "task_status": "SUCCEEDED",
+      "error_code": null,
+      "generation_status": "READY",
+      "published": true,
+      "chunk_count": 3
+    }
+  ],
+  "after_active_generations": {
+    "62": 62,
+    "7": null,
+    "44": 44,
+    "65": 65,
+    "57": 57,
+    "49": 49,
+    "45": 45,
+    "67": 67,
+    "69": 69,
+    "53": 53,
+    "54": 54,
+    "55": 55,
+    "46": 46,
+    "56": 56,
+    "47": 47,
+    "59": 59,
+    "60": 60,
+    "61": 61,
+    "48": 48,
+    "63": 63,
+    "35": 35,
+    "34": 34,
+    "36": 36,
+    "64": 64,
+    "66": 66,
+    "68": 68,
+    "50": 50,
+    "51": 51,
+    "52": 52,
+    "74": 74,
+    "83": 130,
+    "75": 75,
+    "84": 131,
+    "85": 132,
+    "82": 82,
+    "86": 133,
+    "87": 134,
+    "88": 135,
+    "89": 136,
+    "90": 137,
+    "81": 111,
+    "58": 58,
+    "70": 70,
+    "71": 71,
+    "72": 72,
+    "73": 73,
+    "76": 76,
+    "77": 77,
+    "78": 78,
+    "79": 79,
+    "80": 80
+  },
+  "other_documents_unchanged": true,
+  "success": true
+}

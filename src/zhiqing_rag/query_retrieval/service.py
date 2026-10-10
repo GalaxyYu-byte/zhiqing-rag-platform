@@ -10,6 +10,7 @@ from zhiqing_rag.modules.identity.auth_schemas import AuthError, AuthIdentity
 from zhiqing_rag.query_routing.models import HybridPlan, QueryPlan
 from zhiqing_rag.query_routing.scope import AccessScope
 
+from .facets import cover_facets, fuse_facet_rankings, rerank_queries
 from .fusion import FusedCandidate, fuse_candidates
 from .models import ChunkRecord, Evidence, RecallHit, RetrievalResult, RetrievalTrace
 
@@ -144,15 +145,30 @@ class HybridRetrievalService:
         metrics["authorized_count"] = len(fused)
 
         ranked = fused
+        facet_rankings = ()
+        facet_anchors = ()
         if not plan.params.rerank or not self.reranker_enabled:
             metrics["rerank_status"] = "disabled"
         elif len(fused) > 1:
             start = time.perf_counter()
             try:
-                scores = await self.reranker.rerank(
-                    plan.query, tuple(item.chunk.content for item in fused)
+                queries = rerank_queries(plan.query)
+                if plan.params.top_k < len(queries) - 1:
+                    queries = (plan.query,)
+                metrics["rerank_query_count"] = len(queries)
+                documents = tuple(self._rerank_text(item.chunk) for item in fused)
+                results = await asyncio.gather(
+                    *(self.reranker.rerank(query, documents) for query in queries),
+                    return_exceptions=True,
                 )
-                ranked = self._apply_rerank(fused, scores)
+                rankings = []
+                for scores in results:
+                    if isinstance(scores, BaseException):
+                        raise scores
+                    rankings.append(self._apply_rerank(fused, scores))
+                ranked = rankings[0]
+                facet_rankings = fuse_facet_rankings(fused, tuple(rankings[1:]))
+                facet_anchors = tuple(items[0] for items in rankings[1:])
                 metrics["rerank_status"] = "succeeded"
             except Exception as error:
                 self._log_failure("rerank", error)
@@ -164,11 +180,24 @@ class HybridRetrievalService:
             ranked = await self._revalidate(ranked, identity, scope, metrics)
             if len(ranked) < len(fused):
                 degradation.append("SCOPE_CHANGED")
+            authorized_ids = {item.chunk.chunk_id for item in ranked}
+            facet_rankings = tuple(
+                tuple(item for item in items if item.chunk.chunk_id in authorized_ids)
+                for items in facet_rankings
+            )
+            facet_anchors = tuple(
+                item for item in facet_anchors if item.chunk.chunk_id in authorized_ids
+            )
 
         metrics["authorized_count"] = len(ranked)
         evidence = tuple(
             self._evidence(candidate, rank)
-            for rank, candidate in enumerate(ranked[: plan.params.top_k], start=1)
+            for rank, candidate in enumerate(
+                cover_facets(
+                    ranked, facet_rankings, limit=plan.params.top_k, anchors=facet_anchors
+                ),
+                start=1,
+            )
         )
         metrics["returned_count"] = len(evidence)
         metrics["total_ms"] = elapsed_ms(started)
@@ -226,6 +255,14 @@ class HybridRetrievalService:
                 scores=candidates[index].scores.model_copy(update={"rerank_score": float(score)}),
             )
             for index, score in sorted(scores, key=lambda item: (-item[1], item[0]))
+        )
+
+    @staticmethod
+    def _rerank_text(chunk: ChunkRecord) -> str:
+        # 步骤分块未必重复主题名称；授权后的标题与章节帮助重排理解正文对象。
+        return (
+            f"文档标题：{chunk.document_title}\n文件名：{chunk.document_name}\n"
+            f"章节：{chunk.section_title or ''}\n原文：\n{chunk.content}"
         )
 
     @staticmethod

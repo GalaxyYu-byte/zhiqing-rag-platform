@@ -1,0 +1,2918 @@
+{
+  "queries": [
+    {
+      "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+      "dense": [
+        {
+          "rank": 1,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "76",
+          "chunk_id": "328",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "59",
+          "chunk_id": "183",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "58",
+          "chunk_id": "174",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "52",
+          "chunk_id": "120",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "51",
+          "chunk_id": "111",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "53",
+          "chunk_id": "129",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "56",
+          "chunk_id": "156",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": true
+        },
+        {
+          "rank": 16,
+          "document_id": "55",
+          "chunk_id": "147",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "60",
+          "chunk_id": "192",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "76",
+          "chunk_id": "330",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "51",
+          "chunk_id": "112",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "61",
+          "chunk_id": "202",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "34",
+          "chunk_id": "72",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "47",
+          "chunk_id": "91",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "53",
+          "chunk_id": "130",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "57",
+          "chunk_id": "165",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "36",
+          "chunk_id": "76",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "50",
+          "chunk_id": "103",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "48",
+          "chunk_id": "96",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "55",
+          "chunk_id": "146",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "bm25": [
+        {
+          "rank": 1,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "88",
+          "chunk_id": "369",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "36",
+          "chunk_id": "73",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "34",
+          "chunk_id": "72",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "79",
+          "chunk_id": "340",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "65",
+          "chunk_id": "242",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "76",
+          "chunk_id": "330",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "45",
+          "chunk_id": "82",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "78",
+          "chunk_id": "339",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "58",
+          "chunk_id": "173",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "49",
+          "chunk_id": "99",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "77",
+          "chunk_id": "333",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "66",
+          "chunk_id": "246",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "45",
+          "chunk_id": "84",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "fused": [
+        {
+          "rank": 1,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "34",
+          "chunk_id": "72",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "76",
+          "chunk_id": "330",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "88",
+          "chunk_id": "369",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "76",
+          "chunk_id": "328",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "59",
+          "chunk_id": "183",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "36",
+          "chunk_id": "73",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "58",
+          "chunk_id": "174",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "52",
+          "chunk_id": "120",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "51",
+          "chunk_id": "111",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "53",
+          "chunk_id": "129",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "79",
+          "chunk_id": "340",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "56",
+          "chunk_id": "156",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": true
+        },
+        {
+          "rank": 30,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "reranked": [
+        {
+          "rank": 1,
+          "document_id": "56",
+          "chunk_id": "156",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": true
+        },
+        {
+          "rank": 2,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "76",
+          "chunk_id": "328",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "58",
+          "chunk_id": "174",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "53",
+          "chunk_id": "129",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "51",
+          "chunk_id": "111",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "52",
+          "chunk_id": "120",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "76",
+          "chunk_id": "330",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "59",
+          "chunk_id": "183",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "34",
+          "chunk_id": "72",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "36",
+          "chunk_id": "73",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "79",
+          "chunk_id": "340",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "88",
+          "chunk_id": "369",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ]
+    },
+    {
+      "query": "工单转派需要满足什么确认条件？",
+      "dense": [
+        {
+          "rank": 1,
+          "document_id": "76",
+          "chunk_id": "328",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "76",
+          "chunk_id": "330",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "47",
+          "chunk_id": "91",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "45",
+          "chunk_id": "83",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "61",
+          "chunk_id": "202",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "36",
+          "chunk_id": "73",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "61",
+          "chunk_id": "200",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "34",
+          "chunk_id": "71",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "34",
+          "chunk_id": "72",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "51",
+          "chunk_id": "111",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "52",
+          "chunk_id": "121",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "73",
+          "chunk_id": "318",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "45",
+          "chunk_id": "82",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "52",
+          "chunk_id": "120",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "45",
+          "chunk_id": "84",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "49",
+          "chunk_id": "98",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "55",
+          "chunk_id": "147",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "57",
+          "chunk_id": "165",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "53",
+          "chunk_id": "129",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "bm25": [
+        {
+          "rank": 1,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "36",
+          "chunk_id": "73",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "79",
+          "chunk_id": "340",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "35",
+          "chunk_id": "68",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "58",
+          "chunk_id": "173",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "76",
+          "chunk_id": "328",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "65",
+          "chunk_id": "242",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "78",
+          "chunk_id": "339",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "88",
+          "chunk_id": "369",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "45",
+          "chunk_id": "83",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "45",
+          "chunk_id": "82",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "62",
+          "chunk_id": "207",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "71",
+          "chunk_id": "304",
+          "chunk_index": 9,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "61",
+          "chunk_id": "203",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "69",
+          "chunk_id": "276",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "52",
+          "chunk_id": "116",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "53",
+          "chunk_id": "125",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "fused": [
+        {
+          "rank": 1,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "76",
+          "chunk_id": "328",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "36",
+          "chunk_id": "73",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "45",
+          "chunk_id": "83",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "45",
+          "chunk_id": "82",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "76",
+          "chunk_id": "330",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "47",
+          "chunk_id": "91",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "79",
+          "chunk_id": "340",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "35",
+          "chunk_id": "68",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "61",
+          "chunk_id": "202",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "58",
+          "chunk_id": "173",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "61",
+          "chunk_id": "200",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "34",
+          "chunk_id": "71",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "reranked": [
+        {
+          "rank": 1,
+          "document_id": "76",
+          "chunk_id": "328",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "76",
+          "chunk_id": "331",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "76",
+          "chunk_id": "330",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "36",
+          "chunk_id": "73",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "35",
+          "chunk_id": "68",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "45",
+          "chunk_id": "83",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "34",
+          "chunk_id": "71",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "61",
+          "chunk_id": "202",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "45",
+          "chunk_id": "82",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "47",
+          "chunk_id": "91",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "79",
+          "chunk_id": "340",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "61",
+          "chunk_id": "200",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "58",
+          "chunk_id": "173",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ]
+    },
+    {
+      "query": "工单关闭需要满足什么确认条件？",
+      "dense": [
+        {
+          "rank": 1,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "56",
+          "chunk_id": "156",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": true
+        },
+        {
+          "rank": 5,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "59",
+          "chunk_id": "183",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "58",
+          "chunk_id": "174",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "52",
+          "chunk_id": "120",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "55",
+          "chunk_id": "147",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "53",
+          "chunk_id": "129",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "51",
+          "chunk_id": "111",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "60",
+          "chunk_id": "192",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "34",
+          "chunk_id": "72",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "61",
+          "chunk_id": "202",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "51",
+          "chunk_id": "112",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "76",
+          "chunk_id": "329",
+          "chunk_index": 1,
+          "transfer_reference": true,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "62",
+          "chunk_id": "211",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "57",
+          "chunk_id": "165",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "34",
+          "chunk_id": "71",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "71",
+          "chunk_id": "301",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "55",
+          "chunk_id": "146",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "74",
+          "chunk_id": "322",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "61",
+          "chunk_id": "198",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "72",
+          "chunk_id": "311",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "bm25": [
+        {
+          "rank": 1,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "88",
+          "chunk_id": "369",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "35",
+          "chunk_id": "68",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "58",
+          "chunk_id": "173",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "65",
+          "chunk_id": "242",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "80",
+          "chunk_id": "345",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "34",
+          "chunk_id": "69",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "45",
+          "chunk_id": "83",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "45",
+          "chunk_id": "82",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "62",
+          "chunk_id": "207",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "71",
+          "chunk_id": "304",
+          "chunk_index": 9,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "61",
+          "chunk_id": "203",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "69",
+          "chunk_id": "276",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "66",
+          "chunk_id": "246",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "52",
+          "chunk_id": "116",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "53",
+          "chunk_id": "125",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "fused": [
+        {
+          "rank": 1,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 2,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "88",
+          "chunk_id": "369",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "56",
+          "chunk_id": "156",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": true
+        },
+        {
+          "rank": 13,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "59",
+          "chunk_id": "183",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "58",
+          "chunk_id": "174",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "52",
+          "chunk_id": "120",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "55",
+          "chunk_id": "147",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "53",
+          "chunk_id": "129",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "35",
+          "chunk_id": "68",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "51",
+          "chunk_id": "111",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "58",
+          "chunk_id": "173",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "60",
+          "chunk_id": "192",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "65",
+          "chunk_id": "242",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ],
+      "reranked": [
+        {
+          "rank": 1,
+          "document_id": "56",
+          "chunk_id": "156",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": true
+        },
+        {
+          "rank": 2,
+          "document_id": "56",
+          "chunk_id": "151",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 3,
+          "document_id": "56",
+          "chunk_id": "158",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 4,
+          "document_id": "56",
+          "chunk_id": "157",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 5,
+          "document_id": "86",
+          "chunk_id": "365",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 6,
+          "document_id": "55",
+          "chunk_id": "147",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 7,
+          "document_id": "53",
+          "chunk_id": "129",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 8,
+          "document_id": "56",
+          "chunk_id": "150",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 9,
+          "document_id": "86",
+          "chunk_id": "364",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 10,
+          "document_id": "60",
+          "chunk_id": "192",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 11,
+          "document_id": "58",
+          "chunk_id": "174",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 12,
+          "document_id": "52",
+          "chunk_id": "120",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 13,
+          "document_id": "51",
+          "chunk_id": "111",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 14,
+          "document_id": "59",
+          "chunk_id": "183",
+          "chunk_index": 6,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 15,
+          "document_id": "47",
+          "chunk_id": "92",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 16,
+          "document_id": "61",
+          "chunk_id": "196",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 17,
+          "document_id": "80",
+          "chunk_id": "346",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 18,
+          "document_id": "68",
+          "chunk_id": "266",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 19,
+          "document_id": "35",
+          "chunk_id": "67",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 20,
+          "document_id": "35",
+          "chunk_id": "68",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 21,
+          "document_id": "77",
+          "chunk_id": "335",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 22,
+          "document_id": "45",
+          "chunk_id": "85",
+          "chunk_index": 3,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 23,
+          "document_id": "90",
+          "chunk_id": "373",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 24,
+          "document_id": "36",
+          "chunk_id": "75",
+          "chunk_index": 2,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 25,
+          "document_id": "36",
+          "chunk_id": "74",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 26,
+          "document_id": "85",
+          "chunk_id": "362",
+          "chunk_index": 0,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 27,
+          "document_id": "88",
+          "chunk_id": "369",
+          "chunk_index": 1,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 28,
+          "document_id": "65",
+          "chunk_id": "242",
+          "chunk_index": 7,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 29,
+          "document_id": "58",
+          "chunk_id": "173",
+          "chunk_index": 5,
+          "transfer_reference": false,
+          "close_reference": false
+        },
+        {
+          "rank": 30,
+          "document_id": "72",
+          "chunk_id": "313",
+          "chunk_index": 8,
+          "transfer_reference": false,
+          "close_reference": false
+        }
+      ]
+    }
+  ],
+  "evaluation_session_revoked": true
+}

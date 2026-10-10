@@ -1,4 +1,4 @@
-import type { QuerySearchResponse } from "./query";
+import type { QuerySearchResponse, QueryAnswerResponse } from "./query";
 
 const retrievalLabels = {
   ok: "检索完成", degraded: "检索完成 · 有降级", empty: "没有找到原文",
@@ -32,7 +32,7 @@ export function queryStatus(result: QuerySearchResponse) {
   };
 }
 
-export function slowestQueryStage(result: QuerySearchResponse): { label: string; ms: number } | null {
+export function slowestQueryStage(result: QuerySearchResponse | QueryAnswerResponse): { label: string; ms: number } | null {
   const trace = result.retrieval.trace;
   const stages = [
     { label: "问题分析", ms: result.analysis.latency_ms },
@@ -43,6 +43,11 @@ export function slowestQueryStage(result: QuerySearchResponse): { label: string;
     { label: "授权校验", ms: trace.authorization_ms },
     { label: "重排", ms: trace.rerank_ms },
   ];
+  if ("answer" in result) stages.push(
+    { label: "回答生成", ms: result.answer.trace.generation_ms },
+    { label: "回答证据复核", ms: result.answer.trace.review_ms },
+    { label: "回答授权校验", ms: result.answer.trace.authorization_ms },
+  );
   const slowest = stages.reduce((max, stage) => stage.ms > max.ms ? stage : max);
   return slowest.ms > 0 ? slowest : null;
 }

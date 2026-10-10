@@ -1,0 +1,93 @@
+{
+  "reviewer": "Codex独立逐条原文核对，非外部人工验收",
+  "review_input": "最终HTTP发布陈述、citations与完整授权evidence；不把草稿或同模型review当成功",
+  "results_sha256": "3590684a795476b6ba485aa4e9f7c17d0a86f2418a2ec4cbfcd3536e629c7c5d",
+  "answerable_count": 14,
+  "fact_passed_count": 11,
+  "items": [
+    {
+      "case_id": "Q01",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "本人逐项核对姓名、联系方式、证件信息，三项与引用一致。"
+    },
+    {
+      "case_id": "Q02",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "四类采购需求信息及供应商沟通前的先后条件与引用一致。"
+    },
+    {
+      "case_id": "Q03",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "保留客户确认或按约定沟通方式完成通知的关闭条件。"
+    },
+    {
+      "case_id": "Q04",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "各方确认回退触发条件与责任人，未添加具体角色。"
+    },
+    {
+      "case_id": "Q05",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "版本记录三项及至少的范围与原文一致。"
+    },
+    {
+      "case_id": "Q06",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "三种变化可能触发提前复核，保留可能。"
+    },
+    {
+      "case_id": "Q07",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "无法取得凭证的前提、说明原因、财务依据制度判断及不以截图充当票据均一致。"
+    },
+    {
+      "case_id": "Q08",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "转派摘要五项信息与原文一致。"
+    },
+    {
+      "case_id": "Q09",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "完整表格列头支持主管批准后管理员开通的时序与角色。"
+    },
+    {
+      "case_id": "Q10",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "完整表格列头支持个人信息访问限制与岗位/保留要求变化时重新核查。"
+    },
+    {
+      "case_id": "Q11",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": false,
+      "note": "未通过。陈述1把未经确认的转派不能把工单视为已解决改成不能视为完成交接。角色未确定时不要把发送通知视为完成交接有另一触发条件，不能代替原规则。"
+    },
+    {
+      "case_id": "Q12",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": false,
+      "note": "未通过。陈述2把原文工单是否已解决改成转派是否完成，替换状态结果；同模型review漏判。"
+    },
+    {
+      "case_id": "Q13",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "未通过。非连续引文被ANSWER_QUOTE_NOT_VERBATIM拒绝；HTTP没有陈述。拒绝正确但正向问答未成功。"
+    },
+    {
+      "case_id": "Q14",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "转派摘要五项和文档版本三项分别有直接依据，未引入其他业务发布记录规则。"
+    }
+  ]
+}

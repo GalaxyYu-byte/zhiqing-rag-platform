@@ -20,6 +20,7 @@ from zhiqing_rag.modules.identity.auth_schemas import AuthError
 from zhiqing_rag.modules.identity.router import router as auth_router
 from zhiqing_rag.modules.knowledge.router import router as permission_router
 from zhiqing_rag.query_analysis.router import router as query_analysis_router
+from zhiqing_rag.query_answering.router import router as query_answer_router
 from zhiqing_rag.query_retrieval.router import router as query_retrieval_router
 from zhiqing_rag.query_routing.router import router as query_routing_router
 
@@ -51,6 +52,7 @@ def create_app() -> FastAPI:
     app.include_router(query_analysis_router)
     app.include_router(query_routing_router)
     app.include_router(query_retrieval_router)
+    app.include_router(query_answer_router)
 
     @app.exception_handler(RequestValidationError)
     async def validation_error_handler(request: Request, error: RequestValidationError):

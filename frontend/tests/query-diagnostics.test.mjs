@@ -53,3 +53,12 @@ test("skipped zero-duration work does not invent a slow stage", () => {
   for (const key of Object.keys(result.retrieval.trace).filter((key) => key.endsWith("_ms"))) result.retrieval.trace[key] = 0;
   assert.equal(slowestQueryStage(result), null);
 });
+
+test("answer stages take part in latency diagnostics without using aggregate totals", () => {
+  const result = { ...queryFixture(), answer: { trace: {
+    generation_ms: 14000, review_ms: 7000, authorization_ms: 5, total_ms: 30000,
+  } } };
+  assert.deepEqual(slowestQueryStage(result), { label: "回答生成", ms: 14000 });
+  result.answer.trace.review_ms = 15000;
+  assert.deepEqual(slowestQueryStage(result), { label: "回答证据复核", ms: 15000 });
+});

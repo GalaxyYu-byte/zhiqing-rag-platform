@@ -1,7 +1,7 @@
 # 知擎 RAG 平台
 
 新项目位于 `D:\code\zhiqing-rag-platform`，Python 固定为 **3.12**，使用 uv 管理环境和依赖。
-当前已完成开发环境、健康检查、登录与租户选择、文档上传和 Vue 3 页面、部门与知识库权限管理、独立数据库及业务表的设计与初始化；身份与知识库调试数据已录入。问答检索 API 与 Alembic 将后续完善。
+当前已实现登录与租户选择、部门与知识库权限、文档上传与版本管理、后台解析与向量入库、离线图谱构建、问题分析与混合检索，以及带原文引用的单轮回答。Vue 页面支持文档管理、检索与 SSE 进度和核验后逐段回答。多轮会话、在线图谱召回及 Alembic 迁移仍待完善。
 
 实体与技术方案文档单独维护；各业务模块将分阶段实现。
 
@@ -65,7 +65,7 @@ Worker 从项目独立 PostgreSQL 的 `background_task` 表领取任务，下载
 此时即可开始；文档 Worker 同时调用 Embedding 模型生成 1024 维向量并补写到这些分块。
 仅在向量完整性校验成功后，同一事务将
 索引批次置为 READY、文档置为 PUBLISHED 并切换活动索引指针，任务置为 SUCCEEDED。
-这表示文档已可供后续检索模块使用，问答检索 API 本身仍需后续实现。
+这表示文档已可供混合检索与单轮证据回答使用。
 
 当前采用 **PostgreSQL 持久化任务队列 + 独立 Worker**，任务与上传记录同事务提交，
 无需跨 Redis 写入和 Outbox 投递。该 Worker 不使用 ARQ；Redis 仅沿用现有向量缓存。
@@ -232,6 +232,13 @@ QueryPlan 与确定性 Router 已实现 `POST /api/query/plan`，先确认当前
 基础混合检索已实现 `POST /api/query/search`，按服务端计划并行召回向量和 BM25，
 融合去重、可选重排后返回最多 5 条原文证据。发送原文给重排模型前及返回结果前复查
 当前权限和活动批次；失败有明确降级记录。配置与接口详见 [混合检索](docs/混合检索.md)。
+
+单轮回答已实现 `POST /api/query/answer`：复用现有检索，生成带引用的草稿，完成逐字引文与
+独立证据支持复核后发布。生成前、复核前和发布前实时检查权限与活动批次，资料不足时
+明确返回不足。页面默认“生成回答”，也可选择“仅检索证据”。配置与限制见
+[单轮回答说明](QUERY_ANSWERING.md)，固定问题验收见 [检索验收](eval/query_retrieval/README.md)。
+
+历史 XLSX 表头索引可用 [安全重建工具](TABLE_REINDEX.md) 预览并重建。显式并列问题使用同一授权候选池分面重排，保持原召回预算；验收见 [检索与回答记录](eval/query_retrieval/ACCEPTANCE.md)。
 
 HTTP 鉴权、范围确认和检索仓储已接入进程内数据库连接池。沿用 `DB_POOL_SIZE`、
 `DB_MAX_OVERFLOW`、`DB_POOL_TIMEOUT`；每次事务结束归还连接，模型等待期间不占用
@@ -505,7 +512,7 @@ Neo4j 图谱投影使用 `GRAPH_NAMESPACE` 隔离项目；图谱任务复用现�
 ```
 
 基础向量/关键词检索已复用 `authorized_chunk_statement(identity)` 所依赖的 READ 授权规则，
-在 SQL 中限制可见文档和当前 READY 批次，再执行检索排序；回答生成尚未实现。
+在 SQL 中限制可见文档和当前 READY 批次，再执行检索排序；单轮回答与引用复核已接入，详见 `QUERY_ANSWERING.md`。
 后续图检索使用 `authorized_graph_projection`，并限制其租户、namespace、generation。
 结果缓存需要包含当前身份/部门/密级和 ACL 版本；模型上下文、引用与会话历史也需重新检查权限。
 内部 `active_graph_projection` 仅查询发布状态，保留给可信后台任务使用，不可作为用户请求的授权入口。

@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-10T16:19:40.552595+08:00",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "analyzer_prompt_sha256": "264359dfa7f5e2693ba438cecfea7735ec8251982e12ab4bdb86c7b699638274",
+  "reranker_input": "document_title_name_section_content",
+  "analyzer_model": "deepseek-flash",
+  "embedding_model": "text-embedding-v3",
+  "reranker_model": "gte-rerank-v2",
+  "results": [],
+  "mode": "answer",
+  "answer_model": "qwen-plus",
+  "evaluation_session_revoked": true
+}

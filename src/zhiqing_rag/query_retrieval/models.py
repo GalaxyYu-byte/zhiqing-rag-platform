@@ -65,6 +65,7 @@ class Evidence(StrictModel):
 
 
 class RetrievalTrace(StrictModel):
+    rerank_query_count: int = Field(default=0, ge=0, le=4)
     dense_status: Literal["succeeded", "failed", "skipped"] = "skipped"
     bm25_status: Literal["succeeded", "failed", "skipped"] = "skipped"
     rerank_status: Literal["succeeded", "failed", "disabled", "skipped"] = "skipped"

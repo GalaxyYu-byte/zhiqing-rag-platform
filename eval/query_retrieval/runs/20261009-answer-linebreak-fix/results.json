@@ -1,0 +1,389 @@
+{
+  "created_at": "2026-10-09T21:54:14.550033+08:00",
+  "dataset_sha256": "7bed30b91eb84a5c84cba546731e8049df50db8b2254f95e07821c13736d919e",
+  "analyzer_prompt_sha256": "264359dfa7f5e2693ba438cecfea7735ec8251982e12ab4bdb86c7b699638274",
+  "reranker_input": "document_title_name_section_content",
+  "analyzer_model": "deepseek-flash",
+  "embedding_model": "text-embedding-v3",
+  "reranker_model": "gte-rerank-v2",
+  "results": [
+    {
+      "id": "Q01",
+      "query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+      "kind": "answerable",
+      "elapsed_ms": 22463,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "35",
+          "hit": true,
+          "ranks": [
+            1
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+          "analysis": {
+            "intent": "procedure",
+            "entities": [
+              {
+                "text": "新员工",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工准备入职资料时，需要本人逐项核对哪些信息？"
+                }
+              },
+              {
+                "text": "入职资料",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工准备入职资料时，需要本人逐项核对哪些信息？"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "新员工",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工准备入职资料时，需要本人逐项核对哪些信息？"
+                }
+              },
+              {
+                "text": "入职资料",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工准备入职资料时，需要本人逐项核对哪些信息？"
+                }
+              },
+              {
+                "text": "逐项核对",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工准备入职资料时，需要本人逐项核对哪些信息？"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1893
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+          "query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "65",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 0,
+              "content": "内部工作提示 / 人事与行政\n员工入职资料准备说明\n适用对象：新员工与用人部门\n各位同事：\n这份说明用于帮助新员工在入职前后准备可核验的个人资料，也让用人部门和人事经办人明确哪些事项需要本人确认。\n资料收集只服务于劳动关系建立、薪酬办理和工作身份开通，不应以方便为由扩大用途。 请相关岗位据此核对手中\n的事项；遇到与已确认文件不一致的情况，先说明差异，再决定下一步。\n办理次序\n第一步，用人部门确认岗位和到岗安排。\n第二步，人事经办人告知资料清单与提交渠道。\n第三步，员工逐项核对姓名、联系方式和证件信息。\n第四步，经办人确认缺项并反馈补交方式。\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果人事经办人告知资料清单与\n提交渠道无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n出现偏差时\n资料不完整时先说明缺失项与影响范围；信息相互矛盾时由本人核对原件，不能替员工推测或自行改写。 例外处理",
+              "token_count": 442,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.8287066715184865,
+                "bm25_rank": 1,
+                "bm25_score": 24.699463,
+                "fusion_score": 0.03278688524590164,
+                "rerank_score": 0.8156076023443283
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "66",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 1,
+              "content": "失项与影响范围；信息相互矛盾时由本人核对原件，不能替员工推测或自行改写。 例外处理\n\n的第一原则是把已知情况、尚待核实的内容和临时措施分别写清。临时处置要标明仍待完成的核验；需要其他岗位决\n定时，连同背景、影响和可选处理方式一并移交。\n请随事项保存\n保存员工本人提交的正式资料、签收或确认记录以及必要的办理结果；不在多人共享群聊中转发证件影像，也不在知\n识库页面直接记录个人号码。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最\n终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围\n以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。\n不要作出的推断\n首次工作账号开通应与岗位需要相符；离岗或转岗后的访问权不因入职资料曾经齐全而自动保留。 同一事项若在邮\n件、清单和正式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行",
+              "token_count": 462,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 5,
+                "dense_score": 0.7233463690670522,
+                "bm25_rank": 19,
+                "bm25_score": 13.871243,
+                "fusion_score": 0.02804284323271665,
+                "rerank_score": 0.6553778405988628
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "67",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 2,
+              "content": "式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行\n\n和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响\n的岗位，并确认原安排是否仍然成立。\n结束前核对\n本事项以“经办人确认缺项并反馈补交方式”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料\n是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，\n不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧\n稿继续指导新事项。\n经办补充\n入职资料清单应按办理事项分组，例如身份核验、劳动关系文件、薪酬办理所需信息与设备账号准备。经办人只向员\n工索取当前步骤确实需要的材料，并告知提交位置。姓名或证件信息有差异时，先让员工本人确认原件，再更正业务\n记录；不能把聊天窗口中的一次回复当成长期保存的权威资料。\n需要现在做什么",
+              "token_count": 457,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7649140357971191,
+                "bm25_rank": 5,
+                "bm25_score": 17.160088,
+                "fusion_score": 0.0315136476426799,
+                "rerank_score": 0.5938507436210596
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "68",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 3,
+              "content": "原件，再更正业务\n记录；不能把聊天窗口中的一次回复当成长期保存的权威资料。\n需要现在做什么\n\n启动这项工作时，先确认事项确实落在新员工与用人部门的职责范围内，再确定谁负责发起、谁负责核对、谁负责接\n收最终结果。涉及员工身份、工作安排和资产交接的资料应由有办理职责的人查看。办事效率不能以扩大个人信息传\n播为代价；当多个岗位参与时，交接记录要让下一位经办人知道自己接收了什么、还缺什么。 如果责任角色暂时没\n有确定，应把这一点列为待确认事项，不要把发送通知当成已经完成交接。",
+              "token_count": 251,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 11,
+                "dense_score": 0.6791690587997437,
+                "bm25_rank": 21,
+                "bm25_score": 13.580435,
+                "fusion_score": 0.0264301860545992,
+                "rerank_score": 0.5498484492694385
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "357",
+              "knowledge_base_id": "3",
+              "document_id": "83",
+              "revision_id": "83",
+              "generation_id": "91",
+              "document_title": "入职事项与责任分工.xlsx",
+              "document_name": "入职事项与责任分工.xlsx",
+              "chunk_index": 0,
+              "content": "| 入职事项与责任分工 |  |  |  |  |\n| --- | --- | --- | --- | --- |\n| 使用方式：按事项核对，空白不代表已完成；不填写个人或交易记录。 |  |  |  |  |\n| 阶段 | 事项 | 员工应做 | 办理岗位应做 | 完成依据 |\n| 准备 | 确认到岗与岗位 | 核对通知中的岗位和时间 | 用人部门确认安排 | 双方对到岗安排有一致理解 |\n| 准备 | 资料清单告知 | 按清单准备本人资料 | 人事说明用途和提交渠道 | 资料清单可被员工查阅 |\n| 准备 | 身份信息核对 | 确认姓名与证件信息 | 人事核对必要信息 | 差异项有本人确认结果 |\n| 准备 | 劳动关系文件 | 阅读并提出疑问 | 人事提供待签版本和说明 | 正式文件已按规定确认 |\n| 准备 | 薪酬办理信息 | 通过受控渠道提供必要信息 | 人事确认项目是否完整 | 办理信息可供后续核对 |\n| 到岗 | 设备需求 | 说明岗位使用需要 | 主管与行政确认配置 | 设备安排已明确 |\n| 到岗 | 设备交付 | 检查设备与配件 | 行政登记交付状态 | 双方确认交接内容 |\n| 到岗 | 基础账号 | 说明履职资源需求 | 主管批准后由管理员开通 | 实际权限与批准范围一致 |",
+              "token_count": 486,
+              "page_number": null,
+              "section_title": "入职办理",
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.7476191075075218,
+                "bm25_rank": 2,
+                "bm25_score": 21.66957,
+                "fusion_score": 0.031754032258064516,
+                "rerank_score": 0.32908062521494014
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 361,
+            "dense_ms": 1670,
+            "bm25_ms": 2718,
+            "fusion_ms": 0,
+            "authorization_ms": 4592,
+            "rerank_ms": 488,
+            "total_ms": 7800
+          }
+        },
+        "answer": {
+          "status": "answered",
+          "statements": [
+            {
+              "text": "新员工需要本人逐项核对姓名、联系方式和证件信息。",
+              "citations": [
+                {
+                  "citation_id": "E1",
+                  "quote": "第三步，员工逐项核对姓名、联系方式和证件信息。"
+                }
+              ]
+            },
+            {
+              "text": "新员工需确认通知中的岗位和到岗时间。",
+              "citations": [
+                {
+                  "citation_id": "E5",
+                  "quote": "| 准备 | 确认到岗与岗位 | 核对通知中的岗位和时间 | 用人部门确认安排 | 双方对到岗安排有一致理解 |"
+                }
+              ]
+            },
+            {
+              "text": "新员工需确认身份信息（姓名与证件信息）的准确性，并对差异项作出本人确认。",
+              "citations": [
+                {
+                  "citation_id": "E5",
+                  "quote": "| 准备 | 身份信息核对 | 确认姓名与证件信息 | 人事核对必要信息 | 差异项有本人确认结果 |"
+                }
+              ]
+            }
+          ],
+          "message": null,
+          "codes": [],
+          "model": "qwen-plus",
+          "review_status": "passed",
+          "trace": {
+            "generation_ms": 4890,
+            "review_ms": 1286,
+            "authorization_ms": 5031,
+            "total_ms": 11278,
+            "context_tokens": 2436,
+            "input_tokens": 3996,
+            "output_tokens": 232
+          }
+        }
+      },
+      "answer_status": "answered",
+      "citation_valid": true,
+      "answer_status_matches": true,
+      "captured_model_outputs": [
+        {
+          "stage": "generation",
+          "value": {
+            "status": "answered",
+            "statements": [
+              {
+                "text": "新员工需要本人逐项核对姓名、联系方式和证件信息。",
+                "citations": [
+                  {
+                    "citation_id": "E1",
+                    "quote": "第三步，员工逐项核对姓名、联系方式和证件信息。"
+                  }
+                ]
+              },
+              {
+                "text": "新员工需确认通知中的岗位和到岗时间。",
+                "citations": [
+                  {
+                    "citation_id": "E5",
+                    "quote": "| 准备 | 确认到岗与岗位 | 核对通知中的岗位和时间 | 用人部门确认安排 | 双方对到岗安排有一致理解 |"
+                  }
+                ]
+              },
+              {
+                "text": "新员工需确认身份信息（姓名与证件信息）的准确性，并对差异项作出本人确认。",
+                "citations": [
+                  {
+                    "citation_id": "E5",
+                    "quote": "| 准备 | 身份信息核对 | 确认姓名与证件信息 | 人事核对必要信息 | 差异项有本人确认结果 |"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "stage": "review",
+          "value": {
+            "sufficient": true,
+            "statements": [
+              {
+                "index": 0,
+                "supported": true
+              },
+              {
+                "index": 1,
+                "supported": true
+              },
+              {
+                "index": 2,
+                "supported": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "mode": "answer",
+  "answer_model": "qwen-plus",
+  "scope": {
+    "knowledge_base_ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "authorized_document_count": 51,
+    "published_document_count": 50
+  },
+  "verified_source_count": 1,
+  "summary": {
+    "answerable_count": 1,
+    "full_hit_count": 1,
+    "median_ms": 22463
+  },
+  "evaluation_session_revoked": true
+}

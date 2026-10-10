@@ -14,6 +14,7 @@ from zhiqing_rag.modules.identity.auth_schemas import (
     AuthUser,
 )
 from zhiqing_rag.query_analysis.models import QueryConstraint
+from zhiqing_rag.query_retrieval.facets import fuse_facet_rankings, rerank_queries
 from zhiqing_rag.query_retrieval.fusion import RRF_K, fuse_candidates
 from zhiqing_rag.query_retrieval.models import ChunkRecord, RecallHit
 from zhiqing_rag.query_retrieval.service import HybridRetrievalService
@@ -394,7 +395,12 @@ async def test_first_permission_recheck_removes_revoked_text_before_reranker_req
     )
     reranker = FakeReranker()
     result = await execute(service(repo, reranker=reranker))
-    assert reranker.calls == [(QUERY, ("工单原文 11", "工单原文 12"))]
+    assert reranker.calls[0][0] == QUERY
+    sent = reranker.calls[0][1]
+    assert len(sent) == 2
+    assert "已撤销读取权的敏感原文" not in "".join(sent)
+    assert all("工单管理规程" in text and "关闭流程" in text for text in sent)
+    assert [text.split("原文：\n", 1)[1] for text in sent] == ["工单原文 11", "工单原文 12"]
     assert [item.chunk_id for item in result.evidence] == ["11", "12"]
     assert result.degradation_codes == ("SCOPE_CHANGED",)
     assert result.trace.authorized_count == 2
@@ -621,3 +627,269 @@ async def test_semantic_other_constraint_keeps_the_query_and_allows_hybrid_execu
     assert result.status == "ok"
     assert executor.embedder.calls == [QUERY]
     assert next(call[3] for call in executor.repository.calls if call[0] == "bm25") == QUERY
+
+
+@pytest.mark.parametrize(
+    ("query", "expected"),
+    [
+        (
+            "设备借用和设备归还分别需要谁确认？",
+            (
+                "设备借用和设备归还分别需要谁确认？",
+                "设备借用需要谁确认？",
+                "设备归还需要谁确认？",
+            ),
+        ),
+        (
+            "采购、报销以及验收各自需要哪些资料？",
+            (
+                "采购、报销以及验收各自需要哪些资料？",
+                "采购需要哪些资料？",
+                "报销需要哪些资料？",
+                "验收需要哪些资料？",
+            ),
+        ),
+        ("设备借用和设备归还需要谁确认？", ("设备借用和设备归还需要谁确认？",)),
+        (
+            "设备借用和设备归还在夜间分别需要谁确认？",
+            ("设备借用和设备归还在夜间分别需要谁确认？",),
+        ),
+        ("甲、乙、丙、丁分别怎么申请？", ("甲、乙、丙、丁分别怎么申请？",)),
+        ("借用和分别有什么条件？", ("借用和分别有什么条件？",)),
+    ],
+)
+def test_only_explicit_separate_subjects_expand_and_keep_the_original_query(query, expected):
+    assert rerank_queries(query) == expected
+
+
+FACET_QUERY = "设备借用和设备归还分别需要谁确认？"
+FACET_REVERSE_QUERY = "设备归还和设备借用各自需要谁确认？"
+FACET_QUERIES = (FACET_QUERY, "设备借用需要谁确认？", "设备归还需要谁确认？")
+
+
+class FacetRepository(FakeRepository):
+    def __init__(self, *, validations=()):
+        super().__init__(validations=validations)
+        self.return_records = tuple(
+            chunk(index, content=f"归还时管理员清点确认，补充要求{index}。")
+            for index in range(10, 16)
+        )
+        self.borrow_record = chunk(
+            22,
+            content="借用前须主管确认用途与借用时间。",
+            document_id=6,
+            revision_id=12,
+            generation_id=9,
+            document_title="设备借用规程",
+            document_name="设备借用规程.txt",
+            section_title="借用条件",
+        )
+        intro_text = "设备借用以登记为工作入口，说明事项背景。"
+        self.borrow_intro = replace(
+            self.borrow_record,
+            chunk_id=20,
+            content=intro_text,
+            content_sha256=hashlib.sha256(intro_text.encode()).hexdigest(),
+            section_title="工作入口",
+        )
+        self.borrow_table = chunk(21, content="设备借用记录字段示例：设备名、编号、登记日。")
+        self.borrow_table_extra = chunk(23, content="设备借用状态字段示例：在库、借出、待核验。")
+        self.other_records = tuple(
+            chunk(index, content=f"设备使用相关说明{index}，仅展示操作背景。")
+            for index in range(30, 40)
+        )
+        self.records = (
+            self.return_records[0],
+            self.borrow_intro,
+            self.return_records[1],
+            self.borrow_record,
+            self.return_records[2],
+            self.borrow_table_extra,
+            self.return_records[3],
+            self.borrow_table,
+            *self.return_records[4:],
+            *self.other_records,
+        )
+        self.hits = {
+            channel: tuple(
+                hit(score=1 / (rank + 1), record=record)
+                for rank, record in enumerate(self.records)
+            )
+            for channel in ("dense", "bm25")
+        }
+
+
+class FacetReranker(FakeReranker):
+    def __init__(self, *, failure_query=None):
+        super().__init__()
+        self.failure_query = failure_query
+
+    async def rerank(self, query, documents):
+        self.calls.append((query, documents))
+        if query == self.failure_query:
+            raise RuntimeError("某子问题重排服务错误")
+        if query != FACET_QUERIES[1]:
+            return tuple(
+                (index, 0.95 - index * 0.01 if "归还时管理员" in text else 0.1)
+                for index, text in enumerate(documents)
+            )
+        ranked_content = (
+            "设备借用以登记",
+            "设备借用记录字段示例",
+            "设备借用状态字段示例",
+            "借用前须主管",
+        )
+        return tuple(
+            (
+                index,
+                next(
+                    (
+                        0.95 - rank * 0.05
+                        for rank, marker in enumerate(ranked_content)
+                        if marker in text
+                    ),
+                    0.4 if "设备使用相关说明" in text else 0.05,
+                ),
+            )
+            for index, text in enumerate(documents)
+        )
+
+
+@pytest.mark.parametrize(
+    ("query", "expected_ids"),
+    [
+        (FACET_QUERY, ["10", "20", "22", "11", "23"]),
+        (FACET_REVERSE_QUERY, ["10", "20", "11", "22", "12"]),
+    ],
+)
+async def test_rank_consensus_covers_lower_facet_body_in_both_question_orders_without_extra_recall(
+    query, expected_ids
+):
+    repo, embedder, reranker = FacetRepository(), FakeEmbedder(), FacetReranker()
+    result = await execute(
+        service(repo, embedder, reranker),
+        query_plan=plan(original_query=query, query=query),
+        access=scope(second_document=True),
+    )
+    assert result.status == "ok"
+    assert result.trace.rerank_query_count == 3
+    assert embedder.calls == [query]
+    assert [call[3] for call in repo.calls if call[0] == "bm25"] == [query]
+    assert len(repo.calls) == 2
+    assert all(call[4] == 30 for call in repo.calls)
+    assert {item.document_id for item in result.evidence} == {"4", "6"}
+    assert result.trace.fused_count == result.trace.authorized_count == 20
+    assert result.trace.dense_count == result.trace.bm25_count == 20
+    assert [item.chunk_id for item in result.evidence] == expected_ids
+    assert len(repo.validation_calls) == 2
+    assert [query for query, _ in reranker.calls] == list(rerank_queries(query))
+    assert all(documents == reranker.calls[0][1] for _, documents in reranker.calls)
+    # 选中借用证据依赖分面覆盖；公开分数仍对应原句，不冒充子句分数。
+    borrow = next(item for item in result.evidence if item.chunk_id == "22")
+    assert borrow.scores.rerank_score == 0.1
+
+
+def test_rank_consensus_promotes_body_supported_by_recall_over_facet_only_tables():
+    repo = FacetRepository()
+    fused = fuse_candidates(repo.hits["dense"], repo.hits["bm25"], limit=30)
+    by_id = {item.chunk.chunk_id: item for item in fused}
+    facet_ids = [20, 21, 23, 22, *range(30, 40), *range(10, 16)]
+    facet = tuple(by_id[chunk_id] for chunk_id in facet_ids)
+    combined, = fuse_facet_rankings(fused, (facet,))
+    assert [item.chunk.chunk_id for item in fused[:4]] == [10, 20, 11, 22]
+    assert [item.chunk.chunk_id for item in facet[:4]] == [20, 21, 23, 22]
+    assert [item.chunk.chunk_id for item in combined[:3]] == [20, 22, 23]
+    assert combined[1] is by_id[22]
+    assert combined[1].scores == by_id[22].scores
+
+
+async def test_semantic_facet_first_place_is_retained_when_recall_consensus_is_low():
+    repo = FacetRepository()
+    # 短而直接的规则可能召回排名较低，相关长表格和操作背景排在它前面。
+    records = tuple(item for item in repo.records if item.chunk_id != 22) + (repo.borrow_record,)
+    repo.hits = {
+        channel: tuple(
+            hit(score=1 / (rank + 1), record=record) for rank, record in enumerate(records)
+        )
+        for channel in ("dense", "bm25")
+    }
+
+    class DirectRuleReranker(FacetReranker):
+        async def rerank(self, query, documents):
+            scores = await super().rerank(query, documents)
+            if query != FACET_QUERIES[1]:
+                return scores
+            return tuple(
+                (index, 1.0 if "借用前须主管" in documents[index] else score)
+                for index, score in scores
+            )
+
+    fused = fuse_candidates(repo.hits["dense"], repo.hits["bm25"], limit=30)
+    documents = tuple(HybridRetrievalService._rerank_text(item.chunk) for item in fused)
+    scores = await DirectRuleReranker().rerank(FACET_QUERIES[1], documents)
+    raw_facet = HybridRetrievalService._apply_rerank(fused, scores)
+    mixed_facet, = fuse_facet_rankings(fused, (raw_facet,))
+    assert fused[-1].chunk.chunk_id == raw_facet[0].chunk.chunk_id == 22
+    assert all(item.chunk.chunk_id != 22 for item in mixed_facet[:5])
+
+    embedder, reranker = FakeEmbedder(), DirectRuleReranker()
+    result = await execute(
+        service(repo, embedder, reranker),
+        query_plan=plan(original_query=FACET_QUERY, query=FACET_QUERY),
+        access=scope(second_document=True),
+    )
+    assert result.status == "ok"
+    assert len(result.evidence) == 5
+    assert result.evidence[0].chunk_id == "10"
+    assert result.evidence[1].chunk_id == "22"
+    assert result.evidence[1].scores.rerank_score == 0.1
+    assert embedder.calls == [FACET_QUERY]
+    assert len(repo.calls) == 2
+    assert len(reranker.calls) == 3
+    assert len(repo.validation_calls) == 2
+
+
+async def test_facet_evidence_revoked_while_reranking_is_removed_before_coverage():
+    repo = FacetRepository(
+        validations=[None, lambda records: tuple(item for item in records if item.document_id != 6)]
+    )
+    result = await execute(
+        service(repo, FakeEmbedder(), FacetReranker()),
+        query_plan=plan(original_query=FACET_QUERY, query=FACET_QUERY),
+        access=scope(second_document=True),
+    )
+    assert result.status == "degraded"
+    assert result.degradation_codes == ("SCOPE_CHANGED",)
+    assert all(item.document_id == "4" for item in result.evidence)
+    assert len(result.evidence) == 5
+
+
+async def test_facet_rerank_failure_safely_degrades_and_rechecks_original_candidate_pool():
+    repo = FacetRepository()
+    result = await execute(
+        service(repo, FakeEmbedder(), FacetReranker(failure_query=FACET_QUERIES[1])),
+        query_plan=plan(original_query=FACET_QUERY, query=FACET_QUERY),
+        access=scope(second_document=True),
+    )
+    assert result.status == "degraded"
+    assert result.degradation_codes == ("RERANKER_UNAVAILABLE",)
+    assert result.trace.rerank_status == "failed"
+    assert result.trace.dense_status == result.trace.bm25_status == "succeeded"
+    assert len(result.evidence) == 5
+    assert [item.chunk_id for item in result.evidence] == ["10", "20", "11", "22", "12"]
+    assert all(item.scores.rerank_score is None for item in result.evidence)
+    assert len(repo.validation_calls) == 2
+
+
+async def test_separate_question_with_one_evidence_slot_keeps_single_query_budget():
+    repo, embedder, reranker = FacetRepository(), FakeEmbedder(), FacetReranker()
+    result = await execute(
+        service(repo, embedder, reranker),
+        query_plan=plan(original_query=FACET_QUERY, query=FACET_QUERY, top_k=1),
+        access=scope(second_document=True),
+    )
+    assert result.trace.rerank_query_count == 1
+    assert embedder.calls == [FACET_QUERY]
+    assert len(repo.calls) == 2
+    assert len(reranker.calls) == 1
+    assert len(result.evidence) == 1

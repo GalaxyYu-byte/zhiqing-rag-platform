@@ -1,0 +1,437 @@
+{
+  "created_at": "2026-10-10T16:31:24.381131+08:00",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "analyzer_prompt_sha256": "264359dfa7f5e2693ba438cecfea7735ec8251982e12ab4bdb86c7b699638274",
+  "reranker_input": "document_title_name_section_content",
+  "analyzer_model": "deepseek-flash",
+  "embedding_model": "text-embedding-v3",
+  "reranker_model": "gte-rerank-v2",
+  "results": [
+    {
+      "id": "Q13",
+      "query": "新员工信息核对和文档版本记录分别应包含哪些信息？",
+      "kind": "answerable",
+      "elapsed_ms": 27559,
+      "http_status": 200,
+      "passed": true,
+      "reference_hits": [
+        {
+          "document_id": "35",
+          "hit": true,
+          "ranks": [
+            2
+          ]
+        },
+        {
+          "document_id": "63",
+          "hit": true,
+          "ranks": [
+            3
+          ]
+        }
+      ],
+      "route": "hybrid",
+      "response": {
+        "analysis": {
+          "status": "ok",
+          "original_query": "新员工信息核对和文档版本记录分别应包含哪些信息？",
+          "analysis": {
+            "intent": "fact",
+            "entities": [
+              {
+                "text": "新员工信息核对",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工信息核对"
+                }
+              },
+              {
+                "text": "文档版本记录",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "文档版本记录"
+                }
+              }
+            ],
+            "keywords": [
+              {
+                "text": "新员工",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "新员工"
+                }
+              },
+              {
+                "text": "信息核对",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "信息核对"
+                }
+              },
+              {
+                "text": "文档版本记录",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "文档版本记录"
+                }
+              },
+              {
+                "text": "包含哪些信息",
+                "evidence": {
+                  "source": "query",
+                  "history_index": null,
+                  "quote": "包含哪些信息"
+                }
+              }
+            ],
+            "constraints": [],
+            "relation_required": false,
+            "needs_context": false,
+            "clarification_question": null
+          },
+          "fallback_hint": null,
+          "message": null,
+          "degradation_reason": null,
+          "analyzer_version": "query-analyzer-v1",
+          "model": "deepseek-flash",
+          "latency_ms": 1558
+        },
+        "plan": {
+          "version": 1,
+          "original_query": "新员工信息核对和文档版本记录分别应包含哪些信息？",
+          "query": "新员工信息核对和文档版本记录分别应包含哪些信息？",
+          "requested_route": "hybrid",
+          "reason_code": "BASE_RETRIEVAL",
+          "planning_status": "planned",
+          "constraints": [],
+          "warnings": [],
+          "message": null,
+          "route": "hybrid",
+          "params": {
+            "candidate_k": 30,
+            "top_k": 5,
+            "rerank": true
+          }
+        },
+        "scope": {
+          "knowledge_base_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "authorized_document_count": 51,
+          "published_document_count": 50
+        },
+        "retrieval": {
+          "status": "ok",
+          "evidence": [
+            {
+              "citation_id": "E1",
+              "rank": 1,
+              "chunk_id": "211",
+              "knowledge_base_id": "3",
+              "document_id": "62",
+              "revision_id": "62",
+              "generation_id": "62",
+              "document_title": "新员工第一周办事指南.md",
+              "document_name": "新员工第一周办事指南.md",
+              "chunk_index": 6,
+              "content": "本事项以“最后阅读本岗位的工作说明和团队协作方式”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧稿继续指导新事项。",
+              "token_count": 199,
+              "page_number": null,
+              "section_title": "确认完成",
+              "scores": {
+                "dense_rank": 7,
+                "dense_score": 0.6974702297133356,
+                "bm25_rank": null,
+                "bm25_score": null,
+                "fusion_score": 0.014925373134328358,
+                "rerank_score": 0.2190483251330054
+              }
+            },
+            {
+              "citation_id": "E2",
+              "rank": 2,
+              "chunk_id": "65",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 0,
+              "content": "内部工作提示 / 人事与行政\n员工入职资料准备说明\n适用对象：新员工与用人部门\n各位同事：\n这份说明用于帮助新员工在入职前后准备可核验的个人资料，也让用人部门和人事经办人明确哪些事项需要本人确认。\n资料收集只服务于劳动关系建立、薪酬办理和工作身份开通，不应以方便为由扩大用途。 请相关岗位据此核对手中\n的事项；遇到与已确认文件不一致的情况，先说明差异，再决定下一步。\n办理次序\n第一步，用人部门确认岗位和到岗安排。\n第二步，人事经办人告知资料清单与提交渠道。\n第三步，员工逐项核对姓名、联系方式和证件信息。\n第四步，经办人确认缺项并反馈补交方式。\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果人事经办人告知资料清单与\n提交渠道无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n出现偏差时\n资料不完整时先说明缺失项与影响范围；信息相互矛盾时由本人核对原件，不能替员工推测或自行改写。 例外处理",
+              "token_count": 442,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 1,
+                "dense_score": 0.7412534201892282,
+                "bm25_rank": 17,
+                "bm25_score": 17.867498,
+                "fusion_score": 0.02938045560996381,
+                "rerank_score": 0.18813287229432737
+              }
+            },
+            {
+              "citation_id": "E3",
+              "rank": 3,
+              "chunk_id": "219",
+              "knowledge_base_id": "1",
+              "document_id": "63",
+              "revision_id": "63",
+              "generation_id": "63",
+              "document_title": "文档命名与版本约定.md",
+              "document_name": "文档命名与版本约定.md",
+              "chunk_index": 4,
+              "content": "版本记录至少说明变更位置、影响对象和确认人角色；附件与正文保持同一适用版本，不让读者自行猜测对应关系。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+              "token_count": 208,
+              "page_number": null,
+              "section_title": "应保留的信息",
+              "scores": {
+                "dense_rank": 4,
+                "dense_score": 0.7128508303419007,
+                "bm25_rank": 25,
+                "bm25_score": 15.847629,
+                "fusion_score": 0.02738970588235294,
+                "rerank_score": 0.199926065774402
+              }
+            },
+            {
+              "citation_id": "E4",
+              "rank": 4,
+              "chunk_id": "67",
+              "knowledge_base_id": "3",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "document_title": "员工入职资料准备说明.pdf",
+              "document_name": "员工入职资料准备说明.pdf",
+              "chunk_index": 2,
+              "content": "式文件中出现不同说法，先核对各自的适用对象、形成时间与确认人。经办意见、批准决定、实际执行\n\n和结果验收应分别表述；仅凭其中一个环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响\n的岗位，并确认原安排是否仍然成立。\n结束前核对\n本事项以“经办人确认缺项并反馈补交方式”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料\n是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，\n不要把发送邮件、上传附件或口头告知直接视为办结。后续规则如有调整，由资料维护人同步修订入口说明，避免旧\n稿继续指导新事项。\n经办补充\n入职资料清单应按办理事项分组，例如身份核验、劳动关系文件、薪酬办理所需信息与设备账号准备。经办人只向员\n工索取当前步骤确实需要的材料，并告知提交位置。姓名或证件信息有差异时，先让员工本人确认原件，再更正业务\n记录；不能把聊天窗口中的一次回复当成长期保存的权威资料。\n需要现在做什么",
+              "token_count": 457,
+              "page_number": 1,
+              "section_title": null,
+              "scores": {
+                "dense_rank": 2,
+                "dense_score": 0.7348082065582275,
+                "bm25_rank": 22,
+                "bm25_score": 16.487373,
+                "fusion_score": 0.02832415420928403,
+                "rerank_score": 0.19600075035309947
+              }
+            },
+            {
+              "citation_id": "E5",
+              "rank": 5,
+              "chunk_id": "279",
+              "knowledge_base_id": "2",
+              "document_id": "69",
+              "revision_id": "69",
+              "generation_id": "69",
+              "document_title": "发布记录编写指南.md",
+              "document_name": "发布记录编写指南.md",
+              "chunk_index": 4,
+              "content": "保存构建标识、适用环境、负责人角色、变更说明和已知限制；对外版本说明从内部记录筛选，不包含敏感实现细节。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。共享范围以实际办理需要为准，涉及个人或客户信息的附件应单独检查可见人员。",
+              "token_count": 209,
+              "page_number": null,
+              "section_title": "应保留的信息",
+              "scores": {
+                "dense_rank": 15,
+                "dense_score": 0.6814454387756933,
+                "bm25_rank": 9,
+                "bm25_score": 19.439829,
+                "fusion_score": 0.02782608695652174,
+                "rerank_score": 0.1788013248980295
+              }
+            }
+          ],
+          "degradation_codes": [],
+          "message": null,
+          "trace": {
+            "rerank_query_count": 3,
+            "dense_status": "succeeded",
+            "bm25_status": "succeeded",
+            "rerank_status": "succeeded",
+            "dense_count": 30,
+            "bm25_count": 30,
+            "fused_count": 30,
+            "authorized_count": 30,
+            "returned_count": 5,
+            "embedding_ms": 309,
+            "dense_ms": 919,
+            "bm25_ms": 707,
+            "fusion_ms": 0,
+            "authorization_ms": 1235,
+            "rerank_ms": 411,
+            "total_ms": 2875
+          }
+        },
+        "answer": {
+          "status": "answered",
+          "statements": [
+            {
+              "text": "新员工信息核对应包含姓名、联系方式和证件信息的逐项核对；资料不完整时需说明缺失项与影响范围；信息相互矛盾时由本人核对原件；经办人确认缺项并反馈补交方式作为最后一道核对。",
+              "citations": [
+                {
+                  "citation_id": "E2",
+                  "quote": "第三步，员工逐项核对姓名、联系方式和证件信息。\n第四步，经办人确认缺项并反馈补交方式。\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果人事经办人告知资料清单与\n提交渠道无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n出现偏差时\n资料不完整时先说明缺失项与影响范围；信息相互矛盾时由本人核对原件，不能替员工推测或自行改写。"
+                },
+                {
+                  "citation_id": "E4",
+                  "quote": "本事项以“经办人确认缺项并反馈补交方式”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料\n是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，\n不要把发送邮件、上传附件或口头告知直接视为办结。"
+                }
+              ]
+            },
+            {
+              "text": "文档版本记录应至少说明变更位置、影响对象和确认人角色；保存构建标识、适用环境、负责人角色、变更说明和已知限制；附件与正文保持同一适用版本；补充材料改变原有判断时应保留原件及修订说明。",
+              "citations": [
+                {
+                  "citation_id": "E3",
+                  "quote": "版本记录至少说明变更位置、影响对象和确认人角色；附件与正文保持同一适用版本，不让读者自行猜测对应关系。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。"
+                },
+                {
+                  "citation_id": "E5",
+                  "quote": "保存构建标识、适用环境、负责人角色、变更说明和已知限制；对外版本说明从内部记录筛选，不包含敏感实现细节。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。"
+                }
+              ]
+            }
+          ],
+          "message": null,
+          "codes": [],
+          "model": "qwen-plus",
+          "review_status": "passed",
+          "trace": {
+            "generation_ms": 12411,
+            "review_ms": 8448,
+            "authorization_ms": 1835,
+            "total_ms": 22766,
+            "context_tokens": 1821,
+            "input_tokens": 3613,
+            "output_tokens": 903
+          }
+        }
+      },
+      "answer_status": "answered",
+      "citation_valid": true,
+      "answer_status_matches": true,
+      "captured_model_outputs": [
+        {
+          "stage": "generation",
+          "value": {
+            "status": "answered",
+            "statements": [
+              {
+                "text": "新员工信息核对应包含姓名、联系方式和证件信息的逐项核对；资料不完整时需说明缺失项与影响范围；信息相互矛盾时由本人核对原件；经办人确认缺项并反馈补交方式作为最后一道核对。",
+                "citations": [
+                  {
+                    "citation_id": "E2",
+                    "quote": "第三步，员工逐项核对姓名、联系方式和证件信息。\n第四步，经办人确认缺项并反馈补交方式。\n这些动作需要按实际条件衔接。进入下一步前，先确认上一环节的结果已经被接收；如果人事经办人告知资料清单与\n提交渠道无法完成，应说明卡点并让对应岗位决定是否暂停，而不是先把最后一步标为完成。\n出现偏差时\n资料不完整时先说明缺失项与影响范围；信息相互矛盾时由本人核对原件，不能替员工推测或自行改写。"
+                  },
+                  {
+                    "citation_id": "E4",
+                    "quote": "本事项以“经办人确认缺项并反馈补交方式”作为最后一道核对。经办人应查看接收方能否据此继续工作，相关材料\n是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。尚缺少必要确认时，记录当前进展和下一步动作，\n不要把发送邮件、上传附件或口头告知直接视为办结。"
+                  }
+                ]
+              },
+              {
+                "text": "文档版本记录应至少说明变更位置、影响对象和确认人角色；保存构建标识、适用环境、负责人角色、变更说明和已知限制；附件与正文保持同一适用版本；补充材料改变原有判断时应保留原件及修订说明。",
+                "citations": [
+                  {
+                    "citation_id": "E3",
+                    "quote": "版本记录至少说明变更位置、影响对象和确认人角色；附件与正文保持同一适用版本，不让读者自行猜测对应关系。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。"
+                  },
+                  {
+                    "citation_id": "E5",
+                    "quote": "保存构建标识、适用环境、负责人角色、变更说明和已知限制；对外版本说明从内部记录筛选，不包含敏感实现细节。 经办材料请放在团队约定的受控位置，并让接手人能找到最初的申请、处理意见和最终确认。如果补充材料改变了原有判断，应保留原件及修订说明；只覆盖旧附件，会让后续核对失去依据。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "stage": "review",
+          "value": {
+            "sufficient": true,
+            "missing_aspects": [],
+            "statements": [
+              {
+                "index": 0,
+                "supported": true,
+                "reason": "E2 明确指出第三步是员工逐项核对姓名、联系方式和证件信息；E2 中‘出现偏差时’部分明确要求资料不完整时说明缺失项与影响范围、信息矛盾时由本人核对原件；E4 明确将‘经办人确认缺项并反馈补交方式’定义为最后一道核对，且该句在 E4 中作为独立陈述出现，未附加额外前提条件。所有子陈述均在引文中找到对应、无条件扩展、无角色混同、无时间关系误推。"
+              },
+              {
+                "index": 1,
+                "supported": true,
+                "reason": "E3 明确要求版本记录‘至少说明变更位置、影响对象和确认人角色’，并要求‘附件与正文保持同一适用版本’，以及‘补充材料改变了原有判断，应保留原件及修订说明’；E5 明确要求‘保存构建标识、适用环境、负责人角色、变更说明和已知限制’，且同样包含‘补充材料改变了原有判断，应保留原件及修订说明’的重复表述；两处均未将这些要求限定于特定文档类型或场景，直接回应问题中‘文档版本记录应包含哪些信息’的泛指要求。所有列举项均有直接引文支撑，无跨文档角色等同、无条件删减、无列名推断（因 table_context_complete=true，但本条不涉表格）。"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "mode": "answer",
+  "answer_model": "qwen-plus",
+  "scope": {
+    "knowledge_base_ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "authorized_document_count": 51,
+    "published_document_count": 50
+  },
+  "verified_source_count": 2,
+  "source_transitions": [
+    {
+      "case_id": "Q13",
+      "document_id": "35",
+      "revision_id": "35",
+      "original_generation_id": "35",
+      "original_chunk_index": 0,
+      "file_sha256": "239b325ea1b291209044e55bf78a63af951132c5b1e12175efb2378a89a6d5db",
+      "current_sources": [
+        {
+          "generation_id": "35",
+          "chunk_id": "65",
+          "chunk_index": 0,
+          "content_sha256": "5610055bd440514b75ee8065d17e555260afdb2e197906ba839162696bb9c570"
+        }
+      ]
+    },
+    {
+      "case_id": "Q13",
+      "document_id": "63",
+      "revision_id": "63",
+      "original_generation_id": "63",
+      "original_chunk_index": 4,
+      "file_sha256": "2e9789c094eb003847dc884a64008466d5ff0990e42f1010af13b6cf6832a669",
+      "current_sources": [
+        {
+          "generation_id": "63",
+          "chunk_id": "219",
+          "chunk_index": 4,
+          "content_sha256": "468072bf58f6034e3b1cb882a79143003c3c7e09bca966bd0d1c1b2ac2d58968"
+        }
+      ]
+    }
+  ],
+  "source_mode": "same_revision_reindexed",
+  "summary": {
+    "answerable_count": 1,
+    "full_hit_count": 1,
+    "median_ms": 27559
+  },
+  "evaluation_session_revoked": true
+}

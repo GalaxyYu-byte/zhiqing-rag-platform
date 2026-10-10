@@ -80,6 +80,10 @@ class Settings(BaseSettings):
     query_embedding_timeout_seconds: float = Field(default=10, gt=0, le=60)
     query_reranker_timeout_seconds: float = Field(default=10, gt=0, le=60)
     query_reranker_enabled: bool = True
+    query_answer_enabled: bool = True
+    query_answer_timeout_seconds: float = Field(default=30, gt=0, le=60)
+    query_answer_max_output_tokens: int = Field(default=2048, ge=512, le=8192)
+    query_answer_context_tokens: int = Field(default=6000, ge=1000, le=16000)
     deepseek_api_key: SecretStr = Field(default=SecretStr(""), repr=False)
     deepseek_base_url: str = "https://api.deepseek.com"
     query_analyzer_model: str = Field(default="deepseek-flash", min_length=1, max_length=150)
