@@ -12,6 +12,7 @@ from zhiqing_rag.modules.identity.auth_repository import AuthRepository
 from zhiqing_rag.modules.identity.auth_schemas import AuthError, AuthIdentity
 from zhiqing_rag.modules.identity.auth_service import authorization_from_session
 from zhiqing_rag.modules.knowledge.permissions import document_access_sql
+from zhiqing_rag.query_metadata.compiler import compile_filters
 from zhiqing_rag.query_routing.scope import AccessScope
 
 from .models import ChunkRecord, RecallHit
@@ -112,6 +113,7 @@ class QueryRetrievalRepository:
 
     def _authorized(self, identity: AuthIdentity, scope: AccessScope) -> tuple[str, tuple]:
         predicate, arguments = document_access_sql(identity, published_only=True)
+        metadata_predicate, metadata_arguments = compile_filters(scope.resolved_filters)
         # 三列同时比对，禁止分别用 ANY 产生原范围中不存在的文档/知识库/批次组合。
         initial = scope.published_documents
         statement = (
@@ -130,6 +132,7 @@ class QueryRetrievalRepository:
              AND r.id = c.revision_id
             WHERE """
             + predicate
+            + " AND " + metadata_predicate
             + """
               AND g.status = 'READY' AND c.tenant_id = %s
               AND (c.document_id, c.kb_id, c.generation_id) IN (
@@ -139,6 +142,7 @@ class QueryRetrievalRepository:
         )
         return statement, (
             *arguments,
+            *metadata_arguments,
             scope.tenant_id,
             [document.document_id for document in initial],
             [document.knowledge_base_id for document in initial],

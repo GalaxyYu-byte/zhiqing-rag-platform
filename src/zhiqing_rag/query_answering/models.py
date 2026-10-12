@@ -41,6 +41,36 @@ class DraftAnswer(StrictModel):
         return self
 
 
+class RepairCitation(StrictModel):
+    citation_id: str = Field(pattern=r"^E[1-9][0-9]*$")
+    quote_candidate_index: int = Field(strict=True, ge=-1, le=9)
+
+
+class RepairStatement(StrictModel):
+    text: str = Field(min_length=1, max_length=1500)
+    citations: list[RepairCitation] = Field(min_length=1, max_length=10)
+
+    @model_validator(mode="after")
+    def unique_selections(self):
+        keys = [(item.citation_id, item.quote_candidate_index) for item in self.citations]
+        if len(keys) != len(set(keys)):
+            raise ValueError("同一陈述不能重复选择同一引用")
+        return self
+
+
+class SelectedRepairAnswer(StrictModel):
+    """修复模型只选择服务端编号的当前连续原文，不生成引用或任意偏移。"""
+
+    status: Literal["answered", "insufficient"]
+    statements: list[RepairStatement] = Field(max_length=8)
+
+    @model_validator(mode="after")
+    def consistent_status(self):
+        if (self.status == "answered") != bool(self.statements):
+            raise ValueError("回答必须有带引用的陈述，证据不足时不能保留猜测")
+        return self
+
+
 class StatementReview(StrictModel):
     index: int = Field(ge=0, le=7)
     supported: bool
@@ -54,6 +84,7 @@ class AnswerReview(StrictModel):
 
 
 class AnswerTrace(StrictModel):
+    repair_count: int = Field(default=0, ge=0, le=1)
     generation_ms: int = Field(default=0, ge=0)
     review_ms: int = Field(default=0, ge=0)
     authorization_ms: int = Field(default=0, ge=0)
@@ -64,7 +95,15 @@ class AnswerTrace(StrictModel):
 
 
 class AnswerResult(StrictModel):
-    status: Literal["answered", "insufficient", "rejected", "unavailable", "skipped", "unsupported"]
+    status: Literal[
+        "answered",
+        "structured",
+        "insufficient",
+        "rejected",
+        "unavailable",
+        "skipped",
+        "unsupported",
+    ]
     statements: list[AnswerStatement] = Field(default_factory=list, max_length=8)
     message: str | None = None
     codes: tuple[str, ...] = ()
@@ -84,3 +123,18 @@ class AnswerResult(StrictModel):
 
 class QueryAnswerResponse(QuerySearchResponse):
     answer: AnswerResult
+
+    @model_validator(mode="after")
+    def validate_structured_answer(self):
+        if self.answer.status == "structured":
+            from zhiqing_rag.query_execution import structured_answer_text
+
+            if (
+                self.structured is None
+                or self.plan.route != "structured"
+                or self.plan.planning_status != "planned"
+                or self.answer.review_status != "passed"
+                or self.answer.message != structured_answer_text(self.structured)
+            ):
+                raise ValueError("目录回答必须对应服务端执行的精确统计结果")
+        return self

@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dataset_kind": "synthetic_development",
+  "frozen_at": "2026-10-11",
+  "description": "独立冻结的组件验收题。虚构来源只用于隔离 namespace，不覆盖正式知识库，不代表生产准确率。",
+  "documents": [
+    {"id": 990001, "kb_id": 990, "title": "采购申请办理说明", "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。"},
+    {"id": 990002, "kb_id": 990, "title": "采购申请表", "content": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。"},
+    {"id": 990003, "kb_id": 990, "title": "设备登记办理说明", "content": "设备登记流程包含设备登记步骤。\n领用确认后，设备登记步骤需要设备登记表。\n设备登记表用于设备登记流程。"},
+    {"id": 990004, "kb_id": 990, "title": "设备登记表", "content": "设备登记表用于设备登记流程。\n设备登记表包含资产编号和领用人。"},
+    {"id": 990005, "kb_id": 990, "title": "采购申请表", "content": "此采购申请表仅用于报废回购流程。\n采购申请表包含报废批次和回购价。"}
+  ],
+  "cases": [
+    {"id": "V2G1", "query": "预算已确认后，采购申请步骤所需表单包含哪些字段？", "entities": ["采购申请步骤"], "document_ids": [990001, 990002], "required_documents": [990001, 990002], "required_condition": "预算已确认后", "expected_fields": ["用途", "数量", "申请人"], "expect_path": true},
+    {"id": "V2G2", "query": "采购申请步骤使用的购置需求单应填写哪些信息？", "entities": ["采购申请步骤", "购置需求单"], "document_ids": [990001, 990002], "required_documents": [990001, 990002], "required_condition": "预算已确认后", "expected_fields": ["用途", "数量", "申请人"], "expect_path": true},
+    {"id": "V2G3", "query": "领用确认后，设备登记步骤需要填写哪些信息？", "entities": ["设备登记步骤"], "document_ids": [990003, 990004], "required_documents": [990003, 990004], "required_condition": "领用确认后", "expected_fields": ["资产编号", "领用人"], "expect_path": true},
+    {"id": "V2N1", "query": "采购申请步骤所需表单包含哪些字段？", "entities": ["采购申请步骤"], "document_ids": [990001], "required_documents": [], "expected_fields": [], "expect_path": false},
+    {"id": "V2N2", "query": "采购申请步骤所需表单包含哪些字段？", "entities": ["采购申请步骤"], "document_ids": [990001, 990005], "required_documents": [], "expected_fields": [], "expect_path": false}
+  ]
+}

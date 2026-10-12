@@ -1,0 +1,142 @@
+{
+  "schema": "alembic_replay_test",
+  "constraints": [
+    {
+      "table_name": "background_task",
+      "name": "background_task_check3",
+      "definition": "CHECK ((task_type::text <> ALL (ARRAY['INDEX'::character varying::text, 'GRAPH'::character varying::text])) OR document_id IS NOT NULL AND revision_id IS NOT NULL AND generation_id IS NOT NULL AND chat_session_id IS NULL)"
+    },
+    {
+      "table_name": "background_task",
+      "name": "background_task_check6",
+      "definition": "CHECK ((status::text = ANY (ARRAY['SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text])) = (finished_at IS NOT NULL))"
+    },
+    {
+      "table_name": "background_task",
+      "name": "background_task_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['PENDING'::character varying::text, 'RUNNING'::character varying::text, 'RETRY_WAIT'::character varying::text, 'SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text]))"
+    },
+    {
+      "table_name": "background_task",
+      "name": "background_task_task_type_check",
+      "definition": "CHECK (task_type::text = ANY (ARRAY['INDEX'::character varying::text, 'GRAPH'::character varying::text, 'SUMMARY'::character varying::text, 'CLEANUP'::character varying::text]))"
+    },
+    {
+      "table_name": "chat_message",
+      "name": "chat_message_role_check",
+      "definition": "CHECK (role::text = ANY (ARRAY['USER'::character varying::text, 'ASSISTANT'::character varying::text]))"
+    },
+    {
+      "table_name": "chat_run",
+      "name": "chat_run_check2",
+      "definition": "CHECK ((status::text = ANY (ARRAY['SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text, 'ABANDONED'::character varying::text])) = (finished_at IS NOT NULL))"
+    },
+    {
+      "table_name": "chat_run",
+      "name": "chat_run_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['PENDING'::character varying::text, 'RUNNING'::character varying::text, 'SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text, 'ABANDONED'::character varying::text]))"
+    },
+    {
+      "table_name": "chat_session",
+      "name": "chat_session_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['ACTIVE'::character varying::text, 'ARCHIVED'::character varying::text, 'DELETED'::character varying::text]))"
+    },
+    {
+      "table_name": "conversation_summary",
+      "name": "conversation_summary_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['READY'::character varying::text, 'INVALIDATED'::character varying::text]))"
+    },
+    {
+      "table_name": "document",
+      "name": "document_business_status_check",
+      "definition": "CHECK (business_status::text = ANY (ARRAY['UNKNOWN'::character varying::text, 'DRAFT'::character varying::text, 'EFFECTIVE'::character varying::text, 'ARCHIVED'::character varying::text, 'REPEALED'::character varying::text]))"
+    },
+    {
+      "table_name": "document",
+      "name": "document_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['DRAFT'::character varying::text, 'PUBLISHED'::character varying::text, 'WITHDRAWN'::character varying::text, 'DELETED'::character varying::text]))"
+    },
+    {
+      "table_name": "document_access_grant",
+      "name": "document_access_grant_permission_check",
+      "definition": "CHECK (permission::text = ANY (ARRAY['READ'::character varying::text, 'WRITE'::character varying::text]))"
+    },
+    {
+      "table_name": "evaluation_dataset",
+      "name": "evaluation_dataset_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['DRAFT'::character varying::text, 'FROZEN'::character varying::text, 'ARCHIVED'::character varying::text]))"
+    },
+    {
+      "table_name": "evaluation_result",
+      "name": "evaluation_result_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'SKIPPED'::character varying::text]))"
+    },
+    {
+      "table_name": "evaluation_run",
+      "name": "evaluation_run_check1",
+      "definition": "CHECK ((status::text = ANY (ARRAY['SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text])) = (finished_at IS NOT NULL))"
+    },
+    {
+      "table_name": "evaluation_run",
+      "name": "evaluation_run_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['PENDING'::character varying::text, 'RUNNING'::character varying::text, 'SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text]))"
+    },
+    {
+      "table_name": "graph_projection",
+      "name": "graph_projection_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['BUILDING'::character varying::text, 'READY'::character varying::text, 'FAILED'::character varying::text, 'STALE'::character varying::text]))"
+    },
+    {
+      "table_name": "index_generation",
+      "name": "index_generation_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['BUILDING'::character varying::text, 'READY'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text]))"
+    },
+    {
+      "table_name": "knowledge_base",
+      "name": "knowledge_base_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['ACTIVE'::character varying::text, 'ARCHIVED'::character varying::text, 'DELETED'::character varying::text]))"
+    },
+    {
+      "table_name": "knowledge_base_grant",
+      "name": "knowledge_base_grant_permission_check",
+      "definition": "CHECK (permission::text = ANY (ARRAY['READ'::character varying::text, 'WRITE'::character varying::text, 'ADMIN'::character varying::text]))"
+    },
+    {
+      "table_name": "outbox_event",
+      "name": "outbox_event_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['PENDING'::character varying::text, 'PUBLISHING'::character varying::text, 'PUBLISHED'::character varying::text, 'DEAD'::character varying::text]))"
+    },
+    {
+      "table_name": "task_attempt",
+      "name": "task_attempt_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['RUNNING'::character varying::text, 'SUCCEEDED'::character varying::text, 'FAILED'::character varying::text, 'CANCELLED'::character varying::text, 'LOST'::character varying::text]))"
+    },
+    {
+      "table_name": "tenant",
+      "name": "tenant_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['ACTIVE'::character varying::text, 'DISABLED'::character varying::text]))"
+    },
+    {
+      "table_name": "tenant_member",
+      "name": "tenant_member_role_check",
+      "definition": "CHECK (role::text = ANY (ARRAY['MEMBER'::character varying::text, 'ADMIN'::character varying::text]))"
+    },
+    {
+      "table_name": "tenant_member",
+      "name": "tenant_member_status_check",
+      "definition": "CHECK (status::text = ANY (ARRAY['ACTIVE'::character varying::text, 'DISABLED'::character varying::text]))"
+    }
+  ],
+  "indexes": [
+    {
+      "table_name": "background_task",
+      "name": "ix_task_pending",
+      "definition": "CREATE INDEX ix_task_pending ON alembic_replay_test.background_task USING btree (next_run_at, id) WHERE ((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('RETRY_WAIT'::character varying)::text]))"
+    },
+    {
+      "table_name": "chat_run",
+      "name": "uq_chat_one_active_run",
+      "definition": "CREATE UNIQUE INDEX uq_chat_one_active_run ON alembic_replay_test.chat_run USING btree (tenant_id, session_id) WHERE ((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('RUNNING'::character varying)::text]))"
+    }
+  ]
+}

@@ -1,0 +1,664 @@
+{
+  "reviewed_at": "2026-10-11T08:21:43.711852+00:00",
+  "reviewer": "online_graph_review",
+  "method": "Independent comparison of every final-4 published answer, its own literal quotations, frozen fixture source text, and current path provenance tuples/hash/offsets. Model review flags and path gates are not factual-completeness success. No new model, graph or database calls; no results borrowed from prior runs.",
+  "results_file_sha256": "780dfef4f73017aa636b30aef8e601212987f986af750258d4b967eee16add22",
+  "dataset_sha256": "76a3e94c34de01350496d20e2c8bf02aa4d26fb6402c552898ea3012f1470ecc",
+  "dataset_hash_matches_frozen_cases": true,
+  "dataset_kind": "synthetic_development",
+  "real_neo4j": true,
+  "real_models": true,
+  "authorization_repository": "fixed_component_adapter",
+  "entity_analysis": "frozen_grounded_mentions",
+  "cleanup": true,
+  "cleanup_errors": [],
+  "implementation_hash_count": 13,
+  "implementation_hashes_match_current_at_review": false,
+  "implementation_hash_checks": {
+    "src/zhiqing_rag/query_retrieval/graph.py": {
+      "run_sha256": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef",
+      "current_sha256": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef"
+    },
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": {
+      "run_sha256": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd",
+      "current_sha256": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd"
+    },
+    "src/zhiqing_rag/query_retrieval/paths.py": {
+      "run_sha256": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6",
+      "current_sha256": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6"
+    },
+    "src/zhiqing_rag/query_retrieval/fusion.py": {
+      "run_sha256": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b",
+      "current_sha256": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b"
+    },
+    "src/zhiqing_rag/query_retrieval/models.py": {
+      "run_sha256": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c",
+      "current_sha256": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c"
+    },
+    "src/zhiqing_rag/query_retrieval/service.py": {
+      "run_sha256": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+      "current_sha256": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d"
+    },
+    "src/zhiqing_rag/query_answering/models.py": {
+      "run_sha256": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad",
+      "current_sha256": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad"
+    },
+    "src/zhiqing_rag/query_answering/providers.py": {
+      "run_sha256": "4c0ff7ad646483564766d8d329bac830b68fc4a91d20bfebf89373cf12eb0aa2",
+      "current_sha256": "be0a7301133107c9f51c4a9eb45c685de77f747d6116226010e117e09eb99e97"
+    },
+    "src/zhiqing_rag/query_answering/service.py": {
+      "run_sha256": "6d8a72c39abc95e70526891cf0c3b8c7b692a00478c7fe114434cf1fbccfa572",
+      "current_sha256": "d4e0b5b470a52a7f25efd56128a00d3b00c3f70d2776164cf5959c33b83e5ed8"
+    },
+    "src/zhiqing_rag/query_answering/support.py": {
+      "run_sha256": "e7db31e8f6d5e20e40415a3b87a895b50b6f7a8d3f5d2ea5f4085808d24cc3c6",
+      "current_sha256": "df334a46c352ba61dc4a7a772864b985b8ed2f9f118a53590ef9b245771e1651"
+    },
+    "src/zhiqing_rag/query_routing/models.py": {
+      "run_sha256": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c",
+      "current_sha256": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c"
+    },
+    "src/zhiqing_rag/workers/graph_storage.py": {
+      "run_sha256": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c",
+      "current_sha256": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c"
+    },
+    "src/zhiqing_rag/core/config.py": {
+      "run_sha256": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0",
+      "current_sha256": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0"
+    }
+  },
+  "summary": {
+    "mode_results": 15,
+    "path_gates_passed": "15/15",
+    "two_hop_complete_positive_answers": "1/3",
+    "two_hop_failed_positive_cases": [
+      "V2G2",
+      "V2G3"
+    ],
+    "hybrid_complete_positive_answers": "0/3",
+    "one_hop_complete_positive_answers": "1/3",
+    "negative_mode_results_correct": "6/6",
+    "published_statements": 9,
+    "published_verbatim_citations": 13,
+    "path_source_records_verified": 32,
+    "answer_acceptance_passed": false,
+    "required_action": "Verify the literal applicable conditions of a currently cited complete path in answer text, within the existing single repair protocol, then rerun both full suites against one frozen implementation."
+  },
+  "known_limits": [
+    "Fixed synthetic development fixtures with real Neo4j/models and a fixed authorization repository; this is not live PostgreSQL ACL coverage or a production accuracy estimate.",
+    "Field values alone, successful retrieval/path gates, complete source quotes and model review passed do not establish condition-complete answer text.",
+    "No benefit or performance gain is established by this failing run.",
+    "This artifact certifies this frozen run; previous positive answers are not stitched into it and later code requires its own complete evaluation."
+  ],
+  "results": [
+    {
+      "id": "V2G1",
+      "mode": "hybrid",
+      "query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": false,
+      "independent_complete_answer_passed": false,
+      "assessment_type": "partial_field_answer",
+      "assessment": "字段值正确且正文保留预算前提，但自身唯一引文只支持采购申请表字段，未引用步骤需要表单的关系或条件；不算完整证据链回答。",
+      "expected_condition": "预算已确认后",
+      "expected_fields": [
+        "用途",
+        "数量",
+        "申请人"
+      ],
+      "published_statements": [
+        {
+          "text": "预算已确认后，采购申请步骤所需表单包含用途、数量和申请人字段。",
+          "citations": [
+            {
+              "citation_id": "E2",
+              "document_id": "990002",
+              "revision_id": "990002",
+              "generation_id": "990002",
+              "chunk_id": "990002",
+              "quote_verbatim": true,
+              "quote_start": 29,
+              "quote_end": 45,
+              "source_content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2G1",
+      "mode": "one_hop",
+      "query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "complete_answer",
+      "assessment": "正文保留预算前提、步骤所需采购申请表及三字段，两份自己的逐字引文分别支持关系条件和字段。此题答案完整；该基线没有输出两跳路径或映射依据，不能据此证明图增益。",
+      "expected_condition": "预算已确认后",
+      "expected_fields": [
+        "用途",
+        "数量",
+        "申请人"
+      ],
+      "published_statements": [
+        {
+          "text": "预算已确认后，采购申请步骤所需表单为采购申请表，该表包含用途、数量和申请人字段。",
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "990001",
+              "revision_id": "990001",
+              "generation_id": "990001",
+              "chunk_id": "990001",
+              "quote_verbatim": true,
+              "quote_start": 16,
+              "quote_end": 37,
+              "source_content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88"
+            },
+            {
+              "citation_id": "E2",
+              "document_id": "990002",
+              "revision_id": "990002",
+              "generation_id": "990002",
+              "chunk_id": "990002",
+              "quote_verbatim": true,
+              "quote_start": 29,
+              "quote_end": 46,
+              "source_content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2G1",
+      "mode": "two_hop",
+      "query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "complete_answer",
+      "assessment": "正文预算前提、步骤所需表单、购置需求单别名及三字段均由自己的两份完整原文支持；当前跨文档路径及身份映射出处完整。",
+      "expected_condition": "预算已确认后",
+      "expected_fields": [
+        "用途",
+        "数量",
+        "申请人"
+      ],
+      "published_statements": [
+        {
+          "text": "预算已确认后，采购申请步骤所需表单为采购申请表，该表又称购置需求单，包含用途、数量和申请人字段。",
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "990001",
+              "revision_id": "990001",
+              "generation_id": "990001",
+              "chunk_id": "990001",
+              "quote_verbatim": true,
+              "quote_start": 0,
+              "quote_end": 52,
+              "source_content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88"
+            },
+            {
+              "citation_id": "E2",
+              "document_id": "990002",
+              "revision_id": "990002",
+              "generation_id": "990002",
+              "chunk_id": "990002",
+              "quote_verbatim": true,
+              "quote_start": 0,
+              "quote_end": 46,
+              "source_content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": [
+        {
+          "path_id": "06c62ad90dc78027b9f04ee73ff8735ba2456008e0c798efdfd13cda09613204",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "预算已确认后"
+          ],
+          "conditions_present_in_published_text": true
+        },
+        {
+          "path_id": "65086ec3adb63a409ef103d6394fc930dfc021d385248a2bb26bfec0bf1b2611",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "预算已确认后"
+          ],
+          "conditions_present_in_published_text": true
+        },
+        {
+          "path_id": "e580103e07c73c4274ec4c711c2e66cb184b983ae067ba3564337a8decc622c2",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "预算已确认后"
+          ],
+          "conditions_present_in_published_text": true
+        }
+      ]
+    },
+    {
+      "id": "V2G2",
+      "mode": "hybrid",
+      "query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": false,
+      "independent_complete_answer_passed": false,
+      "assessment_type": "partial_field_answer",
+      "assessment": "三字段值正确，但正文省略预算已确认后；唯一字段引文没有别名或步骤所需表单关系，不能完成条件与跨文档依据要求。",
+      "expected_condition": "预算已确认后",
+      "expected_fields": [
+        "用途",
+        "数量",
+        "申请人"
+      ],
+      "published_statements": [
+        {
+          "text": "购置需求单（即采购申请表）应填写用途、数量和申请人。",
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "990002",
+              "revision_id": "990002",
+              "generation_id": "990002",
+              "chunk_id": "990002",
+              "quote_verbatim": true,
+              "quote_start": 29,
+              "quote_end": 46,
+              "source_content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2G2",
+      "mode": "one_hop",
+      "query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": false,
+      "independent_complete_answer_passed": false,
+      "assessment_type": "partial_field_answer",
+      "assessment": "三字段值正确，但正文省略预算已确认后；自己的引文仅列采购申请表字段，没有购置需求单别名或步骤关系依据。",
+      "expected_condition": "预算已确认后",
+      "expected_fields": [
+        "用途",
+        "数量",
+        "申请人"
+      ],
+      "published_statements": [
+        {
+          "text": "购置需求单应填写用途、数量和申请人。",
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "990002",
+              "revision_id": "990002",
+              "generation_id": "990002",
+              "chunk_id": "990002",
+              "quote_verbatim": true,
+              "quote_start": 29,
+              "quote_end": 46,
+              "source_content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2G2",
+      "mode": "two_hop",
+      "query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 1,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": false,
+      "independent_complete_answer_passed": false,
+      "assessment_type": "published_path_condition_omission",
+      "assessment": "完整当前路径、两份全文引用及别名均可定位，三字段正确；发布正文漏掉预算已确认后，把有条件的步骤用表关系写成无条件结论。review_status=passed不能算条件完整通过。",
+      "expected_condition": "预算已确认后",
+      "expected_fields": [
+        "用途",
+        "数量",
+        "申请人"
+      ],
+      "published_statements": [
+        {
+          "text": "采购申请步骤使用的购置需求单应填写用途、数量和申请人。",
+          "citations": [
+            {
+              "citation_id": "E2",
+              "document_id": "990001",
+              "revision_id": "990001",
+              "generation_id": "990001",
+              "chunk_id": "990001",
+              "quote_verbatim": true,
+              "quote_start": 0,
+              "quote_end": 52,
+              "source_content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88"
+            },
+            {
+              "citation_id": "E1",
+              "document_id": "990002",
+              "revision_id": "990002",
+              "generation_id": "990002",
+              "chunk_id": "990002",
+              "quote_verbatim": true,
+              "quote_start": 0,
+              "quote_end": 46,
+              "source_content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": [
+        {
+          "path_id": "06c62ad90dc78027b9f04ee73ff8735ba2456008e0c798efdfd13cda09613204",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "预算已确认后"
+          ],
+          "conditions_present_in_published_text": false
+        },
+        {
+          "path_id": "65086ec3adb63a409ef103d6394fc930dfc021d385248a2bb26bfec0bf1b2611",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "预算已确认后"
+          ],
+          "conditions_present_in_published_text": false
+        },
+        {
+          "path_id": "e580103e07c73c4274ec4c711c2e66cb184b983ae067ba3564337a8decc622c2",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "预算已确认后"
+          ],
+          "conditions_present_in_published_text": false
+        }
+      ]
+    },
+    {
+      "id": "V2G3",
+      "mode": "hybrid",
+      "query": "领用确认后，设备登记步骤需要填写哪些信息？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": false,
+      "independent_complete_answer_passed": false,
+      "assessment_type": "partial_field_answer",
+      "assessment": "字段值正确，但正文省略领用确认后，唯一字段引文不支持设备登记步骤需要登记表这一关系。",
+      "expected_condition": "领用确认后",
+      "expected_fields": [
+        "资产编号",
+        "领用人"
+      ],
+      "published_statements": [
+        {
+          "text": "设备登记步骤需要填写资产编号和领用人。",
+          "citations": [
+            {
+              "citation_id": "E2",
+              "document_id": "990004",
+              "revision_id": "990004",
+              "generation_id": "990004",
+              "chunk_id": "990004",
+              "quote_verbatim": true,
+              "quote_start": 15,
+              "quote_end": 30,
+              "source_content_sha256": "bf29b778d4f2f20a39d5e14c31d46ae6a7b3a6ebefadaa959af8637a4543deca"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2G3",
+      "mode": "one_hop",
+      "query": "领用确认后，设备登记步骤需要填写哪些信息？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": false,
+      "independent_complete_answer_passed": false,
+      "assessment_type": "partial_field_answer",
+      "assessment": "字段值正确，但正文省略领用确认后，唯一字段引文不支持设备登记步骤需要登记表这一关系。",
+      "expected_condition": "领用确认后",
+      "expected_fields": [
+        "资产编号",
+        "领用人"
+      ],
+      "published_statements": [
+        {
+          "text": "设备登记步骤需要填写资产编号和领用人。",
+          "citations": [
+            {
+              "citation_id": "E2",
+              "document_id": "990004",
+              "revision_id": "990004",
+              "generation_id": "990004",
+              "chunk_id": "990004",
+              "quote_verbatim": true,
+              "quote_start": 15,
+              "quote_end": 30,
+              "source_content_sha256": "bf29b778d4f2f20a39d5e14c31d46ae6a7b3a6ebefadaa959af8637a4543deca"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2G3",
+      "mode": "two_hop",
+      "query": "领用确认后，设备登记步骤需要填写哪些信息？",
+      "answer_status": "answered",
+      "review_status": "passed",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": false,
+      "independent_complete_answer_passed": false,
+      "assessment_type": "published_path_condition_omission",
+      "assessment": "完整当前路径及两份全文引用均可定位，字段正确；发布正文漏掉领用确认后，未保留当前已用路径的适用前提。review_status=passed不能算条件完整通过。",
+      "expected_condition": "领用确认后",
+      "expected_fields": [
+        "资产编号",
+        "领用人"
+      ],
+      "published_statements": [
+        {
+          "text": "设备登记步骤需要填写资产编号和领用人。",
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "990003",
+              "revision_id": "990003",
+              "generation_id": "990003",
+              "chunk_id": "990003",
+              "quote_verbatim": true,
+              "quote_start": 0,
+              "quote_end": 51,
+              "source_content_sha256": "6cc8fdca0e5edffe6337af050d9fe0fab8c0740ab579c9e4c16e7d6871411947"
+            },
+            {
+              "citation_id": "E2",
+              "document_id": "990004",
+              "revision_id": "990004",
+              "generation_id": "990004",
+              "chunk_id": "990004",
+              "quote_verbatim": true,
+              "quote_start": 0,
+              "quote_end": 31,
+              "source_content_sha256": "bf29b778d4f2f20a39d5e14c31d46ae6a7b3a6ebefadaa959af8637a4543deca"
+            }
+          ]
+        }
+      ],
+      "verified_current_paths": [
+        {
+          "path_id": "ce78973b0476f8100fcc6b6639a0206c16032f921c484ff56d2464b0edfcd262",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "领用确认后"
+          ],
+          "conditions_present_in_published_text": false
+        },
+        {
+          "path_id": "e2009c628aaf96be77bc6f67432dbc76f7ff4986d16c52473eb9f0dcd344690f",
+          "hop_count": 2,
+          "cross_namespace": true,
+          "source_hash_tuple_and_offsets_verified": true,
+          "condition_literals": [
+            "领用确认后"
+          ],
+          "conditions_present_in_published_text": false
+        }
+      ]
+    },
+    {
+      "id": "V2N1",
+      "mode": "hybrid",
+      "query": "采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "insufficient",
+      "review_status": "skipped",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "expected_insufficient",
+      "assessment": "只有办理步骤文档，没有可读字段来源，未推导或发布字段清单。",
+      "expected_condition": null,
+      "expected_fields": [],
+      "published_statements": [],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2N1",
+      "mode": "one_hop",
+      "query": "采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "insufficient",
+      "review_status": "skipped",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "expected_insufficient",
+      "assessment": "只有办理步骤文档，没有可读字段来源，未推导或发布字段清单。",
+      "expected_condition": null,
+      "expected_fields": [],
+      "published_statements": [],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2N1",
+      "mode": "two_hop",
+      "query": "采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "insufficient",
+      "review_status": "skipped",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "expected_insufficient",
+      "assessment": "只有办理步骤文档，没有可读字段来源，未推导或发布字段清单。",
+      "expected_condition": null,
+      "expected_fields": [],
+      "published_statements": [],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2N2",
+      "mode": "hybrid",
+      "query": "采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "insufficient",
+      "review_status": "skipped",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "expected_insufficient",
+      "assessment": "同名采购申请表仅用于报废回购流程，未误接为采购申请步骤所用表单；无路径，未发布字段清单。",
+      "expected_condition": null,
+      "expected_fields": [],
+      "published_statements": [],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2N2",
+      "mode": "one_hop",
+      "query": "采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "insufficient",
+      "review_status": "skipped",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "expected_insufficient",
+      "assessment": "同名采购申请表仅用于报废回购流程，未误接为采购申请步骤所用表单；无路径，未发布字段清单。",
+      "expected_condition": null,
+      "expected_fields": [],
+      "published_statements": [],
+      "verified_current_paths": []
+    },
+    {
+      "id": "V2N2",
+      "mode": "two_hop",
+      "query": "采购申请步骤所需表单包含哪些字段？",
+      "answer_status": "insufficient",
+      "review_status": "skipped",
+      "repair_count": 0,
+      "path_gate_passed": true,
+      "automated_answer_evidence_gate": true,
+      "independent_complete_answer_passed": true,
+      "assessment_type": "expected_insufficient",
+      "assessment": "同名采购申请表仅用于报废回购流程，未误接为采购申请步骤所用表单；无路径，未发布字段清单。",
+      "expected_condition": null,
+      "expected_fields": [],
+      "published_statements": [],
+      "verified_current_paths": []
+    }
+  ]
+}

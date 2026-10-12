@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import httpx
+from pydantic import ValidationError
 
 from zhiqing_rag.core.config import PROJECT_ROOT, get_settings
 from zhiqing_rag.infrastructure.database.connection import close_database_pool, database_connection
@@ -20,7 +21,13 @@ from zhiqing_rag.modules.identity.auth_service import identity_from_access
 from zhiqing_rag.modules.identity.auth_store import AuthStore, create_auth_redis
 from zhiqing_rag.modules.identity.auth_tokens import decode_access_token
 from zhiqing_rag.query_analysis.prompts import SYSTEM_PROMPT
-from zhiqing_rag.query_answering.providers import GENERATE_PROMPT, REVIEW_PROMPT, AnswerProvider
+from zhiqing_rag.query_answering.providers import (
+    CHAIN_PROMPT,
+    GENERATE_PROMPT,
+    REPAIR_PROMPT,
+    REVIEW_PROMPT,
+    AnswerProvider,
+)
 from zhiqing_rag.query_answering.router import get_answerer
 from zhiqing_rag.query_answering.service import QueryAnswerService
 from zhiqing_rag.query_retrieval.models import ChunkRecord
@@ -318,6 +325,24 @@ async def run(args):
         "results": [],
         "mode": "answer" if args.answer else "search",
         "answer_model": settings.chat_model if args.answer else None,
+        "implementation_sha256": {
+            name: hashlib.sha256((PROJECT_ROOT / name).read_bytes()).hexdigest()
+            for name in (
+                "src/zhiqing_rag/query_retrieval/graph.py",
+                "src/zhiqing_rag/query_retrieval/graph_identity.py",
+                "src/zhiqing_rag/query_retrieval/paths.py",
+                "src/zhiqing_rag/query_retrieval/fusion.py",
+                "src/zhiqing_rag/query_retrieval/models.py",
+                "src/zhiqing_rag/query_retrieval/service.py",
+                "src/zhiqing_rag/query_answering/models.py",
+                "src/zhiqing_rag/query_answering/providers.py",
+                "src/zhiqing_rag/query_answering/service.py",
+                "src/zhiqing_rag/query_answering/support.py",
+                "src/zhiqing_rag/query_routing/models.py",
+                "src/zhiqing_rag/workers/graph_storage.py",
+                "src/zhiqing_rag/core/config.py",
+            )
+        },
     }
     claims = None
     args.output.mkdir(parents=True, exist_ok=True)
@@ -327,19 +352,47 @@ async def run(args):
     if args.answer:
         (args.output / "answer_prompt.txt").write_text(GENERATE_PROMPT, encoding="utf-8")
         (args.output / "review_prompt.txt").write_text(REVIEW_PROMPT, encoding="utf-8")
+        (args.output / "repair_prompt.txt").write_text(REPAIR_PROMPT, encoding="utf-8")
+        (args.output / "chain_prompt.txt").write_text(CHAIN_PROMPT, encoding="utf-8")
     if args.capture_model_output:
         if not args.answer:
             raise ValueError("--capture-model-output 仅用于回答评估")
 
         class RecordingProvider(AnswerProvider):
-            async def generate(self, question, evidence):
-                value = await super().generate(question, evidence)
-                captured.append({"stage": "generation", "value": value.value.model_dump()})
-                return value
-
-            async def review(self, question, evidence, draft):
-                value = await super().review(question, evidence, draft)
-                captured.append({"stage": "review", "value": value.value.model_dump()})
+            async def _call(self, prompt, payload, schema, temperature):
+                stage = "repair" if "error_code" in payload else (
+                    "review" if schema.__name__ == "AnswerReview" else "generation"
+                )
+                event = {
+                    "stage": stage,
+                    "schema": schema.__name__,
+                    "method": stage + ("_with_paths" if "evidence_chains" in payload else ""),
+                    "error_code": payload.get("error_code"),
+                    "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+                }
+                if stage == "repair":
+                    event["repair_constraints"] = {
+                        "scope_conflicts": payload.get("scope_conflicts", ()),
+                        "confirmation_diagnostics": payload.get("confirmation_diagnostics", ()),
+                        "graph_condition_diagnostics": payload.get(
+                            "graph_condition_diagnostics", ()
+                        ),
+                        "allowed_indices_by_cid": {
+                            item["citation_id"]: item.get("allowed_quote_candidate_indices", [])
+                            for item in payload["evidence"]
+                        },
+                    }
+                try:
+                    value = await super()._call(prompt, payload, schema, temperature)
+                except Exception as error:
+                    event.update(error_type=type(error).__name__, code=getattr(error, "code", None))
+                    if isinstance(error.__cause__, ValidationError):
+                        event["schema_errors"] = [{"loc": item["loc"], "type": item["type"]}
+                            for item in error.__cause__.errors(include_input=False)]
+                    captured.append(event)
+                    raise
+                event["value"] = value.value.model_dump()
+                captured.append(event)
                 return value
 
         app.dependency_overrides[get_answerer] = lambda: QueryAnswerService(

@@ -132,6 +132,47 @@ export interface DocumentPreview {
   truncated: boolean;
 }
 
+export type BusinessStatus = "UNKNOWN" | "DRAFT" | "EFFECTIVE" | "ARCHIVED" | "REPEALED";
+export const businessStatusLabels: Record<BusinessStatus, string> = {
+  UNKNOWN: "未标注", DRAFT: "草稿", EFFECTIVE: "已生效", ARCHIVED: "已归档", REPEALED: "已废止",
+};
+export interface DocumentBusinessMetadata {
+  document_code: string | null;
+  business_status: BusinessStatus;
+  event_date: string | null;
+}
+export interface DocumentMetadata extends DocumentBusinessMetadata {
+  document_id: string;
+  knowledge_base_id: string;
+  title: string;
+  department_id: string | null;
+  department_name: string | null;
+  updated_at: string;
+  can_write: boolean;
+}
+
+export async function fetchDocumentMetadata(id: string, signal: AbortSignal): Promise<DocumentMetadata> {
+  const response = await authenticatedFetch(`${documentsEndpoint}/${encodeURIComponent(id)}/metadata`, {
+    signal: AbortSignal.any([signal, AbortSignal.timeout(15_000)]),
+  });
+  const body = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(errorMessage(body, "文档属性查询失败，请重试"));
+  return body as DocumentMetadata;
+}
+
+export async function updateDocumentMetadata(
+  id: string, changes: DocumentBusinessMetadata & { title: string; expected_updated_at: string },
+  signal: AbortSignal,
+): Promise<DocumentMetadata> {
+  const response = await authenticatedFetch(`${documentsEndpoint}/${encodeURIComponent(id)}/metadata`, {
+    method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(changes),
+    signal: AbortSignal.any([signal, AbortSignal.timeout(15_000)]),
+  });
+  const body = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(errorMessage(body, "文档属性保存失败，请重试"));
+  return body as DocumentMetadata;
+}
+
 const documentsEndpoint = import.meta.env.VITE_DOCUMENTS_URL?.trim() || "/api/documents";
 
 export async function fetchOriginalDocument(result: UploadResult, signal: AbortSignal): Promise<Blob> {
@@ -194,6 +235,7 @@ export interface UploadOptions {
   signal: AbortSignal;
   onProgress: (progress: number) => void;
   confidentiality?: number;
+  metadata?: DocumentBusinessMetadata;
   // 存在 documentId 时改走新增修订接口；expectedRevisionId 用于并发版本校验。
   documentId?: string;
   expectedRevisionId?: string;
@@ -296,6 +338,11 @@ function sendUpload(
     } else {
       body.append("knowledge_base_id", options.knowledgeBase);
       body.append("confidentiality", String(options.confidentiality ?? 1));
+      if (options.metadata) {
+        if (options.metadata.document_code) body.append("document_code", options.metadata.document_code);
+        body.append("business_status", options.metadata.business_status);
+        if (options.metadata.event_date) body.append("event_date", options.metadata.event_date);
+      }
     }
     request.send(body);
   });

@@ -10,6 +10,7 @@ from zhiqing_rag.modules.knowledge.permissions import (
     document_access_sql,
     knowledge_base_access_sql,
 )
+from zhiqing_rag.query_metadata.models import ResolvedFilter
 
 from .models import PlanQueryBody, ScopeSummary
 
@@ -28,6 +29,7 @@ class AccessScope:
     knowledge_base_ids: tuple[int, ...]
     document_ids: tuple[int, ...]
     published_documents: tuple[PublishedDocument, ...]
+    resolved_filters: tuple[ResolvedFilter, ...] = ()
 
     def __post_init__(self):
         if any(
@@ -36,9 +38,12 @@ class AccessScope:
                 self.knowledge_base_ids,
                 self.document_ids,
                 self.published_documents,
+                self.resolved_filters,
             )
         ):
             raise ValueError("授权范围必须使用不可变元组")
+        if any(not isinstance(item, ResolvedFilter) for item in self.resolved_filters):
+            raise ValueError("过滤范围必须使用服务端解析条件")
         values = (self.tenant_id, self.user_id, *self.knowledge_base_ids, *self.document_ids)
         if any(type(value) is not int or not 0 < value <= 2**63 - 1 for value in values):
             raise ValueError("授权范围包含无效 ID")

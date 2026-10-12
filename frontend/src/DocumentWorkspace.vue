@@ -35,6 +35,11 @@ import {
   deleteDocument,
   fetchOriginalDocument,
   fetchDocumentPreview,
+  fetchDocumentMetadata,
+  updateDocumentMetadata,
+  businessStatusLabels,
+  type DocumentMetadata,
+  type DocumentBusinessMetadata,
   type DocumentPreview,
   isDemoMode,
   maxFileSize,
@@ -88,6 +93,7 @@ interface DocumentItem {
   knowledgeBase: string;
   result?: UploadResult;
   createdAt: string;
+  metadata?: DocumentBusinessMetadata;
 }
 
 const documents = ref<DocumentItem[]>([]);
@@ -142,7 +148,16 @@ const permissionChannel = !isDemoMode && typeof BroadcastChannel !== "undefined"
 let accessRefreshQueue = Promise.resolve();
 const chunkSize = ref(512);
 const chunkOverlap = ref(48);
-const modal = ref<"help" | "remove" | "preview" | null>(null);
+const modal = ref<"help" | "remove" | "preview" | "metadata" | null>(null);
+const metadataItem = ref<DocumentItem | null>(null);
+const savedMetadata = ref<DocumentMetadata | null>(null);
+const metadataLoading = ref(false);
+const metadataSaving = ref(false);
+const metadataError = ref("");
+const metadataDraft = ref({ title: "", document_code: "", business_status: "UNKNOWN" as DocumentBusinessMetadata["business_status"], event_date: "" });
+let propertyController: AbortController | undefined;
+const metadataEditable = computed(() => !!metadataItem.value && !metadataLoading.value &&
+  (metadataItem.value.result ? !!savedMetadata.value?.can_write : !running.value));
 const previewItem = ref<DocumentItem | null>(null);
 const previewLoading = ref(false);
 const previewError = ref("");
@@ -367,6 +382,7 @@ function clearAccessCaches() {
     removalError.value = "";
   }
   clearPreview();
+  clearDocumentMetadata();
   documents.value.forEach((item) => { item.selected = false; });
 }
 function refreshAccessState(broadcast = true) {
@@ -820,6 +836,7 @@ async function startUpload() {
         item.result = await uploadDocument(item.file!, {
           knowledgeBase: batchBase,
           confidentiality: batchConfidentiality,
+          metadata: item.metadata,
           signal: controller.signal,
           onProgress: (progress) => {
             item.progress = progress;
@@ -876,6 +893,68 @@ async function openModal(type: "help") {
   await nextTick();
   dialog.value?.showModal();
 }
+function clearDocumentMetadata() {
+  propertyController?.abort();
+  metadataItem.value = null;
+  savedMetadata.value = null;
+  metadataError.value = "";
+  metadataLoading.value = false;
+  metadataSaving.value = false;
+}
+async function openDocumentMetadata(item: DocumentItem) {
+  if (item.removing || item.updating || item.status === "uploading" || removing.value || metadataSaving.value) return;
+  clearDocumentMetadata();
+  clearPreview();
+  metadataItem.value = item;
+  metadataDraft.value = { title: item.name, document_code: item.metadata?.document_code || "",
+    business_status: item.metadata?.business_status || "UNKNOWN", event_date: item.metadata?.event_date || "" };
+  modal.value = "metadata";
+  await nextTick();
+  dialog.value?.showModal();
+  if (!item.result) return;
+  const controller = new AbortController();
+  propertyController = controller;
+  metadataLoading.value = true;
+  try {
+    const value = await fetchDocumentMetadata(item.result.document_id, controller.signal);
+    if (controller.signal.aborted) return;
+    savedMetadata.value = value;
+    metadataDraft.value = { title: value.title, document_code: value.document_code || "",
+      business_status: value.business_status, event_date: value.event_date || "" };
+  } catch (error) {
+    if (!controller.signal.aborted) metadataError.value = error instanceof Error ? error.message : "文档属性查询失败";
+  } finally { if (!controller.signal.aborted) metadataLoading.value = false; }
+}
+async function saveDocumentMetadata() {
+  const item = metadataItem.value;
+  if (!item || !metadataEditable.value || metadataSaving.value) return;
+  const draft = metadataDraft.value;
+  if (item.result && !draft.title.trim()) { metadataError.value = "文档标题不能为空"; return; }
+  const values: DocumentBusinessMetadata = { document_code: draft.document_code.trim() || null,
+    business_status: draft.business_status, event_date: draft.event_date || null };
+  if (!item.result) {
+    item.metadata = values;
+    closeModal();
+    notify("已保存待上传文档的业务属性");
+    return;
+  }
+  const controller = new AbortController();
+  propertyController = controller;
+  metadataSaving.value = true;
+  metadataError.value = "";
+  try {
+    const value = await updateDocumentMetadata(item.result.document_id, { ...values,
+      title: draft.title.trim(), expected_updated_at: savedMetadata.value!.updated_at }, controller.signal);
+    if (controller.signal.aborted) return;
+    savedMetadata.value = value;
+    queryAccessVersion.value++;
+    metadataSaving.value = false;
+    closeModal();
+    notify("文档属性已保存，后续过滤与统计使用新属性");
+  } catch (error) {
+    if (!controller.signal.aborted) metadataError.value = error instanceof Error ? error.message : "文档属性保存失败";
+  } finally { if (!controller.signal.aborted) metadataSaving.value = false; }
+}
 function clearPreview() {
   previewController?.abort();
   if (previewUrl.value) URL.revokeObjectURL(previewUrl.value);
@@ -924,10 +1003,11 @@ async function openPreview(item: DocumentItem) {
   }
 }
 function closeModal() {
-  if (removing.value) return;
+  if (removing.value || metadataSaving.value) return;
   dialog.value?.close();
   modal.value = null;
   clearPreview();
+  clearDocumentMetadata();
 }
 onBeforeUnmount(() => {
   metadataController.abort();
@@ -936,6 +1016,7 @@ onBeforeUnmount(() => {
   historyController?.abort();
   clearTimeout(historyTimer);
   clearPreview();
+  clearDocumentMetadata();
   mounted = false;
   clearInterval(pollTimer);
   controllers.forEach((controller) => controller.abort());
@@ -1055,7 +1136,7 @@ onBeforeUnmount(() => {
               <Info :size="16" /><span>{{
                 isDemoMode
                   ? "当前为本地演示：上传进度仅供预览，不会入库或触发解析。"
-                  : "上传后自动处理，处理结果可在下方列表查看。"
+                  : "上传前可在列表的“属性”中填写业务编号、状态与日期。上传后自动处理。"
               }}</span>
             </div>
           </section>
@@ -1324,6 +1405,7 @@ onBeforeUnmount(() => {
                   </td>
                   <td class="action-cell">
                     <div class="row-actions">
+                      <button v-if="!isDemoMode && item.task?.document_status !== 'DELETED' && item.status !== 'uploading'" class="text-button" :disabled="item.updating || item.retrying || item.removing || removing" :aria-label="`查看 ${item.name} 的业务属性`" @click="openDocumentMetadata(item)">属性</button>
                       <button v-if="!isDemoMode && item.result && item.task?.can_manage_permissions" class="text-button" :disabled="item.updating || item.retrying || item.removing || removing" :aria-label="`管理 ${item.name} 的权限`" @click="manageDocument(item)"><ShieldCheck :size="13" />权限</button>
                       <button
                         v-if="item.status === 'process_error' && canUpdate(item)"
@@ -1495,11 +1577,11 @@ onBeforeUnmount(() => {
     >
       <div class="modal-content">
         <div class="modal-heading">
-          <h2 id="modal-title">{{ modal === "preview" ? "文件预览" : modal === "remove" ? "移除文档" : "文档上传指南" }}</h2>
+          <h2 id="modal-title">{{ modal === "metadata" ? "文档业务属性" : modal === "preview" ? "文件预览" : modal === "remove" ? "移除文档" : "文档上传指南" }}</h2>
           <button
             class="icon-button"
             aria-label="关闭对话框"
-            :disabled="removing"
+            :disabled="removing || metadataSaving"
             @click="closeModal"
           >
             <X :size="20" />
@@ -1554,6 +1636,26 @@ onBeforeUnmount(() => {
             </div>
           </template>
         </div>
+        <div v-else-if="modal === 'metadata' && metadataItem" class="help-content metadata-content">
+          <p class="metadata-filename">{{ metadataItem.name }}</p>
+          <p v-if="metadataLoading" role="status"><LoaderCircle :size="16" class="spin" />正在读取文档属性…</p>
+          <form v-else @submit.prevent="saveDocumentMetadata">
+            <p v-if="!metadataItem.result" class="destination-hint">以下属性随此文件上传，用于元数据过滤与统计。</p>
+            <p v-else-if="savedMetadata" class="destination-hint">归属部门：{{ savedMetadata.department_name || (savedMetadata.department_id ? `部门 #${savedMetadata.department_id}` : '未归属部门') }}{{ savedMetadata.can_write ? '' : ' · 只读' }}</p>
+            <fieldset :disabled="!metadataEditable || metadataSaving">
+              <label class="modal-field">文档标题<input v-model="metadataDraft.title" maxlength="500" :disabled="!metadataItem.result" required /></label>
+              <label class="modal-field">业务编号<input v-model="metadataDraft.document_code" maxlength="100" placeholder="可选，在所属知识库内唯一" /></label>
+              <label class="modal-field">业务状态<div class="select-wrap"><select v-model="metadataDraft.business_status"><option v-for="(label, value) in businessStatusLabels" :key="value" :value="value">{{ label }}</option></select><ChevronDown :size="15" /></div></label>
+              <label class="modal-field">业务日期<input v-model="metadataDraft.event_date" type="date" /><small>业务生效或事件日期；与上传日期、处理状态独立。</small></label>
+            </fieldset>
+            <p v-if="metadataError" class="file-error" role="alert">{{ metadataError }}</p>
+            <div class="modal-actions">
+              <button v-if="metadataItem.result" type="button" class="button secondary" :disabled="metadataSaving" @click="openDocumentMetadata(metadataItem)">重新加载</button>
+              <button type="button" class="button secondary" :disabled="metadataSaving" @click="closeModal">关闭</button>
+              <button v-if="metadataEditable" class="button primary" :disabled="metadataSaving"><LoaderCircle v-if="metadataSaving" :size="16" class="spin" />{{ metadataSaving ? '保存中…' : '保存属性' }}</button>
+            </div>
+          </form>
+        </div>
         <div v-else-if="modal === 'remove'" class="help-content">
           <p>确认移除 {{ removalTargets.length }} 个文件？</p>
           <ul>
@@ -1593,3 +1695,11 @@ onBeforeUnmount(() => {
     <PermissionDialog v-if="permissionTarget" :key="`${permissionTarget.kind}:${permissionTarget.id}:${permissionDialogVersion}`" :target="permissionTarget" :clearance="clearance" @close="permissionTarget = null" @changed="refreshAccessState()" @inaccessible="permissionInaccessible" />
   </div>
 </template>
+
+<style scoped>
+.metadata-content fieldset { border: 0; margin: 0; padding: 0; }
+.metadata-content .select-wrap { margin-top: 9px; }
+.metadata-content small { display: block; margin-top: 7px; color: #88988d; }
+.metadata-filename { overflow-wrap: anywhere; }
+.metadata-content .modal-actions { flex-wrap: wrap; }
+</style>

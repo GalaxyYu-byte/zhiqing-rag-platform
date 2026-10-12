@@ -1,0 +1,413 @@
+{
+  "reviewed_at": "2026-10-11T07:39:44.513780+00:00",
+  "reviewer": "online_graph_review",
+  "method": "Independent local comparison of every final published statement and its own citations with the current authorized raw evidence and complete v3 frozen reference chunks. No additional model calls. Captured unpublished drafts only diagnose failures and are not counted as successful answers. Model supported flags and reference-hit gates do not replace semantic review.",
+  "results_file_sha256": "5ebc4603f5973506b3a955b3e98b80a7a3b739d4e3ace1c51e20b8ddc025e446",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "source_mode": "same_revision_reindexed",
+  "implementation_hash_count": 13,
+  "implementation_hashes_match_current_at_review": false,
+  "implementation_hash_checks": {
+    "src/zhiqing_rag/query_retrieval/graph.py": {
+      "run_sha256": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef",
+      "current_sha256": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef"
+    },
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": {
+      "run_sha256": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd",
+      "current_sha256": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd"
+    },
+    "src/zhiqing_rag/query_retrieval/paths.py": {
+      "run_sha256": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6",
+      "current_sha256": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6"
+    },
+    "src/zhiqing_rag/query_retrieval/fusion.py": {
+      "run_sha256": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b",
+      "current_sha256": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b"
+    },
+    "src/zhiqing_rag/query_retrieval/models.py": {
+      "run_sha256": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c",
+      "current_sha256": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c"
+    },
+    "src/zhiqing_rag/query_retrieval/service.py": {
+      "run_sha256": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+      "current_sha256": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d"
+    },
+    "src/zhiqing_rag/query_answering/models.py": {
+      "run_sha256": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad",
+      "current_sha256": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad"
+    },
+    "src/zhiqing_rag/query_answering/providers.py": {
+      "run_sha256": "b385a823e8e552fb3a722fc84baa5f5d093566b269c041380cf6425ea0540a50",
+      "current_sha256": "b385a823e8e552fb3a722fc84baa5f5d093566b269c041380cf6425ea0540a50"
+    },
+    "src/zhiqing_rag/query_answering/service.py": {
+      "run_sha256": "c9091ac7c2f49de254284227667f7508ab57dd5edfbfff3be1354e0556709d11",
+      "current_sha256": "c9091ac7c2f49de254284227667f7508ab57dd5edfbfff3be1354e0556709d11"
+    },
+    "src/zhiqing_rag/query_answering/support.py": {
+      "run_sha256": "d57e65c310735f5bd35e864aecf780d281463fec9c5e64cd98b839016ce1783d",
+      "current_sha256": "d83ba213c7b3cbe0a721de3c0d3292aa6b30f931c70427371a13be1888a03eb0"
+    },
+    "src/zhiqing_rag/query_routing/models.py": {
+      "run_sha256": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c",
+      "current_sha256": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c"
+    },
+    "src/zhiqing_rag/workers/graph_storage.py": {
+      "run_sha256": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c",
+      "current_sha256": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c"
+    },
+    "src/zhiqing_rag/core/config.py": {
+      "run_sha256": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0",
+      "current_sha256": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0"
+    }
+  },
+  "summary": {
+    "case_count": 18,
+    "answerable_cases": 14,
+    "answered_protocol_count": 13,
+    "independent_complete_fact_answers": "12/14",
+    "failed_positive_cases": [
+      "Q11",
+      "Q12"
+    ],
+    "controls": "4/4",
+    "literal_citations_valid": true,
+    "verified_reference_source_count": 14,
+    "evaluation_session_revoked": true
+  },
+  "q11_phase_boundary": {
+    "transfer_initialization": "支持受理人与接手团队职责范围；发起、核对、最终接收角色确定。",
+    "transfer_handoff": "选择接手团队并确认接收；进入下一步前确认上一环节已被接收。",
+    "close_final_check": "客户确认或按约定沟通方式完成结果通知后再关闭；接收方能否继续工作、正式材料能否找到、遗留差异是否分派。",
+    "unjustified_merge": "状态表待验证、待客户确认、已关闭等行具有各自进入条件、经办动作、留存内容和离开前核对，不能统一改为转派或关闭启动前必须满足的正向条件。",
+    "role_constraint": "原文选择接手团队并确认接收没有指定具体确认者；不得把某团队直接指定为确认者。"
+  },
+  "limitations": [
+    "This is a fixed local fictitious enterprise corpus regression, not a production accuracy estimate.",
+    "Q11 has no usable final answer; successful retrieval and an unpublished repaired draft do not count as a successful answer.",
+    "Q12 has literal support for individual clauses but omits an already-retrieved necessary initialization premise, so answered/passed does not mean a complete answer.",
+    "This report reviews this frozen run. Further answering/progress patches require separate tests and evidence; it does not certify later source revisions."
+  ],
+  "results": [
+    {
+      "id": "Q01",
+      "query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "本人核对姓名、联系方式和证件信息，与员工资料说明第三步直接对应，无新增项目。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "本人核对姓名、联系方式和证件信息，与员工资料说明第三步直接对应，无新增项目。"
+    },
+    {
+      "id": "Q02",
+      "query": "采购需求在进入供应商沟通前，应先说明哪些内容？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "四项业务问题、使用场景、交付要求、预算来源与采购需求单原句一致，并保留进入供应商沟通前的先后。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "四项业务问题、使用场景、交付要求、预算来源与采购需求单原句一致，并保留进入供应商沟通前的先后。"
+    },
+    {
+      "id": "Q03",
+      "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "保留客户确认或按约定沟通方式完成结果通知这一选择关系，并在关闭之前；最后核对来自工单关闭文档原句，没有声称当前已完成。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "保留客户确认或按约定沟通方式完成结果通知这一选择关系，并在关闭之前；最后核对来自工单关闭文档原句，没有声称当前已完成。"
+    },
+    {
+      "id": "Q04",
+      "query": "发布变更准备时，回退触发条件和责任人由谁确认？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "原文第五步由各方确认回退触发条件和责任人，回答沿用各方，未任意指定发布负责人或其他角色单独确认。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "原文第五步由各方确认回退触发条件和责任人，回答沿用各方，未任意指定发布负责人或其他角色单独确认。"
+    },
+    {
+      "id": "Q05",
+      "query": "文档版本记录至少需要说明哪三项信息？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "只列版本记录三项变更位置、影响对象和确认人角色，没有把发布记录构建、环境和负责人清单迁移进来。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "只列版本记录三项变更位置、影响对象和确认人角色，没有把发布记录构建、环境和负责人清单迁移进来。"
+    },
+    {
+      "id": "Q06",
+      "query": "哪些变化可能触发访问权限的提前复核？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "岗位变化、项目结束或资料敏感度变化均仍表述为可能触发，未改为必然或增加具体时限。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "岗位变化、项目结束或资料敏感度变化均仍表述为可能触发，未改为必然或增加具体时限。"
+    },
+    {
+      "id": "Q07",
+      "query": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "保留确实无法取得凭证时前提，说明原因并由财务依据制度判断，禁止以自制截图充当正式票据；两条引用均来自同一财务退回文档直接规则。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "保留确实无法取得凭证时前提，说明原因并由财务依据制度判断，禁止以自制截图充当正式票据；两条引用均来自同一财务退回文档直接规则。"
+    },
+    {
+      "id": "Q08",
+      "query": "服务请求转派摘要应包含哪些内容？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "摘要五项客户诉求、影响、已做排查、剩余问题和期望接手团队动作与原句逐项相符，未混入交接完成条件。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "摘要五项客户诉求、影响、已做排查、剩余问题和期望接手团队动作与原句逐项相符，未混入交接完成条件。"
+    },
+    {
+      "id": "Q09",
+      "query": "新员工基础账号开通前由谁批准，之后由谁开通？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "取完整基础账号行，主管批准后由管理员开通，角色和先后正确；当前来源具备完整表头，未借相邻设备或人事行。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "取完整基础账号行，主管批准后由管理员开通，角色和先后正确；当前来源具备完整表头，未借相邻设备或人事行。"
+    },
+    {
+      "id": "Q10",
+      "query": "人事资料保管要关注什么，发生什么变化需要重新核查？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "只取人事资料行，保管关注限制个人信息访问，岗位或保留要求变化时重新核查；未套用相邻财务或客户资料行。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "只取人事资料行，保管关注限制个人信息访问，岗位或保留要求变化时重新核查；未套用相邻财务或客户资料行。"
+    },
+    {
+      "id": "Q11",
+      "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+      "kind": "answerable",
+      "final_status": "rejected",
+      "business_fact_review_passed": false,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 0,
+      "statement_reviews": [],
+      "finding": "最终rejected且无发布陈述，不能视为正题通过。复核reason超过600字导致ANSWER_INVALID_OUTPUT；被拒草稿还将其他工单状态表的离开阶段核对和需要留下的内容混入转派或关闭确认条件，不能以引用均有原文认定完整语义正确。"
+    },
+    {
+      "id": "C01",
+      "query": "海王星分公司2027年度年假具体有多少天？",
+      "kind": "unanswerable",
+      "final_status": "unsupported",
+      "business_fact_review_passed": null,
+      "control_review_passed": true,
+      "literal_citations_valid": true,
+      "final_statement_count": 0,
+      "statement_reviews": [],
+      "finding": "不存在的海王星分公司2027年假数无发布事实，返回unsupported且无证据/陈述，避免捏造具体天数。"
+    },
+    {
+      "id": "C02",
+      "query": "那它呢？",
+      "kind": "clarify",
+      "final_status": "skipped",
+      "business_fact_review_passed": null,
+      "control_review_passed": true,
+      "literal_citations_valid": true,
+      "final_statement_count": 0,
+      "statement_reviews": [],
+      "finding": "指代不明的那它呢返回skipped，无证据和陈述，未猜测指代对象。"
+    },
+    {
+      "id": "C03",
+      "query": "当前知识库有多少份文档？",
+      "kind": "unsupported",
+      "final_status": "unsupported",
+      "business_fact_review_passed": null,
+      "control_review_passed": true,
+      "literal_citations_valid": true,
+      "final_statement_count": 0,
+      "statement_reviews": [],
+      "finding": "知识库文档数统计能力未实现，返回unsupported，无猜测文档数或陈述。"
+    },
+    {
+      "id": "C04",
+      "query": "蓝鲸咖啡机的保修期限是多久？",
+      "kind": "unanswerable",
+      "final_status": "insufficient",
+      "business_fact_review_passed": null,
+      "control_review_passed": true,
+      "literal_citations_valid": true,
+      "final_statement_count": 0,
+      "statement_reviews": [],
+      "finding": "蓝鲸咖啡机保修期无支持来源，虽然检索五段资料，但最终insufficient且无陈述，未把不相关资料当作保修期限。"
+    },
+    {
+      "id": "Q12",
+      "query": "工单关闭和工单转派各自需要满足什么确认条件？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": false,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 2,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "已发布关闭部分由E1支持，转派部分的第三步、下一步前接收及否定约束也各有字面依据；但缺少已检索E2同一转派文档的启动职责范围确认与发起/核对/最终接收角色确定，故一般确认问题覆盖不完整。异常无法完成和未经确认不能视为已解决应标为失败/否定保护，不能作为正向达成条件罗列。不能按review supported标记计通过。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        },
+        {
+          "index": 1,
+          "reason": "已发布关闭部分由E1支持，转派部分的第三步、下一步前接收及否定约束也各有字面依据；但缺少已检索E2同一转派文档的启动职责范围确认与发起/核对/最终接收角色确定，故一般确认问题覆盖不完整。异常无法完成和未经确认不能视为已解决应标为失败/否定保护，不能作为正向达成条件罗列。不能按review supported标记计通过。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": false
+        }
+      ],
+      "finding": "已发布关闭部分由E1支持，转派部分的第三步、下一步前接收及否定约束也各有字面依据；但缺少已检索E2同一转派文档的启动职责范围确认与发起/核对/最终接收角色确定，故一般确认问题覆盖不完整。异常无法完成和未经确认不能视为已解决应标为失败/否定保护，不能作为正向达成条件罗列。不能按review supported标记计通过。"
+    },
+    {
+      "id": "Q13",
+      "query": "新员工信息核对和文档版本记录分别应包含哪些信息？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 1,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "员工信息三项仅对应E2，版本记录三项仅对应E3，虽然同一陈述并列两对象，但对象与自身引用清楚，未加入E4发布记录构建字段。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "员工信息三项仅对应E2，版本记录三项仅对应E3，虽然同一陈述并列两对象，但对象与自身引用清楚，未加入E4发布记录构建字段。"
+    },
+    {
+      "id": "Q14",
+      "query": "服务请求转派摘要和文档版本记录分别应包含哪些信息？",
+      "kind": "answerable",
+      "final_status": "answered",
+      "business_fact_review_passed": true,
+      "control_review_passed": null,
+      "literal_citations_valid": true,
+      "final_statement_count": 2,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "reason": "转派摘要五项对应E1，版本记录三项对应E2；两个独立子问分别有来源，未混入发布指南构建字段、合同归档项或额外状态要求。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        },
+        {
+          "index": 1,
+          "reason": "转派摘要五项对应E1，版本记录三项对应E2；两个独立子问分别有来源，未混入发布指南构建字段、合同归档项或额外状态要求。",
+          "individual_clauses_have_raw_source_support": true,
+          "coverage_and_phase_complete_for_statement": true
+        }
+      ],
+      "finding": "转派摘要五项对应E1，版本记录三项对应E2；两个独立子问分别有来源，未混入发布指南构建字段、合同归档项或额外状态要求。"
+    }
+  ],
+  "implementation_hashes_match_model_final_3": true
+}

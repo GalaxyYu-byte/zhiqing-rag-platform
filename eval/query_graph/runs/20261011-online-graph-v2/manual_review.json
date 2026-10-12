@@ -1,0 +1,45 @@
+{
+  "reviewer": "Codex independent source review",
+  "date": "2026-10-11",
+  "method": "Inspect every published statement against the final HTTP evidence and continuous quotation, independently of the answer provider's supported flags.",
+  "result_file": "results.json",
+  "implementation_hashes_match_current_sources": true,
+  "graph_semantic_correct": 4,
+  "baseline_semantic_correct": 4,
+  "published_answers_supported": 8,
+  "quality_gain_demonstrated": false,
+  "cases": [
+    {
+      "id": "G1",
+      "graph_supported": true,
+      "baseline_supported": true,
+      "document_id": "76",
+      "chunk_id": "330",
+      "finding": "客户诉求、影响、已做排查、剩余问题、期望接手团队完成的动作，五项完整且无增项。"
+    },
+    {
+      "id": "G2",
+      "graph_supported": true,
+      "baseline_supported": true,
+      "document_id": "71",
+      "chunk_id": "298",
+      "finding": "系统管理员处理调整有直接原句支持；权限调整范围由当前文档标题与前文界定，没有新增责任主体。"
+    },
+    {
+      "id": "G3",
+      "graph_supported": true,
+      "baseline_supported": true,
+      "document_id": "56",
+      "chunk_id": "158",
+      "finding": "关闭摘要记录解决方式和验证范围；附带以后复用经验的用途说明也来自同一连续原句。"
+    },
+    {
+      "id": "G4",
+      "graph_supported": true,
+      "baseline_supported": true,
+      "document_id": "76",
+      "chunk_id": "330",
+      "finding": "完整保留接收方确认后的前提和原受理人继续负责客户状态通知的职责；没有加入另一证据中的条件，也没有替换为工单解决或办结状态。"
+    }
+  ]
+}

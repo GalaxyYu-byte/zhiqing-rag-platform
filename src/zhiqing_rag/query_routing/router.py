@@ -12,8 +12,10 @@ from zhiqing_rag.modules.identity.router import IdentityDependency
 from zhiqing_rag.query_analysis.models import QueryAnalysisRequest
 from zhiqing_rag.query_analysis.router import get_analyzer
 from zhiqing_rag.query_analysis.service import QueryAnalyzerService
+from zhiqing_rag.query_retrieval.graph import OnlineGraphService
 
 from .models import PlanQueryBody, QueryPlanningResponse
+from .planning import get_graph_service, plan_with_graph
 from .scope import AccessScope, QueryScopeRepository
 from .service import QueryRouterService
 
@@ -34,19 +36,31 @@ def get_access_scope(
 
 
 def get_query_router() -> QueryRouterService:
-    return QueryRouterService()
+    return QueryRouterService(catalog_available=True, metadata_available=True)
 
 
 @router.post("/plan", response_model=QueryPlanningResponse)
 async def plan_query(
     body: PlanQueryBody,
     response: Response,
+    identity: IdentityDependency,
     scope: Annotated[AccessScope, Depends(get_access_scope)],
     analyzer: Annotated[QueryAnalyzerService, Depends(get_analyzer)],
     planner: Annotated[QueryRouterService, Depends(get_query_router)],
+    graph_service: Annotated[OnlineGraphService, Depends(get_graph_service)],
 ):
     response.headers["Cache-Control"] = "no-store"
     request = QueryAnalysisRequest(query=body.query)
     analysis = await analyzer.analyze(request)
-    plan = planner.route(request=request, analysis=analysis, scope=scope)
+    plan = await plan_with_graph(
+        request=request,
+        analysis=analysis,
+        identity=identity,
+        scope=scope,
+        planner=planner,
+        graph_service=graph_service,
+        filters=body.filters,
+        offset=body.offset,
+        limit=body.limit,
+    )
     return QueryPlanningResponse(analysis=analysis, plan=plan, scope=scope.summary())

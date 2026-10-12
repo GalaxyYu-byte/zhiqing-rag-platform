@@ -14,6 +14,7 @@ from zhiqing_rag.checks import check_services
 from zhiqing_rag.core.config import get_settings
 from zhiqing_rag.core.upload_limits import UploadBodyLimitMiddleware
 from zhiqing_rag.infrastructure.database.connection import close_database_pool
+from zhiqing_rag.modules.chat.router import router as chat_router
 from zhiqing_rag.modules.documents.router import router as document_router
 from zhiqing_rag.modules.documents.schemas import UploadError
 from zhiqing_rag.modules.identity.auth_schemas import AuthError
@@ -43,7 +44,7 @@ def create_app() -> FastAPI:
         CORSMiddleware,
         allow_origins=settings.cors_origins,
         allow_credentials=True,
-        allow_methods=["GET", "POST", "DELETE"],
+        allow_methods=["GET", "POST", "PATCH", "DELETE"],
         allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
     )
     app.include_router(auth_router)
@@ -53,6 +54,7 @@ def create_app() -> FastAPI:
     app.include_router(query_routing_router)
     app.include_router(query_retrieval_router)
     app.include_router(query_answer_router)
+    app.include_router(chat_router)
 
     @app.exception_handler(RequestValidationError)
     async def validation_error_handler(request: Request, error: RequestValidationError):

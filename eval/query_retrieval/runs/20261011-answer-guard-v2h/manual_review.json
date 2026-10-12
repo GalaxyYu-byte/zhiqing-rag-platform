@@ -1,0 +1,58 @@
+{
+  "reviewer": "Codex 独立逐条原文核对并由只读审查 agent 交叉复核，非外部人工验收",
+  "review_input": "最终HTTP发布结果、真实模型草稿与当前授权原句；拒绝正题不算问答通过",
+  "case_count": 3,
+  "fact_acceptance_passed_count": 0,
+  "items": [
+    {
+      "case_id": "Q11",
+      "fact_acceptance_passed": false,
+      "note": "最终rejected/ANSWER_CONFIRMATION_GUARD_FAILED且无发布正文。唯一repair已保留实质启动职责范围/角色、步骤接收、衔接、关闭OR及三查看，但严格原句复制仍因启动这项工作时/启动时、第三步逗号/为、本事项以/以的泛指框架不同误拒；分号规范性禁令亦被过宽归入失败/否定状态条件。不能将未发布草稿算通过。",
+      "http_answer_status": "rejected",
+      "codes": [
+        "ANSWER_CONFIRMATION_GUARD_FAILED"
+      ],
+      "final_statement_count": 0
+    },
+    {
+      "case_id": "Q12",
+      "fact_acceptance_passed": false,
+      "note": "最终rejected/ANSWER_INVALID_OUTPUT。初稿实质覆盖启动/步骤/衔接和关闭条件，但有启动先再的表述差异被送一次repair；repair返回超出9的候选索引，严格schema拒绝。E5虽full_source_available=true，模型仍忽略必须-1，且可见0–9候选未含更靠后的衔接原句，不能猜索引或放宽校验。",
+      "http_answer_status": "rejected",
+      "codes": [
+        "ANSWER_INVALID_OUTPUT"
+      ],
+      "final_statement_count": 0
+    },
+    {
+      "case_id": "Q13",
+      "fact_acceptance_passed": false,
+      "note": "最终rejected/ANSWER_SOURCE_SCOPE_AMBIGUOUS。初稿将发布记录技术清单附加给文档版本记录，唯一repair照抄错误清单；守卫正确拦截，无发布正文。仅拦截错误不是正向问答完成。",
+      "http_answer_status": "rejected",
+      "codes": [
+        "ANSWER_SOURCE_SCOPE_AMBIGUOUS"
+      ],
+      "final_statement_count": 0
+    }
+  ],
+  "reviewed_at": "2026-10-11T15:55:05.386338+08:00",
+  "results_sha256": "2359657314eddfb957dc68e5d0b0f455353119c2822fae23e6e446a9d45d1564",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "implementation_sha256": {
+    "src/zhiqing_rag/query_retrieval/graph.py": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef",
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd",
+    "src/zhiqing_rag/query_retrieval/paths.py": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6",
+    "src/zhiqing_rag/query_retrieval/fusion.py": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b",
+    "src/zhiqing_rag/query_retrieval/models.py": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c",
+    "src/zhiqing_rag/query_retrieval/service.py": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+    "src/zhiqing_rag/query_answering/models.py": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad",
+    "src/zhiqing_rag/query_answering/providers.py": "c7cc81a8487f44fc5f2f936490fdcb3c25e84b8d9ae353fb2a14a6f44cc63ec2",
+    "src/zhiqing_rag/query_answering/service.py": "6218a8ee83bcf95399e211c7422c1248f8b35653043f72928c8b15866197f702",
+    "src/zhiqing_rag/query_answering/support.py": "2ad28ace6b56b2bf95759a7280f4f7f737dbb17e73ca28391db919b01f8df96d",
+    "src/zhiqing_rag/query_routing/models.py": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c",
+    "src/zhiqing_rag/workers/graph_storage.py": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c",
+    "src/zhiqing_rag/core/config.py": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0"
+  },
+  "evaluation_session_revoked": true,
+  "implementation_sha256_matches_at_review": true
+}

@@ -1,0 +1,25 @@
+{
+  "reviewer": "Codex 独立逐条核对原文、草稿及最终 HTTP 结果",
+  "fact_acceptance_passed_count": 0,
+  "case_count": 3,
+  "cases": [
+    {
+      "case_id": "Q11",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "保护提取把完整表格当作单一条件职责语句，借用了另一行条件；合法遗留项核对被保守误拒，生成及修复均未发布。"
+    },
+    {
+      "case_id": "Q12",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "生成及唯一修复均将 E2 非相邻且原顺序不同的句子拼接，并把 E5 第三步直接接到第五步而省略第四步；连续引用检查正确拒绝。"
+    },
+    {
+      "case_id": "Q13",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": false,
+      "note": "员工信息清单有据；同一文档版本陈述却混入发布记录指南的构建标识、适用环境、负责人等另一主题清单。模型 supported=true 不能证明业务适用范围，独立核对判失败。"
+    }
+  ]
+}

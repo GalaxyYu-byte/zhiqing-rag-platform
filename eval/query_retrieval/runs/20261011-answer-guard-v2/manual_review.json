@@ -1,0 +1,25 @@
+{
+  "reviewer": "Codex 独立逐条核对原文、草稿及最终 HTTP 结果",
+  "fact_acceptance_passed_count": 0,
+  "case_count": 3,
+  "cases": [
+    {
+      "case_id": "Q11",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "引文把表头与非相邻末行拼成单一 quote，被逐字检查拒绝。"
+    },
+    {
+      "case_id": "Q12",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "工单已解决语义已保留，但关闭保护句改写并省去同句独立记录动作，被首版保守守卫拒绝。"
+    },
+    {
+      "case_id": "Q13",
+      "http_answer_status": "insufficient",
+      "fact_acceptance_passed": false,
+      "note": "生成模型返回 insufficient，没有草稿发布。"
+    }
+  ]
+}

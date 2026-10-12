@@ -1,0 +1,256 @@
+.................................ssssssssss............................. [  5%]
+..............................sssssssssssssssss......................... [ 10%]
+........................................................................ [ 15%]
+...............................sssssss.................................. [ 20%]
+........................................................................ [ 25%]
+........................................................................ [ 30%]
+FF.F......................................F...........................ss [ 35%]
+.ssssssssssssssssss..................................................... [ 41%]
+......................ssssssssssssssssss................................ [ 46%]
+........................................................................ [ 51%]
+........................................................................ [ 56%]
+........................................................................ [ 61%]
+........................................................................ [ 66%]
+........................................................................ [ 71%]
+........................................................................ [ 77%]
+........................................................................ [ 82%]
+........................................................................ [ 87%]
+........................................................................ [ 92%]
+........................................................................ [ 97%]
+...............................sss                                       [100%]
+================================== FAILURES ===================================
+____________________ test_graph_gold_integrity_and_strata _____________________
+
+    def test_graph_gold_integrity_and_strata():
+>       verify()
+
+tests\test_graph_gold.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\build_graph_gold.py:281: in verify
+    expected = compile_cases()
+               ^^^^^^^^^^^^^^^
+scripts\build_graph_gold.py:176: in compile_cases
+    make_case(
+scripts\build_graph_gold.py:111: in make_case
+    validate_evidence(extraction, content)
+src\zhiqing_rag\workers\graph_extraction.py:179: in validate_evidence
+    validate_relation_evidence(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+relation = ExtractedRelation(type='HAS_FIELD', source_id='e1', target_id='e2', evidence_quote='采购需求单应先说明业务问题、使用场景、交付要求和预算来源', condition_text=None)
+entities = {'e1': ExtractedEntity(id='e1', type='Material', name='采购需求单', canonical_name='采购需求单', evidence_quote='采购需求单应先说明业务问题、使...dEntity(id='e4', type='Field', name='使用场景', canonical_name='使用场景', evidence_quote='采购需求单应先说明业务问题、使用场景、交付要求和预算来源'), ...}
+content = '业务备忘 / 财务与采购\n采购需求与审批边界\n适用对象：需求部门、采购人员和审批人\n事项判断\n采购需求单应先说明业务问题、使用场景、交付要求和预算来源，再进入供应商沟通。需求提出与采购承诺不是同一\n行为，任何对外价格或交期承...环节，不能推定整件事已经结束。遇到范围变化时，应把变化发给实际受影响的岗位，并确认原安排\n是否仍然成立。\n为什么提出这项要求\n启动这项工作时，先确认事项确实落在需求部门、采购人员和审批人的职责范围内，再确定谁负责发起、谁负责核对、'
+
+    def validate_relation_evidence(relation: ExtractedRelation, entities: dict, content: str) -> None:
+        quote = relation.evidence_quote
+        source = entities[relation.source_id]
+        target = entities[relation.target_id]
+        if any(entities[endpoint].name not in quote for endpoint in (
+            relation.source_id, relation.target_id
+        )):
+            raise ValueError("关系证据未同时包含两端实体名称")
+        if relation.condition_text and relation.condition_text not in quote:
+            raise ValueError("关系证据未包含对应条件")
+        # 只识别同一分句的显式前置条件，不从整块中猜测或拼接条件。
+        offset = content.find(quote)
+        boundaries = list(re.finditer(r"[。！？!?；;\n]", content[:offset]))
+        start = boundaries[-1].end() if boundaries else 0
+        clause = content[start:offset + len(quote)].strip()
+        head = re.split(r"[，,。；;\n]", clause, maxsplit=1)[0]
+        conditional = (
+            head.startswith(("如果", "必要时", "尚缺少"))
+            or re.search(r"若(?!干)", head) is not None
+            or re.search(r"如(?:有|改变|无法|不能|发现)", head) is not None
+            or head.endswith(("时", "后"))
+            or re.search(
+                r"(?<![临同及工小计])时(?![间长点限效段钟差区刻])|(?<!最)后(?![续台端勤备缀果])",
+                head,
+            ) is not None
+        )
+        if conditional and not relation.condition_text:
+            raise ValueError("关系遗漏原句前置条件")
+        if relation.type == "HAS_FIELD" and not re.search(
+            r"包含|包括|含有|字段|填写|填入|写出|记录|保留|记载|列出|表头|栏[目位]|[|\t]", quote
+        ):
+>           raise ValueError("字段关系缺少明确内容归属证据")
+E           ValueError: 字段关系缺少明确内容归属证据
+
+src\zhiqing_rag\workers\graph_extraction.py:151: ValueError
+_ test_expanded_gold_is_source_derived_and_keeps_pause_effect_and_relation_gaps _
+
+    def test_expanded_gold_is_source_derived_and_keeps_pause_effect_and_relation_gaps():
+        original = read_jsonl(POLICY / "cases.jsonl")
+        before = deepcopy(original)
+        cases = expand_gold(original)
+        assert original == before
+        assert len(cases) == 13
+        assert {c["case_id"].split("-")[1] for c in cases if c["entities"]} == {
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+        }
+        for case in cases:
+>           validate_evidence(
+                Extraction.model_validate(
+                    {
+                        "entities": case["entities"],
+                        "relations": [
+                            {k: v for k, v in r.items() if k != "id"} for r in case["relations"]
+                        ],
+                    }
+                ),
+                case["content"],
+            )
+
+tests\test_graph_holdout_review.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\zhiqing_rag\workers\graph_extraction.py:179: in validate_evidence
+    validate_relation_evidence(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+relation = ExtractedRelation(type='RESPONSIBLE_FOR', source_id='e2', target_id='e3', evidence_quote='| 提出业务用途 | 说明任务和期限 | 核对岗位需要 | 提供资源边界 | 不先授予权限 | 申请内容清楚 |', condition_text=None)
+entities = {'e1': ExtractedEntity(id='e1', type='Process', name='提出业务用途', canonical_name='提出业务用途', evidence_quote='| 提出业务用途 | 说明任...pe='Actor', name='直属负责人', canonical_name='直属负责人', evidence_quote='| 工作环节 | 申请人 | 直属负责人 | 资源负责人 | 系统管理员 | 完成证据 |'), ...}
+content = '| 工作环节 | 申请人 | 直属负责人 | 资源负责人 | 系统管理员 | 完成证据 |\n| --- | --- | --- | --- | --- | --- |\n| 提出业务用途 | 说明任务和期限 | 核对岗位需要 | 提...n| 岗位变更 | 提出新任务需求 | 确认职责变化 | 重新判断资源需要 | 调整旧权限 | 前后范围可比较 |\n| 项目结束 | 说明不再使用 | 确认工作交接 | 决定保留必要历史访问 | 移除非必要权限 | 撤权结果被核对 |'
+
+    def validate_relation_evidence(relation: ExtractedRelation, entities: dict, content: str) -> None:
+        quote = relation.evidence_quote
+        source = entities[relation.source_id]
+        target = entities[relation.target_id]
+        if any(entities[endpoint].name not in quote for endpoint in (
+            relation.source_id, relation.target_id
+        )):
+>           raise ValueError("关系证据未同时包含两端实体名称")
+E           ValueError: 关系证据未同时包含两端实体名称
+
+src\zhiqing_rag\workers\graph_extraction.py:127: ValueError
+_________ test_full_review_keeps_human_pending_and_no_formal_metrics __________
+
+    def test_full_review_keeps_human_pending_and_no_formal_metrics():
+        cases = read_jsonl(POLICY / "cases.jsonl")
+        predictions = {r["case_id"]: r for r in read_jsonl(RUN / "replay.jsonl")}
+>       items, summary = prepare(cases, predictions)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_graph_holdout_review.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\prepare_graph_holdout_review.py:415: in prepare
+    validate_evidence(extraction, case["content"])
+src\zhiqing_rag\workers\graph_extraction.py:179: in validate_evidence
+    validate_relation_evidence(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+relation = ExtractedRelation(type='RESPONSIBLE_FOR', source_id='e1', target_id='e5', evidence_quote='说明任务和期限', condition_text=None)
+entities = {'e1': ExtractedEntity(id='e1', type='Actor', name='申请人', canonical_name='申请人', evidence_quote='申请人'), 'e2': Extracted...负责人'), 'e4': ExtractedEntity(id='e4', type='Actor', name='系统管理员', canonical_name='系统管理员', evidence_quote='系统管理员'), ...}
+content = '| 工作环节 | 申请人 | 直属负责人 | 资源负责人 | 系统管理员 | 完成证据 |\n| --- | --- | --- | --- | --- | --- |\n| 提出业务用途 | 说明任务和期限 | 核对岗位需要 | 提...n| 岗位变更 | 提出新任务需求 | 确认职责变化 | 重新判断资源需要 | 调整旧权限 | 前后范围可比较 |\n| 项目结束 | 说明不再使用 | 确认工作交接 | 决定保留必要历史访问 | 移除非必要权限 | 撤权结果被核对 |'
+
+    def validate_relation_evidence(relation: ExtractedRelation, entities: dict, content: str) -> None:
+        quote = relation.evidence_quote
+        source = entities[relation.source_id]
+        target = entities[relation.target_id]
+        if any(entities[endpoint].name not in quote for endpoint in (
+            relation.source_id, relation.target_id
+        )):
+>           raise ValueError("关系证据未同时包含两端实体名称")
+E           ValueError: 关系证据未同时包含两端实体名称
+
+src\zhiqing_rag\workers\graph_extraction.py:127: ValueError
+_ test_report_distinguishes_endpoint_loss_relation_error_and_transport_failure[False] _
+
+tmp_path = WindowsPath('D:/code/zhiqing-rag-platform/.pytest-temp-v2-final-all/test_report_distinguishes_endp0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D9DFA51F10>
+api_unavailable = False
+
+    @pytest.mark.parametrize("api_unavailable", [False, True])
+    def test_report_distinguishes_endpoint_loss_relation_error_and_transport_failure(
+        tmp_path, monkeypatch, api_unavailable
+    ):
+        content = "主管批准后管理员开通。"
+        entities = [
+            {"id": "e1", "type": "Actor", "name": "管理员", "canonical_name": "管理员",
+             "evidence_quote": content, "scored_target_ids": ["old:e1"]},
+            {"id": "e2", "type": "Step", "name": "开通", "canonical_name": "开通",
+             "evidence_quote": content, "scored_target_ids": ["old:e2"]},
+        ]
+        relation = {"source_id": "e1", "target_id": "e2", "type": "RESPONSIBLE_FOR",
+                    "evidence_quote": content, "condition_text": "主管批准后",
+                    "origin_target_id": "old:r1"}
+        cases = [{"case_id": f"case{i}", "content": content, "content_sha256": "fixed",
+                  "entities": entities, "relations": [relation]} for i in range(4)]
+        monkeypatch.setattr(evaluation, "verify", lambda: cases)
+        monkeypatch.setattr(evaluation, "TARGETS", tmp_path)
+        evaluation.write_json(tmp_path / "manifest.json", {})
+        evaluation.write_json(tmp_path / "metadata.json", {
+            "targets_manifest_sha256": evaluation.sha(tmp_path / "manifest.json")})
+        rows = []
+        for i, case in enumerate(cases):
+            row = {"case_id": case["case_id"], "content_sha256": "fixed", "attempts": []}
+            if api_unavailable:
+                row.update(status="ERROR", error_type="APIConnectionError")
+            else:
+                predicted_entities = [{k: v for k, v in e.items() if k != "scored_target_ids"}
+                                      for e in (entities[:1] if i == 1 else entities)]
+                predicted_relation = {k: v for k, v in relation.items()
+                                      if k != "origin_target_id"}
+                if i == 0:
+                    predicted_relation["condition_text"] = None
+                elif i == 2:
+                    predicted_relation["type"] = "REVIEWS"
+                row.update(status="VALID_EXTRACTION", extraction={
+                    "entities": predicted_entities,
+                    "relations": [] if i == 1 else [predicted_relation]})
+            rows.append(row)
+        evaluation.write_jsonl(tmp_path / "replay.jsonl", rows)
+>       evaluation.report(tmp_path)
+
+tests\test_graph_table_replay.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\evaluate_graph_table_replay.py:268: in report
+    validate_evidence(extraction, case["content"])
+src\zhiqing_rag\workers\graph_extraction.py:179: in validate_evidence
+    validate_relation_evidence(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+relation = ExtractedRelation(type='RESPONSIBLE_FOR', source_id='e1', target_id='e2', evidence_quote='主管批准后管理员开通。', condition_text=None)
+entities = {'e1': ExtractedEntity(id='e1', type='Actor', name='管理员', canonical_name='管理员', evidence_quote='主管批准后管理员开通。'), 'e2': ExtractedEntity(id='e2', type='Step', name='开通', canonical_name='开通', evidence_quote='主管批准后管理员开通。')}
+content = '主管批准后管理员开通。'
+
+    def validate_relation_evidence(relation: ExtractedRelation, entities: dict, content: str) -> None:
+        quote = relation.evidence_quote
+        source = entities[relation.source_id]
+        target = entities[relation.target_id]
+        if any(entities[endpoint].name not in quote for endpoint in (
+            relation.source_id, relation.target_id
+        )):
+            raise ValueError("关系证据未同时包含两端实体名称")
+        if relation.condition_text and relation.condition_text not in quote:
+            raise ValueError("关系证据未包含对应条件")
+        # 只识别同一分句的显式前置条件，不从整块中猜测或拼接条件。
+        offset = content.find(quote)
+        boundaries = list(re.finditer(r"[。！？!?；;\n]", content[:offset]))
+        start = boundaries[-1].end() if boundaries else 0
+        clause = content[start:offset + len(quote)].strip()
+        head = re.split(r"[，,。；;\n]", clause, maxsplit=1)[0]
+        conditional = (
+            head.startswith(("如果", "必要时", "尚缺少"))
+            or re.search(r"若(?!干)", head) is not None
+            or re.search(r"如(?:有|改变|无法|不能|发现)", head) is not None
+            or head.endswith(("时", "后"))
+            or re.search(
+                r"(?<![临同及工小计])时(?![间长点限效段钟差区刻])|(?<!最)后(?![续台端勤备缀果])",
+                head,
+            ) is not None
+        )
+        if conditional and not relation.condition_text:
+>           raise ValueError("关系遗漏原句前置条件")
+E           ValueError: 关系遗漏原句前置条件
+
+src\zhiqing_rag\workers\graph_extraction.py:147: ValueError
+=========================== short test summary info ===========================
+FAILED tests/test_graph_gold.py::test_graph_gold_integrity_and_strata - Value...
+FAILED tests/test_graph_holdout_review.py::test_expanded_gold_is_source_derived_and_keeps_pause_effect_and_relation_gaps
+FAILED tests/test_graph_holdout_review.py::test_full_review_keeps_human_pending_and_no_formal_metrics
+FAILED tests/test_graph_table_replay.py::test_report_distinguishes_endpoint_loss_relation_error_and_transport_failure[False]
+4 failed, 1323 passed, 75 skipped in 17.91s

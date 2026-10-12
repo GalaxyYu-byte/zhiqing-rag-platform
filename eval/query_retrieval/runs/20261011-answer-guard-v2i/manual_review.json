@@ -1,0 +1,56 @@
+{
+  "reviewer": "Codex逐条原文核对并由只读审查agent交叉复核，非外部人工验收",
+  "review_input": "最终HTTP发布结果、真实模型草稿及当前授权原句；拒绝正题不算问答通过",
+  "case_count": 3,
+  "fact_acceptance_passed_count": 1,
+  "items": [
+    {
+      "case_id": "Q11",
+      "fact_acceptance_passed": false,
+      "note": "最终rejected/ANSWER_CONFIRMATION_GUARD_FAILED，无发布正文。repair虽正确选-1整块，仍把其他状态表的离开已关闭状态前遗留项核对当成关闭确认条件，且第三步/进入下一步前原句仍有严格框架外改写；守卫拒绝合理，未发布草稿不算通过。",
+      "http_answer_status": "rejected",
+      "codes": [
+        "ANSWER_CONFIRMATION_GUARD_FAILED"
+      ],
+      "final_statement_count": 0
+    },
+    {
+      "case_id": "Q12",
+      "fact_acceptance_passed": false,
+      "note": "最终insufficient/ANSWER_REVIEW_FAILED，无发布正文。repair已保留转派启动职责及角色、第三步接收、衔接和关闭OR及三查看；review却将书面回执、系统留痕、签字/答复、确认人形式与否定对应正向状态列为缺项，原文没有这些要求。属于复核误拒，不能算可用答案通过。",
+      "http_answer_status": "insufficient",
+      "codes": [
+        "ANSWER_REVIEW_FAILED"
+      ],
+      "final_statement_count": 0
+    },
+    {
+      "case_id": "Q13",
+      "fact_acceptance_passed": true,
+      "note": "最终answered。员工姓名/联系方式/证件信息和文档版本记录至少变更位置/影响对象/确认人角色均由各自引用全文支持，未混入发布记录字段。",
+      "http_answer_status": "answered",
+      "codes": [],
+      "final_statement_count": 2
+    }
+  ],
+  "reviewed_at": "2026-10-11T16:07:13.078783+08:00",
+  "results_sha256": "34e6749eff59bb2c4033817f4cffcaa9eead25f41de682100e0f280ce18a7bd3",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "implementation_sha256": {
+    "src/zhiqing_rag/query_retrieval/graph.py": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef",
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd",
+    "src/zhiqing_rag/query_retrieval/paths.py": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6",
+    "src/zhiqing_rag/query_retrieval/fusion.py": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b",
+    "src/zhiqing_rag/query_retrieval/models.py": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c",
+    "src/zhiqing_rag/query_retrieval/service.py": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+    "src/zhiqing_rag/query_answering/models.py": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad",
+    "src/zhiqing_rag/query_answering/providers.py": "459a006104baffa822b1b8732fb5f4aa9b8938612aea0e145f41a2e90eff2fbe",
+    "src/zhiqing_rag/query_answering/service.py": "6d8a72c39abc95e70526891cf0c3b8c7b692a00478c7fe114434cf1fbccfa572",
+    "src/zhiqing_rag/query_answering/support.py": "4a2eeb1b641c7c37e761c9189826abd61550cf73f46f1dbbe71b75bf00c6c058",
+    "src/zhiqing_rag/query_routing/models.py": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c",
+    "src/zhiqing_rag/workers/graph_storage.py": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c",
+    "src/zhiqing_rag/core/config.py": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0"
+  },
+  "evaluation_session_revoked": true,
+  "implementation_sha256_matches_at_review": true
+}

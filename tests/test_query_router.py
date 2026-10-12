@@ -558,7 +558,7 @@ def test_no_published_scope_returns_empty_retrieval_plan(access):
     assert plan.message
 
 
-def test_empty_scope_catalog_does_not_claim_query_was_executed():
+def test_empty_scope_catalog_still_plans_an_exact_zero_count():
     plan = route(
         "文档有多少份？",
         intent="statistics",
@@ -566,8 +566,8 @@ def test_empty_scope_catalog_does_not_claim_query_was_executed():
         router=QueryRouterService(catalog_available=True),
     )
     assert plan.route == "structured"
-    assert plan.planning_status == "empty"
-    assert plan.reason_code == "NO_PUBLISHED_DOCUMENTS"
+    assert plan.planning_status == "planned"
+    assert plan.reason_code == "CATALOG_SELECTED"
 
 
 def test_chat_does_not_require_any_published_documents():

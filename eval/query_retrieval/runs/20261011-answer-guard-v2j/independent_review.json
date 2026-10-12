@@ -1,0 +1,761 @@
+{
+  "reviewed_at": "2026-10-11T08:17:44.661803+00:00",
+  "reviewer": "online_graph_review",
+  "method": "Independent local comparison of all 18 final HTTP answers, their own literal citations, current authorized raw chunks, and frozen v3 reference chunks. Captured unpublished drafts only diagnose failures; model supported flags and retrieval reference-hit gates are not semantic success. No additional real model, graph or database calls.",
+  "results_file_sha256": "eaa8266d8f61321ed0c3c0b9ac47fc59072234e37efb839471e5724698464821",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "source_mode": "same_revision_reindexed",
+  "evaluation_session_revoked": true,
+  "implementation_hash_count": 13,
+  "implementation_hashes_match_current_at_review": true,
+  "implementation_hash_checks": {
+    "src/zhiqing_rag/query_retrieval/graph.py": {
+      "run_sha256": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef",
+      "current_sha256": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef"
+    },
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": {
+      "run_sha256": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd",
+      "current_sha256": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd"
+    },
+    "src/zhiqing_rag/query_retrieval/paths.py": {
+      "run_sha256": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6",
+      "current_sha256": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6"
+    },
+    "src/zhiqing_rag/query_retrieval/fusion.py": {
+      "run_sha256": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b",
+      "current_sha256": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b"
+    },
+    "src/zhiqing_rag/query_retrieval/models.py": {
+      "run_sha256": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c",
+      "current_sha256": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c"
+    },
+    "src/zhiqing_rag/query_retrieval/service.py": {
+      "run_sha256": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+      "current_sha256": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d"
+    },
+    "src/zhiqing_rag/query_answering/models.py": {
+      "run_sha256": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad",
+      "current_sha256": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad"
+    },
+    "src/zhiqing_rag/query_answering/providers.py": {
+      "run_sha256": "4c0ff7ad646483564766d8d329bac830b68fc4a91d20bfebf89373cf12eb0aa2",
+      "current_sha256": "4c0ff7ad646483564766d8d329bac830b68fc4a91d20bfebf89373cf12eb0aa2"
+    },
+    "src/zhiqing_rag/query_answering/service.py": {
+      "run_sha256": "6d8a72c39abc95e70526891cf0c3b8c7b692a00478c7fe114434cf1fbccfa572",
+      "current_sha256": "6d8a72c39abc95e70526891cf0c3b8c7b692a00478c7fe114434cf1fbccfa572"
+    },
+    "src/zhiqing_rag/query_answering/support.py": {
+      "run_sha256": "e7db31e8f6d5e20e40415a3b87a895b50b6f7a8d3f5d2ea5f4085808d24cc3c6",
+      "current_sha256": "e7db31e8f6d5e20e40415a3b87a895b50b6f7a8d3f5d2ea5f4085808d24cc3c6"
+    },
+    "src/zhiqing_rag/query_routing/models.py": {
+      "run_sha256": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c",
+      "current_sha256": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c"
+    },
+    "src/zhiqing_rag/workers/graph_storage.py": {
+      "run_sha256": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c",
+      "current_sha256": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c"
+    },
+    "src/zhiqing_rag/core/config.py": {
+      "run_sha256": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0",
+      "current_sha256": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0"
+    }
+  },
+  "summary": {
+    "case_count": 18,
+    "positive_count": 14,
+    "independent_complete_usable_positive_answers": 12,
+    "positive_result": "12/14",
+    "failed_positive_cases": [
+      "Q01",
+      "Q11"
+    ],
+    "controls_result": "4/4",
+    "published_statement_count": 15,
+    "published_verbatim_citation_count": 16,
+    "unsupported_published_statement_count": 0,
+    "no_new_role_or_confirmation_form_added_in_published_answers": true
+  },
+  "known_limits": [
+    "Fixed local fictitious corpus regression; this is not a production accuracy estimate or a measured GraphRAG gain.",
+    "Q01 and Q11 have no usable published answer. Correct unpublished drafts and successful retrieval do not count as answered.",
+    "Confirmation phase text protection remains a finite conservative copy rule, not a general Chinese entailment classifier.",
+    "State diagnostic CID/text/offset remain literal; column names are only verified for ordinary single unescaped tables. Escaped pipes or multiple tables in one chunk can mislabel a diagnostic column; rejection predicates remain the prior ones.",
+    "This review certifies this frozen run and the listed source hashes, not later implementations."
+  ],
+  "results": [
+    {
+      "id": "Q01",
+      "query": "新员工准备入职资料时，需要本人逐项核对哪些信息？",
+      "answer_status": "insufficient",
+      "codes": [
+        "ANSWER_REVIEW_FAILED"
+      ],
+      "is_positive": true,
+      "independent_pass": false,
+      "has_published_answer": false,
+      "assessment": "未发布答案。草稿已明确姓名、联系方式、证件信息，复核模型却称缺少联系方式；是模型误读造成的误拒，不算可用回答。",
+      "final_statements": [],
+      "frozen_reference_checks": [
+        {
+          "document_id": "35",
+          "frozen_chunk_index": 0,
+          "frozen_content_sha256": "5610055bd440514b75ee8065d17e555260afdb2e197906ba839162696bb9c570",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ],
+      "failure_type": "review_model_false_negative",
+      "unpublished_draft_contains_contact_information": true
+    },
+    {
+      "id": "Q02",
+      "query": "采购需求在进入供应商沟通前，应先说明哪些内容？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "完整说明业务问题、使用场景、交付要求、预算来源，并保留进入供应商沟通前的先后要求。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "采购需求在进入供应商沟通前，应先说明业务问题、使用场景、交付要求和预算来源。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "45",
+              "revision_id": "45",
+              "generation_id": "45",
+              "chunk_id": "82",
+              "quote_verbatim": true,
+              "source_content_sha256": "126f0c35df9694c0024390f6f2ae3ac46a309491325c56a33bd815c95944250f"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "45",
+          "frozen_chunk_index": 0,
+          "frozen_content_sha256": "126f0c35df9694c0024390f6f2ae3ac46a309491325c56a33bd815c95944250f",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "query": "工单可以关闭之前，需要满足什么客户确认或通知条件？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "保留客户确认或按约定沟通方式完成结果通知这一替代条件，以及通知后关闭的顺序；不补确认形式。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "工单可以关闭之前，需要满足的客户确认或通知条件是：客户确认或按约定的沟通方式完成结果通知后，才能关闭。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "chunk_id": "156",
+              "quote_verbatim": true,
+              "source_content_sha256": "2e0db8592e22bded87371ad7f316819efbd749c35f4bcbfc302d322cff51f5d0"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "56",
+          "frozen_chunk_index": 3,
+          "frozen_content_sha256": "da12abd65f69798822693b16ec5342ee80bad818c22584335a59bf16b6261b62",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "query": "发布变更准备时，回退触发条件和责任人由谁确认？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "依原文仅称各方确认回退触发条件和责任人，没有添加具体角色或确认方式。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "发布变更准备时，回退触发条件和责任人由各方确认。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "58",
+              "revision_id": "58",
+              "generation_id": "58",
+              "chunk_id": "171",
+              "quote_verbatim": true,
+              "source_content_sha256": "3b64f94044cc9b63f97ebfb6e379114551db46f377fef0616f625e818bb302f3"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "58",
+          "frozen_chunk_index": 3,
+          "frozen_content_sha256": "3b64f94044cc9b63f97ebfb6e379114551db46f377fef0616f625e818bb302f3",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "query": "文档版本记录至少需要说明哪三项信息？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "版本记录至少三项为变更位置、影响对象、确认人角色；未混入发布记录字段。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "文档版本记录至少需要说明变更位置、影响对象和确认人角色。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "63",
+              "revision_id": "63",
+              "generation_id": "63",
+              "chunk_id": "219",
+              "quote_verbatim": true,
+              "source_content_sha256": "468072bf58f6034e3b1cb882a79143003c3c7e09bca966bd0d1c1b2ac2d58968"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "63",
+          "frozen_chunk_index": 4,
+          "frozen_content_sha256": "468072bf58f6034e3b1cb882a79143003c3c7e09bca966bd0d1c1b2ac2d58968",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "query": "哪些变化可能触发访问权限的提前复核？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "保留岗位变化、项目结束或资料敏感度变化，以及可能触发的模态。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "岗位变化、项目结束或资料敏感度变化都可能触发访问权限的提前复核。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "71",
+              "revision_id": "71",
+              "generation_id": "71",
+              "chunk_id": "296",
+              "quote_verbatim": true,
+              "source_content_sha256": "27630cc15b53a9af6325e0ceae70d418da47ca6c09e20ff083022e80bc39edae"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "71",
+          "frozen_chunk_index": 1,
+          "frozen_content_sha256": "27630cc15b53a9af6325e0ceae70d418da47ca6c09e20ff083022e80bc39edae",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q07",
+      "query": "财务单据退回后，确实无法取得凭证时应该怎么办？能用自制截图代替吗？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "保留确实无法取得凭证前提、说明原因、交由财务依制度判断及禁止自制截图替正式票据。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "财务单据退回后，确实无法取得凭证时应说明原因并交由财务依据制度判断；不能用自制截图代替正式票据。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "73",
+              "revision_id": "73",
+              "generation_id": "73",
+              "chunk_id": "315",
+              "quote_verbatim": true,
+              "source_content_sha256": "8ec83d0159e56e84309da9c56fce155847214d5b3f841b2b8ae37639e7d60da4"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "73",
+          "frozen_chunk_index": 0,
+          "frozen_content_sha256": "8ec83d0159e56e84309da9c56fce155847214d5b3f841b2b8ae37639e7d60da4",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q08",
+      "query": "服务请求转派摘要应包含哪些内容？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "转派摘要五项完整，未把交接动作、状态或其他字段加为摘要信息项。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "服务请求转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "chunk_id": "330",
+              "quote_verbatim": true,
+              "source_content_sha256": "0466275adc15fdecc209fdc2730d85d0e0ab6c04cfa0c1b8d2f2a1e1fa1a3f67"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "76",
+          "frozen_chunk_index": 2,
+          "frozen_content_sha256": "0466275adc15fdecc209fdc2730d85d0e0ab6c04cfa0c1b8d2f2a1e1fa1a3f67",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q09",
+      "query": "新员工基础账号开通前由谁批准，之后由谁开通？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "正确依据基础账号一行及完整表头，主管批准后管理员开通，顺序和角色均正确。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "新员工基础账号开通前由主管批准，之后由管理员开通。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E4",
+              "document_id": "83",
+              "revision_id": "83",
+              "generation_id": "130",
+              "chunk_id": "421",
+              "quote_verbatim": true,
+              "source_content_sha256": "7539501c9a30f98c41327f002e0542a32ace82ca96b5d29df3e536d20f658d87"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "83",
+          "frozen_chunk_index": 0,
+          "frozen_content_sha256": "0b31859827400626147e50f82d8d26610864c2c2a9ceb789565b197cdf7abe6d",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "query": "人事资料保管要关注什么，发生什么变化需要重新核查？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "正确依据人事资料一行：限制个人信息访问；岗位或保留要求变化时重核，未借邻行条件。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "人事资料保管要关注限制个人信息访问；发生岗位或保留要求变化时需要重新核查。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "89",
+              "revision_id": "89",
+              "generation_id": "136",
+              "chunk_id": "440",
+              "quote_verbatim": true,
+              "source_content_sha256": "3a5491037e9b3f323c3f3377d0a6d12a441bb1c4b6d369166570e506918eaac0"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "89",
+          "frozen_chunk_index": 0,
+          "frozen_content_sha256": "df3b97a59f2ab0011d6e94fe75e7aadab59f3387c8effe3e964734c5bf158562",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q11",
+      "query": "工单转派和工单关闭分别需要满足什么确认条件？",
+      "answer_status": "rejected",
+      "codes": [
+        "ANSWER_CONFIRMATION_GUARD_FAILED"
+      ],
+      "is_positive": true,
+      "independent_pass": false,
+      "has_published_answer": false,
+      "assessment": "未发布答案。初始草稿混入已关闭状态离开前检查；末次修复已删除错表项且实质条件与职责均有源文支持，但第三步是及须确认措辞未符合有限原句复制规则，仍被保守拒绝。不能说末次修复仍混错状态，也不能把未发布草稿计为通过。",
+      "final_statements": [],
+      "frozen_reference_checks": [
+        {
+          "document_id": "56",
+          "frozen_chunk_index": 3,
+          "frozen_content_sha256": "da12abd65f69798822693b16ec5342ee80bad818c22584335a59bf16b6261b62",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        },
+        {
+          "document_id": "76",
+          "frozen_chunk_index": 1,
+          "frozen_content_sha256": "d39da23255373a7256611c84a523178e7353b48f9000ba38cd03092948a18178",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ],
+      "failure_type": "conservative_literal_phase_false_negative",
+      "initial_draft_has_wrong_state_table_extension": true,
+      "last_repaired_draft_has_wrong_state_table_extension": false,
+      "last_repaired_draft_substantive_facts_supported": true,
+      "last_repair_deterministic_diagnostics": [
+        {
+          "kind": "missing_literal_phase",
+          "statement_index": 0,
+          "citation_id": "E3",
+          "required_clause": {
+            "stage": "step",
+            "answer_text": "第三步，选择接手团队并确认接收",
+            "start": 249,
+            "end": 264,
+            "source_topic": ""
+          },
+          "quote_present": true,
+          "text_present": false
+        },
+        {
+          "kind": "missing_literal_phase",
+          "statement_index": 0,
+          "citation_id": "E3",
+          "required_clause": {
+            "stage": "transition",
+            "answer_text": "进入下一步前，先确认上一环节的结果已经被接收",
+            "start": 302,
+            "end": 324,
+            "source_topic": ""
+          },
+          "quote_present": true,
+          "text_present": false
+        }
+      ]
+    },
+    {
+      "id": "C01",
+      "query": "海王星分公司2027年度年假具体有多少天？",
+      "answer_status": "unsupported",
+      "codes": [],
+      "is_positive": false,
+      "independent_pass": true,
+      "has_published_answer": false,
+      "assessment": "不存在海王星分公司2027年年假依据，返回unsupported且无答案或证据。",
+      "final_statements": [],
+      "frozen_reference_checks": []
+    },
+    {
+      "id": "C02",
+      "query": "那它呢？",
+      "answer_status": "skipped",
+      "codes": [],
+      "is_positive": false,
+      "independent_pass": true,
+      "has_published_answer": false,
+      "assessment": "缺少所指对象，返回skipped且无答案或证据。",
+      "final_statements": [],
+      "frozen_reference_checks": []
+    },
+    {
+      "id": "C03",
+      "query": "当前知识库有多少份文档？",
+      "answer_status": "unsupported",
+      "codes": [],
+      "is_positive": false,
+      "independent_pass": true,
+      "has_published_answer": false,
+      "assessment": "当前问题为知识库数量统计，返回unsupported且无编造数量。",
+      "final_statements": [],
+      "frozen_reference_checks": []
+    },
+    {
+      "id": "C04",
+      "query": "蓝鲸咖啡机的保修期限是多久？",
+      "answer_status": "insufficient",
+      "codes": [],
+      "is_positive": false,
+      "independent_pass": true,
+      "has_published_answer": false,
+      "assessment": "检索内容没有蓝鲸咖啡机保修依据，返回insufficient且无正文；办公设备等相近主题不能推出保修期限。",
+      "final_statements": [],
+      "frozen_reference_checks": []
+    },
+    {
+      "id": "Q12",
+      "query": "工单关闭和工单转派各自需要满足什么确认条件？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "关闭保留客户确认或约定通知条件及三项经办核查；转派完整覆盖同文档启动职责范围及三角色、第三步确认接收、进入下一步前确认上环节已被接收。引用各自文档来源，没有发明确认形式或漏启动前提。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "工单关闭需要满足的确认条件是：本事项以“客户确认或按约定的沟通方式完成结果通知后再关闭”作为最后一道核对；经办人应查看接收方能否据此继续工作，相关材料是否能从正式存放位置找到，遗留差异是否已经分派给具体岗位。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "56",
+              "revision_id": "56",
+              "generation_id": "56",
+              "chunk_id": "156",
+              "quote_verbatim": true,
+              "source_content_sha256": "2e0db8592e22bded87371ad7f316819efbd749c35f4bcbfc302d322cff51f5d0"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "text": "工单转派需要满足的确认条件是：启动这项工作时，先确认事项确实落在支持受理人与接手团队的职责范围内，再确定谁负责发起、谁负责核对、谁负责接收最终结果；第三步，选择接手团队并确认接收；进入下一步前，先确认上一环节的结果已经被接收。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E2",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "chunk_id": "328",
+              "quote_verbatim": true,
+              "source_content_sha256": "b75244b21bfe4d08677e2919b0336f7bd3daec637354d500fa16c96d294d448d"
+            },
+            {
+              "citation_id": "E5",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "chunk_id": "329",
+              "quote_verbatim": true,
+              "source_content_sha256": "d39da23255373a7256611c84a523178e7353b48f9000ba38cd03092948a18178"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "56",
+          "frozen_chunk_index": 3,
+          "frozen_content_sha256": "da12abd65f69798822693b16ec5342ee80bad818c22584335a59bf16b6261b62",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        },
+        {
+          "document_id": "76",
+          "frozen_chunk_index": 1,
+          "frozen_content_sha256": "d39da23255373a7256611c84a523178e7353b48f9000ba38cd03092948a18178",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q13",
+      "query": "新员工信息核对和文档版本记录分别应包含哪些信息？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "员工核对三项与版本记录至少三项分别由各自CID支持，未把发布记录的构建标识、环境等字段补为版本信息。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "新员工信息核对应包含姓名、联系方式和证件信息。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E2",
+              "document_id": "35",
+              "revision_id": "35",
+              "generation_id": "35",
+              "chunk_id": "65",
+              "quote_verbatim": true,
+              "source_content_sha256": "5610055bd440514b75ee8065d17e555260afdb2e197906ba839162696bb9c570"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "text": "文档版本记录应至少说明变更位置、影响对象和确认人角色。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E3",
+              "document_id": "63",
+              "revision_id": "63",
+              "generation_id": "63",
+              "chunk_id": "219",
+              "quote_verbatim": true,
+              "source_content_sha256": "468072bf58f6034e3b1cb882a79143003c3c7e09bca966bd0d1c1b2ac2d58968"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "35",
+          "frozen_chunk_index": 0,
+          "frozen_content_sha256": "5610055bd440514b75ee8065d17e555260afdb2e197906ba839162696bb9c570",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        },
+        {
+          "document_id": "63",
+          "frozen_chunk_index": 4,
+          "frozen_content_sha256": "468072bf58f6034e3b1cb882a79143003c3c7e09bca966bd0d1c1b2ac2d58968",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    },
+    {
+      "id": "Q14",
+      "query": "服务请求转派摘要和文档版本记录分别应包含哪些信息？",
+      "answer_status": "answered",
+      "codes": [],
+      "is_positive": true,
+      "independent_pass": true,
+      "has_published_answer": true,
+      "assessment": "转派摘要五项与版本记录至少三项分别由各自CID支持，没有跨对象扩清单或添加合同/发布条件。",
+      "final_statements": [
+        {
+          "index": 0,
+          "text": "服务请求转派摘要应包含客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E1",
+              "document_id": "76",
+              "revision_id": "76",
+              "generation_id": "76",
+              "chunk_id": "330",
+              "quote_verbatim": true,
+              "source_content_sha256": "0466275adc15fdecc209fdc2730d85d0e0ab6c04cfa0c1b8d2f2a1e1fa1a3f67"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "text": "文档版本记录至少说明变更位置、影响对象和确认人角色。",
+          "independently_supported": true,
+          "conditions_and_scope_complete": true,
+          "citations": [
+            {
+              "citation_id": "E2",
+              "document_id": "63",
+              "revision_id": "63",
+              "generation_id": "63",
+              "chunk_id": "219",
+              "quote_verbatim": true,
+              "source_content_sha256": "468072bf58f6034e3b1cb882a79143003c3c7e09bca966bd0d1c1b2ac2d58968"
+            }
+          ]
+        }
+      ],
+      "frozen_reference_checks": [
+        {
+          "document_id": "76",
+          "frozen_chunk_index": 2,
+          "frozen_content_sha256": "0466275adc15fdecc209fdc2730d85d0e0ab6c04cfa0c1b8d2f2a1e1fa1a3f67",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        },
+        {
+          "document_id": "63",
+          "frozen_chunk_index": 4,
+          "frozen_content_sha256": "468072bf58f6034e3b1cb882a79143003c3c7e09bca966bd0d1c1b2ac2d58968",
+          "reference_quotes_present_in_frozen_chunk": true,
+          "reference_quotes_present_in_current_document_retrieval": true
+        }
+      ]
+    }
+  ]
+}

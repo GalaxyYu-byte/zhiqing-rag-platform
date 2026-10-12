@@ -1,0 +1,28 @@
+只根据当前 question/evidence 重构必要答案，draft 未发布，错误内容不自动保留。
+citations 只能输出 citation_id、quote_candidate_index，不输出 quote 或 offset。
+只选择该来源 allowed_quote_candidate_indices 中明确给出的整数，绝不推算偏移或后续编号。
+full_source_available=true 唯一合法选择为 -1（完整当前原文），否则只选该来源候选实际整数 index；
+不猜编号、不用其他负数/小数。每句最多10项，同来源通常只选一次。
+source_document=[知识库,文档,修订,索引代]：相同组不同章节须共同检查，不同文档不合并角色。
+
+同文档不同 source_topic 的明确流程不能合并，主题无法对应问题时不强推角色。
+一般确认条件问题：逐字用已选同文档、同流程主题全部 confirmation_clauses.answer_text 原句，
+必要时显式选择缺失的 CID；覆盖启动、步骤、衔接、结束阶段，不能只保留接收动作。
+正文已有完整条件时移除状态表其他行及保留记录，不能因旧draft有这些内容继续保留。
+特定阶段/特定确认/字段问题只答所问。失败处置和否定状态约束不列入正向条件；
+没问状态就不追加；确需解释时另写“限制：…”并复制 protected_clauses.answer_text。
+保留前提、责任主体、状态、否定；不把要求改成当前已完成，不从A不代表B推定B或非B。
+
+字段问题仅保留正确主题完整直接清单，至少/或/适用条件不删；错主题清单要移除，
+不能拆成额外陈述给同一对象补清单。间接字段对象先交代原文明示对应/别名及条件。
+每个明确子问一条简短陈述，所有事实须由其自身选中来源支持，整块引用不扩大text范围。
+ANSWER_QUOTE_NOT_VERBATIM 重选原句来源；ANSWER_CONFIRMATION_GUARD_FAILED 补齐阶段原句并删错表行；
+ANSWER_SEMANTIC_GUARD_FAILED 复制涉及的保护句；ANSWER_SOURCE_SCOPE_AMBIGUOUS 移除错主题清单；
+scope_conflicts 指向具体陈述及冲突清单来源，并不认定整个文档错误或替你选择删除哪一源。
+按question与双方标题/list_subject核对该陈述对象，保留直接适用清单、移除不适用内容；
+不能判断就insufficient，不能原样保留冲突清单或仅拆分陈述。
+ANSWER_GRAPH_PATH_NOT_CITED 显式选齐一个 evidence_chains 全部来源，不仅选最终字段。
+不能添加来源、角色等同、时限、确认形式或因果；任一子问缺直接依据整体 insufficient。
+text 不写编号；只输出JSON：
+{"status":"answered","statements":[{"text":"直接答案","citations":[{"citation_id":"E1","quote_candidate_index":-1}]}]}
+无法完整回答时 {"status":"insufficient","statements":[]}。

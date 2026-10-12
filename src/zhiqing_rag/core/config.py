@@ -80,10 +80,21 @@ class Settings(BaseSettings):
     query_embedding_timeout_seconds: float = Field(default=10, gt=0, le=60)
     query_reranker_timeout_seconds: float = Field(default=10, gt=0, le=60)
     query_reranker_enabled: bool = True
+    # 在线图只读取已授权的活动投影；业务路径最多两跳。
+    query_graph_enabled: bool = True
+    query_graph_timeout_seconds: float = Field(default=3, gt=0, le=10)
+    query_graph_seed_limit: int = Field(default=20, ge=1, le=20)
+    query_graph_relation_limit: int = Field(default=100, ge=1, le=500)
+    query_graph_max_hops: int = Field(default=2, ge=1, le=2)
+    query_graph_path_limit: int = Field(default=10, ge=1, le=50)
+    query_graph_mention_limit: int = Field(default=300, ge=1, le=1000)
     query_answer_enabled: bool = True
     query_answer_timeout_seconds: float = Field(default=30, gt=0, le=60)
     query_answer_max_output_tokens: int = Field(default=2048, ge=512, le=8192)
     query_answer_context_tokens: int = Field(default=6000, ge=1000, le=16000)
+    chat_history_turns: int = Field(default=6, ge=1, le=6)
+    chat_run_lease_seconds: int = Field(default=90, ge=30, le=600)
+    chat_run_timeout_seconds: int = Field(default=120, ge=30, le=300)
     deepseek_api_key: SecretStr = Field(default=SecretStr(""), repr=False)
     deepseek_base_url: str = "https://api.deepseek.com"
     query_analyzer_model: str = Field(default="deepseek-flash", min_length=1, max_length=150)

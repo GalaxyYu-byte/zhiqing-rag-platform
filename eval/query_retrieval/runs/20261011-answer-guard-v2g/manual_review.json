@@ -1,0 +1,200 @@
+{
+  "reviewer": "Codex 独立逐条核对；Q01–Q10另由只读审查 agent 交叉复核，非外部人工验收",
+  "review_input": "最终HTTP发布陈述、其自身citations、当前完整授权evidence与v3冻结gold；不把HTTP answered、逐字引用或同模型supported当事实通过",
+  "answerable_count": 14,
+  "fact_acceptance_passed_count": 12,
+  "control_count": 4,
+  "control_acceptance_passed_count": 4,
+  "items": [
+    {
+      "case_id": "Q01",
+      "fact_acceptance_passed": true,
+      "note": "本人核对姓名、联系方式和证件信息，三项与直接原句及适用对象一致。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q02",
+      "fact_acceptance_passed": true,
+      "note": "保留业务问题、使用场景、交付要求、预算来源四项，以及先说明后进入供应商沟通的顺序。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q03",
+      "fact_acceptance_passed": true,
+      "note": "保留客户确认或按约定沟通方式完成结果通知的替代条件，且通知/确认在关闭前；最后核对由自身E1原句支持。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q04",
+      "fact_acceptance_passed": true,
+      "note": "仅称各方确认回退触发条件与责任人，未擅自指定某角色或增加审批条件。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q05",
+      "fact_acceptance_passed": true,
+      "note": "版本记录至少说明变更位置、影响对象和确认人角色；保留至少，未加入其他发布记录字段。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q06",
+      "fact_acceptance_passed": true,
+      "note": "岗位变化、项目结束或资料敏感度变化都可能触发提前复核；保留可能，没有变成必然触发。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q07",
+      "fact_acceptance_passed": true,
+      "note": "完整保留确实无法取得凭证这一前提、说明原因、财务依据制度判断，以及不能用自制截图充当正式票据。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q08",
+      "fact_acceptance_passed": true,
+      "note": "转派摘要仅列客户诉求、影响、已做排查、剩余问题和期望接手团队完成的动作五项，未加入交接办理条件。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q09",
+      "fact_acceptance_passed": true,
+      "note": "完整连续基础账号表格行支持主管批准后由管理员开通，角色及先后正确，未声称当前实例已开通。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q10",
+      "fact_acceptance_passed": true,
+      "note": "完整连续人事资料表格行支持限制个人信息访问与岗位或保留要求变化时重新核查；未借用相邻客户/财务行。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q11",
+      "fact_acceptance_passed": false,
+      "note": "最终rejected/ANSWER_INVALID_OUTPUT，无发布陈述；唯一repair后review的statements[1].reason超过600字schema上限。初稿与repair仍把待验证、待客户确认等不同表格阶段的核对加入关闭条件；不能仅放宽review输出长度后认定通过。冻结正向问答未完成。",
+      "http_answer_status": "rejected",
+      "literal_citations_valid": true,
+      "codes": [
+        "ANSWER_INVALID_OUTPUT"
+      ],
+      "final_statement_count": 0
+    },
+    {
+      "case_id": "Q12",
+      "fact_acceptance_passed": false,
+      "note": "HTTPanswered且逐字引用有效，但转派陈述遗漏当前E2同一文档的启动前职责范围确认及发起/核对/接收最终结果角色确定。正文把失败处置及未经确认不能视为已解决也统列成正向确认条件。同模型错误地把E2和E5同文不同章节当不可混用角色，supported=true不能覆盖这些缺项。关闭OR条件及三项查看要求、转派步骤/衔接和否定状态原句本身正确。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 2
+    },
+    {
+      "case_id": "Q13",
+      "fact_acceptance_passed": true,
+      "note": "新员工姓名、联系方式、证件信息与版本记录至少变更位置、影响对象、确认人角色两清单分别由自己的E2/E3直接支持；未混入发布记录技术字段。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 1
+    },
+    {
+      "case_id": "Q14",
+      "fact_acceptance_passed": true,
+      "note": "摘要五项与版本至少三项分别作为各自主题陈述，直接连续原文支持，没有跨主题补清单。",
+      "http_answer_status": "answered",
+      "literal_citations_valid": true,
+      "codes": [],
+      "final_statement_count": 2
+    }
+  ],
+  "controls": [
+    {
+      "case_id": "C01",
+      "control_acceptance_passed": true,
+      "note": "海王星2027年假具体天数没有原文支持，保留未接入的过滤/日期条件并返回unsupported，无猜测天数。",
+      "http_answer_status": "unsupported",
+      "literal_citations_valid": true,
+      "codes": []
+    },
+    {
+      "case_id": "C02",
+      "control_acceptance_passed": true,
+      "note": "指代不明的问题进入clarify且回答skipped，没有以未知对象继续检索/生成。",
+      "http_answer_status": "skipped",
+      "literal_citations_valid": true,
+      "codes": []
+    },
+    {
+      "case_id": "C03",
+      "control_acceptance_passed": true,
+      "note": "目录统计进入structured并返回unsupported，未以片段数或索引数捏造文档数。",
+      "http_answer_status": "unsupported",
+      "literal_citations_valid": true,
+      "codes": []
+    },
+    {
+      "case_id": "C04",
+      "control_acceptance_passed": true,
+      "note": "蓝鲸咖啡机保修期限无直接依据，返回insufficient且没有发布保修时长。",
+      "http_answer_status": "insufficient",
+      "literal_citations_valid": true,
+      "codes": []
+    }
+  ],
+  "reviewed_at": "2026-10-11T15:34:11.958909+08:00",
+  "results_sha256": "5ebc4603f5973506b3a955b3e98b80a7a3b739d4e3ace1c51e20b8ddc025e446",
+  "dataset_sha256": "f06c5ee86235e8b5c5b48f2d7f73a8cacc0b69a50b231e3bb2e596a5ae0d63e5",
+  "implementation_sha256": {
+    "src/zhiqing_rag/query_retrieval/graph.py": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef",
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd",
+    "src/zhiqing_rag/query_retrieval/paths.py": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6",
+    "src/zhiqing_rag/query_retrieval/fusion.py": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b",
+    "src/zhiqing_rag/query_retrieval/models.py": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c",
+    "src/zhiqing_rag/query_retrieval/service.py": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+    "src/zhiqing_rag/query_answering/models.py": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad",
+    "src/zhiqing_rag/query_answering/providers.py": "b385a823e8e552fb3a722fc84baa5f5d093566b269c041380cf6425ea0540a50",
+    "src/zhiqing_rag/query_answering/service.py": "c9091ac7c2f49de254284227667f7508ab57dd5edfbfff3be1354e0556709d11",
+    "src/zhiqing_rag/query_answering/support.py": "d57e65c310735f5bd35e864aecf780d281463fec9c5e64cd98b839016ce1783d",
+    "src/zhiqing_rag/query_routing/models.py": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c",
+    "src/zhiqing_rag/workers/graph_storage.py": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c",
+    "src/zhiqing_rag/core/config.py": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0"
+  },
+  "implementation_sha256_matches_at_review": true,
+  "implementation_sha256_matches_graph_component_final_3": true,
+  "evaluation_session_revoked": true,
+  "verified_source_count": 14,
+  "actual_prompts_match_saved_files": true,
+  "actual_call_count_by_stage": {
+    "generation": 15,
+    "repair": 1,
+    "review": 14
+  }
+}

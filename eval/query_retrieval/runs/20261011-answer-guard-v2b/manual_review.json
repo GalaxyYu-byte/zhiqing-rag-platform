@@ -1,0 +1,25 @@
+{
+  "reviewer": "Codex 独立逐条核对原文、草稿及最终 HTTP 结果",
+  "fact_acceptance_passed_count": 0,
+  "case_count": 3,
+  "cases": [
+    {
+      "case_id": "Q11",
+      "http_answer_status": "insufficient",
+      "fact_acceptance_passed": false,
+      "note": "保护语句元数据多次重复完整原句，加上连续引用候选导致 6708 token 超过 6000 预算，外发生成前阻止。"
+    },
+    {
+      "case_id": "Q12",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "守卫把先确定谁负责误当成明确条件职责，并把交接动作的结果已接收与完成交接混淆；受限修复后仍未通过。"
+    },
+    {
+      "case_id": "Q13",
+      "http_answer_status": "insufficient",
+      "fact_acceptance_passed": false,
+      "note": "草稿追加流程动作并将发布记录构建标识等技术字段套给一般文档版本记录，模型复核拒绝；未发布。"
+    }
+  ]
+}

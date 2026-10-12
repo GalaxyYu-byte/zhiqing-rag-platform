@@ -211,7 +211,7 @@ def test_database_connection_closes_before_model_request(api):
     assert response.status_code == 200
 
 
-def test_structured_endpoint_explicitly_reports_unavailable_executor(api):
+def test_structured_endpoint_plans_available_catalog_executor(api):
     app, model, _, _ = api
     model.intent = "statistics"
     app.dependency_overrides[require_identity] = lambda: IDENTITY
@@ -221,5 +221,5 @@ def test_structured_endpoint_explicitly_reports_unavailable_executor(api):
     plan = response.json()["plan"]
     assert plan["route"] == "structured"
     assert plan["params"]["operation"] == "count_documents"
-    assert plan["planning_status"] == "unsupported"
-    assert plan["reason_code"] == "CATALOG_EXECUTOR_NOT_READY"
+    assert plan["planning_status"] == "planned"
+    assert plan["reason_code"] == "CATALOG_SELECTED"

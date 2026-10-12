@@ -22,9 +22,6 @@ from zhiqing_rag.query_routing.models import (
     ChatPlan,
     ClarifyParams,
     ClarifyPlan,
-    GraphParams,
-    GraphPlan,
-    GraphProjectionRef,
     HybridPlan,
     RetrievalParams,
     StructuredParams,
@@ -552,25 +549,6 @@ def nonhybrid_plans():
             ),
             "unsupported",
         ),
-        (
-            GraphPlan(
-                **common,
-                requested_route="hybrid_graph",
-                params=GraphParams(
-                    seed_entity_uids=("工单_UID",),
-                    projections=(
-                        GraphProjectionRef(
-                            tenant_id="1",
-                            document_id="4",
-                            generation_id="5",
-                            projection_id="6",
-                            namespace="test",
-                        ),
-                    ),
-                ),
-            ),
-            "unsupported",
-        ),
         (plan(planning_status="unsupported", message="元数据过滤未就绪"), "unsupported"),
         (plan(planning_status="empty", message="范围没有文档"), "empty"),
     ]
@@ -712,8 +690,7 @@ class FacetRepository(FakeRepository):
         )
         self.hits = {
             channel: tuple(
-                hit(score=1 / (rank + 1), record=record)
-                for rank, record in enumerate(self.records)
+                hit(score=1 / (rank + 1), record=record) for rank, record in enumerate(self.records)
             )
             for channel in ("dense", "bm25")
         }
@@ -795,7 +772,7 @@ def test_rank_consensus_promotes_body_supported_by_recall_over_facet_only_tables
     by_id = {item.chunk.chunk_id: item for item in fused}
     facet_ids = [20, 21, 23, 22, *range(30, 40), *range(10, 16)]
     facet = tuple(by_id[chunk_id] for chunk_id in facet_ids)
-    combined, = fuse_facet_rankings(fused, (facet,))
+    (combined,) = fuse_facet_rankings(fused, (facet,))
     assert [item.chunk.chunk_id for item in fused[:4]] == [10, 20, 11, 22]
     assert [item.chunk.chunk_id for item in facet[:4]] == [20, 21, 23, 22]
     assert [item.chunk.chunk_id for item in combined[:3]] == [20, 22, 23]
@@ -828,7 +805,7 @@ async def test_semantic_facet_first_place_is_retained_when_recall_consensus_is_l
     documents = tuple(HybridRetrievalService._rerank_text(item.chunk) for item in fused)
     scores = await DirectRuleReranker().rerank(FACET_QUERIES[1], documents)
     raw_facet = HybridRetrievalService._apply_rerank(fused, scores)
-    mixed_facet, = fuse_facet_rankings(fused, (raw_facet,))
+    (mixed_facet,) = fuse_facet_rankings(fused, (raw_facet,))
     assert fused[-1].chunk.chunk_id == raw_facet[0].chunk.chunk_id == 22
     assert all(item.chunk.chunk_id != 22 for item in mixed_facet[:5])
 

@@ -1,0 +1,25 @@
+{
+  "reviewer": "Codex 独立逐条核对原文、草稿及最终 HTTP 结果",
+  "fact_acceptance_passed_count": 0,
+  "case_count": 3,
+  "cases": [
+    {
+      "case_id": "Q11",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "唯一 repair 选择不存在的引用候选索引（超过 9），严格协议拒绝。初稿仍加入其他阶段的表格核对，未发布。"
+    },
+    {
+      "case_id": "Q12",
+      "http_answer_status": "insufficient",
+      "fact_acceptance_passed": false,
+      "note": "关闭条件完整且连续引用有效；转派草稿遗漏原文启动时确认职责范围及责任分工的必要前提，模型复核正确指出遗漏。另把失败处置和否定状态限制统称需满足的条件，阶段表达不够清楚，整体未发布。"
+    },
+    {
+      "case_id": "Q13",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": false,
+      "note": "初稿混合清单被守卫拦截，但 repair 拆成分别声称文档版本记录的两条陈述，仍将发布记录技术清单套用到文档版本记录。模型 supported=true 不能证明主题适用范围，独立判失败；暴露了跨陈述同对象的范围守卫缺口。"
+    }
+  ]
+}

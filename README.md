@@ -1,7 +1,7 @@
 # 知擎 RAG 平台
 
 新项目位于 `D:\code\zhiqing-rag-platform`，Python 固定为 **3.12**，使用 uv 管理环境和依赖。
-当前已实现登录与租户选择、部门与知识库权限、文档上传与版本管理、后台解析与向量入库、离线图谱构建、问题分析与混合检索，以及带原文引用的单轮回答。Vue 页面支持文档管理、检索与 SSE 进度和核验后逐段回答。多轮会话、在线图谱召回及 Alembic 迁移仍待完善。
+当前已实现登录与租户选择、部门与知识库权限、文档上传与版本管理、后台解析与向量入库、离线图谱构建、问题分析、混合检索与在线图证据召回，以及带原文引用的多轮回答与持久历史。在线图第二版支持有限两跳模板和有原文依据的同知识库跨文档对象映射。Vue 页面支持会话切换、分页恢复、幂等重试、SSE 进度和核验后逐段回答。Alembic 已配置完整初始基线；长会话摘要与社区图摘要仍待完善。
 
 实体与技术方案文档单独维护；各业务模块将分阶段实现。
 
@@ -18,6 +18,61 @@ uv run python -m zhiqing_rag.main
 启动后访问 `http://127.0.0.1:8000/docs`。
 `GET /health/live` 检查进程；`GET /health/ready` 只读检查数据库、Redis、MinIO 和已启用的 Neo4j。
 服务启动不连接中间件；就绪接口会在依赖不可用时返回 503。
+
+## 数据库迁移
+
+Alembic 复用 `.env` 中的数据库配置与 `DB_SCHEMA`，版本表位于该 schema。
+初始版本 `20261011_0001` 使用冻结的 `alembic/baseline_20261011.json`，包含当前
+28 张业务表、外键、索引、函数和触发器；修改 ORM 不会改变已发布的初始版本。
+
+**首次部署到空数据库**，先确认目标库与 schema 配置，再执行：
+
+```powershell
+uv run python -m alembic upgrade head --sql  # 离线预览，不连接数据库
+uv run python -m alembic upgrade head
+```
+
+迁移会创建目标 schema，并启用 `vector` 与 `pg_search`；目标 PostgreSQL 必须提供
+这两个扩展，执行账号需具备安装权限，或提前由管理员安装。
+
+**已有业务数据库**先只读核对基线，结构完全一致后再登记初始版本：
+
+```powershell
+uv run python scripts/migrate_database.py --check
+uv run python scripts/migrate_database.py --stamp-baseline
+uv run python -m alembic current
+uv run python -m alembic upgrade head
+```
+
+`--stamp-baseline` 会再次核对结构，只登记 `20261011_0001`，不会建表或补齐差异。
+核对失败时先检查报告并处理差异；不要直接对已有库执行初始建表，也不要盲目
+`stamp head`。后续部署统一执行 `upgrade head`。
+同一数据库与 schema 的 Alembic 操作会串行执行；迁移期间需停止其他工具的结构变更。
+
+**日常改表**，修改 ORM 后生成并审查新的迁移：
+
+```powershell
+uv run python -m alembic revision --autogenerate -m "add_document_field"
+# 检查 alembic/versions/ 新文件中的 upgrade() 与 downgrade()
+uv run python -m alembic upgrade head
+uv run python -m alembic current
+uv run python -m alembic check
+```
+
+自动生成只处理支持的结构差异。字段重命名、数据回填、CHECK 约束、函数、触发器和特殊索引
+需要手工维护并审查；`alembic check` 不能替代这些对象的核对。
+降级脚本可能删除表或字段；初始版本降到 `base` 会删除全部受管业务表和数据，
+保留 schema 与扩展。
+
+迁移本地测试不连接数据库。真实 PostgreSQL 验证需显式开启；测试使用随机独立
+schema，在同一事务内升级、核对、降级，并最终回滚全部测试 DDL：
+
+```powershell
+uv run python -m pytest tests/test_alembic_migration.py -q
+$env:RUN_ALEMBIC_DB_INTEGRATION = '1'
+uv run python -m pytest tests/test_alembic_integration.py -q
+Remove-Item Env:\RUN_ALEMBIC_DB_INTEGRATION
+```
 
 ## 配置
 
@@ -227,18 +282,41 @@ uv run ruff format --check .
 意图、实体、关键词、条件和上下文依赖。DeepSeek 未配置或分析失败时返回显式降级建议；
 不执行检索或回答生成。配置与接口详见 [查询分析器](docs/查询分析器.md)。
 QueryPlan 与确定性 Router 已实现 `POST /api/query/plan`，先确认当前用户可读资源范围，
-再调用 Analyzer 生成五类类型化计划；图谱未接入时回到基础路径，目录执行器未接入时
-明确返回能力限制。计划成功不表示已执行检索，详见 [查询路由](docs/查询路由.md)。
+再调用 Analyzer 生成五类类型化计划；图谱未就绪或实体匹配不明确时回到基础路径。
+计划成功不表示已执行查询，详见 [查询路由](docs/查询路由.md)。
+统计与元数据过滤已实现：支持授权范围内文档精确计数、分页清单，以及部门、文件名、
+编号、类型、业务状态、上传日期和业务日期筛选；文档页可填写和修改业务元数据。
+查询、回答和聊天共用过滤与执行分派，零结果也是成功统计。接口与口径见
+[统计与元数据过滤](QUERY_METADATA.md)。
 基础混合检索已实现 `POST /api/query/search`，按服务端计划并行召回向量和 BM25，
 融合去重、可选重排后返回最多 5 条原文证据。发送原文给重排模型前及返回结果前复查
 当前权限和活动批次；失败有明确降级记录。配置与接口详见 [混合检索](docs/混合检索.md)。
+在线 GraphRAG 第二版沿用 `hybrid_graph`：服务器批准活动图投影与原文支持的实体，再召回一跳或完整两跳出处，
+回读授权原文并与向量、BM25 融合。职责与材料字段关系可自动触发，图不可用时明确回退，
+详见 [实现与边界](QUERY_GRAPH.md) 和 [真实验收](eval/query_graph/ACCEPTANCE.md)。
 
 单轮回答已实现 `POST /api/query/answer`：复用现有检索，生成带引用的草稿，完成逐字引文与
 独立证据支持复核后发布。生成前、复核前和发布前实时检查权限与活动批次，资料不足时
 明确返回不足。页面默认“生成回答”，也可选择“仅检索证据”。配置与限制见
 [单轮回答说明](QUERY_ANSWERING.md)，固定问题验收见 [检索验收](eval/query_retrieval/README.md)。
 
-历史 XLSX 表头索引可用 [安全重建工具](TABLE_REINDEX.md) 预览并重建。显式并列问题使用同一授权候选池分面重排，保持原召回预算；验收见 [检索与回答记录](eval/query_retrieval/ACCEPTANCE.md)。
+多轮会话入口为 `/api/chat/sessions`，页面生成回答改用会话 SSE；旧单轮接口保留。
+首版使用最近最多六轮授权历史消解追问，重新检索后原子保存完整回答与来源，提交成功后发布。
+稳定请求 ID 防止重复生成；会话属于当前租户成员，历史及回放复查当前来源权限和版本。
+刷新、断线可恢复已提交结果；失效租约标记中断，重新提问使用新请求 ID。
+实现细节、接口、边界和面试讲述见 [多轮会话与持久化面试文档](MULTI_TURN_CHAT_INTERVIEW.md)。
+
+完整数据库初始化与后续变更使用上文 Alembic 流程。旧聊天四表准备脚本保留兼容：
+
+```powershell
+uv run python scripts/migrate_chat_persistence.py --check
+uv run python scripts/migrate_chat_persistence.py --dry-run
+uv run python scripts/migrate_chat_persistence.py
+```
+
+`--check` 只读检查，`--dry-run` 只输出目标 `DB_SCHEMA` 的 DDL；不带参数才执行准备。
+已有表不会自动升级。配置为 `CHAT_HISTORY_TURNS=6`、`CHAT_RUN_LEASE_SECONDS=90`、
+`CHAT_RUN_TIMEOUT_SECONDS=120`；首版不生成长会话摘要。
 
 HTTP 鉴权、范围确认和检索仓储已接入进程内数据库连接池。沿用 `DB_POOL_SIZE`、
 `DB_MAX_OVERFLOW`、`DB_POOL_TIMEOUT`；每次事务结束归还连接，模型等待期间不占用
@@ -271,7 +349,7 @@ HTTP 鉴权、范围确认和检索仓储已接入进程内数据库连接池。
 | 配置 | Pydantic Settings、dotenv |
 | 关系与向量数据 | PostgreSQL、pgvector、SQLAlchemy 2、psycopg 3 |
 | 关键词检索 | PostgreSQL pg_search（BM25，已确认扩展存在） |
-| 数据迁移 | Alembic（已安装，待表设计后配置迁移） |
+| 数据迁移 | Alembic（完整初始基线、已有库结构核对与版本登记） |
 | 缓存与异步任务 | Redis、ARQ |
 | 文件存储 | MinIO |
 | 图谱存储 | Neo4j |
@@ -504,7 +582,7 @@ Neo4j 图谱投影使用 `GRAPH_NAMESPACE` 隔离项目；图谱任务复用现�
   `DELETE .../permissions/{grant_id}` 撤销共享。
 - `POST /api/documents/{document_id}/classification` 调整文档密级，提交 `{ "confidentiality": 1 }`。
 
-已有数据库只需执行幂等增量迁移，不回填授权或改动现有文档：
+文档共享表已纳入 Alembic 初始基线。旧幂等准备脚本保留兼容，不回填授权或改动现有文档：
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\migrate_document_permissions.py --dry-run
@@ -512,9 +590,10 @@ Neo4j 图谱投影使用 `GRAPH_NAMESPACE` 隔离项目；图谱任务复用现�
 ```
 
 基础向量/关键词检索已复用 `authorized_chunk_statement(identity)` 所依赖的 READ 授权规则，
-在 SQL 中限制可见文档和当前 READY 批次，再执行检索排序；单轮回答与引用复核已接入，详见 `QUERY_ANSWERING.md`。
-后续图检索使用 `authorized_graph_projection`，并限制其租户、namespace、generation。
-结果缓存需要包含当前身份/部门/密级和 ACL 版本；模型上下文、引用与会话历史也需重新检查权限。
+在 SQL 中限制可见文档和当前 READY 批次，再执行检索排序；回答生成复用同一授权原文检查。
+在线图检索刷新 READ 权限与活动 READY 投影，逐条限制关系及出处的租户、namespace、generation，
+回读原文并核验哈希与引用位置，详见 [在线 GraphRAG](QUERY_GRAPH.md)。
+结果缓存需要包含当前身份/部门/密级和 ACL 版本；模型上下文、引用与会话历史继续重新检查权限。
 内部 `active_graph_projection` 仅查询发布状态，保留给可信后台任务使用，不可作为用户请求的授权入口。
 
 权限集成测试使用独立临时 schema 和 Redis 前缀，自动清理，不访问业务文件或调用模型：

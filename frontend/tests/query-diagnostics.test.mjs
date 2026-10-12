@@ -3,12 +3,13 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import ts from "typescript";
 import { queryFixture } from "./helpers/query-fixture.mjs";
+import { graphPathFixture } from "./helpers/graph-path-fixture.mjs";
 
 const source = await readFile(new URL("../src/services/query-diagnostics.ts", import.meta.url), "utf8");
 const output = ts.transpileModule(source, { compilerOptions: {
   target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext,
 } }).outputText;
-const { analysisFailureLabel, queryStatus, slowestQueryStage } = await import(
+const { analysisFailureLabel, queryStatus, slowestQueryStage, graphPathViews } = await import(
   `data:text/javascript;base64,${Buffer.from(output).toString("base64")}`,
 );
 
@@ -61,4 +62,28 @@ test("answer stages take part in latency diagnostics without using aggregate tot
   assert.deepEqual(slowestQueryStage(result), { label: "回答生成", ms: 14000 });
   result.answer.trace.review_ms = 15000;
   assert.deepEqual(slowestQueryStage(result), { label: "回答证据复核", ms: 15000 });
+});
+
+test("path display resolves every hop and bridge to current citations without internal identifiers", () => {
+  const result = graphPathFixture({ bridge: true });
+  const [path] = graphPathViews(result.retrieval.graph_paths, result.retrieval.evidence);
+  assert.deepEqual(path.steps.map((step) => step.citation), ["E1", "E2"]);
+  assert.equal(path.steps[0].predicate, "形成材料");
+  assert.equal(path.steps[0].condition, "关闭前");
+  assert.equal(path.steps[0].quote, result.retrieval.evidence[0].content);
+  assert.deepEqual(path.bridges[0].sources.map((source) => source.citation), ["E1", "E3"]);
+  assert.equal(path.bridges[0].basis, "原文明示别名");
+  assert.doesNotMatch(JSON.stringify(path), /private_projection|assertion-1|material-alias|PRODUCES_MATERIAL/);
+});
+
+test("path display never renders a partial chain with a missing citation", () => {
+  const result = graphPathFixture({ bridge: true });
+  result.retrieval.evidence.pop();
+  assert.deepEqual(graphPathViews(result.retrieval.graph_paths, result.retrieval.evidence), []);
+});
+
+test("path display never exposes an unknown business predicate", () => {
+  const result = graphPathFixture();
+  result.retrieval.graph_paths[0].hops[0].relation.predicate = "UNSUPPORTED_RELATION";
+  assert.deepEqual(graphPathViews(result.retrieval.graph_paths, result.retrieval.evidence), []);
 });

@@ -7,6 +7,7 @@ from urllib.parse import quote
 
 import psycopg
 from fastapi import APIRouter, Depends, File, Form, Path, Query, Response, UploadFile
+from pydantic import ValidationError
 
 from zhiqing_rag.core.config import Settings, get_settings
 from zhiqing_rag.infrastructure.database.connection import database_connection
@@ -17,6 +18,9 @@ from zhiqing_rag.modules.identity.router import require_identity
 from .preview import preview_content
 from .repository import UploadRepository
 from .schemas import (
+    BusinessStatus,
+    DocumentMetadata,
+    DocumentMetadataPatch,
     DocumentTaskPage,
     DocumentTaskStatus,
     KnowledgeBaseOption,
@@ -82,20 +86,51 @@ def upload_document(
     file: Annotated[UploadFile, File(description="原始文档，默认上限 50 MiB")],
     knowledge_base_id: Annotated[int, Form(gt=0)],
     confidentiality: Annotated[int, Form(ge=0, le=2)] = 1,
+    document_code: Annotated[str | None, Form(max_length=100)] = None,
+    business_status: Annotated[BusinessStatus, Form()] = "UNKNOWN",
+    event_date: Annotated[date | None, Form()] = None,
 ):
     """保存原文件并在同一事务创建持久化异步索引任务，返回后由独立 Worker 处理。"""
     try:
         parameters = UploadParameters(
             knowledge_base_id=knowledge_base_id,
             confidentiality=confidentiality,
+            document_code=document_code,
+            business_status=business_status,
+            event_date=event_date,
             chunk_size=service.settings.upload_chunk_size,
             chunk_overlap=service.settings.upload_chunk_overlap,
         )
         return service.upload(
             file.file, file.filename or "", file.content_type, identity, parameters
         )
+    except ValidationError as error:
+        raise UploadError(422, "INVALID_METADATA", "业务编号、业务状态或业务日期无效") from error
     finally:
         file.file.close()
+
+
+@router.get("/documents/{document_id}/metadata", response_model=DocumentMetadata)
+def document_metadata(
+    document_id: Annotated[int, Path(gt=0)],
+    service: ServiceDependency,
+    identity: IdentityDependency,
+    response: Response,
+):
+    response.headers["Cache-Control"] = "no-store"
+    return service.repository.document_metadata(identity, document_id)
+
+
+@router.patch("/documents/{document_id}/metadata", response_model=DocumentMetadata)
+def update_document_metadata(
+    document_id: Annotated[int, Path(gt=0)],
+    changes: DocumentMetadataPatch,
+    service: ServiceDependency,
+    identity: IdentityDependency,
+    response: Response,
+):
+    response.headers["Cache-Control"] = "no-store"
+    return service.repository.update_document_metadata(identity, document_id, changes)
 
 
 @router.post("/documents/{document_id}/revisions", response_model=UploadResult, status_code=202)

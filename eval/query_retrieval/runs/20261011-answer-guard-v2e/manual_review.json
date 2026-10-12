@@ -1,0 +1,25 @@
+{
+  "reviewer": "Codex 独立逐条核对原文、草稿及最终 HTTP 结果",
+  "fact_acceptance_passed_count": 1,
+  "case_count": 3,
+  "cases": [
+    {
+      "case_id": "Q11",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "初稿有错误证据编号及非连续引用；repair 返回所需候选索引超过每句五引用上限，被协议拒绝。初稿追加已关闭状态的离开前核对，亦超出关闭前所需条件范围，未发布。"
+    },
+    {
+      "case_id": "Q12",
+      "http_answer_status": "insufficient",
+      "fact_acceptance_passed": false,
+      "note": "最终草稿连续引用有效，并保留各阶段、确认接收及未经确认不能视为已解决的原文状态；没有原状态替换错误。模型复核却将关闭要求套给转派，额外要求转派客户确认及确认形式/主体，未获原文规定，整体拒绝，正向验收仍失败。"
+    },
+    {
+      "case_id": "Q13",
+      "http_answer_status": "answered",
+      "fact_acceptance_passed": true,
+      "note": "最终分别回答员工姓名、联系方式、证件信息，以及文档版本记录至少说明变更位置、影响对象、确认人角色。各自采用本主题直接连续引文，保留至少，没有混入发布记录技术清单或流程动作。"
+    }
+  ]
+}

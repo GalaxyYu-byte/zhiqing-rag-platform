@@ -1,0 +1,445 @@
+{
+  "reviewed_at": "2026-10-11T07:28:41.939451+00:00",
+  "reviewer": "online_graph_review",
+  "method": "Independent local source comparison by reviewer; no additional model calls. Final published statements and their own literal citations compared with frozen authorized evidence, with supplemental deterministic hash/offset checks. Model supported flags and script passed gates were not treated as semantic approval.",
+  "results_file_sha256": "4340078e7500c47f75a8aae1fa7677ed02185a115b3d3f41dd32d823efe614ca",
+  "dataset_sha256": "76a3e94c34de01350496d20e2c8bf02aa4d26fb6402c552898ea3012f1470ecc",
+  "implementation_hash_count": 13,
+  "implementation_hashes_match_current": true,
+  "implementation_hash_checks": {
+    "src/zhiqing_rag/query_retrieval/graph.py": {
+      "reported": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef",
+      "current": "70904150a3137d90b5371c374abd675a66f5cb730e9e49b6850a5ffe5b82fbef"
+    },
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": {
+      "reported": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd",
+      "current": "a81640df2e893bccf4ee1e4e85fd328498067d385c8db4b7db5d94b89b108fbd"
+    },
+    "src/zhiqing_rag/query_retrieval/paths.py": {
+      "reported": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6",
+      "current": "426ebc91e654e7da2ac3d6f65b70e90575c2b65424720fea9a83a713504ab4c6"
+    },
+    "src/zhiqing_rag/query_retrieval/fusion.py": {
+      "reported": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b",
+      "current": "5fa2b0e80adf001f1ebcfa2b90e91201f4f80a34a3175c710465abea26a1b99b"
+    },
+    "src/zhiqing_rag/query_retrieval/models.py": {
+      "reported": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c",
+      "current": "b08eb1b8a8e6187335d7b55dcffe8dba79b59aabaf302f54e21636044324390c"
+    },
+    "src/zhiqing_rag/query_retrieval/service.py": {
+      "reported": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+      "current": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d"
+    },
+    "src/zhiqing_rag/query_answering/models.py": {
+      "reported": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad",
+      "current": "f4e443e0ef462e026c846a4a08f020c496cbed6d76b04640571897dade345cad"
+    },
+    "src/zhiqing_rag/query_answering/providers.py": {
+      "reported": "b385a823e8e552fb3a722fc84baa5f5d093566b269c041380cf6425ea0540a50",
+      "current": "b385a823e8e552fb3a722fc84baa5f5d093566b269c041380cf6425ea0540a50"
+    },
+    "src/zhiqing_rag/query_answering/service.py": {
+      "reported": "c9091ac7c2f49de254284227667f7508ab57dd5edfbfff3be1354e0556709d11",
+      "current": "c9091ac7c2f49de254284227667f7508ab57dd5edfbfff3be1354e0556709d11"
+    },
+    "src/zhiqing_rag/query_answering/support.py": {
+      "reported": "d57e65c310735f5bd35e864aecf780d281463fec9c5e64cd98b839016ce1783d",
+      "current": "d57e65c310735f5bd35e864aecf780d281463fec9c5e64cd98b839016ce1783d"
+    },
+    "src/zhiqing_rag/query_routing/models.py": {
+      "reported": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c",
+      "current": "1cb6b299effd7c012097446aec8f41967cd0c137c4c6d2e07a2d0b5e0a90615c"
+    },
+    "src/zhiqing_rag/workers/graph_storage.py": {
+      "reported": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c",
+      "current": "5d4fbd09ed863809d7178ae8664be5de892b5ea8624eb7ca59c17acf6d3fc62c"
+    },
+    "src/zhiqing_rag/core/config.py": {
+      "reported": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0",
+      "current": "0c652decb2ec7b93fb77a982501931aa82bef5caac186c42decd924e611a1df0"
+    }
+  },
+  "scope": {
+    "dataset_kind": "synthetic_development",
+    "real_neo4j": true,
+    "real_models": true,
+    "authorization_repository": "fixed_component_adapter",
+    "entity_analysis": "frozen_grounded_mentions",
+    "production_accuracy_or_gain_established": false
+  },
+  "summary": {
+    "reviewed_modes": 15,
+    "two_hop_positive_complete_answers": "3/3",
+    "two_hop_negative_controls": "2/2",
+    "all_modes_negative_controls": "6/6",
+    "baseline_positive_field_facts_supported": "6/6",
+    "baseline_positive_complete_chain_citations": "0/6",
+    "component_two_hop_full_acceptance": "5/5",
+    "all_result_literal_citations_valid": true,
+    "all_graph_source_hashes_and_offsets_valid": true,
+    "cleanup_confirmed": true
+  },
+  "latency_ms": {
+    "hybrid": {
+      "all_five_median": 6057,
+      "positive_three_median": 6057
+    },
+    "one_hop": {
+      "all_five_median": 7149,
+      "positive_three_median": 7322
+    },
+    "two_hop": {
+      "all_five_median": 9298,
+      "positive_three_median": 10768
+    }
+  },
+  "limitations": [
+    "The five frozen synthetic component cases are not a production accuracy benchmark.",
+    "Authorization and source publication use a fixed in-memory adapter, not live PostgreSQL ACL mutations. Entity mentions are frozen grounded mentions, not a fresh production analyzer evaluation.",
+    "The component uses local BM25 approximation rather than PostgreSQL full-text indexing; the three modes share the same controlled source corpus and scope.",
+    "Baselines return the correct field values in this run. The demonstrated difference is retention and citation of the condition, material identity, and cross-document chain; no general retrieval recall or production accuracy gain is established.",
+    "Negative controls are expected to withhold an answer; an insufficient result is not a successful positive answer.",
+    "The earlier model-final-2 run was incomplete after authorization rate limiting and cannot substitute for this complete fifteen-mode run."
+  ],
+  "results": [
+    {
+      "id": "V2G1",
+      "mode": "hybrid",
+      "answer_status": "answered",
+      "classification": "supported_fields_with_incomplete_chain_citations",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": false,
+      "semantic_correct_for_frozen_full_chain_acceptance": false,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": false,
+      "required_condition_in_final_quotes": false,
+      "required_documents_cited": false,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": false,
+          "reason": "字段用途、数量和申请人均与采购申请表原文一致，但最终只引用字段句，未引用步骤需要表单及预算已确认后这一前提；属于字段事实正确、完整链出处不足。"
+        }
+      ],
+      "graph_source_checks": [],
+      "review_basis": "字段用途、数量和申请人均与采购申请表原文一致，但最终只引用字段句，未引用步骤需要表单及预算已确认后这一前提；属于字段事实正确、完整链出处不足。"
+    },
+    {
+      "id": "V2G1",
+      "mode": "one_hop",
+      "answer_status": "answered",
+      "classification": "supported_fields_with_incomplete_chain_citations",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": false,
+      "semantic_correct_for_frozen_full_chain_acceptance": false,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": false,
+      "required_condition_in_final_quotes": false,
+      "required_documents_cited": false,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": false,
+          "reason": "字段事实与原文一致；最终仅有采购申请表字段句，缺少步骤到表单的出处及预算已确认后前提，未达到本冻结题的完整链要求。"
+        }
+      ],
+      "graph_source_checks": [],
+      "review_basis": "字段事实与原文一致；最终仅有采购申请表字段句，缺少步骤到表单的出处及预算已确认后前提，未达到本冻结题的完整链要求。"
+    },
+    {
+      "id": "V2G1",
+      "mode": "two_hop",
+      "answer_status": "answered",
+      "classification": "complete_supported_chain",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": true,
+      "semantic_correct_for_frozen_full_chain_acceptance": true,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": true,
+      "required_condition_in_final_quotes": true,
+      "required_documents_cited": true,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": true,
+          "reason": "最终明确预算已确认后采购申请步骤需要采购申请表，再列用途、数量和申请人。两份连续全文引用覆盖第一跳条件、两份来源共同采购申请流程上下文和第二跳字段，未添加确认主体、状态或字段。"
+        }
+      ],
+      "graph_source_checks": [
+        {
+          "path_id": "7c674037428b7ed24eee7da57100ac1d1e26a74496d4a3fee6a44e99babebb9f",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        },
+        {
+          "path_id": "985f925b77eda4d132dd6a3ec934ab7baff3dbd26c4021649ac40f57e670a3ae",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        },
+        {
+          "path_id": "cd354109645dd0315555c0a59fb2568d2600ffcdc7ed31ea476bdf79a755d2e0",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        }
+      ],
+      "review_basis": "最终明确预算已确认后采购申请步骤需要采购申请表，再列用途、数量和申请人。两份连续全文引用覆盖第一跳条件、两份来源共同采购申请流程上下文和第二跳字段，未添加确认主体、状态或字段。"
+    },
+    {
+      "id": "V2G2",
+      "mode": "hybrid",
+      "answer_status": "answered",
+      "classification": "supported_fields_with_incomplete_chain_citations",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": false,
+      "semantic_correct_for_frozen_full_chain_acceptance": false,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": false,
+      "required_condition_in_final_quotes": false,
+      "required_documents_cited": false,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": false,
+          "reason": "用途、数量和申请人取值正确，检索原文存在采购申请表又称购置需求单，但最终引用仅有字段句，别名对应与步骤需要表单的依据未被引用，预算已确认后前提也未保留。"
+        }
+      ],
+      "graph_source_checks": [],
+      "review_basis": "用途、数量和申请人取值正确，检索原文存在采购申请表又称购置需求单，但最终引用仅有字段句，别名对应与步骤需要表单的依据未被引用，预算已确认后前提也未保留。"
+    },
+    {
+      "id": "V2G2",
+      "mode": "one_hop",
+      "answer_status": "answered",
+      "classification": "supported_fields_with_incomplete_chain_citations",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": false,
+      "semantic_correct_for_frozen_full_chain_acceptance": false,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": false,
+      "required_condition_in_final_quotes": false,
+      "required_documents_cited": false,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": false,
+          "reason": "字段取值与原文一致，但最终只引用采购申请表字段句，未包含购置需求单别名对应、步骤需要该表单及预算已确认后出处，完整间接回答不足。"
+        }
+      ],
+      "graph_source_checks": [],
+      "review_basis": "字段取值与原文一致，但最终只引用采购申请表字段句，未包含购置需求单别名对应、步骤需要该表单及预算已确认后出处，完整间接回答不足。"
+    },
+    {
+      "id": "V2G2",
+      "mode": "two_hop",
+      "answer_status": "answered",
+      "classification": "complete_supported_chain",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": true,
+      "semantic_correct_for_frozen_full_chain_acceptance": true,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": true,
+      "required_condition_in_final_quotes": true,
+      "required_documents_cited": true,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": true,
+          "reason": "购置需求单与采购申请表的对应来自又称原句；预算已确认后步骤需要该表单来自办理说明；用途、数量和申请人来自表单。最终陈述和两份全文引用同时覆盖这些事实、条件及共享流程上下文，一次修复后的实际发布结果可支持。"
+        }
+      ],
+      "graph_source_checks": [
+        {
+          "path_id": "7c674037428b7ed24eee7da57100ac1d1e26a74496d4a3fee6a44e99babebb9f",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        },
+        {
+          "path_id": "985f925b77eda4d132dd6a3ec934ab7baff3dbd26c4021649ac40f57e670a3ae",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        },
+        {
+          "path_id": "cd354109645dd0315555c0a59fb2568d2600ffcdc7ed31ea476bdf79a755d2e0",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        }
+      ],
+      "review_basis": "购置需求单与采购申请表的对应来自又称原句；预算已确认后步骤需要该表单来自办理说明；用途、数量和申请人来自表单。最终陈述和两份全文引用同时覆盖这些事实、条件及共享流程上下文，一次修复后的实际发布结果可支持。"
+    },
+    {
+      "id": "V2G3",
+      "mode": "hybrid",
+      "answer_status": "answered",
+      "classification": "supported_fields_with_incomplete_chain_citations",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": false,
+      "semantic_correct_for_frozen_full_chain_acceptance": false,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": false,
+      "required_condition_in_final_quotes": false,
+      "required_documents_cited": false,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": false,
+          "reason": "资产编号和领用人字段与原文一致，结合问题中的领用确认后条件及已检索办理说明可理解其适用步骤；最终自身引用只有表单字段句，未引用步骤到表单关系且正文未重述领用确认后，完整链审计不足。"
+        }
+      ],
+      "graph_source_checks": [],
+      "review_basis": "资产编号和领用人字段与原文一致，结合问题中的领用确认后条件及已检索办理说明可理解其适用步骤；最终自身引用只有表单字段句，未引用步骤到表单关系且正文未重述领用确认后，完整链审计不足。"
+    },
+    {
+      "id": "V2G3",
+      "mode": "one_hop",
+      "answer_status": "answered",
+      "classification": "supported_fields_with_incomplete_chain_citations",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": false,
+      "semantic_correct_for_frozen_full_chain_acceptance": false,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": false,
+      "required_condition_in_final_quotes": false,
+      "required_documents_cited": false,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": false,
+          "reason": "设备登记表的资产编号和领用人字段事实正确；最终自身引用仅字段句，缺少设备登记步骤需要该表单的关系和领用确认后前提，完整链要求不满足。"
+        }
+      ],
+      "graph_source_checks": [],
+      "review_basis": "设备登记表的资产编号和领用人字段事实正确；最终自身引用仅字段句，缺少设备登记步骤需要该表单的关系和领用确认后前提，完整链要求不满足。"
+    },
+    {
+      "id": "V2G3",
+      "mode": "two_hop",
+      "answer_status": "answered",
+      "classification": "complete_supported_chain",
+      "field_facts_supported": true,
+      "full_question_chain_supported_and_cited": true,
+      "semantic_correct_for_frozen_full_chain_acceptance": true,
+      "literal_citations_valid": true,
+      "required_condition_in_final_text": true,
+      "required_condition_in_final_quotes": true,
+      "required_documents_cited": true,
+      "statement_reviews": [
+        {
+          "index": 0,
+          "field_values_supported": true,
+          "complete_chain": true,
+          "reason": "最终保留领用确认后，并列资产编号和领用人；办理说明原句支持设备登记步骤需要设备登记表，表单原句支持两字段，完整引用也保留共同设备登记流程上下文，没有新增角色或完成状态。"
+        }
+      ],
+      "graph_source_checks": [
+        {
+          "path_id": "4b88bca37b82866c1700c8ef96d6173145947d76e7611d3adda2e5a49fa91bdb",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        },
+        {
+          "path_id": "86276fdd2894e0fc35cc7aa772d12e08c5309ba728435531576b4ad28b0c019c",
+          "business_hops": 2,
+          "source_hash_and_offsets_valid": true,
+          "cross_document": true,
+          "cross_namespace": true
+        }
+      ],
+      "review_basis": "最终保留领用确认后，并列资产编号和领用人；办理说明原句支持设备登记步骤需要设备登记表，表单原句支持两字段，完整引用也保留共同设备登记流程上下文，没有新增角色或完成状态。"
+    },
+    {
+      "id": "V2N1",
+      "mode": "hybrid",
+      "answer_status": "insufficient",
+      "classification": "correct_negative_control",
+      "control_passed": true,
+      "semantic_correct_for_control": true,
+      "literal_citations_valid": true,
+      "graph_path_count": 0,
+      "statement_reviews": [],
+      "review_basis": "当前授权范围只有采购申请办理说明，没有所需表单字段出处；最终无陈述，无两跳路径，没有从不可读表单补出字段。"
+    },
+    {
+      "id": "V2N1",
+      "mode": "one_hop",
+      "answer_status": "insufficient",
+      "classification": "correct_negative_control",
+      "control_passed": true,
+      "semantic_correct_for_control": true,
+      "literal_citations_valid": true,
+      "graph_path_count": 0,
+      "statement_reviews": [],
+      "review_basis": "当前授权范围只有采购申请办理说明，没有所需表单字段出处；最终无陈述，无两跳路径，没有从不可读表单补出字段。"
+    },
+    {
+      "id": "V2N1",
+      "mode": "two_hop",
+      "answer_status": "insufficient",
+      "classification": "correct_negative_control",
+      "control_passed": true,
+      "semantic_correct_for_control": true,
+      "literal_citations_valid": true,
+      "graph_path_count": 0,
+      "statement_reviews": [],
+      "review_basis": "当前授权范围只有采购申请办理说明，没有所需表单字段出处；最终无陈述，无两跳路径，没有从不可读表单补出字段。"
+    },
+    {
+      "id": "V2N2",
+      "mode": "hybrid",
+      "answer_status": "insufficient",
+      "classification": "correct_negative_control",
+      "control_passed": true,
+      "semantic_correct_for_control": true,
+      "literal_citations_valid": true,
+      "graph_path_count": 0,
+      "statement_reviews": [],
+      "review_basis": "同名采购申请表明确仅用于报废回购流程，与采购申请步骤的流程上下文冲突；最终无陈述，无两跳路径，没有把报废批次和回购价迁移到采购申请步骤。"
+    },
+    {
+      "id": "V2N2",
+      "mode": "one_hop",
+      "answer_status": "insufficient",
+      "classification": "correct_negative_control",
+      "control_passed": true,
+      "semantic_correct_for_control": true,
+      "literal_citations_valid": true,
+      "graph_path_count": 0,
+      "statement_reviews": [],
+      "review_basis": "同名采购申请表明确仅用于报废回购流程，与采购申请步骤的流程上下文冲突；最终无陈述，无两跳路径，没有把报废批次和回购价迁移到采购申请步骤。"
+    },
+    {
+      "id": "V2N2",
+      "mode": "two_hop",
+      "answer_status": "insufficient",
+      "classification": "correct_negative_control",
+      "control_passed": true,
+      "semantic_correct_for_control": true,
+      "literal_citations_valid": true,
+      "graph_path_count": 0,
+      "statement_reviews": [],
+      "review_basis": "同名采购申请表明确仅用于报废回购流程，与采购申请步骤的流程上下文冲突；最终无陈述，无两跳路径，没有把报废批次和回购价迁移到采购申请步骤。"
+    }
+  ]
+}

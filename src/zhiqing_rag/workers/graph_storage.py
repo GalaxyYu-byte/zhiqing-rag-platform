@@ -5,6 +5,7 @@ import json
 from neo4j import AsyncGraphDatabase
 
 from zhiqing_rag.core.config import Settings
+from zhiqing_rag.query_retrieval.graph_identity import explicit_aliases, explicit_contexts
 from zhiqing_rag.workers.graph_extraction import Extraction, normalize_name, stable_key
 
 
@@ -37,6 +38,7 @@ class GraphStore:
         namespace = self.settings.graph_namespace
         entities = []
         local_keys = {}
+        process_names = [item.name for item in extraction.entities if item.type == "Process"]
         for item in extraction.entities:
             canonical = normalize_name(item.canonical_name)
             if not canonical:
@@ -58,6 +60,16 @@ class GraphStore:
                     "name": item.canonical_name,
                     "normalized_name": canonical,
                     "surface_name": item.name,
+                    "mention_names": [
+                        canonical,
+                        *[
+                            normalize_name(name)
+                            for name in explicit_aliases(item.name, chunk["content"])
+                        ],
+                    ],
+                    "mention_contexts": list(
+                        explicit_contexts(process_names, item.name, item.evidence_quote)
+                    ),
                     "evidence": self._evidence(scope, chunk, item.evidence_quote),
                 }
             )
@@ -239,7 +251,9 @@ class GraphStore:
                 "n.type=$type, n.name=$name, n.normalized_name=$normalized_name "
                 "MERGE (e:Evidence {key:$evidence_key}) "
                 "ON CREATE SET e += $evidence "
-                "MERGE (n)-[:MENTIONED_IN]->(e)",
+                "MERGE (n)-[m:MENTIONED_IN]->(e) "
+                "SET m.identity_version=1, m.surface_name=$surface_name, "
+                "m.normalized_names=$mention_names, m.context_names=$mention_contexts",
                 **{k: v for k, v in entity.items() if k != "evidence"},
                 evidence=entity["evidence"],
                 evidence_key=entity["evidence"]["key"],

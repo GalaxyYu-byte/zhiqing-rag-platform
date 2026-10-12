@@ -7,6 +7,8 @@ from tempfile import TemporaryDirectory
 from typing import BinaryIO
 from uuid import uuid4
 
+from psycopg.errors import UniqueViolation
+
 from zhiqing_rag.core.config import Settings
 from zhiqing_rag.document_processing.format_validation import (
     DocumentFormatError,
@@ -155,13 +157,18 @@ class DocumentUploadService:
                 # 退出数据库连接前显式提交，确认文件、修订与任务已持久化才返回 202。
                 self.repository.connection.commit()
                 return result
-            except UploadError:
+            except (UploadError, UniqueViolation) as error:
                 # 修订冲突、文件未变化等业务错误发生在提交前。删除这次 UUID 对象，
                 # 避免用户反复提交过期版本时在 MinIO 留下无引用文件。
                 try:
                     self.storage.remove(self.storage.bucket, key)
                 except Exception as error:
                     logger.warning("未提交原文件清理失败：%s", type(error).__name__)
+                if (isinstance(error, UniqueViolation)
+                        and error.diag.constraint_name == "uq_document_code"):
+                    raise UploadError(
+                        409, "DOCUMENT_CODE_CONFLICT", "该知识库已存在相同业务编号，请使用其他编号",
+                    ) from error
                 raise
             except Exception as error:
                 # 连接中断等异常下，数据库提交结果可能未知。保留对象以免误删已被

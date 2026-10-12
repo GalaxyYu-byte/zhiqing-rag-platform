@@ -1,0 +1,3434 @@
+{
+  "dataset_sha256": "76a3e94c34de01350496d20e2c8bf02aa4d26fb6402c552898ea3012f1470ecc",
+  "dataset_kind": "synthetic_development",
+  "real_neo4j": true,
+  "real_models": true,
+  "authorization_repository": "fixed_component_adapter",
+  "entity_analysis": "frozen_grounded_mentions",
+  "results": [
+    {
+      "id": "V2G1",
+      "mode": "hybrid",
+      "passed": true,
+      "elapsed_ms": 7682,
+      "plan": {
+        "version": 1,
+        "original_query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+        "query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid",
+        "reason_code": "GRAPH_NOT_READY",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.8235434496861073,
+              "bm25_rank": 1,
+              "bm25_score": 13.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03278688524590164,
+              "rerank_score": 0.6121810699617284
+            },
+            "graph_relations": []
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990002",
+            "knowledge_base_id": "990",
+            "document_id": "990002",
+            "revision_id": "990002",
+            "generation_id": "990002",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+            "token_count": 46,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7201858505379148,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.2781211327130608
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "skipped",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 0,
+          "graph_seed_count": 0,
+          "graph_assertion_count": 0,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 0,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 0,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 348,
+          "total_ms": 348
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "statements": [
+          {
+            "text": "预算已确认后，采购申请步骤所需表单为采购申请表，该表包含用途、数量和申请人字段。",
+            "citations": [
+              {
+                "citation_id": "E1",
+                "quote": "预算已确认后，采购申请步骤需要采购申请表。"
+              },
+              {
+                "citation_id": "E2",
+                "quote": "采购申请表包含用途、数量和申请人。"
+              }
+            ]
+          }
+        ],
+        "message": null,
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "passed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 2677,
+          "review_ms": 4582,
+          "authorization_ms": 0,
+          "total_ms": 7334,
+          "context_tokens": 524,
+          "input_tokens": 2218,
+          "output_tokens": 263
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G1",
+      "mode": "one_hop",
+      "passed": true,
+      "elapsed_ms": 7836,
+      "plan": {
+        "version": 1,
+        "original_query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+        "query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990002",
+              "generation_id": "990002",
+              "projection_id": "2",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002"
+            }
+          ],
+          "max_hops": 1,
+          "matched_entity_names": [
+            "采购申请步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.8235434496861073,
+              "bm25_rank": 1,
+              "bm25_score": 13.0,
+              "graph_rank": 1,
+              "graph_score": 2.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": 0.6130961193487395
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990002",
+            "knowledge_base_id": "990",
+            "document_id": "990002",
+            "revision_id": "990002",
+            "generation_id": "990002",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+            "token_count": 46,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7201858505379148,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.2781211327130608
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 1,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 2,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 1,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 406,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 299,
+          "total_ms": 706
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "statements": [
+          {
+            "text": "预算已确认后，采购申请步骤所需表单为采购申请表，该表包含用途、数量和申请人字段。",
+            "citations": [
+              {
+                "citation_id": "E1",
+                "quote": "预算已确认后，采购申请步骤需要采购申请表。"
+              },
+              {
+                "citation_id": "E2",
+                "quote": "采购申请表包含用途、数量和申请人。"
+              }
+            ]
+          }
+        ],
+        "message": null,
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "passed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 2295,
+          "review_ms": 4468,
+          "authorization_ms": 0,
+          "total_ms": 6764,
+          "context_tokens": 524,
+          "input_tokens": 2218,
+          "output_tokens": 263
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G1",
+      "mode": "two_hop",
+      "passed": true,
+      "elapsed_ms": 8130,
+      "plan": {
+        "version": 1,
+        "original_query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+        "query": "预算已确认后，采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990002",
+              "generation_id": "990002",
+              "projection_id": "2",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002"
+            }
+          ],
+          "max_hops": 2,
+          "matched_entity_names": [
+            "采购申请步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.8235434496861073,
+              "bm25_rank": 1,
+              "bm25_score": 13.0,
+              "graph_rank": 1,
+              "graph_score": 5.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": 0.6130961193487395
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990002",
+            "knowledge_base_id": "990",
+            "document_id": "990002",
+            "revision_id": "990002",
+            "generation_id": "990002",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+            "token_count": 46,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7201858505379148,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": 2,
+              "graph_score": 6.0,
+              "fusion_score": 0.04838709677419355,
+              "rerank_score": 0.2781211327130608
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "66623a2a2c38a7b1e31bd3260be80b83d44bfe543311d7a119d7eb6002f4eacc",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "1d92e042e7b9ba649386c266bd72b8d4e0f5bafe1373ab35f2f486089b3dfd9c",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              },
+              {
+                "assertion_id": "bac35f66ee7bbf5e72ab5d1663644629eabf9be29850aa9fd92d8954ef42a0f0",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "b497b2b7f79f24ff510cad4fc6c69a0cd18d856f85499fe21b05273999ffd491",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              },
+              {
+                "assertion_id": "d8747e054e5c03c4ad84e7b436e37aa0f20fec86d83200b5f99aedd49c344311",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "0cc9dd5942bff94082380e700789ebcc72f885a0e367979a175754e8730f2987",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              }
+            ]
+          }
+        ],
+        "graph_paths": [
+          {
+            "path_id": "0511f2bf4eb93803bb182c2c1395632a06c3c2718f969ab9aa0d2414b25fc0c3",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                  "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "预算已确认后",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990001",
+                  "revision_id": "990001",
+                  "generation_id": "990001",
+                  "chunk_id": "990001",
+                  "projection_id": "1",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                  "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请步骤",
+                "object_name": "采购申请表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "66623a2a2c38a7b1e31bd3260be80b83d44bfe543311d7a119d7eb6002f4eacc",
+                  "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "object_entity_uid": "1d92e042e7b9ba649386c266bd72b8d4e0f5bafe1373ab35f2f486089b3dfd9c",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990002",
+                  "revision_id": "990002",
+                  "generation_id": "990002",
+                  "chunk_id": "990002",
+                  "projection_id": "2",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                  "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请表",
+                "object_name": "数量"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "c8ffca8cf2e8631d65c004f9c2c2e5569a32d6070176425609a8684547fa51be",
+                "identity_version": 1,
+                "source_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "target_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "entity_type": "Material",
+                "canonical_name": "采购申请表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990001",
+                    "revision_id": "990001",
+                    "generation_id": "990001",
+                    "chunk_id": "990001",
+                    "projection_id": "1",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                    "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                    "source_quote": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+                    "quote_start": 0,
+                    "quote_end": 52
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990002",
+                    "revision_id": "990002",
+                    "generation_id": "990002",
+                    "chunk_id": "990002",
+                    "projection_id": "2",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                    "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                    "source_quote": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+                    "quote_start": 0,
+                    "quote_end": 46
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990001",
+              "990002"
+            ]
+          },
+          {
+            "path_id": "1e322c279d427e0370407a4f102908fe7a10b7d390a75b68a86bee95c89f5699",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                  "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "预算已确认后",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990001",
+                  "revision_id": "990001",
+                  "generation_id": "990001",
+                  "chunk_id": "990001",
+                  "projection_id": "1",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                  "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请步骤",
+                "object_name": "采购申请表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "d8747e054e5c03c4ad84e7b436e37aa0f20fec86d83200b5f99aedd49c344311",
+                  "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "object_entity_uid": "0cc9dd5942bff94082380e700789ebcc72f885a0e367979a175754e8730f2987",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990002",
+                  "revision_id": "990002",
+                  "generation_id": "990002",
+                  "chunk_id": "990002",
+                  "projection_id": "2",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                  "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请表",
+                "object_name": "申请人"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "c8ffca8cf2e8631d65c004f9c2c2e5569a32d6070176425609a8684547fa51be",
+                "identity_version": 1,
+                "source_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "target_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "entity_type": "Material",
+                "canonical_name": "采购申请表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990001",
+                    "revision_id": "990001",
+                    "generation_id": "990001",
+                    "chunk_id": "990001",
+                    "projection_id": "1",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                    "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                    "source_quote": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+                    "quote_start": 0,
+                    "quote_end": 52
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990002",
+                    "revision_id": "990002",
+                    "generation_id": "990002",
+                    "chunk_id": "990002",
+                    "projection_id": "2",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                    "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                    "source_quote": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+                    "quote_start": 0,
+                    "quote_end": 46
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990001",
+              "990002"
+            ]
+          },
+          {
+            "path_id": "9ec283f7d9df9bd9bc367876915642f880b5a836b8ae7146009d34a8bfdf3b5e",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                  "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "预算已确认后",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990001",
+                  "revision_id": "990001",
+                  "generation_id": "990001",
+                  "chunk_id": "990001",
+                  "projection_id": "1",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                  "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请步骤",
+                "object_name": "采购申请表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "bac35f66ee7bbf5e72ab5d1663644629eabf9be29850aa9fd92d8954ef42a0f0",
+                  "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "object_entity_uid": "b497b2b7f79f24ff510cad4fc6c69a0cd18d856f85499fe21b05273999ffd491",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990002",
+                  "revision_id": "990002",
+                  "generation_id": "990002",
+                  "chunk_id": "990002",
+                  "projection_id": "2",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                  "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请表",
+                "object_name": "用途"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "c8ffca8cf2e8631d65c004f9c2c2e5569a32d6070176425609a8684547fa51be",
+                "identity_version": 1,
+                "source_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "target_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "entity_type": "Material",
+                "canonical_name": "采购申请表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990001",
+                    "revision_id": "990001",
+                    "generation_id": "990001",
+                    "chunk_id": "990001",
+                    "projection_id": "1",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                    "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                    "source_quote": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+                    "quote_start": 0,
+                    "quote_end": 52
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990002",
+                    "revision_id": "990002",
+                    "generation_id": "990002",
+                    "chunk_id": "990002",
+                    "projection_id": "2",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                    "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                    "source_quote": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+                    "quote_start": 0,
+                    "quote_end": 46
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990001",
+              "990002"
+            ]
+          }
+        ],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 2,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 5,
+          "graph_path_candidate_count": 3,
+          "graph_path_count": 3,
+          "graph_hops": 2,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 534,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 302,
+          "total_ms": 837
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "statements": [
+          {
+            "text": "预算已确认后，采购申请步骤所需表单为采购申请表，该表包含用途、数量和申请人字段。",
+            "citations": [
+              {
+                "citation_id": "E1",
+                "quote": "预算已确认后，采购申请步骤需要采购申请表。"
+              },
+              {
+                "citation_id": "E2",
+                "quote": "采购申请表包含用途、数量和申请人。"
+              }
+            ]
+          }
+        ],
+        "message": null,
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "passed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 2286,
+          "review_ms": 4447,
+          "authorization_ms": 0,
+          "total_ms": 6734,
+          "context_tokens": 524,
+          "input_tokens": 2218,
+          "output_tokens": 257
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G2",
+      "mode": "hybrid",
+      "passed": true,
+      "elapsed_ms": 7020,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+        "query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+        "requested_route": "hybrid",
+        "reason_code": "GRAPH_NOT_READY",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990002",
+            "knowledge_base_id": "990",
+            "document_id": "990002",
+            "revision_id": "990002",
+            "generation_id": "990002",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+            "token_count": 46,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.78424000632014,
+              "bm25_rank": 1,
+              "bm25_score": 7.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03278688524590164,
+              "rerank_score": 0.6081968685543994
+            },
+            "graph_relations": []
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7373929490058673,
+              "bm25_rank": 2,
+              "bm25_score": 5.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.2920274003804542
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "skipped",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 0,
+          "graph_seed_count": 0,
+          "graph_assertion_count": 0,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 0,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 0,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 398,
+          "total_ms": 398
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "statements": [
+          {
+            "text": "购置需求单应填写用途、数量和申请人。",
+            "citations": [
+              {
+                "citation_id": "E1",
+                "quote": "采购申请表包含用途、数量和申请人。"
+              }
+            ]
+          }
+        ],
+        "message": null,
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "passed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 1559,
+          "review_ms": 5062,
+          "authorization_ms": 0,
+          "total_ms": 6621,
+          "context_tokens": 522,
+          "input_tokens": 2171,
+          "output_tokens": 250
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G2",
+      "mode": "one_hop",
+      "passed": true,
+      "elapsed_ms": 7359,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+        "query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+            "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990002",
+              "generation_id": "990002",
+              "projection_id": "2",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002"
+            }
+          ],
+          "max_hops": 1,
+          "matched_entity_names": [
+            "采购申请步骤",
+            "购置需求单"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990002",
+            "knowledge_base_id": "990",
+            "document_id": "990002",
+            "revision_id": "990002",
+            "generation_id": "990002",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+            "token_count": 46,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.78424000632014,
+              "bm25_rank": 1,
+              "bm25_score": 7.0,
+              "graph_rank": 1,
+              "graph_score": 3.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": 0.6081968685543994
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "66623a2a2c38a7b1e31bd3260be80b83d44bfe543311d7a119d7eb6002f4eacc",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "1d92e042e7b9ba649386c266bd72b8d4e0f5bafe1373ab35f2f486089b3dfd9c",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              },
+              {
+                "assertion_id": "bac35f66ee7bbf5e72ab5d1663644629eabf9be29850aa9fd92d8954ef42a0f0",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "b497b2b7f79f24ff510cad4fc6c69a0cd18d856f85499fe21b05273999ffd491",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              },
+              {
+                "assertion_id": "d8747e054e5c03c4ad84e7b436e37aa0f20fec86d83200b5f99aedd49c344311",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "0cc9dd5942bff94082380e700789ebcc72f885a0e367979a175754e8730f2987",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7373929490058673,
+              "bm25_rank": 2,
+              "bm25_score": 5.0,
+              "graph_rank": 2,
+              "graph_score": 2.0,
+              "fusion_score": 0.04838709677419355,
+              "rerank_score": 0.2920274003804542
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 2,
+          "graph_seed_count": 2,
+          "graph_assertion_count": 5,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 1,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 470,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 322,
+          "total_ms": 793
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "statements": [
+          {
+            "text": "购置需求单应填写用途、数量和申请人。",
+            "citations": [
+              {
+                "citation_id": "E1",
+                "quote": "采购申请表包含用途、数量和申请人。"
+              }
+            ]
+          }
+        ],
+        "message": null,
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "passed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 1632,
+          "review_ms": 4416,
+          "authorization_ms": 0,
+          "total_ms": 6049,
+          "context_tokens": 522,
+          "input_tokens": 2171,
+          "output_tokens": 224
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G2",
+      "mode": "two_hop",
+      "passed": true,
+      "elapsed_ms": 7698,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+        "query": "采购申请步骤使用的购置需求单应填写哪些信息？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+            "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990002",
+              "generation_id": "990002",
+              "projection_id": "2",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002"
+            }
+          ],
+          "max_hops": 2,
+          "matched_entity_names": [
+            "采购申请步骤",
+            "购置需求单"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990002",
+            "knowledge_base_id": "990",
+            "document_id": "990002",
+            "revision_id": "990002",
+            "generation_id": "990002",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+            "token_count": 46,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.78424000632014,
+              "bm25_rank": 1,
+              "bm25_score": 7.0,
+              "graph_rank": 2,
+              "graph_score": 6.0,
+              "fusion_score": 0.04891591750396616,
+              "rerank_score": 0.6081968685543994
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "66623a2a2c38a7b1e31bd3260be80b83d44bfe543311d7a119d7eb6002f4eacc",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "1d92e042e7b9ba649386c266bd72b8d4e0f5bafe1373ab35f2f486089b3dfd9c",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              },
+              {
+                "assertion_id": "bac35f66ee7bbf5e72ab5d1663644629eabf9be29850aa9fd92d8954ef42a0f0",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "b497b2b7f79f24ff510cad4fc6c69a0cd18d856f85499fe21b05273999ffd491",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              },
+              {
+                "assertion_id": "d8747e054e5c03c4ad84e7b436e37aa0f20fec86d83200b5f99aedd49c344311",
+                "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "object_entity_uid": "0cc9dd5942bff94082380e700789ebcc72f885a0e367979a175754e8730f2987",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "采购申请表包含用途、数量和申请人。",
+                "quote_start": 29,
+                "quote_end": 46
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7373929490058673,
+              "bm25_rank": 2,
+              "bm25_score": 5.0,
+              "graph_rank": 1,
+              "graph_score": 5.0,
+              "fusion_score": 0.048651507139079855,
+              "rerank_score": 0.2920274003804542
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          }
+        ],
+        "graph_paths": [
+          {
+            "path_id": "0511f2bf4eb93803bb182c2c1395632a06c3c2718f969ab9aa0d2414b25fc0c3",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                  "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "预算已确认后",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990001",
+                  "revision_id": "990001",
+                  "generation_id": "990001",
+                  "chunk_id": "990001",
+                  "projection_id": "1",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                  "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请步骤",
+                "object_name": "采购申请表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "66623a2a2c38a7b1e31bd3260be80b83d44bfe543311d7a119d7eb6002f4eacc",
+                  "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "object_entity_uid": "1d92e042e7b9ba649386c266bd72b8d4e0f5bafe1373ab35f2f486089b3dfd9c",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990002",
+                  "revision_id": "990002",
+                  "generation_id": "990002",
+                  "chunk_id": "990002",
+                  "projection_id": "2",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                  "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请表",
+                "object_name": "数量"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "c8ffca8cf2e8631d65c004f9c2c2e5569a32d6070176425609a8684547fa51be",
+                "identity_version": 1,
+                "source_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "target_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "entity_type": "Material",
+                "canonical_name": "采购申请表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990001",
+                    "revision_id": "990001",
+                    "generation_id": "990001",
+                    "chunk_id": "990001",
+                    "projection_id": "1",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                    "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                    "source_quote": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+                    "quote_start": 0,
+                    "quote_end": 52
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990002",
+                    "revision_id": "990002",
+                    "generation_id": "990002",
+                    "chunk_id": "990002",
+                    "projection_id": "2",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                    "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                    "source_quote": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+                    "quote_start": 0,
+                    "quote_end": 46
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990001",
+              "990002"
+            ]
+          },
+          {
+            "path_id": "1e322c279d427e0370407a4f102908fe7a10b7d390a75b68a86bee95c89f5699",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                  "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "预算已确认后",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990001",
+                  "revision_id": "990001",
+                  "generation_id": "990001",
+                  "chunk_id": "990001",
+                  "projection_id": "1",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                  "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请步骤",
+                "object_name": "采购申请表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "d8747e054e5c03c4ad84e7b436e37aa0f20fec86d83200b5f99aedd49c344311",
+                  "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "object_entity_uid": "0cc9dd5942bff94082380e700789ebcc72f885a0e367979a175754e8730f2987",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990002",
+                  "revision_id": "990002",
+                  "generation_id": "990002",
+                  "chunk_id": "990002",
+                  "projection_id": "2",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                  "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请表",
+                "object_name": "申请人"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "c8ffca8cf2e8631d65c004f9c2c2e5569a32d6070176425609a8684547fa51be",
+                "identity_version": 1,
+                "source_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "target_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "entity_type": "Material",
+                "canonical_name": "采购申请表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990001",
+                    "revision_id": "990001",
+                    "generation_id": "990001",
+                    "chunk_id": "990001",
+                    "projection_id": "1",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                    "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                    "source_quote": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+                    "quote_start": 0,
+                    "quote_end": 52
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990002",
+                    "revision_id": "990002",
+                    "generation_id": "990002",
+                    "chunk_id": "990002",
+                    "projection_id": "2",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                    "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                    "source_quote": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+                    "quote_start": 0,
+                    "quote_end": 46
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990001",
+              "990002"
+            ]
+          },
+          {
+            "path_id": "9ec283f7d9df9bd9bc367876915642f880b5a836b8ae7146009d34a8bfdf3b5e",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                  "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                  "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "预算已确认后",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990001",
+                  "revision_id": "990001",
+                  "generation_id": "990001",
+                  "chunk_id": "990001",
+                  "projection_id": "1",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                  "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                  "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                  "quote_start": 16,
+                  "quote_end": 37
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请步骤",
+                "object_name": "采购申请表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "bac35f66ee7bbf5e72ab5d1663644629eabf9be29850aa9fd92d8954ef42a0f0",
+                  "seed_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "subject_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                  "object_entity_uid": "b497b2b7f79f24ff510cad4fc6c69a0cd18d856f85499fe21b05273999ffd491",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990002",
+                  "revision_id": "990002",
+                  "generation_id": "990002",
+                  "chunk_id": "990002",
+                  "projection_id": "2",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                  "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                  "source_quote": "采购申请表包含用途、数量和申请人。",
+                  "quote_start": 29,
+                  "quote_end": 46
+                },
+                "traversal": "outgoing",
+                "subject_name": "采购申请表",
+                "object_name": "用途"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "c8ffca8cf2e8631d65c004f9c2c2e5569a32d6070176425609a8684547fa51be",
+                "identity_version": 1,
+                "source_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "target_entity_uid": "cf6d1eff52a2fcadeb83bf9dd493f7d84bf20d11026a3f0d07e0f64d6f69f67b",
+                "entity_type": "Material",
+                "canonical_name": "采购申请表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990001",
+                    "revision_id": "990001",
+                    "generation_id": "990001",
+                    "chunk_id": "990001",
+                    "projection_id": "1",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001",
+                    "content_sha256": "1d26fd0888d25055b3fc5d97a63af0613581d413ffe65a4657c220b5138c3b88",
+                    "source_quote": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+                    "quote_start": 0,
+                    "quote_end": 52
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990002",
+                    "revision_id": "990002",
+                    "generation_id": "990002",
+                    "chunk_id": "990002",
+                    "projection_id": "2",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990002",
+                    "content_sha256": "5b3d17aa8efa13a2a89c1a1e23d39456aa894dacdb31446634749ae2e57748dd",
+                    "source_quote": "采购申请表用于采购申请流程。\n采购申请表又称购置需求单。\n采购申请表包含用途、数量和申请人。",
+                    "quote_start": 0,
+                    "quote_end": 46
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990001",
+              "990002"
+            ]
+          }
+        ],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 2,
+          "graph_seed_count": 2,
+          "graph_assertion_count": 5,
+          "graph_path_candidate_count": 3,
+          "graph_path_count": 3,
+          "graph_hops": 2,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 604,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 373,
+          "total_ms": 978
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "statements": [
+          {
+            "text": "购置需求单应填写用途、数量和申请人。",
+            "citations": [
+              {
+                "citation_id": "E1",
+                "quote": "采购申请表包含用途、数量和申请人。"
+              }
+            ]
+          }
+        ],
+        "message": null,
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "passed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 1515,
+          "review_ms": 4481,
+          "authorization_ms": 0,
+          "total_ms": 5997,
+          "context_tokens": 522,
+          "input_tokens": 2171,
+          "output_tokens": 223
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G3",
+      "mode": "hybrid",
+      "passed": true,
+      "elapsed_ms": 10887,
+      "plan": {
+        "version": 1,
+        "original_query": "领用确认后，设备登记步骤需要填写哪些信息？",
+        "query": "领用确认后，设备登记步骤需要填写哪些信息？",
+        "requested_route": "hybrid",
+        "reason_code": "GRAPH_NOT_READY",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990003",
+            "knowledge_base_id": "990",
+            "document_id": "990003",
+            "revision_id": "990003",
+            "generation_id": "990003",
+            "document_title": "设备登记办理说明",
+            "document_name": "设备登记办理说明.txt",
+            "chunk_index": 0,
+            "content": "设备登记流程包含设备登记步骤。\n领用确认后，设备登记步骤需要设备登记表。\n设备登记表用于设备登记流程。",
+            "token_count": 51,
+            "page_number": null,
+            "section_title": "设备登记办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.842554677639901,
+              "bm25_rank": 1,
+              "bm25_score": 13.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03278688524590164,
+              "rerank_score": 0.8204534268575822
+            },
+            "graph_relations": []
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990004",
+            "knowledge_base_id": "990",
+            "document_id": "990004",
+            "revision_id": "990004",
+            "generation_id": "990004",
+            "document_title": "设备登记表",
+            "document_name": "设备登记表.txt",
+            "chunk_index": 0,
+            "content": "设备登记表用于设备登记流程。\n设备登记表包含资产编号和领用人。",
+            "token_count": 31,
+            "page_number": null,
+            "section_title": "设备登记表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7569227410626621,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.24411525911769663
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "skipped",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 0,
+          "graph_seed_count": 0,
+          "graph_assertion_count": 0,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 0,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 0,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 329,
+          "total_ms": 330
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "检索资料尚不足以支持完整回答。",
+        "codes": [
+          "ANSWER_REVIEW_FAILED"
+        ],
+        "model": "qwen-plus",
+        "review_status": "failed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 2072,
+          "review_ms": 8484,
+          "authorization_ms": 0,
+          "total_ms": 10557,
+          "context_tokens": 418,
+          "input_tokens": 2132,
+          "output_tokens": 433
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G3",
+      "mode": "one_hop",
+      "passed": true,
+      "elapsed_ms": 11595,
+      "plan": {
+        "version": 1,
+        "original_query": "领用确认后，设备登记步骤需要填写哪些信息？",
+        "query": "领用确认后，设备登记步骤需要填写哪些信息？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990003",
+              "generation_id": "990003",
+              "projection_id": "3",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990003"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990004",
+              "generation_id": "990004",
+              "projection_id": "4",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990004"
+            }
+          ],
+          "max_hops": 1,
+          "matched_entity_names": [
+            "设备登记步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990003",
+            "knowledge_base_id": "990",
+            "document_id": "990003",
+            "revision_id": "990003",
+            "generation_id": "990003",
+            "document_title": "设备登记办理说明",
+            "document_name": "设备登记办理说明.txt",
+            "chunk_index": 0,
+            "content": "设备登记流程包含设备登记步骤。\n领用确认后，设备登记步骤需要设备登记表。\n设备登记表用于设备登记流程。",
+            "token_count": 51,
+            "page_number": null,
+            "section_title": "设备登记办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.842554677639901,
+              "bm25_rank": 1,
+              "bm25_score": 13.0,
+              "graph_rank": 1,
+              "graph_score": 2.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": 0.8207723666966955
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "4e2683cdcedebbfc12ffc9a7e5c873c38b6667c168bf99bd03aaecceaf96744f",
+                "seed_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "subject_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "object_entity_uid": "3e1802dd1fd4550d5c929fc27adfce5bb334dda473a275ca660ff38a010eb690",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "领用确认后",
+                "source_quote": "领用确认后，设备登记步骤需要设备登记表。",
+                "quote_start": 16,
+                "quote_end": 36
+              },
+              {
+                "assertion_id": "e2d1673421a260ec6c251c671ca23d1ad499694cc9de6e6d1578332a4ab27653",
+                "seed_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "subject_entity_uid": "f8b41df325fde4f66d5f08f8d1ccb23065e0d24adc0ac5473957f7bbeb853c12",
+                "object_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "设备登记流程包含设备登记步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990004",
+            "knowledge_base_id": "990",
+            "document_id": "990004",
+            "revision_id": "990004",
+            "generation_id": "990004",
+            "document_title": "设备登记表",
+            "document_name": "设备登记表.txt",
+            "chunk_index": 0,
+            "content": "设备登记表用于设备登记流程。\n设备登记表包含资产编号和领用人。",
+            "token_count": 31,
+            "page_number": null,
+            "section_title": "设备登记表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7569227410626621,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.24400045983060525
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 1,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 2,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 1,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 389,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 322,
+          "total_ms": 711
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "检索资料尚不足以支持完整回答。",
+        "codes": [
+          "ANSWER_REVIEW_FAILED"
+        ],
+        "model": "qwen-plus",
+        "review_status": "failed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 2049,
+          "review_ms": 8437,
+          "authorization_ms": 0,
+          "total_ms": 10486,
+          "context_tokens": 418,
+          "input_tokens": 2132,
+          "output_tokens": 427
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2G3",
+      "mode": "two_hop",
+      "passed": true,
+      "elapsed_ms": 12639,
+      "plan": {
+        "version": 1,
+        "original_query": "领用确认后，设备登记步骤需要填写哪些信息？",
+        "query": "领用确认后，设备登记步骤需要填写哪些信息？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990003",
+              "generation_id": "990003",
+              "projection_id": "3",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990003"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990004",
+              "generation_id": "990004",
+              "projection_id": "4",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990004"
+            }
+          ],
+          "max_hops": 2,
+          "matched_entity_names": [
+            "设备登记步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990003",
+            "knowledge_base_id": "990",
+            "document_id": "990003",
+            "revision_id": "990003",
+            "generation_id": "990003",
+            "document_title": "设备登记办理说明",
+            "document_name": "设备登记办理说明.txt",
+            "chunk_index": 0,
+            "content": "设备登记流程包含设备登记步骤。\n领用确认后，设备登记步骤需要设备登记表。\n设备登记表用于设备登记流程。",
+            "token_count": 51,
+            "page_number": null,
+            "section_title": "设备登记办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.842554677639901,
+              "bm25_rank": 1,
+              "bm25_score": 13.0,
+              "graph_rank": 1,
+              "graph_score": 4.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": 0.8207723666966955
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "4e2683cdcedebbfc12ffc9a7e5c873c38b6667c168bf99bd03aaecceaf96744f",
+                "seed_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "subject_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "object_entity_uid": "3e1802dd1fd4550d5c929fc27adfce5bb334dda473a275ca660ff38a010eb690",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "领用确认后",
+                "source_quote": "领用确认后，设备登记步骤需要设备登记表。",
+                "quote_start": 16,
+                "quote_end": 36
+              },
+              {
+                "assertion_id": "e2d1673421a260ec6c251c671ca23d1ad499694cc9de6e6d1578332a4ab27653",
+                "seed_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "subject_entity_uid": "f8b41df325fde4f66d5f08f8d1ccb23065e0d24adc0ac5473957f7bbeb853c12",
+                "object_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "设备登记流程包含设备登记步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990004",
+            "knowledge_base_id": "990",
+            "document_id": "990004",
+            "revision_id": "990004",
+            "generation_id": "990004",
+            "document_title": "设备登记表",
+            "document_name": "设备登记表.txt",
+            "chunk_index": 0,
+            "content": "设备登记表用于设备登记流程。\n设备登记表包含资产编号和领用人。",
+            "token_count": 31,
+            "page_number": null,
+            "section_title": "设备登记表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7569227410626621,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": 2,
+              "graph_score": 4.0,
+              "fusion_score": 0.04838709677419355,
+              "rerank_score": 0.24400045983060525
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "158c7d5467f44745aa67a2e70436f607a54fa0a35caf5e281d8c3b0838ac5bfb",
+                "seed_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                "subject_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                "object_entity_uid": "baf718f6e28c846d88c4d668e8ba733c9ef92856cd723c98aee5134c681cdcd1",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "设备登记表包含资产编号和领用人。",
+                "quote_start": 15,
+                "quote_end": 31
+              },
+              {
+                "assertion_id": "442c10ec71824fa78578f785fc17feae5a289d628018b67f78b1d0ed90135203",
+                "seed_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                "subject_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                "object_entity_uid": "61c958feb29fb3103642531b48de162f66e22a190008bfede5ba29dc432b58f2",
+                "predicate": "HAS_FIELD",
+                "condition_text": "",
+                "source_quote": "设备登记表包含资产编号和领用人。",
+                "quote_start": 15,
+                "quote_end": 31
+              }
+            ]
+          }
+        ],
+        "graph_paths": [
+          {
+            "path_id": "21390a392694703db1b5b814f4d99f56a64fe1e76bc5fa77590f98d05baa7afb",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "4e2683cdcedebbfc12ffc9a7e5c873c38b6667c168bf99bd03aaecceaf96744f",
+                  "seed_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                  "subject_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                  "object_entity_uid": "3e1802dd1fd4550d5c929fc27adfce5bb334dda473a275ca660ff38a010eb690",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "领用确认后",
+                  "source_quote": "领用确认后，设备登记步骤需要设备登记表。",
+                  "quote_start": 16,
+                  "quote_end": 36
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990003",
+                  "revision_id": "990003",
+                  "generation_id": "990003",
+                  "chunk_id": "990003",
+                  "projection_id": "3",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990003",
+                  "content_sha256": "6cc8fdca0e5edffe6337af050d9fe0fab8c0740ab579c9e4c16e7d6871411947",
+                  "source_quote": "领用确认后，设备登记步骤需要设备登记表。",
+                  "quote_start": 16,
+                  "quote_end": 36
+                },
+                "traversal": "outgoing",
+                "subject_name": "设备登记步骤",
+                "object_name": "设备登记表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "158c7d5467f44745aa67a2e70436f607a54fa0a35caf5e281d8c3b0838ac5bfb",
+                  "seed_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                  "subject_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                  "object_entity_uid": "baf718f6e28c846d88c4d668e8ba733c9ef92856cd723c98aee5134c681cdcd1",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "设备登记表包含资产编号和领用人。",
+                  "quote_start": 15,
+                  "quote_end": 31
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990004",
+                  "revision_id": "990004",
+                  "generation_id": "990004",
+                  "chunk_id": "990004",
+                  "projection_id": "4",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990004",
+                  "content_sha256": "bf29b778d4f2f20a39d5e14c31d46ae6a7b3a6ebefadaa959af8637a4543deca",
+                  "source_quote": "设备登记表包含资产编号和领用人。",
+                  "quote_start": 15,
+                  "quote_end": 31
+                },
+                "traversal": "outgoing",
+                "subject_name": "设备登记表",
+                "object_name": "资产编号"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "682976559ecb71c2d90a5f9c6efb9e44f46e4c0f4e6ae6d8299d5ea91613f1c3",
+                "identity_version": 1,
+                "source_entity_uid": "3e1802dd1fd4550d5c929fc27adfce5bb334dda473a275ca660ff38a010eb690",
+                "target_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                "entity_type": "Material",
+                "canonical_name": "设备登记表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990003",
+                    "revision_id": "990003",
+                    "generation_id": "990003",
+                    "chunk_id": "990003",
+                    "projection_id": "3",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990003",
+                    "content_sha256": "6cc8fdca0e5edffe6337af050d9fe0fab8c0740ab579c9e4c16e7d6871411947",
+                    "source_quote": "设备登记流程包含设备登记步骤。\n领用确认后，设备登记步骤需要设备登记表。\n设备登记表用于设备登记流程。",
+                    "quote_start": 0,
+                    "quote_end": 51
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990004",
+                    "revision_id": "990004",
+                    "generation_id": "990004",
+                    "chunk_id": "990004",
+                    "projection_id": "4",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990004",
+                    "content_sha256": "bf29b778d4f2f20a39d5e14c31d46ae6a7b3a6ebefadaa959af8637a4543deca",
+                    "source_quote": "设备登记表用于设备登记流程。\n设备登记表包含资产编号和领用人。",
+                    "quote_start": 0,
+                    "quote_end": 31
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990003",
+              "990004"
+            ]
+          },
+          {
+            "path_id": "26befcfa3febd55b333027cc84665ac9e41a53f509a3419e0d143aab0d156edf",
+            "knowledge_base_id": "990",
+            "hops": [
+              {
+                "relation": {
+                  "assertion_id": "4e2683cdcedebbfc12ffc9a7e5c873c38b6667c168bf99bd03aaecceaf96744f",
+                  "seed_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                  "subject_entity_uid": "f383cc6cff90df221de990c868f8ff9c3408c821ccb5eacdf7037ba8bb05f698",
+                  "object_entity_uid": "3e1802dd1fd4550d5c929fc27adfce5bb334dda473a275ca660ff38a010eb690",
+                  "predicate": "REQUIRES_MATERIAL",
+                  "condition_text": "领用确认后",
+                  "source_quote": "领用确认后，设备登记步骤需要设备登记表。",
+                  "quote_start": 16,
+                  "quote_end": 36
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990003",
+                  "revision_id": "990003",
+                  "generation_id": "990003",
+                  "chunk_id": "990003",
+                  "projection_id": "3",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990003",
+                  "content_sha256": "6cc8fdca0e5edffe6337af050d9fe0fab8c0740ab579c9e4c16e7d6871411947",
+                  "source_quote": "领用确认后，设备登记步骤需要设备登记表。",
+                  "quote_start": 16,
+                  "quote_end": 36
+                },
+                "traversal": "outgoing",
+                "subject_name": "设备登记步骤",
+                "object_name": "设备登记表"
+              },
+              {
+                "relation": {
+                  "assertion_id": "442c10ec71824fa78578f785fc17feae5a289d628018b67f78b1d0ed90135203",
+                  "seed_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                  "subject_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                  "object_entity_uid": "61c958feb29fb3103642531b48de162f66e22a190008bfede5ba29dc432b58f2",
+                  "predicate": "HAS_FIELD",
+                  "condition_text": "",
+                  "source_quote": "设备登记表包含资产编号和领用人。",
+                  "quote_start": 15,
+                  "quote_end": 31
+                },
+                "source": {
+                  "tenant_id": "1",
+                  "knowledge_base_id": "990",
+                  "document_id": "990004",
+                  "revision_id": "990004",
+                  "generation_id": "990004",
+                  "chunk_id": "990004",
+                  "projection_id": "4",
+                  "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990004",
+                  "content_sha256": "bf29b778d4f2f20a39d5e14c31d46ae6a7b3a6ebefadaa959af8637a4543deca",
+                  "source_quote": "设备登记表包含资产编号和领用人。",
+                  "quote_start": 15,
+                  "quote_end": 31
+                },
+                "traversal": "outgoing",
+                "subject_name": "设备登记表",
+                "object_name": "领用人"
+              }
+            ],
+            "bridges": [
+              {
+                "identity_id": "682976559ecb71c2d90a5f9c6efb9e44f46e4c0f4e6ae6d8299d5ea91613f1c3",
+                "identity_version": 1,
+                "source_entity_uid": "3e1802dd1fd4550d5c929fc27adfce5bb334dda473a275ca660ff38a010eb690",
+                "target_entity_uid": "d71b2a54662ec9a8452e6f693d664eb6f2105089dc62b859f8fec7053dd35786",
+                "entity_type": "Material",
+                "canonical_name": "设备登记表",
+                "basis": "shared_context",
+                "sources": [
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990003",
+                    "revision_id": "990003",
+                    "generation_id": "990003",
+                    "chunk_id": "990003",
+                    "projection_id": "3",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990003",
+                    "content_sha256": "6cc8fdca0e5edffe6337af050d9fe0fab8c0740ab579c9e4c16e7d6871411947",
+                    "source_quote": "设备登记流程包含设备登记步骤。\n领用确认后，设备登记步骤需要设备登记表。\n设备登记表用于设备登记流程。",
+                    "quote_start": 0,
+                    "quote_end": 51
+                  },
+                  {
+                    "tenant_id": "1",
+                    "knowledge_base_id": "990",
+                    "document_id": "990004",
+                    "revision_id": "990004",
+                    "generation_id": "990004",
+                    "chunk_id": "990004",
+                    "projection_id": "4",
+                    "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990004",
+                    "content_sha256": "bf29b778d4f2f20a39d5e14c31d46ae6a7b3a6ebefadaa959af8637a4543deca",
+                    "source_quote": "设备登记表用于设备登记流程。\n设备登记表包含资产编号和领用人。",
+                    "quote_start": 0,
+                    "quote_end": 31
+                  }
+                ]
+              }
+            ],
+            "required_chunk_ids": [
+              "990003",
+              "990004"
+            ]
+          }
+        ],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 2,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 4,
+          "graph_path_candidate_count": 2,
+          "graph_path_count": 2,
+          "graph_hops": 2,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 568,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 320,
+          "total_ms": 888
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "检索资料尚不足以支持完整回答。",
+        "codes": [
+          "ANSWER_REVIEW_FAILED"
+        ],
+        "model": "qwen-plus",
+        "review_status": "failed",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 2068,
+          "review_ms": 9047,
+          "authorization_ms": 0,
+          "total_ms": 11116,
+          "context_tokens": 418,
+          "input_tokens": 2132,
+          "output_tokens": 454
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2N1",
+      "mode": "hybrid",
+      "passed": true,
+      "elapsed_ms": 790,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤所需表单包含哪些字段？",
+        "query": "采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid",
+        "reason_code": "GRAPH_NOT_READY",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.7940192599451101,
+              "bm25_rank": 1,
+              "bm25_score": 6.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03278688524590164,
+              "rerank_score": null
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 0,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "skipped",
+          "rerank_status": "skipped",
+          "dense_count": 1,
+          "bm25_count": 1,
+          "graph_count": 0,
+          "graph_seed_count": 0,
+          "graph_assertion_count": 0,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 0,
+          "fused_count": 1,
+          "authorized_count": 1,
+          "returned_count": 1,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 0,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 0,
+          "total_ms": 0
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "当前可读资料不足以完整回答这个问题。",
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "skipped",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 789,
+          "review_ms": 0,
+          "authorization_ms": 0,
+          "total_ms": 790,
+          "context_tokens": 289,
+          "input_tokens": 938,
+          "output_tokens": 9
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2N1",
+      "mode": "one_hop",
+      "passed": true,
+      "elapsed_ms": 1460,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤所需表单包含哪些字段？",
+        "query": "采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            }
+          ],
+          "max_hops": 1,
+          "matched_entity_names": [
+            "采购申请步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.7940192599451101,
+              "bm25_rank": 1,
+              "bm25_score": 6.0,
+              "graph_rank": 1,
+              "graph_score": 2.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": null
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 0,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "skipped",
+          "dense_count": 1,
+          "bm25_count": 1,
+          "graph_count": 1,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 2,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 1,
+          "fused_count": 1,
+          "authorized_count": 1,
+          "returned_count": 1,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 396,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 0,
+          "total_ms": 396
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "当前可读资料不足以完整回答这个问题。",
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "skipped",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 653,
+          "review_ms": 0,
+          "authorization_ms": 0,
+          "total_ms": 653,
+          "context_tokens": 289,
+          "input_tokens": 938,
+          "output_tokens": 9
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2N1",
+      "mode": "two_hop",
+      "passed": true,
+      "elapsed_ms": 1631,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤所需表单包含哪些字段？",
+        "query": "采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            }
+          ],
+          "max_hops": 1,
+          "matched_entity_names": [
+            "采购申请步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.7940192599451101,
+              "bm25_rank": 1,
+              "bm25_score": 6.0,
+              "graph_rank": 1,
+              "graph_score": 2.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": null
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 0,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "skipped",
+          "dense_count": 1,
+          "bm25_count": 1,
+          "graph_count": 1,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 2,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 1,
+          "fused_count": 1,
+          "authorized_count": 1,
+          "returned_count": 1,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 396,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 0,
+          "total_ms": 396
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "当前可读资料不足以完整回答这个问题。",
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "skipped",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 686,
+          "review_ms": 0,
+          "authorization_ms": 0,
+          "total_ms": 686,
+          "context_tokens": 289,
+          "input_tokens": 938,
+          "output_tokens": 9
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2N2",
+      "mode": "hybrid",
+      "passed": true,
+      "elapsed_ms": 1184,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤所需表单包含哪些字段？",
+        "query": "采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid",
+        "reason_code": "GRAPH_NOT_READY",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.7940192599451101,
+              "bm25_rank": 1,
+              "bm25_score": 6.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03278688524590164,
+              "rerank_score": 0.5797654805871192
+            },
+            "graph_relations": []
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990005",
+            "knowledge_base_id": "990",
+            "document_id": "990005",
+            "revision_id": "990005",
+            "generation_id": "990005",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "此采购申请表仅用于报废回购流程。\n采购申请表包含报废批次和回购价。",
+            "token_count": 33,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7149743173050298,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.374000735757491
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "skipped",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 0,
+          "graph_seed_count": 0,
+          "graph_assertion_count": 0,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 0,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 0,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 343,
+          "total_ms": 343
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "当前可读资料不足以完整回答这个问题。",
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "skipped",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 841,
+          "review_ms": 0,
+          "authorization_ms": 0,
+          "total_ms": 841,
+          "context_tokens": 473,
+          "input_tokens": 1073,
+          "output_tokens": 9
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2N2",
+      "mode": "one_hop",
+      "passed": true,
+      "elapsed_ms": 1875,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤所需表单包含哪些字段？",
+        "query": "采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990005",
+              "generation_id": "990005",
+              "projection_id": "5",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990005"
+            }
+          ],
+          "max_hops": 1,
+          "matched_entity_names": [
+            "采购申请步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.7940192599451101,
+              "bm25_rank": 1,
+              "bm25_score": 6.0,
+              "graph_rank": 1,
+              "graph_score": 2.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": 0.5804134260170082
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990005",
+            "knowledge_base_id": "990",
+            "document_id": "990005",
+            "revision_id": "990005",
+            "generation_id": "990005",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "此采购申请表仅用于报废回购流程。\n采购申请表包含报废批次和回购价。",
+            "token_count": 33,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7149743173050298,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.37358067692761043
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 1,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 2,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 1,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 458,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 334,
+          "total_ms": 792
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "当前可读资料不足以完整回答这个问题。",
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "skipped",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 696,
+          "review_ms": 0,
+          "authorization_ms": 0,
+          "total_ms": 696,
+          "context_tokens": 473,
+          "input_tokens": 1073,
+          "output_tokens": 9
+        }
+      },
+      "semantic_correct": null
+    },
+    {
+      "id": "V2N2",
+      "mode": "two_hop",
+      "passed": true,
+      "elapsed_ms": 2223,
+      "plan": {
+        "version": 1,
+        "original_query": "采购申请步骤所需表单包含哪些字段？",
+        "query": "采购申请步骤所需表单包含哪些字段？",
+        "requested_route": "hybrid_graph",
+        "reason_code": "GRAPH_APPROVED",
+        "planning_status": "planned",
+        "constraints": [],
+        "warnings": [],
+        "message": null,
+        "route": "hybrid_graph",
+        "params": {
+          "candidate_k": 30,
+          "top_k": 2,
+          "rerank": true,
+          "seed_entity_uids": [
+            "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c"
+          ],
+          "projections": [
+            {
+              "tenant_id": "1",
+              "document_id": "990001",
+              "generation_id": "990001",
+              "projection_id": "1",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990001"
+            },
+            {
+              "tenant_id": "1",
+              "document_id": "990005",
+              "generation_id": "990005",
+              "projection_id": "5",
+              "namespace": "zhiqing-rag-platform:eval2:9e40b0adbc6946a9a6dda07ad497e8bb:990005"
+            }
+          ],
+          "max_hops": 1,
+          "matched_entity_names": [
+            "采购申请步骤"
+          ]
+        }
+      },
+      "retrieval": {
+        "status": "ok",
+        "evidence": [
+          {
+            "citation_id": "E1",
+            "rank": 1,
+            "chunk_id": "990001",
+            "knowledge_base_id": "990",
+            "document_id": "990001",
+            "revision_id": "990001",
+            "generation_id": "990001",
+            "document_title": "采购申请办理说明",
+            "document_name": "采购申请办理说明.txt",
+            "chunk_index": 0,
+            "content": "采购申请流程包含采购申请步骤。\n预算已确认后，采购申请步骤需要采购申请表。\n采购申请表用于采购申请流程。",
+            "token_count": 52,
+            "page_number": null,
+            "section_title": "采购申请办理说明",
+            "scores": {
+              "dense_rank": 1,
+              "dense_score": 0.7940192599451101,
+              "bm25_rank": 1,
+              "bm25_score": 6.0,
+              "graph_rank": 1,
+              "graph_score": 2.0,
+              "fusion_score": 0.04918032786885246,
+              "rerank_score": 0.5797654805871192
+            },
+            "graph_relations": [
+              {
+                "assertion_id": "9a2778698a52241028cdc0f412c7961f83b182cfd8be3ee238957b648a93be94",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "78becdfad7bee1a8eb1f31ddc4d8238a24dd1e6b981dc92d6cd21af0aa8d7c94",
+                "object_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "predicate": "HAS_STEP",
+                "condition_text": "",
+                "source_quote": "采购申请流程包含采购申请步骤。",
+                "quote_start": 0,
+                "quote_end": 15
+              },
+              {
+                "assertion_id": "ac601e7724449f1ffcd8aa9fcd42c60615490b85d23e170da3c6c18053e73f76",
+                "seed_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "subject_entity_uid": "fa2edcc345b1a708fdf37c7b1b8c3eb36701cff08c3b2754ad7881733476bf7c",
+                "object_entity_uid": "1d20969ecf62aeed72baef0a1ae35b0a99fdcfab31cb100f8b7fcd3f215de074",
+                "predicate": "REQUIRES_MATERIAL",
+                "condition_text": "预算已确认后",
+                "source_quote": "预算已确认后，采购申请步骤需要采购申请表。",
+                "quote_start": 16,
+                "quote_end": 37
+              }
+            ]
+          },
+          {
+            "citation_id": "E2",
+            "rank": 2,
+            "chunk_id": "990005",
+            "knowledge_base_id": "990",
+            "document_id": "990005",
+            "revision_id": "990005",
+            "generation_id": "990005",
+            "document_title": "采购申请表",
+            "document_name": "采购申请表.txt",
+            "chunk_index": 0,
+            "content": "此采购申请表仅用于报废回购流程。\n采购申请表包含报废批次和回购价。",
+            "token_count": 33,
+            "page_number": null,
+            "section_title": "采购申请表",
+            "scores": {
+              "dense_rank": 2,
+              "dense_score": 0.7149743173050298,
+              "bm25_rank": 2,
+              "bm25_score": 4.0,
+              "graph_rank": null,
+              "graph_score": null,
+              "fusion_score": 0.03225806451612903,
+              "rerank_score": 0.374000735757491
+            },
+            "graph_relations": []
+          }
+        ],
+        "graph_paths": [],
+        "degradation_codes": [],
+        "message": null,
+        "trace": {
+          "rerank_query_count": 1,
+          "dense_status": "succeeded",
+          "bm25_status": "succeeded",
+          "graph_status": "succeeded",
+          "rerank_status": "succeeded",
+          "dense_count": 2,
+          "bm25_count": 2,
+          "graph_count": 1,
+          "graph_seed_count": 1,
+          "graph_assertion_count": 2,
+          "graph_path_candidate_count": 0,
+          "graph_path_count": 0,
+          "graph_hops": 1,
+          "fused_count": 2,
+          "authorized_count": 2,
+          "returned_count": 2,
+          "embedding_ms": 0,
+          "dense_ms": 0,
+          "bm25_ms": 0,
+          "graph_ms": 394,
+          "fusion_ms": 0,
+          "authorization_ms": 0,
+          "rerank_ms": 346,
+          "total_ms": 741
+        }
+      },
+      "answer": {
+        "status": "insufficient",
+        "statements": [],
+        "message": "当前可读资料不足以完整回答这个问题。",
+        "codes": [],
+        "model": "qwen-plus",
+        "review_status": "skipped",
+        "trace": {
+          "repair_count": 0,
+          "generation_ms": 919,
+          "review_ms": 0,
+          "authorization_ms": 0,
+          "total_ms": 920,
+          "context_tokens": 473,
+          "input_tokens": 1073,
+          "output_tokens": 9
+        }
+      },
+      "semantic_correct": null
+    }
+  ],
+  "cleanup": true,
+  "implementation_sha256": {
+    "src/zhiqing_rag/query_retrieval/graph.py": "e958d44c2bb617d90ee4757168f87499c8e3362472afecab0d98a6aba5420649",
+    "src/zhiqing_rag/query_retrieval/graph_identity.py": "e52688d38f4a42992763abe283b1d147b52131e107a0c490c911f36950f47bb1",
+    "src/zhiqing_rag/query_retrieval/paths.py": "d7481f8b396820298b5c7737d369e069aae2e20741e2cd4939b3238030844eb0",
+    "src/zhiqing_rag/query_retrieval/service.py": "d9dd8efb76c4a7bde4295468ca0fbf3be3143de37bebfe17c04191dc8705da9d",
+    "src/zhiqing_rag/query_answering/providers.py": "94cbd8ba2f5728a2468a3bf3bf4be7b4c7251232d1be518b01bd5a3988a9e5d0",
+    "src/zhiqing_rag/query_answering/service.py": "8e140cdd158e48a36171e71896b168aae11a3aa8d5f8d70f4ccd3f2a7702da3c",
+    "src/zhiqing_rag/query_answering/support.py": "1f087fd080777db9f982b52d875f3e3e42041dfc1126823d15ed70f1b2ea324c"
+  },
+  "cleanup_errors": []
+}

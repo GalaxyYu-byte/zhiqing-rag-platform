@@ -53,6 +53,8 @@ async def answer_events(
             if event == "result":
                 # 不拆分尚未完整核验的句子。每个 answer 携带累计的完整陈述和引用。
                 statements = data["answer"]["statements"]
+                if data["answer"]["status"] == "structured":
+                    yield JSONServerSentEvent(event="answer", data=data)
                 for count in range(1, len(statements) + 1):
                     partial = {
                         **data,

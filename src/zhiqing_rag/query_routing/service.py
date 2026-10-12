@@ -35,9 +35,58 @@ _KNOWLEDGE_SIGNALS = re.compile(
 )
 
 
+def _catalog_operation(query, constraints, *, metadata_available):
+    """只移除已验证的元数据片段；剩余要求仍须完整匹配固定目录操作。"""
+    if metadata_available:
+        for item in constraints:
+            if item.field == "other":
+                return None
+            value = re.escape(item.value)
+            # 条件值来自当前问题逐字依据；不能删除整句 evidence.quote。
+            if item.operator != "neq" and re.search(r"(?:不属于|不等于|不是|非)" + value, query):
+                return None
+            comparisons = {
+                "eq": r"(?:属于|来自|等于|为|是|在|于)?",
+                "neq": r"(?:不属于|不等于|不是|非)",
+                "contains": r"(?:包含|含有)",
+                "gt": r"(?:晚于|大于|从|自)?", "gte": r"(?:不早于|自|从)?",
+                "lt": r"(?:早于|小于)?", "lte": r"(?:不晚于)?", "range": r"(?:在|于)?",
+            }
+            labels = {
+                "department": r"(?:归属部门|所属部门|部门)?",
+                "business_status": r"(?:业务状态|状态)?",
+                "document_name": r"(?:文档名称|文件名称|文档名|文件名)?",
+                "document_code": r"(?:文档编号|业务编号|文号)?",
+                "file_type": r"(?:文件类型|文档类型|文件格式|格式)?",
+                "uploaded_at": r"(?:上传(?:时间|日期)?)?",
+                "event_time": r"(?:(?:生效|事件|发生)(?:时间|日期)?)?",
+            }
+            before = labels[item.field] + comparisons.get(item.operator, r"(?!)") + r"\s*"
+            after = r"\s*(?:格式)?(?:的)?" if item.field == "file_type" else r"\s*(?:的)?"
+            if item.field in ("uploaded_at", "event_time"):
+                suffixes = {
+                    "eq": r"(?:期间|内)?", "range": r"(?:期间|内)?",
+                    "gt": r"(?:以后|之后)?", "gte": r"(?:及以后|及之后|起|以来)?",
+                    "lt": r"(?:以前|之前)?", "lte": r"(?:及以前|及之前)?", "neq": "",
+                }
+                action = "上传" if item.field == "uploaded_at" else "生效"
+                after = r"\s*" + suffixes.get(item.operator, "") + f"(?:{action})?(?:的)?"
+            query = re.sub(before + value + after, "", query, count=1)
+        query = re.sub(r"\s+", "", query)
+        query = re.sub(r"^(?:满足条件的|符合条件的)", "", query)
+    if _COUNT_DOCUMENTS.fullmatch(query):
+        return "count_documents"
+    if _LIST_DOCUMENTS.fullmatch(query) or (
+        metadata_available and constraints
+        and re.fullmatch(r"(?:列出|查看)(?:文档|文件|资料)", query)
+    ):
+        return "list_documents"
+    return None
+
+
 @dataclass(frozen=True, slots=True)
 class GraphReadiness:
-    """未来图谱预检查器的可信结果；HTTP 和 Analyzer 都不能直接提供。"""
+    """服务器图谱预检查器的可信结果；HTTP 和 Analyzer 都不能直接提供。"""
 
     query: str
     matched_entities: tuple[str, ...]
@@ -45,10 +94,14 @@ class GraphReadiness:
 
 
 class QueryRouterService:
-    def __init__(self, *, retrieval_params: RetrievalParams | None = None, catalog_available=False):
+    def __init__(
+        self, *, retrieval_params: RetrievalParams | None = None, catalog_available=False,
+        metadata_available=False,
+    ):
         self.retrieval_params = retrieval_params or RetrievalParams()
-        # 表示可信目录执行器已接入；当前 HTTP 入口固定关闭。
+        # 能力由服务端依赖注入声明，客户端和 Analyzer 不能自行开启。
         self.catalog_available = catalog_available
+        self.metadata_available = metadata_available
 
     def route(
         self,
@@ -62,7 +115,10 @@ class QueryRouterService:
         analysis = QueryAnalysisResult.model_validate(analysis.model_dump())
         if request.query != analysis.original_query:
             raise ValueError("分析结果不属于当前问题")
-        common = dict(original_query=request.query, query=request.query)
+        common = dict(
+            original_query=request.query, query=request.query,
+            resolved_filters=scope.resolved_filters,
+        )
 
         def clarify(reason, question):
             return ClarifyPlan(
@@ -117,31 +173,26 @@ class QueryRouterService:
             )
 
         query = request.query.rstrip("？?。.!！ ")
-        operation = (
-            "count_documents"
-            if _COUNT_DOCUMENTS.fullmatch(query)
-            else "list_documents"
-            if _LIST_DOCUMENTS.fullmatch(query)
-            else None
+        operation = _catalog_operation(
+            query, features.constraints, metadata_available=self.metadata_available,
         )
         if features.intent == "statistics" or operation is not None:
-            if operation is None or features.constraints:
+            if operation is None or (
+                features.constraints and not self.metadata_available
+            ) or (
+                any(item.field != "other" for item in features.constraints)
+                and not scope.resolved_filters
+            ):
                 reason, status, message = (
                     "STRUCTURED_QUERY_UNSUPPORTED",
                     "unsupported",
-                    "首期仅定义无额外条件的文档数量和全量清单；业务统计、分组及条件解析尚未接入。",
+                    "当前支持文档数量和文档清单；额外业务统计、分组或未解析条件不能忽略。",
                 )
             elif not self.catalog_available:
                 reason, status, message = (
                     "CATALOG_EXECUTOR_NOT_READY",
                     "unsupported",
                     "已识别目录操作，目录查询执行器尚未接入。",
-                )
-            elif not scope.published_documents:
-                reason, status, message = (
-                    "NO_PUBLISHED_DOCUMENTS",
-                    "empty",
-                    "当前授权范围内没有已发布且活动索引就绪的文档。",
                 )
             else:
                 reason, status, message = "CATALOG_SELECTED", "planned", None
@@ -158,20 +209,21 @@ class QueryRouterService:
             features.intent == "chitchat"
             and not features.entities
             and not features.constraints
+            and not scope.resolved_filters
             and not features.relation_required
             and not _KNOWLEDGE_SIGNALS.search(request.query)
         ):
             return ChatPlan(**common, requested_route="none", reason_code="PURE_CHITCHAT")
 
         metadata_conditions = [item for item in features.constraints if item.field != "other"]
-        if metadata_conditions:
+        if metadata_conditions and (not self.metadata_available or not scope.resolved_filters):
             return hybrid(
                 "METADATA_FILTERS_NOT_READY",
                 unsupported_message="已保留元数据条件，过滤与日期解析尚未接入，不能忽略条件扩大检索。",
             )
         warnings = (
             ("业务条件保留在原问题和 constraints 中，仅作为语义证据要求，不转换为目录筛选。",)
-            if features.constraints
+            if any(item.field == "other" for item in features.constraints)
             else ()
         )
         if features.relation_required and features.entities:
@@ -179,7 +231,7 @@ class QueryRouterService:
                 return hybrid(
                     "GRAPH_NOT_READY",
                     requested="hybrid_graph",
-                    warnings=(*warnings, "图谱预检查与在线召回尚未接入，规划基础混合检索。"),
+                    warnings=(*warnings, "当前授权范围内未确认可用图谱实体，规划基础混合检索。"),
                 )
             self._validate_graph(graph, request, features, scope)
             return GraphPlan(

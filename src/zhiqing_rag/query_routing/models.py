@@ -12,6 +12,7 @@ from zhiqing_rag.query_analysis.models import (
     ShortText,
     StrictModel,
 )
+from zhiqing_rag.query_metadata.models import MetadataFilter, ResolvedFilter
 
 RouteName = Literal["hybrid", "hybrid_graph", "structured", "clarify", "none"]
 PublicId = Annotated[str, Field(pattern=r"^[1-9][0-9]{0,18}$")]
@@ -20,6 +21,9 @@ PublicId = Annotated[str, Field(pattern=r"^[1-9][0-9]{0,18}$")]
 class PlanQueryBody(AnalyzeQueryBody):
     knowledge_base_ids: list[PublicId] | None = Field(default=None, min_length=1, max_length=50)
     document_ids: list[PublicId] | None = Field(default=None, min_length=1, max_length=200)
+    filters: list[MetadataFilter] = Field(default_factory=list, max_length=20)
+    offset: int = Field(default=0, ge=0, le=100000)
+    limit: int = Field(default=20, ge=1, le=100)
 
     @model_validator(mode="after")
     def validate_ids(self):
@@ -39,6 +43,7 @@ class PlanBase(StrictModel):
     reason_code: Annotated[str, Field(pattern=r"^[A-Z][A-Z0-9_]*$")]
     planning_status: Literal["planned", "unsupported", "empty"] = "planned"
     constraints: tuple[QueryConstraint, ...] = Field(default=(), max_length=20)
+    resolved_filters: tuple[ResolvedFilter, ...] = Field(default=(), max_length=40)
     warnings: tuple[str, ...] = ()
     message: str | None = None
 
@@ -78,6 +83,7 @@ class GraphParams(RetrievalParams):
     seed_entity_uids: tuple[ShortText, ...] = Field(min_length=1, max_length=20)
     projections: tuple[GraphProjectionRef, ...] = Field(min_length=1)
     max_hops: int = Field(default=1, ge=1, le=2)
+    matched_entity_names: tuple[ShortText, ...] = ()
 
 
 class GraphPlan(PlanBase):

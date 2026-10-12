@@ -1,25 +1,28 @@
 """单轮回答入口只接受问题和资源选择，证据必须由当前检索链取得。"""
 
+from dataclasses import replace
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Response
 from sse_starlette.sse import EventSourceResponse
 
 from zhiqing_rag.core.config import Settings, get_settings
-from zhiqing_rag.modules.identity.auth_schemas import AuthIdentity
+from zhiqing_rag.modules.identity.auth_schemas import AuthError, AuthIdentity
 from zhiqing_rag.modules.identity.router import IdentityDependency
 from zhiqing_rag.query_analysis.models import QueryAnalysisRequest
 from zhiqing_rag.query_analysis.router import get_analyzer
 from zhiqing_rag.query_analysis.service import QueryAnalyzerService
+from zhiqing_rag.query_execution import QueryExecutionService, structured_answer_text
 from zhiqing_rag.query_retrieval.repository import QueryRetrievalRepository
 from zhiqing_rag.query_retrieval.router import get_retriever
 from zhiqing_rag.query_retrieval.service import HybridRetrievalService
 from zhiqing_rag.query_routing.models import PlanQueryBody
+from zhiqing_rag.query_routing.planning import plan_with_graph
 from zhiqing_rag.query_routing.router import get_access_scope, get_query_router
 from zhiqing_rag.query_routing.scope import AccessScope
 from zhiqing_rag.query_routing.service import QueryRouterService
 
-from .models import AnswerProgress, QueryAnswerResponse
+from .models import AnswerProgress, AnswerResult, QueryAnswerResponse
 from .providers import AnswerProvider
 from .service import QueryAnswerService
 from .streaming import answer_events
@@ -62,10 +65,45 @@ async def execute_answer(
     if on_progress is not None:
         await on_progress("analysis")
     analysis = await analyzer.analyze(request)
-    plan = planner.route(request=request, analysis=analysis, scope=scope)
+    plan = await plan_with_graph(
+        request=request,
+        analysis=analysis,
+        identity=identity,
+        scope=scope,
+        planner=planner,
+        graph_service=getattr(retriever, "graph_service", None),
+        filters=body.filters,
+        offset=body.offset,
+        limit=body.limit,
+    )
     if on_progress is not None:
         await on_progress("retrieval")
-    retrieval = await retriever.execute(plan=plan, scope=scope, identity=identity)
+    executor = QueryExecutionService(retriever)
+    retrieval, structured = await executor.execute(plan=plan, scope=scope, identity=identity)
+    if structured is not None:
+        execution_scope = (
+            replace(scope, resolved_filters=plan.resolved_filters)
+            if plan.resolved_filters
+            else scope
+        )
+        if not await executor.structured_service.revalidate(
+            identity=identity, scope=execution_scope, result=structured
+        ):
+            raise AuthError(409, "STRUCTURED_SCOPE_CHANGED", "资料范围或属性已变化，请重新查询。")
+        answer = AnswerResult(
+            status="structured", message=structured_answer_text(structured), review_status="passed"
+        )
+        return QueryAnswerResponse(
+            analysis=analysis,
+            plan=plan,
+            scope=scope.summary(),
+            retrieval=retrieval,
+            structured=structured,
+            answer=answer,
+            request=body,
+        )
+    if plan.resolved_filters:
+        scope = replace(scope, resolved_filters=plan.resolved_filters)
     retrieval, answer = await answerer.execute(
         identity=identity,
         scope=scope,
@@ -79,6 +117,7 @@ async def execute_answer(
         scope=scope.summary(),
         retrieval=retrieval,
         answer=answer,
+        request=body,
     )
 
 

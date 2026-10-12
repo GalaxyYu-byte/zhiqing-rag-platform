@@ -1,6 +1,7 @@
 """上传用例的数据库访问；所有查询显式约束租户与当前授权。"""
 
 from psycopg import Connection, sql
+from psycopg.errors import UniqueViolation
 from psycopg.types.json import Jsonb
 
 from zhiqing_rag.core.config import Settings
@@ -11,6 +12,8 @@ from zhiqing_rag.modules.knowledge.permissions import (
 )
 
 from .schemas import (
+    DocumentMetadata,
+    DocumentMetadataPatch,
     DocumentTaskPage,
     DocumentTaskStatus,
     KnowledgeBaseOption,
@@ -102,6 +105,84 @@ class UploadRepository:
         if row["desired_revision_id"] != expected_revision_id:
             raise UploadError(409, "REVISION_CONFLICT", "文档已被更新，请刷新后重试")
         return row["kb_id"]
+
+    def _metadata_row(self, identity: UploadIdentity, document_id: int,
+                      *, write: bool = False) -> dict:
+        access, args = document_access_sql(identity, permission="WRITE" if write else "READ")
+        writable, write_args = document_access_sql(identity, permission="WRITE")
+        row = self.query(
+            f"""SELECT doc.id, doc.kb_id, doc.title, doc.document_code, doc.business_status,
+                      doc.event_date, doc.department_id, department.name AS department_name,
+                      doc.updated_at, {writable} AS can_write
+               FROM {{schema}}.document doc JOIN {{schema}}.knowledge_base kb
+                 ON kb.tenant_id = doc.tenant_id AND kb.id = doc.kb_id
+               LEFT JOIN {{schema}}.department department
+                 ON department.tenant_id = doc.tenant_id AND department.id = doc.department_id
+               WHERE doc.id = %s AND {access}""" + (" FOR UPDATE OF doc" if write else ""),
+            (*write_args, document_id, *args),
+        ).fetchone()
+        if row is None:
+            raise UploadError(404, "DOCUMENT_NOT_FOUND", "文档不存在或没有访问权限")
+        return row
+
+    @staticmethod
+    def metadata_response(row: dict) -> DocumentMetadata:
+        return DocumentMetadata(
+            document_id=str(row["id"]), knowledge_base_id=str(row["kb_id"]),
+            title=row["title"], document_code=row["document_code"],
+            business_status=row["business_status"], event_date=row["event_date"],
+            department_id=str(row["department_id"]) if row["department_id"] is not None else None,
+            department_name=row["department_name"], updated_at=row["updated_at"],
+            can_write=row["can_write"],
+        )
+
+    def document_metadata(self, identity: UploadIdentity, document_id: int) -> DocumentMetadata:
+        return self.metadata_response(self._metadata_row(identity, document_id))
+
+    def update_document_metadata(self, identity: UploadIdentity, document_id: int,
+                                 changes: DocumentMetadataPatch) -> DocumentMetadata:
+        """只维护业务属性；知识库锁与最新身份校验串行化授权变更。"""
+        try:
+            with self.connection.transaction():
+                self.lock_document_base(identity, document_id)
+                previous = self._metadata_row(identity, document_id, write=True)
+                if previous["updated_at"] != changes.expected_updated_at:
+                    raise UploadError(409, "METADATA_CONFLICT", "文档属性已变更，请重新加载后重试")
+                values = changes.model_dump(exclude_unset=True, exclude={"expected_updated_at"})
+                changed = {key: value for key, value in values.items() if value != previous[key]}
+                if changed:
+                    # 字段来自严格请求模型，固定白名单不接收任意 SQL 列名。
+                    columns = ("title", "document_code", "business_status", "event_date")
+                    fields = [field for field in columns if field in changed]
+                    assignments = ", ".join(f"{field} = %s" for field in fields)
+                    self.query(
+                        f"UPDATE {{schema}}.document SET {assignments}, "
+                        "updated_at = clock_timestamp() WHERE tenant_id = %s AND id = %s",
+                        (*[changed[field] for field in fields], identity.tenant_id, document_id),
+                    )
+                    details = {
+                        "previous": {field: previous[field] for field in fields},
+                        "current": {field: changed[field] for field in fields},
+                    }
+                    for section in details.values():
+                        if section.get("event_date") is not None:
+                            section["event_date"] = section["event_date"].isoformat()
+                    self.query(
+                        """INSERT INTO {schema}.audit_event
+                           (tenant_id, actor_member_id, action, target_type, target_id, details)
+                           VALUES (%s, %s, %s, %s, %s, %s)""",
+                        (identity.tenant_id, identity.member_id, "DOCUMENT_METADATA_UPDATE",
+                         "DOCUMENT", str(document_id), Jsonb(details)),
+                    )
+                result = self.document_metadata(identity, document_id)
+            self.connection.commit()
+            return result
+        except UniqueViolation as error:
+            if error.diag.constraint_name == "uq_document_code":
+                raise UploadError(
+                    409, "DOCUMENT_CODE_CONFLICT", "该知识库已存在相同业务编号，请使用其他编号",
+                ) from error
+            raise
 
     def lock_write_base(self, identity: UploadIdentity, kb_id: int) -> None:
         """串行化同一知识库的授权变更，并在事务内重新确认有效身份。"""
@@ -218,8 +299,8 @@ class UploadRepository:
                 document = self.query(
                     """INSERT INTO {schema}.document
                        (tenant_id, kb_id, title, department_id, confidentiality,
-                        created_by, metadata)
-                       VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id""",
+                        created_by, metadata, document_code, business_status, event_date)
+                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id""",
                     (
                         identity.tenant_id,
                         parameters.knowledge_base_id,
@@ -228,6 +309,9 @@ class UploadRepository:
                         parameters.confidentiality,
                         identity.member_id,
                         Jsonb(metadata),
+                        parameters.document_code,
+                        parameters.business_status,
+                        parameters.event_date,
                     ),
                 ).fetchone()
                 revision_no = generation_no = 1

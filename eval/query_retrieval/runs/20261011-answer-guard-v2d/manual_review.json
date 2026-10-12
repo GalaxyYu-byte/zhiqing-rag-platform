@@ -1,0 +1,25 @@
+{
+  "reviewer": "Codex 独立逐条核对原文、草稿及最终 HTTP 结果",
+  "fact_acceptance_passed_count": 0,
+  "case_count": 3,
+  "cases": [
+    {
+      "case_id": "Q11",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "初稿连续引用拼接，受限 repair 索引协议返回无效而未发布；初稿也将其他表格状态的核对事项统一扩充为关闭前条件，不能视为有据答案。"
+    },
+    {
+      "case_id": "Q12",
+      "http_answer_status": "insufficient",
+      "fact_acceptance_passed": false,
+      "note": "索引 repair 成功物化连续引文；草稿却将一般操作要求概括成已说明、接手团队已确认接收等状态。复核又自行索要确认形式，并把一般确认条件限定为终局完成标准，整体拒绝。"
+    },
+    {
+      "case_id": "Q13",
+      "http_answer_status": "rejected",
+      "fact_acceptance_passed": false,
+      "note": "初稿与唯一 repair 均将文档版本记录和发布记录两个不同主题的完整清单混合。服务端主题清单守卫正确拒绝；员工三字段陈述原本有据。"
+    }
+  ]
+}
